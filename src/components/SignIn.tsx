@@ -11,7 +11,7 @@ const SignIn: FC = (): JSX.Element => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    fetch("https://atupuerta.herokuapp.com/login", {
+    fetch("https://atucasa-api.herokuapp.com/login", {
       method: "POST",
       credentials: "include",
       headers: {
