@@ -21,13 +21,14 @@ const SignUp: FC = (): JSX.Element => {
     setRole(event.currentTarget.value);
   }
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
-    fetch("https://atucasa-api.herokuapp.com/signup", {
+    // fetch("https://atucasa-api.herokuapp.com/signup", {
+    fetch("http://localhost:3000/signup", {
       method: "POST",
       credentials: "include",
       headers: {
-        Accept: "application/json",
+        "Accept": "application/json",
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
