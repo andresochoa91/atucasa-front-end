@@ -21,14 +21,14 @@ const SignUp: FC = (): JSX.Element => {
     setRole(event.currentTarget.value);
   }
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     fetch("https://atupuerta.herokuapp.com/signup", {
       method: "POST",
       credentials: "include",
       headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json"
+        Accept: "application/json",
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
         email,
@@ -38,7 +38,10 @@ const SignUp: FC = (): JSX.Element => {
       })
     })
     .then(response => response.json())
-    .then(console.log)
+    .then(data => {
+      console.log(data)
+      return data
+    })
     .catch(err => console.error(err));
   }
 
