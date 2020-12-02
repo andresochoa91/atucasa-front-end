@@ -1,8 +1,14 @@
 import React, { FC } from 'react';
+import SignUp from './components/SignUp';
+import SignIn from './components/SignIn';
 
 const App:FC = () => {
   return (
-    <h1>Welcome to atucasa.com</h1>
+    <div>
+      <h1>Welcome to atucasa.com</h1>
+      <SignUp />
+      <SignIn />
+    </div>
   );
 }
 
