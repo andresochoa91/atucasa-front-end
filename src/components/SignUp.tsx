@@ -24,7 +24,7 @@ const SignUp: FC = (): JSX.Element => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
     // fetch("https://atucasa-api.herokuapp.com/signup", {
-    fetch("https://atucasa-api.herokuapp.com/signup", {
+    fetch("http://localhost:3000/signup", {
       method: "POST",
       credentials: "include",
       headers: {
