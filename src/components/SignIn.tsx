@@ -11,13 +11,12 @@ const SignIn: FC = (): JSX.Element => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    fetch("https://atucasa-api.herokuapp.com/login", {
+    fetch("http://localhost:3000/login", {
       method: "POST",
       credentials: "include",
       headers: {
         "Accept": "application/json",
         "Content-Type": "application/json"
-        // "Access-Control-Allow-Origin": "*"
       },
       body: JSON.stringify({
         email,
