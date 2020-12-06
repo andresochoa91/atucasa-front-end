@@ -11,7 +11,8 @@ const App:FC = () => {
     <div>
       <h1>Welcome to atucasa.com</h1>
       {
-        currentUser ?
+        currentUser 
+        ?
           <SignOut />
         :
           <>

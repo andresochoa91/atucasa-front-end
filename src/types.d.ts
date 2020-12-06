@@ -7,5 +7,5 @@ type TCurrentUser = {
 
 type TContextProps = {
   currentUser: TCurrentUser | null,
-  setCurrentUser: React.Dispatch<React.SetStateAction<TCurrentUser>>
+  setCurrentUser: React.Dispatch<React.SetStateAction<TCurrentUser | null>>
 };

@@ -1,6 +1,9 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, useContext } from 'react';
+import { AtucasaContext } from '../Context';
 
 const SignUp: FC = (): JSX.Element => {
+
+  const { setCurrentUser } = useContext<TContextProps>(AtucasaContext);
 
   const [ email, setEmail ] = useState<string>("h@v.com")
   const [ password, setPassword ] = useState<string>("123456789")
@@ -40,8 +43,8 @@ const SignUp: FC = (): JSX.Element => {
     })
     .then(response => response.json())
     .then(data => {
-      console.log(data)
-      return data
+      console.log(data);
+      setCurrentUser(data.user);
     })
     .catch(err => console.error(err));
   }
