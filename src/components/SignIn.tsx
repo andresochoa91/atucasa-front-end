@@ -1,8 +1,10 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, useContext } from 'react';
+import { AtucasaContext } from '../Context';
 
 const SignIn: FC = (): JSX.Element => {
-  const [ email, setEmail ] = useState<string>("h@v.com")
-  const [ password, setPassword ] = useState<string>("123456789")
+  const { currentUser } = useContext<any>(AtucasaContext);
+  const [ email, setEmail ] = useState<string>("h@v.com");
+  const [ password, setPassword ] = useState<string>("123456789");
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>):void => {
     const { name, value } = event.target;
@@ -11,24 +13,23 @@ const SignIn: FC = (): JSX.Element => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    fetch("http://localhost:3000/login", {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        email,
-        password
+    if (!currentUser) {
+      fetch("http://localhost:3000/login", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          email,
+          password
+        })
       })
-    })
-    .then(response => response.json())
-    .then(data => {
-      console.log(data)
-      return data
-    })
-    .catch(err => console.error(err));
+      .then(response => response.json())
+      .then(console.log)
+      .catch(console.error);
+    } 
   }
 
   return (
