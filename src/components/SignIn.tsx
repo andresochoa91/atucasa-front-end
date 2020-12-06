@@ -2,7 +2,7 @@ import React, { FC, useState, useContext } from 'react';
 import { AtucasaContext } from '../Context';
 
 const SignIn: FC = (): JSX.Element => {
-  const { currentUser } = useContext<any>(AtucasaContext);
+  const { setCurrentUser, currentUser } = useContext<TContextProps>(AtucasaContext);
   const [ email, setEmail ] = useState<string>("h@v.com");
   const [ password, setPassword ] = useState<string>("123456789");
 
@@ -27,7 +27,10 @@ const SignIn: FC = (): JSX.Element => {
         })
       })
       .then(response => response.json())
-      .then(console.log)
+      .then(data => {
+        console.log(data);
+        setCurrentUser(data);
+      })
       .catch(console.error);
     } 
   }
