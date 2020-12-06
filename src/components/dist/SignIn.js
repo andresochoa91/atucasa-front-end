@@ -26,8 +26,14 @@ var SignIn = function () {
         })
             .then(function (response) { return response.json(); })
             .then(function (data) {
-            console.log(data);
-            setCurrentUser(data);
+            if (!data.error) {
+                console.log(data);
+                var user_id = data.user_id, email_1 = data.email, role = data.role;
+                setCurrentUser({ user_id: user_id, email: email_1, role: role });
+            }
+            else {
+                console.log(data);
+            }
         })["catch"](console.error);
     };
     return (react_1["default"].createElement(react_1["default"].Fragment, null,

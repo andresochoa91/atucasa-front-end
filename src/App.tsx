@@ -5,7 +5,7 @@ import SignIn from './components/SignIn';
 import SignOut from './components/SignOut';
 
 const App:FC = () => {
-  const { currentUser } = useContext<any>(AtucasaContext);
+  const { currentUser } = useContext<TContextProps>(AtucasaContext);
 
   return (
     <div>
