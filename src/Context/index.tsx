@@ -1,15 +1,9 @@
 import React, { FC, createContext, useState } from 'react';
 
-export const AtucasaContext = createContext<any>("");
+export const AtucasaContext = createContext({} as TContextProps);
 
 export const Provider: FC = ({ children }) => {
-  const [ currentUser, setCurrentUser ] = useState<any>(null);
-
-  // useEffect(() => {
-  //   fetch("http://localhost:3000/current_user")
-  //   .then(response => response.json())
-  //   .then(setCurrentUser)
-  // }, [currentUser]);
+  const [ currentUser, setCurrentUser ] = useState<TCurrentUser | null>(null);
 
   return (
     <AtucasaContext.Provider value={{

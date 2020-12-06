@@ -1,7 +1,10 @@
-import React, { FC } from 'react';
+import React, { FC, useContext } from 'react';
+import { AtucasaContext } from '../Context';
 
 const SignOut: FC = () => {
-  
+  const { setCurrentUser } = useContext<TContextProps>(AtucasaContext);
+
+
   const handleSignOut = (event:React.MouseEvent<HTMLButtonElement>):void => {
     event.preventDefault();
     fetch("http://localhost:3000/logout", {
@@ -9,7 +12,10 @@ const SignOut: FC = () => {
       method: "DELETE"
     })
     .then(response => response.json())
-    .then(console.log)
+    .then(data => {
+      console.log(data);
+      setCurrentUser(null);
+    })
     .catch(err => console.error(err))
   }
 

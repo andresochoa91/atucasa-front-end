@@ -2,7 +2,7 @@ import React, { FC, useState, useContext } from 'react';
 import { AtucasaContext } from '../Context';
 
 const SignIn: FC = (): JSX.Element => {
-  const { currentUser } = useContext<any>(AtucasaContext);
+  const { setCurrentUser } = useContext<TContextProps>(AtucasaContext);
   const [ email, setEmail ] = useState<string>("h@v.com");
   const [ password, setPassword ] = useState<string>("123456789");
 
@@ -13,23 +13,24 @@ const SignIn: FC = (): JSX.Element => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!currentUser) {
-      fetch("http://localhost:3000/login", {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Accept": "application/json",
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          email,
-          password
-        })
+    fetch("http://localhost:3000/login", {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        email,
+        password
       })
-      .then(response => response.json())
-      .then(console.log)
-      .catch(console.error);
-    } 
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+      setCurrentUser(data);
+    })
+    .catch(console.error);
   }
 
   return (
