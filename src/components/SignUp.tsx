@@ -43,8 +43,13 @@ const SignUp: FC = (): JSX.Element => {
     })
     .then(response => response.json())
     .then(data => {
-      console.log(data);
-      setCurrentUser(data.user);
+      if (!data.error) {
+        console.log(data)
+        const { user_id, email, role } = data;
+        setCurrentUser({ user_id, email, role });
+      } else {
+        console.log(data)
+      }
     })
     .catch(err => console.error(err));
   }

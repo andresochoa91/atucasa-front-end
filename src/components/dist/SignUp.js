@@ -37,8 +37,14 @@ var SignUp = function () {
         })
             .then(function (response) { return response.json(); })
             .then(function (data) {
-            console.log(data);
-            setCurrentUser(data.user);
+            if (!data.error) {
+                console.log(data);
+                var user_id = data.user_id, email_1 = data.email, role_1 = data.role;
+                setCurrentUser({ user_id: user_id, email: email_1, role: role_1 });
+            }
+            else {
+                console.log(data);
+            }
         })["catch"](function (err) { return console.error(err); });
     };
     return (react_1["default"].createElement(react_1["default"].Fragment, null,

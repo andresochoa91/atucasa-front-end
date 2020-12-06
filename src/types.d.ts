@@ -1,5 +1,5 @@
 type TCurrentUser = {
-  token: string,
+  // token: string,
   user_id: number,
   email: string,
   role: string
