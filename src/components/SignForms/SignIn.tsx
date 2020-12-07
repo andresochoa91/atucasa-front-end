@@ -1,5 +1,5 @@
 import React, { FC, useState, useContext } from 'react';
-import { AtucasaContext } from '../Context';
+import { AtucasaContext } from '../../Context';
 
 const SignIn: FC = (): JSX.Element => {
   const { setCurrentUser } = useContext<TContextProps>(AtucasaContext);
