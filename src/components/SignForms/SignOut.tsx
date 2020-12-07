@@ -1,5 +1,5 @@
 import React, { FC, useContext } from 'react';
-import { AtucasaContext } from '../Context';
+import { AtucasaContext } from '../../Context';
 
 const SignOut: FC = () => {
   const { setCurrentUser } = useContext<TContextProps>(AtucasaContext);

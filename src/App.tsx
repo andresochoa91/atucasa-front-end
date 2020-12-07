@@ -1,8 +1,10 @@
 import React, { FC, useContext } from 'react';
 import { AtucasaContext } from './Context';
-import SignUp from './components/SignUp';
-import SignIn from './components/SignIn';
-import SignOut from './components/SignOut';
+import SignUp from './components/SignForms/SignIn';
+import SignIn from './components/SignForms/SignUp';
+import SignOut from './components/SignForms/SignOut';
+import Customer from './components/Customer/Customer';
+import Merchant from './components/Merchant/Merchant';
 
 const App:FC = () => {
   const { currentUser } = useContext<TContextProps>(AtucasaContext);
@@ -13,7 +15,15 @@ const App:FC = () => {
       {
         currentUser 
         ?
-          <SignOut />
+          <>
+            <SignOut />
+            {
+              currentUser.role === "customer" ?
+                <Customer />
+              :
+                <Merchant />
+            }
+          </>
         :
           <>
             <SignUp />

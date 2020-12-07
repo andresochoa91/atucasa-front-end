@@ -1,5 +1,5 @@
 import React, { FC, useState, useContext } from 'react';
-import { AtucasaContext } from '../Context';
+import { AtucasaContext } from '../../Context';
 
 const SignUp: FC = (): JSX.Element => {
 
