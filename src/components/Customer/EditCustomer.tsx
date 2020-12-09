@@ -29,15 +29,8 @@ const EditCustomer: FC<ICustomerProps> = ({ handleCurrentCustomer }): JSX.Elemen
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
-    interface INewDataCustomer {
-      username?: string,
-      first_name?: string,
-      last_name?: string,
-      phone_number?: string,
-      profile_picture?: string
-    }
 
-    const newDataCustomer:INewDataCustomer = {};
+    const newDataCustomer:TCurrentCustomer = {};
     if (username) newDataCustomer.username = username;
     if (firstName) newDataCustomer.first_name = firstName;
     if (lastName) newDataCustomer.last_name = lastName;

@@ -32,16 +32,8 @@ const EditMerchant: FC<IMerchantProps> = ({ handleCurrentMerchant }): JSX.Elemen
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
-    interface INewDataMerchant {
-      merchant_name?: string,
-      phone_number?: string,
-      tax_id?: string,
-      description?: string,
-      profile_picture?: string,
-      background_picture?: string,
-    }
 
-    const newDataMerchant:INewDataMerchant = {};
+    const newDataMerchant:TCurrentMerchant = {};
     if (merchantName) newDataMerchant.merchant_name = merchantName;
     if (phoneNumber) newDataMerchant.phone_number = phoneNumber;
     if (taxId) newDataMerchant.tax_id = taxId;

@@ -5,24 +5,24 @@ type TCurrentUser = {
 };
 
 type TCurrentCustomer = {
-  username: string,
-  first_name: string,
-  last_name: string,
-  slug: string,
-  phone_number: string,
-  profile_picture: string,
-  user_id: number
+  username?: string,
+  first_name?: string,
+  last_name?: string,
+  slug?: string,
+  phone_number?: string,
+  profile_picture?: string,
+  user_id?: number
 };
 
 type TCurrentMerchant = {
-  merchant_name: string,
-  slug: string,
-  phone_number: string,
-  tax_id: string,
-  description: string,
-  profile_picture: string,
-  background_picture: string,
-  user_id: number
+  merchant_name?: string,
+  slug?: string,
+  phone_number?: string,
+  tax_id?: string,
+  description?: string,
+  profile_picture?: string,
+  background_picture?: string,
+  user_id?: number
 };
 
 type TContextProps = {
