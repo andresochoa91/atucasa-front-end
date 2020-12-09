@@ -10,6 +10,6 @@ const Merchant: FC = (): JSX.Element => {
       <EditMerchant />
     </>
   );
-}
+};
 
 export default Merchant;

@@ -2,14 +2,14 @@ import React, { FC, useState } from 'react';
 
 interface ICustomerProps {
   handleCurrentCustomer: () => void
-}
+};
 
 const EditCustomer: FC<ICustomerProps> = ({ handleCurrentCustomer }): JSX.Element => {
-  const [ username, setUsername ] = useState<string>("johanator1");
-  const [ firstName, setFirstName ] = useState<string>("johan");
-  const [ lastName, setLastName ] = useState<string>("andres");
-  const [ phoneNumber, setPhoneNumber ] = useState<string>("3216549870");
-  const [ profilePicture, setProfilePicture ] = useState<string>("https://www.google.com");
+  const [ username, setUsername ] = useState<string>("");
+  const [ firstName, setFirstName ] = useState<string>("");
+  const [ lastName, setLastName ] = useState<string>("");
+  const [ phoneNumber, setPhoneNumber ] = useState<string>("");
+  const [ profilePicture, setProfilePicture ] = useState<string>("");
 
   const handleInput = (event: React.ChangeEvent<HTMLFormElement>): void => {
     event.preventDefault();
@@ -44,7 +44,7 @@ const EditCustomer: FC<ICustomerProps> = ({ handleCurrentCustomer }): JSX.Elemen
     if (phoneNumber) newDataCustomer.phone_number = phoneNumber;
     if (profilePicture) newDataCustomer.profile_picture = profilePicture;
 
-    console.log(newDataCustomer)
+    console.log(newDataCustomer);
 
     fetch("http://localhost:3000/current_user/customer", {
       method: "PUT",
@@ -60,7 +60,7 @@ const EditCustomer: FC<ICustomerProps> = ({ handleCurrentCustomer }): JSX.Elemen
       if (!data.error) handleCurrentCustomer();
     })
     .catch(console.error);
-  }
+  };
 
   return(
     <>

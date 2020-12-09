@@ -9,7 +9,7 @@ const SignIn: FC = (): JSX.Element => {
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>):void => {
     const { name, value } = event.target;
     ( name === "email" ? setEmail : setPassword )(value); 
-  }
+  };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -28,15 +28,15 @@ const SignIn: FC = (): JSX.Element => {
     .then(response => response.json())
     .then(data => {
       if (!data.error) {
-        console.log(data)
+        console.log(data);
         const { user_id, email, role } = data;
         setCurrentUser({ user_id, email, role });
       } else {
-        console.log(data)
+        console.log(data);
       }
     })
     .catch(console.error);
-  }
+  };
 
   return (
     <>
@@ -64,6 +64,6 @@ const SignIn: FC = (): JSX.Element => {
       </form>
     </>
   );
-}
+};
 
 export default SignIn;

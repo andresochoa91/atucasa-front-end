@@ -38,5 +38,4 @@ export const Provider: FC = ({ children }) => {
       { children }
     </AtucasaContext.Provider>
   );
-
-}
+};

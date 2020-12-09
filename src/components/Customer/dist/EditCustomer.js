@@ -1,13 +1,14 @@
 "use strict";
 exports.__esModule = true;
 var react_1 = require("react");
+;
 var EditCustomer = function (_a) {
     var handleCurrentCustomer = _a.handleCurrentCustomer;
-    var _b = react_1.useState("johanator1"), username = _b[0], setUsername = _b[1];
-    var _c = react_1.useState("johan"), firstName = _c[0], setFirstName = _c[1];
-    var _d = react_1.useState("andres"), lastName = _d[0], setLastName = _d[1];
-    var _e = react_1.useState("3216549870"), phoneNumber = _e[0], setPhoneNumber = _e[1];
-    var _f = react_1.useState("https://www.google.com"), profilePicture = _f[0], setProfilePicture = _f[1];
+    var _b = react_1.useState(""), username = _b[0], setUsername = _b[1];
+    var _c = react_1.useState(""), firstName = _c[0], setFirstName = _c[1];
+    var _d = react_1.useState(""), lastName = _d[0], setLastName = _d[1];
+    var _e = react_1.useState(""), phoneNumber = _e[0], setPhoneNumber = _e[1];
+    var _f = react_1.useState(""), profilePicture = _f[0], setProfilePicture = _f[1];
     var handleInput = function (event) {
         event.preventDefault();
         var _a = event.target, name = _a.name, value = _a.value;

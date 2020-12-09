@@ -18,16 +18,15 @@ const Customer: FC = (): JSX.Element => {
     })
     .then(response => response.json())
     .then(data => {
-      console.log(data)
-      setCurrentCustomer(data.customer)
-      }
-    )
+      console.log(data);
+      setCurrentCustomer(data.customer);
+    })
     .catch(console.error);
   };
 
   useEffect(() => {
     handleCurrentCustomer();
-  }, [])
+  }, []);
 
   return(
     <>
@@ -51,6 +50,6 @@ const Customer: FC = (): JSX.Element => {
       }
     </>
   );
-}
+};
 
 export default Customer;
