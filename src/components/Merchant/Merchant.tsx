@@ -6,7 +6,7 @@ import EditLocation from'../Location/EditLocation';
 import Location from '../Location/Location';
 
 const Merchant: FC = (): JSX.Element => {
-  const { currentUser, location, handleCurrentUser } = useContext<TContextProps>(AtucasaContext);
+  const { currentUser, location/* , handleCurrentUser */ } = useContext<TContextProps>(AtucasaContext);
   const [ currentMerchant, setCurrentMerchant ] = useState<TCurrentMerchant | null>(null);
 
 
@@ -22,14 +22,12 @@ const Merchant: FC = (): JSX.Element => {
     .then(data => {
       console.log(data);
       setCurrentMerchant(data.merchant);
-      handleCurrentUser();
+      // handleCurrentUser();
     })
     .catch(console.error);
   };
 
-  useEffect(() => {
-    handleCurrentMerchant();
-  }, []);
+  useEffect((handleCurrentMerchant), []);
 
   console.log(currentUser)
   console.log(currentMerchant)
