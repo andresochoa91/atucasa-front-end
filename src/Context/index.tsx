@@ -5,7 +5,7 @@ export const AtucasaContext = createContext({} as TContextProps);
 export const Provider: FC = ({ children }) => {
   const [ currentUser, setCurrentUser ] = useState<TCurrentUser | null>(null);
 
-  useEffect(() => {
+  const handleCurrentUser = () => {
     fetch("http://localhost:3000/current_user", {
       method: "GET",
       credentials: "include",
@@ -22,12 +22,17 @@ export const Provider: FC = ({ children }) => {
         setCurrentUser({ user_id: id, email, role })
       }
     })
-  }, [setCurrentUser])
+  };
+
+  useEffect(() => {
+    handleCurrentUser();
+  }, []);
 
   return (
     <AtucasaContext.Provider value={{
       currentUser,
-      setCurrentUser
+      setCurrentUser,
+      handleCurrentUser
     }}>
       { children }
     </AtucasaContext.Provider>
