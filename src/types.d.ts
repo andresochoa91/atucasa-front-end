@@ -12,7 +12,7 @@ type TCurrentCustomer = {
   phone_number: string,
   profile_picture: string,
   user_id: number
-}
+};
 
 type TContextProps = {
   currentUser: TCurrentUser | null,

@@ -17,7 +17,7 @@ const SignOut: FC = () => {
       setCurrentUser(null);
     })
     .catch(err => console.error(err))
-  }
+  };
 
   return (
     <button onClick={ handleSignOut }>Sign Out</button>

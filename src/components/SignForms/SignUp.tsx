@@ -5,10 +5,10 @@ const SignUp: FC = (): JSX.Element => {
 
   const { handleCurrentUser } = useContext<TContextProps>(AtucasaContext);
 
-  const [ email, setEmail ] = useState<string>("h@v.com")
-  const [ password, setPassword ] = useState<string>("123456789")
-  const [ passwordConfirmation, setPasswordConfirmation ] = useState<string>("123456789")
-  const [ role, setRole ] = useState<string>("customer")
+  const [ email, setEmail ] = useState<string>("h@v.com");
+  const [ password, setPassword ] = useState<string>("123456789");
+  const [ passwordConfirmation, setPasswordConfirmation ] = useState<string>("123456789");
+  const [ role, setRole ] = useState<string>("customer");
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>):void => {
     const { name, value } = event.target;
@@ -17,12 +17,12 @@ const SignUp: FC = (): JSX.Element => {
       name === "password" ? setPassword :
       setPasswordConfirmation 
     )(value); 
-  }
+  };
 
   const handleRole = (event:React.MouseEvent<HTMLOptionElement>):void => {
     event.preventDefault();
     setRole(event.currentTarget.value);
-  }
+  };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
@@ -46,7 +46,7 @@ const SignUp: FC = (): JSX.Element => {
       if (!data.error) handleCurrentUser();
     })
     .catch(err => console.error(err));
-  }
+  };
 
   return (
     <>
@@ -88,6 +88,6 @@ const SignUp: FC = (): JSX.Element => {
       </form>
     </>
   );
-}
+};
 
 export default SignUp;

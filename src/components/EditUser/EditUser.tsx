@@ -37,8 +37,8 @@ const EditUser: FC = (): JSX.Element => {
       current_password: currentPassword 
     };
 
-    if (newEmail) newDataUser.email = newEmail
-    if (newPassword) newDataUser.password = newPassword
+    if (newEmail) newDataUser.email = newEmail;
+    if (newPassword) newDataUser.password = newPassword;
 
     fetch("http://localhost:3000/current_user/update", {
       method: "PUT",
@@ -53,7 +53,7 @@ const EditUser: FC = (): JSX.Element => {
       console.log(data);
       if (!data.error) handleCurrentUser();
     })
-    .catch(console.error)
+    .catch(console.error);
   };
 
   return (
@@ -94,6 +94,6 @@ const EditUser: FC = (): JSX.Element => {
       }
     </>
   );
-}
+};
 
 export default EditUser;
