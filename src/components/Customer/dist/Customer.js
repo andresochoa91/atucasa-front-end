@@ -7,7 +7,7 @@ var EditCustomer_1 = require("./EditCustomer");
 var EditLocation_1 = require("../Location/EditLocation");
 var Location_1 = require("../Location/Location");
 var Customer = function () {
-    var _a = react_1.useContext(Context_1.AtucasaContext), currentUser = _a.currentUser, location = _a.location, handleCurrentUser = _a.handleCurrentUser;
+    var _a = react_1.useContext(Context_1.AtucasaContext), currentUser = _a.currentUser, location = _a.location /* , handleCurrentUser */;
     var _b = react_1.useState(null), currentCustomer = _b[0], setCurrentCustomer = _b[1];
     var handleCurrentCustomer = function () {
         fetch("http://localhost:3000/current_user/customer", {
@@ -21,7 +21,7 @@ var Customer = function () {
             .then(function (data) {
             console.log(data);
             setCurrentCustomer(data.customer);
-            handleCurrentUser();
+            // handleCurrentUser();
         })["catch"](console.error);
     };
     react_1.useEffect((handleCurrentCustomer), []);
