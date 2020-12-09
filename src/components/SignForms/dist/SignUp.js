@@ -37,9 +37,13 @@ var SignUp = function () {
         })
             .then(function (response) { return response.json(); })
             .then(function (data) {
-            if (!data.error)
+            if (!data.error) {
                 handleCurrentUser();
-        })["catch"](function (err) { return console.error(err); });
+            }
+            else {
+                console.log(data);
+            }
+        })["catch"](console.error);
     };
     return (react_1["default"].createElement(react_1["default"].Fragment, null,
         react_1["default"].createElement("h1", null, "Sign Up"),
