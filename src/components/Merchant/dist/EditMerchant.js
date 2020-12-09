@@ -1,7 +1,83 @@
 "use strict";
 exports.__esModule = true;
 var react_1 = require("react");
-var EditMerchant = function () {
-    return (react_1["default"].createElement("h1", null, "Edit Merchant"));
+;
+var EditMerchant = function (_a) {
+    var handleCurrentMerchant = _a.handleCurrentMerchant;
+    var _b = react_1.useState(""), merchantName = _b[0], setMerchantName = _b[1];
+    var _c = react_1.useState(""), phoneNumber = _c[0], setPhoneNumber = _c[1];
+    var _d = react_1.useState(""), taxId = _d[0], setTaxId = _d[1];
+    var _e = react_1.useState(""), description = _e[0], setDescription = _e[1];
+    var _f = react_1.useState(""), profilePicture = _f[0], setProfilePicture = _f[1];
+    var _g = react_1.useState(""), backgroundPicture = _g[0], setBackgroundPicture = _g[1];
+    var handleInput = function (event) {
+        event.preventDefault();
+        var _a = event.target, name = _a.name, value = _a.value;
+        (name === "merchantName" ?
+            setMerchantName :
+            name === "phoneNumber" ?
+                setPhoneNumber :
+                name === "taxId" ?
+                    setTaxId :
+                    name === "description" ?
+                        setDescription :
+                        name === "profilePicture" ?
+                            setProfilePicture :
+                            setBackgroundPicture)(value);
+    };
+    var handleSubmit = function (event) {
+        event.preventDefault();
+        var newDataMerchant = {};
+        if (merchantName)
+            newDataMerchant.merchant_name = merchantName;
+        if (phoneNumber)
+            newDataMerchant.phone_number = phoneNumber;
+        if (taxId)
+            newDataMerchant.tax_id = taxId;
+        if (description)
+            newDataMerchant.description = description;
+        if (profilePicture)
+            newDataMerchant.profile_picture = profilePicture;
+        if (backgroundPicture)
+            newDataMerchant.background_picture = backgroundPicture;
+        console.log(newDataMerchant);
+        fetch("http://localhost:3000/current_user/merchant", {
+            method: "PUT",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(newDataMerchant)
+        })
+            .then(function (response) { return response.json(); })
+            .then(function (data) {
+            console.log(data);
+            if (!data.error)
+                handleCurrentMerchant();
+        })["catch"](console.error);
+    };
+    return (react_1["default"].createElement(react_1["default"].Fragment, null,
+        react_1["default"].createElement("h2", null, "Edit Customer"),
+        react_1["default"].createElement("form", { onChange: handleInput, onSubmit: handleSubmit },
+            react_1["default"].createElement("label", null, "Merchant Name"),
+            react_1["default"].createElement("input", { type: "text", name: "merchantName", defaultValue: merchantName }),
+            react_1["default"].createElement("br", null),
+            react_1["default"].createElement("label", null, "Phone Number"),
+            react_1["default"].createElement("input", { type: "text", name: "phoneNumber", defaultValue: phoneNumber }),
+            react_1["default"].createElement("br", null),
+            react_1["default"].createElement("label", null, "Tax ID"),
+            react_1["default"].createElement("input", { type: "text", name: "taxId", defaultValue: taxId }),
+            react_1["default"].createElement("br", null),
+            react_1["default"].createElement("label", null, "Description"),
+            react_1["default"].createElement("input", { type: "text", name: "description", defaultValue: description }),
+            react_1["default"].createElement("br", null),
+            react_1["default"].createElement("label", null, "Profile Picture"),
+            react_1["default"].createElement("input", { type: "text", name: "profilePicture", defaultValue: profilePicture }),
+            react_1["default"].createElement("br", null),
+            react_1["default"].createElement("label", null, "Background Picture"),
+            react_1["default"].createElement("input", { type: "text", name: "backgroundPicture", defaultValue: backgroundPicture }),
+            react_1["default"].createElement("br", null),
+            react_1["default"].createElement("input", { type: "submit", value: "Update" })),
+        react_1["default"].createElement("br", null)));
 };
 exports["default"] = EditMerchant;

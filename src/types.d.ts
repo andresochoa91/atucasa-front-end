@@ -14,6 +14,17 @@ type TCurrentCustomer = {
   user_id: number
 };
 
+type TCurrentMerchant = {
+  merchant_name: string,
+  slug: string,
+  phone_number: string,
+  tax_id: string,
+  description: string,
+  profile_picture: string,
+  background_picture: string,
+  user_id: number
+};
+
 type TContextProps = {
   currentUser: TCurrentUser | null,
   setCurrentUser: React.Dispatch<React.SetStateAction<TCurrentUser | null>>,
