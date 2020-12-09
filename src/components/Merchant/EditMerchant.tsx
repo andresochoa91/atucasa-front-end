@@ -69,7 +69,7 @@ const EditMerchant: FC<IMerchantProps> = ({ handleCurrentMerchant }): JSX.Elemen
 
   return(
     <>
-      <h2>Edit Customer</h2>
+      <h2>Edit Merchant</h2>
       <form onChange={ handleInput } onSubmit={ handleSubmit }>
         <label>Merchant Name</label>
         <input 
