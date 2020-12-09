@@ -21,28 +21,31 @@ var Customer = function () {
             setCurrentCustomer(data.customer);
         })["catch"](console.error);
     }, [currentUser]);
-    return (react_1["default"].createElement(react_1["default"].Fragment, null,
+    return (react_1["default"].createElement(react_1["default"].Fragment, null, (currentUser && currentCustomer) && (react_1["default"].createElement(react_1["default"].Fragment, null,
         react_1["default"].createElement("h1", null, "Customer"),
         react_1["default"].createElement(EditUser_1["default"], null),
         react_1["default"].createElement(EditCustomer_1["default"], null),
         react_1["default"].createElement("h2", null, "Personal information"),
         react_1["default"].createElement("p", null,
             react_1["default"].createElement("strong", null, "Email: "),
-            currentUser && currentUser.email),
+            currentUser.email),
         react_1["default"].createElement("p", null,
             react_1["default"].createElement("strong", null, "Role: "),
-            currentUser && currentUser.role),
+            currentUser.role),
         react_1["default"].createElement("p", null,
-            react_1["default"].createElement("strong", null, "Full Name: "),
-            currentCustomer && currentCustomer.first_name + " " + currentCustomer.last_name),
+            react_1["default"].createElement("strong", null, "First Name: "),
+            currentCustomer.first_name),
+        react_1["default"].createElement("p", null,
+            react_1["default"].createElement("strong", null, "Last Name: "),
+            currentCustomer.first_name),
         react_1["default"].createElement("p", null,
             react_1["default"].createElement("strong", null, "Slug: "),
-            currentCustomer && currentCustomer.slug),
+            currentCustomer.slug),
         react_1["default"].createElement("p", null,
             react_1["default"].createElement("strong", null, "Phone Number: "),
-            currentCustomer && currentCustomer.phone_number),
+            currentCustomer.phone_number),
         react_1["default"].createElement("p", null,
             react_1["default"].createElement("strong", null, "Profile Picture: "),
-            currentCustomer && currentCustomer.profile_picture)));
+            currentCustomer.profile_picture)))));
 };
 exports["default"] = Customer;

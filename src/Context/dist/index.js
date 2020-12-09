@@ -6,7 +6,7 @@ exports.AtucasaContext = react_1.createContext({});
 exports.Provider = function (_a) {
     var children = _a.children;
     var _b = react_1.useState(null), currentUser = _b[0], setCurrentUser = _b[1];
-    react_1.useEffect(function () {
+    var handleCurrentUser = function () {
         fetch("http://localhost:3000/current_user", {
             method: "GET",
             credentials: "include",
@@ -23,9 +23,13 @@ exports.Provider = function (_a) {
                 setCurrentUser({ user_id: id, email: email, role: role });
             }
         });
-    }, [setCurrentUser]);
+    };
+    react_1.useEffect(function () {
+        handleCurrentUser();
+    }, []);
     return (react_1["default"].createElement(exports.AtucasaContext.Provider, { value: {
             currentUser: currentUser,
-            setCurrentUser: setCurrentUser
+            setCurrentUser: setCurrentUser,
+            handleCurrentUser: handleCurrentUser
         } }, children));
 };

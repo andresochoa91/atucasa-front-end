@@ -1,5 +1,4 @@
 type TCurrentUser = {
-  // token: string,
   user_id: number,
   email: string,
   role: string
@@ -17,5 +16,6 @@ type TCurrentCustomer = {
 
 type TContextProps = {
   currentUser: TCurrentUser | null,
-  setCurrentUser: React.Dispatch<React.SetStateAction<TCurrentUser | null>>
+  setCurrentUser: React.Dispatch<React.SetStateAction<TCurrentUser | null>>,
+  handleCurrentUser: () => void
 };

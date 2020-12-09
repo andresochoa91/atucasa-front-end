@@ -28,17 +28,23 @@ const Customer: FC = (): JSX.Element => {
 
   return(
     <>
-    {/* { currentCustomer && console.log(currentCustomer.customer) } */}
-      <h1>Customer</h1>
-      <EditUser />
-      <EditCustomer />
-      <h2>Personal information</h2>
-      <p><strong>Email: </strong>{ currentUser && currentUser.email }</p>
-      <p><strong>Role: </strong>{ currentUser && currentUser.role }</p>
-      <p><strong>Full Name: </strong>{ currentCustomer && `${currentCustomer.first_name} ${currentCustomer.last_name}` }</p>
-      <p><strong>Slug: </strong>{ currentCustomer && currentCustomer.slug }</p>
-      <p><strong>Phone Number: </strong>{ currentCustomer && currentCustomer.phone_number }</p>
-      <p><strong>Profile Picture: </strong>{ currentCustomer && currentCustomer.profile_picture }</p>
+      {
+        (currentUser && currentCustomer) && (
+          <>
+            <h1>Customer</h1>
+            <EditUser />
+            <EditCustomer />
+            <h2>Personal information</h2>
+            <p><strong>Email: </strong>{ currentUser.email }</p>
+            <p><strong>Role: </strong>{ currentUser.role }</p>
+            <p><strong>First Name: </strong>{ currentCustomer.first_name }</p>
+            <p><strong>Last Name: </strong>{ currentCustomer.first_name }</p>
+            <p><strong>Slug: </strong>{  currentCustomer.slug }</p>
+            <p><strong>Phone Number: </strong>{  currentCustomer.phone_number }</p>
+            <p><strong>Profile Picture: </strong>{  currentCustomer.profile_picture }</p>
+          </>
+        )
+      }
     </>
   );
 }
