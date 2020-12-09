@@ -7,7 +7,7 @@ var EditCustomer_1 = require("./EditCustomer");
 var Customer = function () {
     var currentUser = react_1.useContext(Context_1.AtucasaContext).currentUser;
     var _a = react_1.useState(null), currentCustomer = _a[0], setCurrentCustomer = _a[1];
-    react_1.useEffect(function () {
+    var handleCurrentCustomer = function () {
         fetch("http://localhost:3000/current_user/customer", {
             method: "GET",
             credentials: 'include',
@@ -20,11 +20,14 @@ var Customer = function () {
             console.log(data);
             setCurrentCustomer(data.customer);
         })["catch"](console.error);
-    }, [currentUser]);
+    };
+    react_1.useEffect(function () {
+        handleCurrentCustomer();
+    }, []);
     return (react_1["default"].createElement(react_1["default"].Fragment, null, (currentUser && currentCustomer) && (react_1["default"].createElement(react_1["default"].Fragment, null,
         react_1["default"].createElement("h1", null, "Customer"),
         react_1["default"].createElement(EditUser_1["default"], null),
-        react_1["default"].createElement(EditCustomer_1["default"], null),
+        react_1["default"].createElement(EditCustomer_1["default"], { handleCurrentCustomer: handleCurrentCustomer }),
         react_1["default"].createElement("h2", null, "Personal information"),
         react_1["default"].createElement("p", null,
             react_1["default"].createElement("strong", null, "Email: "),
@@ -33,11 +36,14 @@ var Customer = function () {
             react_1["default"].createElement("strong", null, "Role: "),
             currentUser.role),
         react_1["default"].createElement("p", null,
+            react_1["default"].createElement("strong", null, "Username: "),
+            currentCustomer.username),
+        react_1["default"].createElement("p", null,
             react_1["default"].createElement("strong", null, "First Name: "),
             currentCustomer.first_name),
         react_1["default"].createElement("p", null,
             react_1["default"].createElement("strong", null, "Last Name: "),
-            currentCustomer.first_name),
+            currentCustomer.last_name),
         react_1["default"].createElement("p", null,
             react_1["default"].createElement("strong", null, "Slug: "),
             currentCustomer.slug),

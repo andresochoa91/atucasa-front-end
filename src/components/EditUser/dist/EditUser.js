@@ -42,23 +42,22 @@ var EditUser = function () {
             .then(function (response) { return response.json(); })
             .then(function (data) {
             console.log(data);
-            if (!data.error) {
+            if (!data.error)
                 handleCurrentUser();
-            }
         })["catch"](console.error);
     };
     return (react_1["default"].createElement(react_1["default"].Fragment, null, currentUser &&
         react_1["default"].createElement(react_1["default"].Fragment, null,
             react_1["default"].createElement("h2", null, "Edit User"),
-            react_1["default"].createElement("form", { onSubmit: handleSubmit },
+            react_1["default"].createElement("form", { onChange: handleInput, onSubmit: handleSubmit },
                 react_1["default"].createElement("label", null, "New Email"),
-                react_1["default"].createElement("input", { type: "email", name: "newEmail", value: newEmail, onChange: handleInput }),
+                react_1["default"].createElement("input", { type: "email", name: "newEmail", defaultValue: newEmail }),
                 react_1["default"].createElement("br", null),
                 react_1["default"].createElement("label", null, "New Password"),
-                react_1["default"].createElement("input", { type: "password", name: "newPassword", value: newPassword, onChange: handleInput }),
+                react_1["default"].createElement("input", { type: "password", name: "newPassword", defaultValue: newPassword }),
                 react_1["default"].createElement("br", null),
                 react_1["default"].createElement("label", null, "Current Password"),
-                react_1["default"].createElement("input", { type: "password", name: "currentPassword", value: currentPassword, onChange: handleInput }),
+                react_1["default"].createElement("input", { type: "password", name: "currentPassword", defaultValue: currentPassword }),
                 react_1["default"].createElement("br", null),
                 react_1["default"].createElement("input", { type: "submit", value: "Update" })),
             react_1["default"].createElement("br", null))));
