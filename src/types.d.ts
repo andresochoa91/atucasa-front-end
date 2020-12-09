@@ -4,6 +4,15 @@ type TCurrentUser = {
   role: string
 };
 
+type TLocation = {
+  country?: string,
+  state?: string,
+  city?: string,
+  address?: string,
+  zip_code?: string,
+  details?: string
+};
+
 type TCurrentCustomer = {
   username?: string,
   first_name?: string,
@@ -28,5 +37,8 @@ type TCurrentMerchant = {
 type TContextProps = {
   currentUser: TCurrentUser | null,
   setCurrentUser: React.Dispatch<React.SetStateAction<TCurrentUser | null>>,
-  handleCurrentUser: () => void
+  handleCurrentUser: () => void,
+  location: TLocation | null,
+  setLocation: React.Dispatch<React.SetStateAction<TLocation | null>>,
+  handleLocation: () => void
 };
