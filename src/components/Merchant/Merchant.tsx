@@ -2,9 +2,11 @@ import React, { FC, useState, useContext, useEffect } from 'react';
 import { AtucasaContext } from '../../Context';
 import EditUser from '../EditUser/EditUser';
 import EditMerchant from'./EditMerchant';
+import EditLocation from'../Location/EditLocation';
+import Location from '../Location/Location';
 
 const Merchant: FC = (): JSX.Element => {
-  const { currentUser } = useContext<TContextProps>(AtucasaContext);
+  const { currentUser, location, handleCurrentUser } = useContext<TContextProps>(AtucasaContext);
   const [ currentMerchant, setCurrentMerchant ] = useState<TCurrentMerchant | null>(null);
 
 
@@ -20,6 +22,7 @@ const Merchant: FC = (): JSX.Element => {
     .then(data => {
       console.log(data);
       setCurrentMerchant(data.merchant);
+      handleCurrentUser();
     })
     .catch(console.error);
   };
@@ -34,11 +37,12 @@ const Merchant: FC = (): JSX.Element => {
   return(
     <>
       {
-        (currentUser && currentMerchant) && (
+        (currentUser && currentMerchant && location) && (
           <>
             <h1>Merchant</h1>
             <EditUser />
             <EditMerchant handleCurrentMerchant={handleCurrentMerchant}/>
+            <EditLocation />
             <h2>Personal information</h2>
             <p><strong>Email: </strong>{ currentUser.email }</p>
             <p><strong>Role: </strong>{ currentUser.role }</p>
@@ -49,6 +53,7 @@ const Merchant: FC = (): JSX.Element => {
             <p><strong>Description: </strong>{  currentMerchant.description }</p>
             <p><strong>Profile Picture: </strong>{  currentMerchant.profile_picture }</p>
             <p><strong>Background Picture: </strong>{  currentMerchant.background_picture }</p>
+            <Location />
           </>
         )
       }

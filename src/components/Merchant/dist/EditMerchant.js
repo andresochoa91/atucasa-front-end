@@ -57,7 +57,7 @@ var EditMerchant = function (_a) {
         })["catch"](console.error);
     };
     return (react_1["default"].createElement(react_1["default"].Fragment, null,
-        react_1["default"].createElement("h2", null, "Edit Customer"),
+        react_1["default"].createElement("h2", null, "Edit Merchant"),
         react_1["default"].createElement("form", { onChange: handleInput, onSubmit: handleSubmit },
             react_1["default"].createElement("label", null, "Merchant Name"),
             react_1["default"].createElement("input", { type: "text", name: "merchantName", defaultValue: merchantName }),
