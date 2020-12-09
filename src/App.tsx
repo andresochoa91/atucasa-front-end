@@ -8,7 +8,6 @@ import Merchant from './components/Merchant/Merchant';
 
 const App:FC = () => {
   const { currentUser } = useContext<TContextProps>(AtucasaContext);
-
   return (
     <div>
       <h1>Welcome to atucasa.com</h1>

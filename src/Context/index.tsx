@@ -22,6 +22,7 @@ export const Provider: FC = ({ children }) => {
         setCurrentUser({ user_id: id, email, role })
       }
     })
+    .catch(console.error);
   };
 
   useEffect(() => {

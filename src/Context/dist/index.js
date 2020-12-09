@@ -22,7 +22,7 @@ exports.Provider = function (_a) {
                 var _a = data.user, id = _a.id, email = _a.email, role = _a.role;
                 setCurrentUser({ user_id: id, email: email, role: role });
             }
-        });
+        })["catch"](console.error);
     };
     react_1.useEffect(function () {
         handleCurrentUser();

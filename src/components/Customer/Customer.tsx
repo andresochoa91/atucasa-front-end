@@ -4,11 +4,11 @@ import EditUser from '../EditUser/EditUser';
 import EditCustomer from'./EditCustomer';
 
 const Customer: FC = (): JSX.Element => {
-
   const { currentUser } = useContext<TContextProps>(AtucasaContext);
   const [ currentCustomer, setCurrentCustomer ] = useState<TCurrentCustomer | null>(null);
 
-  useEffect(() => {
+
+  const handleCurrentCustomer = () => {
     fetch("http://localhost:3000/current_user/customer", {
       method: "GET",
       credentials: 'include',
@@ -20,11 +20,14 @@ const Customer: FC = (): JSX.Element => {
     .then(data => {
       console.log(data)
       setCurrentCustomer(data.customer)
-      
       }
     )
     .catch(console.error);
-  }, [currentUser])
+  };
+
+  useEffect(() => {
+    handleCurrentCustomer();
+  }, [])
 
   return(
     <>
@@ -33,12 +36,13 @@ const Customer: FC = (): JSX.Element => {
           <>
             <h1>Customer</h1>
             <EditUser />
-            <EditCustomer />
+            <EditCustomer handleCurrentCustomer={handleCurrentCustomer}/>
             <h2>Personal information</h2>
             <p><strong>Email: </strong>{ currentUser.email }</p>
             <p><strong>Role: </strong>{ currentUser.role }</p>
+            <p><strong>Username: </strong>{ currentCustomer.username }</p>
             <p><strong>First Name: </strong>{ currentCustomer.first_name }</p>
-            <p><strong>Last Name: </strong>{ currentCustomer.first_name }</p>
+            <p><strong>Last Name: </strong>{ currentCustomer.last_name }</p>
             <p><strong>Slug: </strong>{  currentCustomer.slug }</p>
             <p><strong>Phone Number: </strong>{  currentCustomer.phone_number }</p>
             <p><strong>Profile Picture: </strong>{  currentCustomer.profile_picture }</p>

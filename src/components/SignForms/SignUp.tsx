@@ -3,7 +3,7 @@ import { AtucasaContext } from '../../Context';
 
 const SignUp: FC = (): JSX.Element => {
 
-  const { setCurrentUser } = useContext<TContextProps>(AtucasaContext);
+  const { handleCurrentUser } = useContext<TContextProps>(AtucasaContext);
 
   const [ email, setEmail ] = useState<string>("h@v.com")
   const [ password, setPassword ] = useState<string>("123456789")
@@ -43,13 +43,7 @@ const SignUp: FC = (): JSX.Element => {
     })
     .then(response => response.json())
     .then(data => {
-      if (!data.error) {
-        console.log(data)
-        const { user_id, email, role } = data;
-        setCurrentUser({ user_id, email, role });
-      } else {
-        console.log(data)
-      }
+      if (!data.error) handleCurrentUser();
     })
     .catch(err => console.error(err));
   }

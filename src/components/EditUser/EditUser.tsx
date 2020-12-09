@@ -13,7 +13,7 @@ const EditUser: FC = (): JSX.Element => {
   //   }
   // }, [currentUser]);
 
-  const handleInput = (event: React.ChangeEvent<HTMLInputElement>): void => {
+  const handleInput = (event: React.ChangeEvent<HTMLFormElement>): void => {
     event.preventDefault();
     const { value, name } = event.target;
     ( 
@@ -51,9 +51,7 @@ const EditUser: FC = (): JSX.Element => {
     .then(response => response.json())
     .then(data => {
       console.log(data);
-      if (!data.error) {
-        handleCurrentUser();
-      }
+      if (!data.error) handleCurrentUser();
     })
     .catch(console.error)
   };
@@ -64,29 +62,26 @@ const EditUser: FC = (): JSX.Element => {
         currentUser && 
           <>
             <h2>Edit User</h2>
-            <form onSubmit={ handleSubmit } >
+            <form onChange={ handleInput } onSubmit={ handleSubmit } >
               <label>New Email</label>
               <input 
                 type="email"
                 name="newEmail" 
-                value={ newEmail }
-                onChange={ handleInput }
+                defaultValue={ newEmail }
               />
               <br/>
               <label>New Password</label>
               <input 
                 type="password"
                 name="newPassword"
-                value={ newPassword }
-                onChange={ handleInput }
+                defaultValue={ newPassword }
               />
               <br/>
               <label>Current Password</label>
               <input 
                 type="password"
                 name="currentPassword"
-                value={ currentPassword }
-                onChange={ handleInput }
+                defaultValue={ currentPassword }
               />
               <br/>
               <input 
