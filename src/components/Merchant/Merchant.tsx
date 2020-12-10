@@ -4,7 +4,7 @@ import EditUser from '../EditUser/EditUser';
 import EditMerchant from'./EditMerchant';
 import EditLocation from'../Location/EditLocation';
 import Location from '../Location/Location';
-// import Links from '../Links/Links';
+import Links from '../Links/Links';
 
 const Merchant: FC = (): JSX.Element => {
   const { currentUser, location } = useContext<TContextProps>(AtucasaContext);
@@ -26,7 +26,7 @@ const Merchant: FC = (): JSX.Element => {
     .catch(console.error);
   };
 
-  useEffect((handleCurrentMerchant), []);
+  useEffect(handleCurrentMerchant, []);
   
   return(
     <>
@@ -48,7 +48,7 @@ const Merchant: FC = (): JSX.Element => {
             <p><strong>Profile Picture: </strong>{  currentMerchant.profile_picture }</p>
             <p><strong>Background Picture: </strong>{  currentMerchant.background_picture }</p>
             <Location />
-            {/* <Links /> */}
+            <Links />
           </>
         )
       }

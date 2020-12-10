@@ -47,7 +47,7 @@ export const Provider: FC = ({ children }) => {
     .catch(console.error);
   };
 
-  useEffect((handleCurrentUser), []);
+  useEffect(handleCurrentUser, []);
 
   return (
     <AtucasaContext.Provider value={{

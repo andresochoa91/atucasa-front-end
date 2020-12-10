@@ -34,6 +34,14 @@ type TCurrentMerchant = {
   user_id?: number
 };
 
+type TLink = {
+  site_name?: string,
+  url?: string,
+  id: number
+};
+
+type TLinks = Array<TLink>;
+
 type TContextProps = {
   currentUser: TCurrentUser | null,
   setCurrentUser: React.Dispatch<React.SetStateAction<TCurrentUser | null>>,
@@ -42,3 +50,7 @@ type TContextProps = {
   setLocation: React.Dispatch<React.SetStateAction<TLocation | null>>,
   handleLocation: () => void
 };
+
+type TLinksProps = {
+  handleLinks: () => void
+}

@@ -23,7 +23,7 @@ var Customer = function () {
             setCurrentCustomer(data.customer);
         })["catch"](console.error);
     };
-    react_1.useEffect((handleCurrentCustomer), []);
+    react_1.useEffect(handleCurrentCustomer, []);
     return (react_1["default"].createElement(react_1["default"].Fragment, null, (currentUser && currentCustomer && location) && (react_1["default"].createElement(react_1["default"].Fragment, null,
         react_1["default"].createElement("h1", null, "Customer"),
         react_1["default"].createElement(EditUser_1["default"], null),

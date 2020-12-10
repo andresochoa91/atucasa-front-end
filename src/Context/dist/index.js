@@ -44,7 +44,7 @@ exports.Provider = function (_a) {
             }
         })["catch"](console.error);
     };
-    react_1.useEffect((handleCurrentUser), []);
+    react_1.useEffect(handleCurrentUser, []);
     return (react_1["default"].createElement(exports.AtucasaContext.Provider, { value: {
             currentUser: currentUser,
             setCurrentUser: setCurrentUser,
