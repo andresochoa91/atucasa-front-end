@@ -10,7 +10,7 @@ const EditLocation: FC = (): JSX.Element => {
   const [ zipCode, setZipCode ] = useState<string>("");
   const [ details, setDetails ] = useState<string>("");
 
-  const handleInput = (event: React.ChangeEvent<HTMLFormElement>): void => {
+  const handleInput = (event: React.ChangeEvent<HTMLInputElement>): void => {
     event.preventDefault();
     const { value, name } = event.target;
     ( 
@@ -51,7 +51,15 @@ const EditLocation: FC = (): JSX.Element => {
     .then(response => response.json())
     .then(data => {
       console.log(data);
-      if (!data.error) handleLocation();
+      if (!data.error) {
+        setCountry("");
+        setState("");
+        setCity("");
+        setAddress("");
+        setZipCode("");
+        setDetails("");
+        handleLocation();
+      }
     })
     .catch(console.error);
   };
@@ -62,52 +70,59 @@ const EditLocation: FC = (): JSX.Element => {
         location && 
           <>
             <h2>Edit Location</h2>
-            <form onChange={ handleInput } onSubmit={ handleSubmit } >
+            <form onSubmit={ handleSubmit } >
               <label>Country</label>
               <input 
                 type="text"
                 name="country" 
-                defaultValue={ country }
+                value={ country }
+                onChange={ handleInput } 
               />
               <br/>              
               <label>State</label>
               <input 
                 type="text"
                 name="state" 
-                defaultValue={ state }
+                value={ state }
+                onChange={ handleInput } 
               />
               <br/>
               <label>City</label>
               <input 
                 type="text"
                 name="city" 
-                defaultValue={ city }
+                value={ city }
+                onChange={ handleInput } 
               />
               <br/>
               <label>Address</label>
               <input 
                 type="text"
                 name="address" 
-                defaultValue={ address }
+                value={ address }
+                onChange={ handleInput } 
               />
               <br/>
               <label>Zip Code</label>
               <input 
                 type="text"
                 name="zipCode" 
-                defaultValue={ zipCode }
+                value={ zipCode }
+                onChange={ handleInput } 
               />
               <br/>
               <label>Details</label>
               <input 
                 type="text"
                 name="details" 
-                defaultValue={ details }
+                value={ details }
+                onChange={ handleInput } 
               />
               <br/>
               <input 
                 type="submit" 
                 value="Update"
+                onChange={ handleInput } 
               />
             </form>
             <br/>
