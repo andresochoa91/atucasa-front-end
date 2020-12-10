@@ -42,6 +42,18 @@ type TLink = {
 
 type TLinks = Array<TLink>;
 
+type TProduct = {
+  product_name?: string,
+  description?: string,
+  price?: number,
+  available?: boolean,
+  product_picture?: string,
+  tax?: number,
+  id: number
+};
+
+type TProducts = Array<TProduct>;
+
 type TContextProps = {
   currentUser: TCurrentUser | null,
   setCurrentUser: React.Dispatch<React.SetStateAction<TCurrentUser | null>>,
@@ -53,4 +65,8 @@ type TContextProps = {
 
 type TLinksProps = {
   handleLinks: () => void
+}
+
+type TProductsProps = {
+  handleProducts: () => void
 }

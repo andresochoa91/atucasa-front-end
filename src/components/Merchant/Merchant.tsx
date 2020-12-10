@@ -5,6 +5,7 @@ import EditMerchant from'./EditMerchant';
 import EditLocation from'../Location/EditLocation';
 import Location from '../Location/Location';
 import Links from '../Links/Links';
+import Products from '../Products/Products';
 
 const Merchant: FC = (): JSX.Element => {
   const { currentUser, location } = useContext<TContextProps>(AtucasaContext);
@@ -49,6 +50,7 @@ const Merchant: FC = (): JSX.Element => {
             <p><strong>Background Picture: </strong>{  currentMerchant.background_picture }</p>
             <Location />
             <Links />
+            <Products />
           </>
         )
       }
