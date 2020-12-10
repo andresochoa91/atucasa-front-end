@@ -26,7 +26,7 @@ const Customer: FC = (): JSX.Element => {
     .catch(console.error);
   };
 
-  useEffect((handleCurrentCustomer), []);
+  useEffect(handleCurrentCustomer, []);
 
   return(
     <>
