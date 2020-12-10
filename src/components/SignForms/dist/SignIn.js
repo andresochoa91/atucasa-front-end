@@ -3,7 +3,7 @@ exports.__esModule = true;
 var react_1 = require("react");
 var Context_1 = require("../../Context");
 var SignIn = function () {
-    var setCurrentUser = react_1.useContext(Context_1.AtucasaContext).setCurrentUser;
+    var handleCurrentUser = react_1.useContext(Context_1.AtucasaContext).handleCurrentUser;
     var _a = react_1.useState("h@v.com"), email = _a[0], setEmail = _a[1];
     var _b = react_1.useState("123456789"), password = _b[0], setPassword = _b[1];
     var handleInput = function (event) {
@@ -28,8 +28,7 @@ var SignIn = function () {
             .then(function (data) {
             if (!data.error) {
                 console.log(data);
-                var user_id = data.user_id, email_1 = data.email, role = data.role;
-                setCurrentUser({ user_id: user_id, email: email_1, role: role });
+                handleCurrentUser();
             }
             else {
                 console.log(data);

@@ -2,7 +2,7 @@ import React, { FC, useState, useContext } from 'react';
 import { AtucasaContext } from '../../Context';
 
 const SignIn: FC = (): JSX.Element => {
-  const { setCurrentUser } = useContext<TContextProps>(AtucasaContext);
+  const { handleCurrentUser } = useContext<TContextProps>(AtucasaContext);
   const [ email, setEmail ] = useState<string>("h@v.com");
   const [ password, setPassword ] = useState<string>("123456789");
 
@@ -29,8 +29,7 @@ const SignIn: FC = (): JSX.Element => {
     .then(data => {
       if (!data.error) {
         console.log(data);
-        const { user_id, email, role } = data;
-        setCurrentUser({ user_id, email, role });
+        handleCurrentUser();
       } else {
         console.log(data);
       }

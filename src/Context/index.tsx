@@ -20,7 +20,7 @@ export const Provider: FC = ({ children }) => {
       console.log(data)
       if (!data.error) {
         const { country, city, state, address, zip_code, details } = data.location;
-        setLocation({ country, city, state, address, zip_code, details })
+        setLocation({ country, city, state, address, zip_code, details });
       }
     })
     .catch(console.error);
