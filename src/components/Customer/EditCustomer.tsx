@@ -11,7 +11,7 @@ const EditCustomer: FC<ICustomerProps> = ({ handleCurrentCustomer }): JSX.Elemen
   const [ phoneNumber, setPhoneNumber ] = useState<string>("");
   const [ profilePicture, setProfilePicture ] = useState<string>("");
 
-  const handleInput = (event: React.ChangeEvent<HTMLFormElement>): void => {
+  const handleInput = (event: React.ChangeEvent<HTMLInputElement>): void => {
     event.preventDefault();
     const { name, value } = event.target;
     (
@@ -49,8 +49,17 @@ const EditCustomer: FC<ICustomerProps> = ({ handleCurrentCustomer }): JSX.Elemen
     })
     .then(response => response.json())
     .then(data => {
-      console.log(data);
-      if (!data.error) handleCurrentCustomer();
+      if (!data.error) {
+        console.log(data);
+        setUsername("");
+        setFirstName("");
+        setLastName("");
+        setPhoneNumber("");
+        setProfilePicture("");
+        handleCurrentCustomer();
+      } else {
+        console.log(data);
+      }
     })
     .catch(console.error);
   };
@@ -58,40 +67,45 @@ const EditCustomer: FC<ICustomerProps> = ({ handleCurrentCustomer }): JSX.Elemen
   return(
     <>
       <h2>Edit Customer</h2>
-      <form onChange={ handleInput } onSubmit={ handleSubmit }>
+      <form onSubmit={ handleSubmit }>
       <label>Username</label>
         <input 
           type="text"
           name="username"
-          defaultValue={ username }
+          value={ username }
+          onChange={ handleInput }
         />
         <br/>
         <label>First Name</label>
         <input 
           type="text"
           name="firstName"
-          defaultValue={ firstName }
+          value={ firstName }
+          onChange={ handleInput }
         />
         <br/>
         <label>Last Name</label>
         <input 
           type="text"
           name="lastName"
-          defaultValue={ lastName }
+          value={ lastName }
+          onChange={ handleInput }
         />
         <br/>
         <label>Phone Number</label>
         <input 
           type="text"
           name="phoneNumber"
-          defaultValue={ phoneNumber }  
+          value={ phoneNumber } 
+          onChange={ handleInput } 
         />
         <br/>
         <label>Profile picture</label>
         <input 
           type="text"
           name="profilePicture"
-          defaultValue={ profilePicture }
+          value={ profilePicture }
+          onChange={ handleInput }
         />
         <br/>
         <input type="submit" value="Update"/>
