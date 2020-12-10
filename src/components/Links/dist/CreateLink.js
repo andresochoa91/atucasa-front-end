@@ -27,6 +27,8 @@ var CreateLink = function (_a) {
             .then(function (data) {
             if (!data.error) {
                 console.log(data);
+                setSiteName("");
+                setUrl("");
                 handleLinks();
             }
             else {
@@ -36,12 +38,12 @@ var CreateLink = function (_a) {
     };
     return (react_1["default"].createElement(react_1["default"].Fragment, null,
         react_1["default"].createElement("h2", null, "Create Link"),
-        react_1["default"].createElement("form", { onChange: handleInput, onSubmit: handleSubmit },
+        react_1["default"].createElement("form", { onSubmit: handleSubmit },
             react_1["default"].createElement("label", null, "Site Name"),
-            react_1["default"].createElement("input", { type: "text", name: "siteName", defaultValue: siteName }),
+            react_1["default"].createElement("input", { type: "text", name: "siteName", value: siteName, onChange: handleInput }),
             react_1["default"].createElement("br", null),
             react_1["default"].createElement("label", null, "Url"),
-            react_1["default"].createElement("input", { type: "text", name: "url", defaultValue: url }),
+            react_1["default"].createElement("input", { type: "text", name: "url", value: url, onChange: handleInput }),
             react_1["default"].createElement("br", null),
             react_1["default"].createElement("input", { type: "submit", value: "Submit" }))));
 };

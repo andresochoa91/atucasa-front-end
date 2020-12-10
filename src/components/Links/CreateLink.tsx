@@ -5,7 +5,7 @@ const CreateLink: FC<TLinksProps> = ({ handleLinks }): JSX.Element => {
   const [ siteName, setSiteName ] = useState<string>("");
   const [ url, setUrl ] = useState<string>("");
 
-  const handleInput = (event: React.ChangeEvent<HTMLFormElement>): void => {
+  const handleInput = (event: React.ChangeEvent<HTMLInputElement>): void => {
     event.preventDefault();
     const { name, value } = event.target;
     ( name === "siteName" ? setSiteName : setUrl )(value);
@@ -28,6 +28,8 @@ const CreateLink: FC<TLinksProps> = ({ handleLinks }): JSX.Element => {
     .then(data => {
       if (!data.error) {
         console.log(data);
+        setSiteName("")
+        setUrl("")
         handleLinks();
       } else {
         console.log(data);
@@ -39,19 +41,21 @@ const CreateLink: FC<TLinksProps> = ({ handleLinks }): JSX.Element => {
   return (
     <>
       <h2>Create Link</h2>
-      <form onChange={ handleInput } onSubmit={ handleSubmit }>
+      <form onSubmit={ handleSubmit }>
         <label>Site Name</label>   
         <input 
           type="text"
           name="siteName"
-          defaultValue={ siteName }  
+          value={ siteName }  
+          onChange={ handleInput } 
         />
         <br/>
         <label>Url</label>   
         <input 
           type="text"
           name="url"
-          defaultValue={ url }  
+          value={ url }  
+          onChange={ handleInput } 
         />
         <br/>
         <input type="submit" value="Submit"/>

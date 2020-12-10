@@ -12,7 +12,7 @@ const EditMerchant: FC<IMerchantProps> = ({ handleCurrentMerchant }): JSX.Elemen
   const [ profilePicture, setProfilePicture ] = useState<string>("");
   const [ backgroundPicture, setBackgroundPicture ] = useState<string>("");
 
-  const handleInput = (event: React.ChangeEvent<HTMLFormElement>): void => {
+  const handleInput = (event: React.ChangeEvent<HTMLInputElement>): void => {
     event.preventDefault();
     const { name, value } = event.target;
     (
@@ -41,8 +41,6 @@ const EditMerchant: FC<IMerchantProps> = ({ handleCurrentMerchant }): JSX.Elemen
     if (profilePicture) newDataMerchant.profile_picture = profilePicture;
     if (backgroundPicture) newDataMerchant.background_picture = backgroundPicture;
 
-    console.log(newDataMerchant);
-
     fetch("http://localhost:3000/current_user/merchant", {
       method: "PUT",
       credentials: "include",
@@ -54,7 +52,15 @@ const EditMerchant: FC<IMerchantProps> = ({ handleCurrentMerchant }): JSX.Elemen
     .then(response => response.json())
     .then(data => {
       console.log(data);
-      if (!data.error) handleCurrentMerchant();
+      if (!data.error) {
+        setMerchantName("");
+        setPhoneNumber("");
+        setTaxId("");
+        setDescription("");
+        setProfilePicture("");
+        setBackgroundPicture("");
+        handleCurrentMerchant();
+      }
     })
     .catch(console.error);
   };
@@ -62,47 +68,53 @@ const EditMerchant: FC<IMerchantProps> = ({ handleCurrentMerchant }): JSX.Elemen
   return(
     <>
       <h2>Edit Merchant</h2>
-      <form onChange={ handleInput } onSubmit={ handleSubmit }>
+      <form onSubmit={ handleSubmit }>
         <label>Merchant Name</label>
         <input 
           type="text"
           name="merchantName"
-          defaultValue={ merchantName }
+          value={ merchantName }
+          onChange={ handleInput } 
         />
         <br/>
         <label>Phone Number</label>
         <input 
           type="text"
           name="phoneNumber"
-          defaultValue={ phoneNumber }
+          value={ phoneNumber }
+          onChange={ handleInput } 
         />
         <br/>
         <label>Tax ID</label>
         <input 
           type="text"
           name="taxId"
-          defaultValue={ taxId }
+          value={ taxId }
+          onChange={ handleInput } 
         />
         <br/>
         <label>Description</label>
         <input 
           type="text"
           name="description"
-          defaultValue={ description }
+          value={ description }
+          onChange={ handleInput } 
         />
         <br/>
         <label>Profile Picture</label>
         <input 
           type="text"
           name="profilePicture"
-          defaultValue={ profilePicture }
+          value={ profilePicture }
+          onChange={ handleInput } 
         />
         <br/>
         <label>Background Picture</label>
         <input 
           type="text"
           name="backgroundPicture"
-          defaultValue={ backgroundPicture }
+          value={ backgroundPicture }
+          onChange={ handleInput } 
         />
         <br/>
         <input type="submit" value="Update"/>

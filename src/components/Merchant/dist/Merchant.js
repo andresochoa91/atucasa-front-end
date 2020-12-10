@@ -7,6 +7,7 @@ var EditMerchant_1 = require("./EditMerchant");
 var EditLocation_1 = require("../Location/EditLocation");
 var Location_1 = require("../Location/Location");
 var Links_1 = require("../Links/Links");
+var Products_1 = require("../Products/Products");
 var Merchant = function () {
     var _a = react_1.useContext(Context_1.AtucasaContext), currentUser = _a.currentUser, location = _a.location;
     var _b = react_1.useState(null), currentMerchant = _b[0], setCurrentMerchant = _b[1];
@@ -59,6 +60,7 @@ var Merchant = function () {
             react_1["default"].createElement("strong", null, "Background Picture: "),
             currentMerchant.background_picture),
         react_1["default"].createElement(Location_1["default"], null),
-        react_1["default"].createElement(Links_1["default"], null)))));
+        react_1["default"].createElement(Links_1["default"], null),
+        react_1["default"].createElement(Products_1["default"], null)))));
 };
 exports["default"] = Merchant;

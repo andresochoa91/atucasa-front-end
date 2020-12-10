@@ -40,7 +40,6 @@ var EditMerchant = function (_a) {
             newDataMerchant.profile_picture = profilePicture;
         if (backgroundPicture)
             newDataMerchant.background_picture = backgroundPicture;
-        console.log(newDataMerchant);
         fetch("http://localhost:3000/current_user/merchant", {
             method: "PUT",
             credentials: "include",
@@ -52,30 +51,37 @@ var EditMerchant = function (_a) {
             .then(function (response) { return response.json(); })
             .then(function (data) {
             console.log(data);
-            if (!data.error)
+            if (!data.error) {
+                setMerchantName("");
+                setPhoneNumber("");
+                setTaxId("");
+                setDescription("");
+                setProfilePicture("");
+                setBackgroundPicture("");
                 handleCurrentMerchant();
+            }
         })["catch"](console.error);
     };
     return (react_1["default"].createElement(react_1["default"].Fragment, null,
         react_1["default"].createElement("h2", null, "Edit Merchant"),
-        react_1["default"].createElement("form", { onChange: handleInput, onSubmit: handleSubmit },
+        react_1["default"].createElement("form", { onSubmit: handleSubmit },
             react_1["default"].createElement("label", null, "Merchant Name"),
-            react_1["default"].createElement("input", { type: "text", name: "merchantName", defaultValue: merchantName }),
+            react_1["default"].createElement("input", { type: "text", name: "merchantName", value: merchantName, onChange: handleInput }),
             react_1["default"].createElement("br", null),
             react_1["default"].createElement("label", null, "Phone Number"),
-            react_1["default"].createElement("input", { type: "text", name: "phoneNumber", defaultValue: phoneNumber }),
+            react_1["default"].createElement("input", { type: "text", name: "phoneNumber", value: phoneNumber, onChange: handleInput }),
             react_1["default"].createElement("br", null),
             react_1["default"].createElement("label", null, "Tax ID"),
-            react_1["default"].createElement("input", { type: "text", name: "taxId", defaultValue: taxId }),
+            react_1["default"].createElement("input", { type: "text", name: "taxId", value: taxId, onChange: handleInput }),
             react_1["default"].createElement("br", null),
             react_1["default"].createElement("label", null, "Description"),
-            react_1["default"].createElement("input", { type: "text", name: "description", defaultValue: description }),
+            react_1["default"].createElement("input", { type: "text", name: "description", value: description, onChange: handleInput }),
             react_1["default"].createElement("br", null),
             react_1["default"].createElement("label", null, "Profile Picture"),
-            react_1["default"].createElement("input", { type: "text", name: "profilePicture", defaultValue: profilePicture }),
+            react_1["default"].createElement("input", { type: "text", name: "profilePicture", value: profilePicture, onChange: handleInput }),
             react_1["default"].createElement("br", null),
             react_1["default"].createElement("label", null, "Background Picture"),
-            react_1["default"].createElement("input", { type: "text", name: "backgroundPicture", defaultValue: backgroundPicture }),
+            react_1["default"].createElement("input", { type: "text", name: "backgroundPicture", value: backgroundPicture, onChange: handleInput }),
             react_1["default"].createElement("br", null),
             react_1["default"].createElement("input", { type: "submit", value: "Update" })),
         react_1["default"].createElement("br", null)));
