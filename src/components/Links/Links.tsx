@@ -35,6 +35,6 @@ const Links: FC = (): JSX.Element => {
       <CreateLink handleLinks={ handleLinks } />
     </>
   );
-}
+};
 
 export default Links;

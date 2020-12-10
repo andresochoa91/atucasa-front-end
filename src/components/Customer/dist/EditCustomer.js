@@ -46,28 +46,37 @@ var EditCustomer = function (_a) {
         })
             .then(function (response) { return response.json(); })
             .then(function (data) {
-            console.log(data);
-            if (!data.error)
+            if (!data.error) {
+                console.log(data);
+                setUsername("");
+                setFirstName("");
+                setLastName("");
+                setPhoneNumber("");
+                setProfilePicture("");
                 handleCurrentCustomer();
+            }
+            else {
+                console.log(data);
+            }
         })["catch"](console.error);
     };
     return (react_1["default"].createElement(react_1["default"].Fragment, null,
         react_1["default"].createElement("h2", null, "Edit Customer"),
-        react_1["default"].createElement("form", { onChange: handleInput, onSubmit: handleSubmit },
+        react_1["default"].createElement("form", { onSubmit: handleSubmit },
             react_1["default"].createElement("label", null, "Username"),
-            react_1["default"].createElement("input", { type: "text", name: "username", defaultValue: username }),
+            react_1["default"].createElement("input", { type: "text", name: "username", value: username, onChange: handleInput }),
             react_1["default"].createElement("br", null),
             react_1["default"].createElement("label", null, "First Name"),
-            react_1["default"].createElement("input", { type: "text", name: "firstName", defaultValue: firstName }),
+            react_1["default"].createElement("input", { type: "text", name: "firstName", value: firstName, onChange: handleInput }),
             react_1["default"].createElement("br", null),
             react_1["default"].createElement("label", null, "Last Name"),
-            react_1["default"].createElement("input", { type: "text", name: "lastName", defaultValue: lastName }),
+            react_1["default"].createElement("input", { type: "text", name: "lastName", value: lastName, onChange: handleInput }),
             react_1["default"].createElement("br", null),
             react_1["default"].createElement("label", null, "Phone Number"),
-            react_1["default"].createElement("input", { type: "text", name: "phoneNumber", defaultValue: phoneNumber }),
+            react_1["default"].createElement("input", { type: "text", name: "phoneNumber", value: phoneNumber, onChange: handleInput }),
             react_1["default"].createElement("br", null),
             react_1["default"].createElement("label", null, "Profile picture"),
-            react_1["default"].createElement("input", { type: "text", name: "profilePicture", defaultValue: profilePicture }),
+            react_1["default"].createElement("input", { type: "text", name: "profilePicture", value: profilePicture, onChange: handleInput }),
             react_1["default"].createElement("br", null),
             react_1["default"].createElement("input", { type: "submit", value: "Update" })),
         react_1["default"].createElement("br", null)));
