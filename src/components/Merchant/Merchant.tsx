@@ -4,11 +4,11 @@ import EditUser from '../EditUser/EditUser';
 import EditMerchant from'./EditMerchant';
 import EditLocation from'../Location/EditLocation';
 import Location from '../Location/Location';
+// import Links from '../Links/Links';
 
 const Merchant: FC = (): JSX.Element => {
-  const { currentUser, location/* , handleCurrentUser */ } = useContext<TContextProps>(AtucasaContext);
+  const { currentUser, location } = useContext<TContextProps>(AtucasaContext);
   const [ currentMerchant, setCurrentMerchant ] = useState<TCurrentMerchant | null>(null);
-
 
   const handleCurrentMerchant = () => {
     fetch("http://localhost:3000/current_user/merchant", {
@@ -22,16 +22,12 @@ const Merchant: FC = (): JSX.Element => {
     .then(data => {
       console.log(data);
       setCurrentMerchant(data.merchant);
-      // handleCurrentUser();
     })
     .catch(console.error);
   };
 
   useEffect((handleCurrentMerchant), []);
-
-  console.log(currentUser)
-  console.log(currentMerchant)
-
+  
   return(
     <>
       {
@@ -52,6 +48,7 @@ const Merchant: FC = (): JSX.Element => {
             <p><strong>Profile Picture: </strong>{  currentMerchant.profile_picture }</p>
             <p><strong>Background Picture: </strong>{  currentMerchant.background_picture }</p>
             <Location />
+            {/* <Links /> */}
           </>
         )
       }

@@ -6,8 +6,9 @@ var EditUser_1 = require("../EditUser/EditUser");
 var EditMerchant_1 = require("./EditMerchant");
 var EditLocation_1 = require("../Location/EditLocation");
 var Location_1 = require("../Location/Location");
+// import Links from '../Links/Links';
 var Merchant = function () {
-    var _a = react_1.useContext(Context_1.AtucasaContext), currentUser = _a.currentUser, location = _a.location /* , handleCurrentUser */;
+    var _a = react_1.useContext(Context_1.AtucasaContext), currentUser = _a.currentUser, location = _a.location;
     var _b = react_1.useState(null), currentMerchant = _b[0], setCurrentMerchant = _b[1];
     var handleCurrentMerchant = function () {
         fetch("http://localhost:3000/current_user/merchant", {
@@ -21,12 +22,9 @@ var Merchant = function () {
             .then(function (data) {
             console.log(data);
             setCurrentMerchant(data.merchant);
-            // handleCurrentUser();
         })["catch"](console.error);
     };
     react_1.useEffect((handleCurrentMerchant), []);
-    console.log(currentUser);
-    console.log(currentMerchant);
     return (react_1["default"].createElement(react_1["default"].Fragment, null, (currentUser && currentMerchant && location) && (react_1["default"].createElement(react_1["default"].Fragment, null,
         react_1["default"].createElement("h1", null, "Merchant"),
         react_1["default"].createElement(EditUser_1["default"], null),
