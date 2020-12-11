@@ -9,6 +9,7 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
 exports.__esModule = true;
 var react_1 = require("react");
 var CreateProduct_1 = require("./CreateProduct");
+var Product_1 = require("./Product");
 var Products = function () {
     var _a = react_1.useState([]), products = _a[0], setProducts = _a[1];
     var handleProducts = function () {
@@ -28,26 +29,7 @@ var Products = function () {
     react_1.useEffect(handleProducts, []);
     return (react_1["default"].createElement(react_1["default"].Fragment, null,
         react_1["default"].createElement("h2", null, "Products"),
-        products.map(function (product) { return (react_1["default"].createElement("div", { key: product.id },
-            react_1["default"].createElement("p", null,
-                react_1["default"].createElement("strong", null, "Product Name: "),
-                product.product_name),
-            react_1["default"].createElement("p", null,
-                react_1["default"].createElement("strong", null, "Description: "),
-                product.description),
-            react_1["default"].createElement("p", null,
-                react_1["default"].createElement("strong", null, "Price: "),
-                product.price),
-            react_1["default"].createElement("p", null,
-                react_1["default"].createElement("strong", null, "Available: "),
-                product.available ? "yes" : "no"),
-            react_1["default"].createElement("p", null,
-                react_1["default"].createElement("strong", null, "Product_picture: "),
-                product.product_picture),
-            react_1["default"].createElement("p", null,
-                react_1["default"].createElement("strong", null, "Tax: "),
-                product.tax),
-            react_1["default"].createElement("br", null))); }),
+        products.map(function (product) { return (react_1["default"].createElement(Product_1["default"], { key: product.id, product: product })); }),
         react_1["default"].createElement(CreateProduct_1["default"], { handleProducts: handleProducts })));
 };
 exports["default"] = Products;

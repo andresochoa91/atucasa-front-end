@@ -70,3 +70,7 @@ type TLinksProps = {
 type TProductsProps = {
   handleProducts: () => void
 }
+
+type TProductProps = {
+  product: TProduct
+}
