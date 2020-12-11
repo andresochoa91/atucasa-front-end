@@ -1,10 +1,11 @@
 import React, { FC } from 'react';
 
-const EditLink: FC = (): JSX.Element => {
+const EditLink: FC<THandleMode & TLinksProps & TLinkProps> = ({ handleMode, handleLinks, link }): JSX.Element => {
   return (
-    <div>
-      
-    </div>
+    <>
+      <h1>In Edit Mode</h1>
+      <button onClick={ handleMode }>Cancel</button>
+    </> 
   );
 };
 
