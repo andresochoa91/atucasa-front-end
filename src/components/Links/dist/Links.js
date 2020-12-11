@@ -29,7 +29,7 @@ var Links = function () {
     react_1.useEffect(handleLinks, []);
     return (react_1["default"].createElement(react_1["default"].Fragment, null,
         react_1["default"].createElement("h2", null, "Links"),
-        links.map(function (link) { return (react_1["default"].createElement(Link_1["default"], { link: link, key: link.id })); }),
+        links.map(function (link) { return (react_1["default"].createElement(Link_1["default"], { handleLinks: handleLinks, link: link, key: link.id })); }),
         react_1["default"].createElement(CreateLink_1["default"], { handleLinks: handleLinks })));
 };
 exports["default"] = Links;

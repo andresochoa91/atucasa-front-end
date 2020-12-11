@@ -27,7 +27,7 @@ const Links: FC = (): JSX.Element => {
     <>
       <h2>Links</h2>
       { links.map((link) => (
-        <Link link={ link } key={ link.id } />
+        <Link handleLinks={ handleLinks } link={ link } key={ link.id } />
       )) }
       <CreateLink handleLinks={ handleLinks } />
     </>
