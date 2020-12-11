@@ -9,6 +9,7 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
 exports.__esModule = true;
 var react_1 = require("react");
 var CreateLink_1 = require("./CreateLink");
+var Link_1 = require("./Link");
 var Links = function () {
     var _a = react_1.useState([]), links = _a[0], setLinks = _a[1];
     var handleLinks = function () {
@@ -28,14 +29,7 @@ var Links = function () {
     react_1.useEffect(handleLinks, []);
     return (react_1["default"].createElement(react_1["default"].Fragment, null,
         react_1["default"].createElement("h2", null, "Links"),
-        links.map(function (link) { return (react_1["default"].createElement("div", { key: link.id },
-            react_1["default"].createElement("p", null,
-                react_1["default"].createElement("strong", null, "Site Name: "),
-                link.site_name),
-            react_1["default"].createElement("p", null,
-                react_1["default"].createElement("strong", null, "Url: "),
-                link.url),
-            react_1["default"].createElement("br", null))); }),
+        links.map(function (link) { return (react_1["default"].createElement(Link_1["default"], { link: link, key: link.id })); }),
         react_1["default"].createElement(CreateLink_1["default"], { handleLinks: handleLinks })));
 };
 exports["default"] = Links;

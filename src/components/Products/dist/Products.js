@@ -29,7 +29,7 @@ var Products = function () {
     react_1.useEffect(handleProducts, []);
     return (react_1["default"].createElement(react_1["default"].Fragment, null,
         react_1["default"].createElement("h2", null, "Products"),
-        products.map(function (product) { return (react_1["default"].createElement(Product_1["default"], { key: product.id, product: product })); }),
+        products.map(function (product) { return (react_1["default"].createElement(Product_1["default"], { handleProducts: handleProducts, key: product.id, product: product })); }),
         react_1["default"].createElement(CreateProduct_1["default"], { handleProducts: handleProducts })));
 };
 exports["default"] = Products;
