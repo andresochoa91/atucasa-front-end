@@ -1,12 +1,15 @@
 import React, { FC, useState } from 'react'
 
-const CreateProduct: FC<TProductsProps> = ({ handleProducts }): JSX.Element => {
+const EditProduct: FC<TProductsProps & TProductProps & THandleMode> = ({ handleProducts, product, handleMode }): JSX.Element => {
 
-  const [ productName, setProductName ] = useState<string>("");
-  const [ description, setDescription ] = useState<string>("");
-  const [ price, setPrice ] = useState<string>("");
-  const [ available, setAvailable ] = useState<string>("yes");
-  const [ productPicture, setProductPicture ] = useState<string>("");
+  const [ productName, setProductName ] = useState<string>(product.product_name);
+  const [ description, setDescription ] = useState<string | undefined>(product.description);
+  const [ price, setPrice ] = useState<string>(product.price.toString());
+  const [ available, setAvailable ] = useState<string>(product.available ? "yes" : "no");
+  const [ productPicture, setProductPicture ] = useState<string | undefined>(product.product_picture);
+
+  const productAvailable = product.available ? "yes" : "no";
+  const productNotAvailable = product.available ? "no" : "yes";
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>): void => {
     event.preventDefault();
@@ -20,21 +23,19 @@ const CreateProduct: FC<TProductsProps> = ({ handleProducts }): JSX.Element => {
         setPrice :
       name === "available" ? 
         setAvailable :
-      // name === "productPicture" ? 
       setProductPicture
-      // setTax 
     )(value);
   };
 
-  const handleAvailable = (event:React.MouseEvent<HTMLOptionElement>):void => {
+  const handleAvailable = (event:React.MouseEvent<HTMLOptionElement>): void => {
     event.preventDefault();
     setAvailable(event.currentTarget.value);
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
-    fetch("http://localhost:3000/current_user/products", {
-      method: "POST",
+    fetch(`http://localhost:3000/current_user/products/${product.id}`, {
+      method: "PUT",
       credentials: "include",
       headers: {
         "Content-Type": "application/json"
@@ -52,11 +53,8 @@ const CreateProduct: FC<TProductsProps> = ({ handleProducts }): JSX.Element => {
     .then(data => {
       if (!data.error) {
         console.log(data);
-        setProductName("");
-        setDescription("");
-        setPrice("");
-        setProductPicture("");
         handleProducts();
+        handleMode();
       } else {
         console.log(data);
       }
@@ -66,7 +64,7 @@ const CreateProduct: FC<TProductsProps> = ({ handleProducts }): JSX.Element => {
 
   return (
     <>
-      <h2>Create Product</h2>
+      <h2>Edit Product</h2>
       <form onSubmit={ handleSubmit }>
         <label>Product Name</label>   
         <input 
@@ -93,9 +91,11 @@ const CreateProduct: FC<TProductsProps> = ({ handleProducts }): JSX.Element => {
         />
         <br/>
         <label>Available</label>
-        <select name="available" id="available">
-          <option value="yes" onClick={ handleAvailable }>Yes</option>
-          <option value="no" onClick={ handleAvailable }>No</option>
+        <select name="available" id="available">          
+        <>
+          <option value={ productAvailable } onClick={ handleAvailable }>{ productAvailable }</option>
+          <option value={ productNotAvailable } onClick={ handleAvailable }>{ productNotAvailable }</option>
+        </>
         </select>
         <br/>
         <label>Product Picture</label>   
@@ -107,9 +107,10 @@ const CreateProduct: FC<TProductsProps> = ({ handleProducts }): JSX.Element => {
         />
         <br/>
         <input type="submit" value="Submit"/>
+        <button onClick={ handleMode }>Cancel</button>
       </form> 
     </>
   );
 };
 
-export default CreateProduct;
+export default EditProduct;

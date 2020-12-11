@@ -1,5 +1,6 @@
 import React, { FC, useState, useEffect } from 'react';
 import CreateLink from './CreateLink';
+import Link from './Link';
 
 const Links: FC = (): JSX.Element => {
   const [ links, setLinks ] = useState<TLinks>([]);
@@ -26,11 +27,7 @@ const Links: FC = (): JSX.Element => {
     <>
       <h2>Links</h2>
       { links.map((link) => (
-        <div key={ link.id }>
-          <p><strong>Site Name: </strong>{ link.site_name }</p> 
-          <p><strong>Url: </strong>{ link.url }</p>
-          <br/> 
-        </div>
+        <Link link={ link } key={ link.id } />
       )) }
       <CreateLink handleLinks={ handleLinks } />
     </>

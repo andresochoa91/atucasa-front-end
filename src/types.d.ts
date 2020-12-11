@@ -35,20 +35,20 @@ type TCurrentMerchant = {
 };
 
 type TLink = {
-  site_name?: string,
-  url?: string,
+  site_name: string,
+  url: string,
   id: number
 };
 
 type TLinks = Array<TLink>;
 
 type TProduct = {
-  product_name?: string,
+  product_name: string,
   description?: string,
-  price?: number,
-  available?: boolean,
+  price: number,
+  available: boolean,
   product_picture?: string,
-  tax?: number,
+  tax: number,
   id: number
 };
 
@@ -65,8 +65,20 @@ type TContextProps = {
 
 type TLinksProps = {
   handleLinks: () => void
+};
+
+type TLinkProps = {
+  link: TLink
 }
 
 type TProductsProps = {
   handleProducts: () => void
+};
+
+type TProductProps = {
+  product: TProduct
+};
+
+type THandleMode = {
+  handleMode: () => void
 }
