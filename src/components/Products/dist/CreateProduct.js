@@ -61,7 +61,7 @@ var CreateProduct = function (_a) {
         })["catch"](console.error);
     };
     return (react_1["default"].createElement(react_1["default"].Fragment, null,
-        react_1["default"].createElement("h2", null, "Create Link"),
+        react_1["default"].createElement("h2", null, "Create Product"),
         react_1["default"].createElement("form", { onSubmit: handleSubmit },
             react_1["default"].createElement("label", null, "Product Name"),
             react_1["default"].createElement("input", { type: "text", name: "productName", value: productName, onChange: handleInput }),

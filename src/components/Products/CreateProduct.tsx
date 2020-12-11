@@ -66,7 +66,7 @@ const CreateProduct: FC<TProductsProps> = ({ handleProducts }): JSX.Element => {
 
   return (
     <>
-      <h2>Create Link</h2>
+      <h2>Create Product</h2>
       <form onSubmit={ handleSubmit }>
         <label>Product Name</label>   
         <input 
