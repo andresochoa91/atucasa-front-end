@@ -1,4 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
+import ShowMerchant from './ShowMerchant';
 
 const ShowMerchants: FC = (): JSX.Element => {
 
@@ -28,6 +29,7 @@ const ShowMerchants: FC = (): JSX.Element => {
               <p><strong>Merchant Name</strong>: { merchant.merchant_name }</p>
               <p><strong>Description</strong>: { merchant.description }</p>
               <p><strong>Phone Number</strong>: { merchant.phone_number }</p>
+              <ShowMerchant merchant={ merchant } />
               <br/>
             </div>
           );
