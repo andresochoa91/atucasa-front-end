@@ -1,6 +1,7 @@
 "use strict";
 exports.__esModule = true;
 var react_1 = require("react");
+var ShowMerchant_1 = require("./ShowMerchant");
 var ShowMerchants = function () {
     var _a = react_1.useState([]), merchants = _a[0], setMerchants = _a[1];
     react_1.useEffect(function () {
@@ -32,6 +33,7 @@ var ShowMerchants = function () {
                     react_1["default"].createElement("strong", null, "Phone Number"),
                     ": ",
                     merchant.phone_number),
+                react_1["default"].createElement(ShowMerchant_1["default"], { merchant: merchant }),
                 react_1["default"].createElement("br", null)));
         })));
 };

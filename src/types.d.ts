@@ -34,6 +34,10 @@ type TCurrentMerchant = {
   user_id?: number
 };
 
+type TMerchantProps = {
+  merchant: TCurrentMerchant
+}
+
 type TLink = {
   site_name: string,
   url: string,
