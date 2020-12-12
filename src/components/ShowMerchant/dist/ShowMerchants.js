@@ -20,19 +20,19 @@ var ShowMerchants = function () {
     return (react_1["default"].createElement(react_1["default"].Fragment, null,
         react_1["default"].createElement("h1", null, "Merchants"),
         merchants.map(function (merchant) {
-            return (react_1["default"].createElement("div", { key: merchant.user_id },
+            return (react_1["default"].createElement("div", { key: merchant.merchant_info.user_id },
                 react_1["default"].createElement("p", null,
                     react_1["default"].createElement("strong", null, "Merchant Name"),
                     ": ",
-                    merchant.merchant_name),
+                    merchant.merchant_info.merchant_name),
                 react_1["default"].createElement("p", null,
                     react_1["default"].createElement("strong", null, "Description"),
                     ": ",
-                    merchant.description),
+                    merchant.merchant_info.description),
                 react_1["default"].createElement("p", null,
                     react_1["default"].createElement("strong", null, "Phone Number"),
                     ": ",
-                    merchant.phone_number),
+                    merchant.merchant_info.phone_number),
                 react_1["default"].createElement(ShowMerchant_1["default"], { merchant: merchant }),
                 react_1["default"].createElement("br", null)));
         })));

@@ -31,12 +31,21 @@ type TCurrentMerchant = {
   description?: string,
   profile_picture?: string,
   background_picture?: string,
-  user_id?: number
+  user_id?: number,
+  id?: number
 };
 
-type TMerchantProps = {
-  merchant: TCurrentMerchant
-}
+type TShowMerchant = {
+  email: string,
+  links: TLinks,
+  location: TLocation,
+  merchant_info: TCurrentMerchant,
+  products: TProducts
+};
+
+// type TMerchantProps = {
+//   merchant: TCurrentMerchant
+// }
 
 type TLink = {
   site_name: string,
