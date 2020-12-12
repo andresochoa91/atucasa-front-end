@@ -1,6 +1,7 @@
 "use strict";
 exports.__esModule = true;
 var react_1 = require("react");
+var DeleteProduct_1 = require("./DeleteProduct");
 var EditProduct_1 = require("./EditProduct");
 var Product = function (_a) {
     var product = _a.product, handleProducts = _a.handleProducts;
@@ -32,7 +33,7 @@ var Product = function (_a) {
                     react_1["default"].createElement("strong", null, "Tax: "),
                     product.tax),
                 react_1["default"].createElement("button", { onClick: handleMode }, "Edit"),
-                react_1["default"].createElement("button", null, "Delete"),
+                react_1["default"].createElement(DeleteProduct_1["default"], { product: product, handleProducts: handleProducts }),
                 react_1["default"].createElement("br", null),
                 react_1["default"].createElement("br", null))));
 };

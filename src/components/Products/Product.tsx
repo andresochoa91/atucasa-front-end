@@ -1,4 +1,5 @@
 import React, { FC, useState } from 'react';
+import DeleteProduct from './DeleteProduct';
 import EditProduct from './EditProduct';
 
 const Product: FC<TProductProps & TProductsProps> = ({ product, handleProducts }): JSX.Element => {
@@ -25,7 +26,10 @@ const Product: FC<TProductProps & TProductsProps> = ({ product, handleProducts }
           <p><strong>Product_picture: </strong>{ product.product_picture }</p>
           <p><strong>Tax: </strong>{ product.tax }</p>
           <button onClick={ handleMode }>Edit</button>
-          <button>Delete</button>
+          <DeleteProduct 
+            product={ product } 
+            handleProducts={ handleProducts } 
+          />
           <br/> 
           <br/> 
         </>
