@@ -21,7 +21,7 @@ var SignUp = function () {
     var handleSubmit = function (event) {
         event.preventDefault();
         // fetch("https://atucasa-api.herokuapp.com/signup", {
-        fetch("http://localhost:3000/signup", {
+        fetch(process.env.REACT_APP_API + "/signup", {
             method: "POST",
             credentials: "include",
             headers: {

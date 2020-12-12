@@ -13,7 +13,7 @@ const SignIn: FC = (): JSX.Element => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    fetch("http://localhost:3000/login", {
+    fetch(`${process.env.REACT_APP_API}/login`, {
       method: "POST",
       credentials: "include",
       headers: {

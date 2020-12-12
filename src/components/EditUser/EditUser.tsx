@@ -40,7 +40,7 @@ const EditUser: FC = (): JSX.Element => {
     if (newEmail) newDataUser.email = newEmail;
     if (newPassword) newDataUser.password = newPassword;
 
-    fetch("http://localhost:3000/current_user/update", {
+    fetch(`${process.env.REACT_APP_API}/current_user/update`, {
       method: "PUT",
       credentials: "include",
       headers: {

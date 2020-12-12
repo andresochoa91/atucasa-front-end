@@ -5,7 +5,7 @@ var DeleteLink = function (_a) {
     var link = _a.link, handleLinks = _a.handleLinks;
     var handleDelete = function () {
         if (window.confirm("are you sure?")) {
-            fetch("http://localhost:3000/current_user/links/" + link.id, {
+            fetch(process.env.REACT_APP_API + "/current_user/links/" + link.id, {
                 method: "DELETE",
                 credentials: "include",
                 headers: {

@@ -7,7 +7,7 @@ const SignOut: FC = () => {
 
   const handleSignOut = (event:React.MouseEvent<HTMLButtonElement>):void => {
     event.preventDefault();
-    fetch("http://localhost:3000/logout", {
+    fetch(`${process.env.REACT_APP_API}/logout`, {
       credentials: "include",
       method: "DELETE"
     })

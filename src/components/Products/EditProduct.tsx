@@ -34,7 +34,7 @@ const EditProduct: FC<TProductsProps & TProductProps & THandleMode> = ({ handleP
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
-    fetch(`http://localhost:3000/current_user/products/${product.id}`, {
+    fetch(`${process.env.REACT_APP_API}/current_user/products/${product.id}`, {
       method: "PUT",
       credentials: "include",
       headers: {

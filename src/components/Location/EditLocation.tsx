@@ -40,7 +40,7 @@ const EditLocation: FC = (): JSX.Element => {
     if (zipCode) newLocation.zip_code = zipCode;
     if (details) newLocation.details = details;
 
-    fetch("http://localhost:3000/current_user/location", {
+    fetch(`${process.env.REACT_APP_API}/current_user/location`, {
       method: "PUT",
       credentials: "include",
       headers: {

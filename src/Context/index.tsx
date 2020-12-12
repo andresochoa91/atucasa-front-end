@@ -7,7 +7,7 @@ export const Provider: FC = ({ children }) => {
   const [ location, setLocation ] = useState<TLocation | null>(null);
 
   const handleLocation = (): void => {
-    fetch("http://localhost:3000/current_user/location", {
+    fetch(`${process.env.REACT_APP_API}/current_user/location`, {
       method: "GET",
       credentials: "include",
       headers: {
@@ -27,7 +27,7 @@ export const Provider: FC = ({ children }) => {
   }
 
   const handleCurrentUser = (): void => {
-    fetch("http://localhost:3000/current_user", {
+    fetch(`${process.env.REACT_APP_API}/current_user`, {
       method: "GET",
       credentials: "include",
       headers: {

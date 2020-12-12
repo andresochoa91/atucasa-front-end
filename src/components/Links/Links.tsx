@@ -6,7 +6,7 @@ const Links: FC = (): JSX.Element => {
   const [ links, setLinks ] = useState<TLinks>([]);
   
   const handleLinks = (): void => {
-    fetch("http://localhost:3000/current_user/links", {
+    fetch(`${process.env.REACT_APP_API}/current_user/links`, {
       method: "GET",
       credentials: "include",
       headers: {

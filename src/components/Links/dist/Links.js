@@ -13,7 +13,7 @@ var Link_1 = require("./Link");
 var Links = function () {
     var _a = react_1.useState([]), links = _a[0], setLinks = _a[1];
     var handleLinks = function () {
-        fetch("http://localhost:3000/current_user/links", {
+        fetch(process.env.REACT_APP_API + "/current_user/links", {
             method: "GET",
             credentials: "include",
             headers: {

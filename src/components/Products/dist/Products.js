@@ -13,7 +13,7 @@ var Product_1 = require("./Product");
 var Products = function () {
     var _a = react_1.useState([]), products = _a[0], setProducts = _a[1];
     var handleProducts = function () {
-        fetch("http://localhost:3000/current_user/products", {
+        fetch(process.env.REACT_APP_API + "/current_user/products", {
             method: "GET",
             credentials: "include",
             headers: {

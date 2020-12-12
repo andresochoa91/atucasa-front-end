@@ -36,7 +36,7 @@ var EditCustomer = function (_a) {
         if (profilePicture)
             newDataCustomer.profile_picture = profilePicture;
         console.log(newDataCustomer);
-        fetch("http://localhost:3000/current_user/customer", {
+        fetch(process.env.REACT_APP_API + "/current_user/customer", {
             method: "PUT",
             credentials: "include",
             headers: {
