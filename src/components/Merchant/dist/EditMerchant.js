@@ -40,7 +40,7 @@ var EditMerchant = function (_a) {
             newDataMerchant.profile_picture = profilePicture;
         if (backgroundPicture)
             newDataMerchant.background_picture = backgroundPicture;
-        fetch("http://localhost:3000/current_user/merchant", {
+        fetch(process.env.REACT_APP_API + "/current_user/merchant", {
             method: "PUT",
             credentials: "include",
             headers: {

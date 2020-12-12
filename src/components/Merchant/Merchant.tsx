@@ -12,7 +12,7 @@ const Merchant: FC = (): JSX.Element => {
   const [ currentMerchant, setCurrentMerchant ] = useState<TCurrentMerchant | null>(null);
 
   const handleCurrentMerchant = () => {
-    fetch("http://localhost:3000/current_user/merchant", {
+    fetch(`${process.env.REACT_APP_API}/current_user/merchant`, {
       method: "GET",
       credentials: 'include',
       headers: {

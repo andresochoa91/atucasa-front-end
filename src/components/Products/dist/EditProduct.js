@@ -29,7 +29,7 @@ var EditProduct = function (_a) {
     };
     var handleSubmit = function (event) {
         event.preventDefault();
-        fetch("http://localhost:3000/current_user/products/" + product.id, {
+        fetch(process.env.REACT_APP_API + "/current_user/products/" + product.id, {
             method: "PUT",
             credentials: "include",
             headers: {

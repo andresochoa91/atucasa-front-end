@@ -6,7 +6,7 @@ const Products: FC = (): JSX.Element => {
   const [ products, setProducts ] = useState<TProducts>([]);
   
   const handleProducts = (): void => {
-    fetch("http://localhost:3000/current_user/products", {
+    fetch(`${process.env.REACT_APP_API}/current_user/products`, {
       method: "GET",
       credentials: "include",
       headers: {

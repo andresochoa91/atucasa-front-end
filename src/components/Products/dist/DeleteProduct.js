@@ -5,7 +5,7 @@ var DeleteProduct = function (_a) {
     var product = _a.product, handleProducts = _a.handleProducts;
     var handleDelete = function () {
         if (window.confirm("are you sure?")) {
-            fetch("http://localhost:3000/current_user/products/" + product.id, {
+            fetch(process.env.REACT_APP_API + "/current_user/products/" + product.id, {
                 method: "DELETE",
                 credentials: "include",
                 headers: {

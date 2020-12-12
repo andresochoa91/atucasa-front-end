@@ -10,7 +10,7 @@ var Customer = function () {
     var _a = react_1.useContext(Context_1.AtucasaContext), currentUser = _a.currentUser, location = _a.location;
     var _b = react_1.useState(null), currentCustomer = _b[0], setCurrentCustomer = _b[1];
     var handleCurrentCustomer = function () {
-        fetch("http://localhost:3000/current_user/customer", {
+        fetch(process.env.REACT_APP_API + "/current_user/customer", {
             method: "GET",
             credentials: 'include',
             headers: {

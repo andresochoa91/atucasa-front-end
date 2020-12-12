@@ -8,7 +8,7 @@ exports.Provider = function (_a) {
     var _b = react_1.useState(null), currentUser = _b[0], setCurrentUser = _b[1];
     var _c = react_1.useState(null), location = _c[0], setLocation = _c[1];
     var handleLocation = function () {
-        fetch("http://localhost:3000/current_user/location", {
+        fetch(process.env.REACT_APP_API + "/current_user/location", {
             method: "GET",
             credentials: "include",
             headers: {
@@ -26,7 +26,7 @@ exports.Provider = function (_a) {
         })["catch"](console.error);
     };
     var handleCurrentUser = function () {
-        fetch("http://localhost:3000/current_user", {
+        fetch(process.env.REACT_APP_API + "/current_user", {
             method: "GET",
             credentials: "include",
             headers: {

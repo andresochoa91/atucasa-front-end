@@ -12,7 +12,7 @@ var CreateLink = function (_a) {
     };
     var handleSubmit = function (event) {
         event.preventDefault();
-        fetch("http://localhost:3000/current_user/links", {
+        fetch(process.env.REACT_APP_API + "/current_user/links", {
             method: "POST",
             credentials: "include",
             headers: {

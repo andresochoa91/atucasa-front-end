@@ -12,7 +12,7 @@ var SignIn = function () {
     };
     var handleSubmit = function (event) {
         event.preventDefault();
-        fetch("http://localhost:3000/login", {
+        fetch(process.env.REACT_APP_API + "/login", {
             method: "POST",
             credentials: "include",
             headers: {

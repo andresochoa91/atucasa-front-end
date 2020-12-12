@@ -4,7 +4,7 @@ const DeleteProduct: FC<TProductProps & TProductsProps> = ({ product, handleProd
 
   const handleDelete = (): void => {
     if (window.confirm("are you sure?")) {
-      fetch(`http://localhost:3000/current_user/products/${product.id}`, {
+      fetch(`${process.env.REACT_APP_API}/current_user/products/${product.id}`, {
         method: "DELETE",
         credentials: "include",
         headers: {

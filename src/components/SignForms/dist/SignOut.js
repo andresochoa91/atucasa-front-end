@@ -6,7 +6,7 @@ var SignOut = function () {
     var setCurrentUser = react_1.useContext(Context_1.AtucasaContext).setCurrentUser;
     var handleSignOut = function (event) {
         event.preventDefault();
-        fetch("http://localhost:3000/logout", {
+        fetch(process.env.REACT_APP_API + "/logout", {
             credentials: "include",
             method: "DELETE"
         })

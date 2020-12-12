@@ -13,7 +13,7 @@ const EditLink: FC<THandleMode & TLinksProps & TLinkProps> = ({ handleMode, hand
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
-    fetch(`http://localhost:3000/current_user/links/${link.id}`, {
+    fetch(`${process.env.REACT_APP_API}/current_user/links/${link.id}`, {
       method: "PUT",
       credentials: "include",
       headers: {

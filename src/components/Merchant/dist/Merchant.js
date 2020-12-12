@@ -12,7 +12,7 @@ var Merchant = function () {
     var _a = react_1.useContext(Context_1.AtucasaContext), currentUser = _a.currentUser, location = _a.location;
     var _b = react_1.useState(null), currentMerchant = _b[0], setCurrentMerchant = _b[1];
     var handleCurrentMerchant = function () {
-        fetch("http://localhost:3000/current_user/merchant", {
+        fetch(process.env.REACT_APP_API + "/current_user/merchant", {
             method: "GET",
             credentials: 'include',
             headers: {

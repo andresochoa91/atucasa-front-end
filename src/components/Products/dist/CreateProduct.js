@@ -30,7 +30,7 @@ var CreateProduct = function (_a) {
     };
     var handleSubmit = function (event) {
         event.preventDefault();
-        fetch("http://localhost:3000/current_user/products", {
+        fetch(process.env.REACT_APP_API + "/current_user/products", {
             method: "POST",
             credentials: "include",
             headers: {
