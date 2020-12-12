@@ -69,7 +69,7 @@ type TLinksProps = {
 
 type TLinkProps = {
   link: TLink
-}
+};
 
 type TProductsProps = {
   handleProducts: () => void
@@ -81,4 +81,4 @@ type TProductProps = {
 
 type THandleMode = {
   handleMode: () => void
-}
+};
