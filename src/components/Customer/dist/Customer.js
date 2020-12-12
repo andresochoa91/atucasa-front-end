@@ -6,6 +6,7 @@ var EditUser_1 = require("../EditUser/EditUser");
 var EditCustomer_1 = require("./EditCustomer");
 var EditLocation_1 = require("../Location/EditLocation");
 var Location_1 = require("../Location/Location");
+var ShowMerchants_1 = require("../ShowMerchant/ShowMerchants");
 var Customer = function () {
     var _a = react_1.useContext(Context_1.AtucasaContext), currentUser = _a.currentUser, location = _a.location;
     var _b = react_1.useState(null), currentCustomer = _b[0], setCurrentCustomer = _b[1];
@@ -26,6 +27,7 @@ var Customer = function () {
     react_1.useEffect(handleCurrentCustomer, []);
     return (react_1["default"].createElement(react_1["default"].Fragment, null, (currentUser && currentCustomer && location) && (react_1["default"].createElement(react_1["default"].Fragment, null,
         react_1["default"].createElement("h1", null, "Customer"),
+        react_1["default"].createElement(ShowMerchants_1["default"], null),
         react_1["default"].createElement(EditUser_1["default"], null),
         react_1["default"].createElement(EditCustomer_1["default"], { handleCurrentCustomer: handleCurrentCustomer }),
         react_1["default"].createElement(EditLocation_1["default"], null),
