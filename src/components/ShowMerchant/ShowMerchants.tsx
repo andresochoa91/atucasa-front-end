@@ -3,7 +3,7 @@ import ShowMerchant from './ShowMerchant';
 
 const ShowMerchants: FC = (): JSX.Element => {
 
-  const [ merchants, setMerchants ] = useState<Array<TCurrentMerchant>>([]);
+  const [ merchants, setMerchants ] = useState<Array<TShowMerchant>>([]);
   
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API}/merchants`, {
@@ -17,7 +17,7 @@ const ShowMerchants: FC = (): JSX.Element => {
     .then(data => {
       setMerchants(data.merchants);
     })
-  }, [])
+  }, []);
 
   return (
     <>
@@ -25,10 +25,10 @@ const ShowMerchants: FC = (): JSX.Element => {
       { 
         merchants.map((merchant) => {
           return(
-            <div key={ merchant.user_id }>
-              <p><strong>Merchant Name</strong>: { merchant.merchant_name }</p>
-              <p><strong>Description</strong>: { merchant.description }</p>
-              <p><strong>Phone Number</strong>: { merchant.phone_number }</p>
+            <div key={ merchant.merchant_info.user_id }>
+              <p><strong>Merchant Name</strong>: { merchant.merchant_info.merchant_name }</p>
+              <p><strong>Description</strong>: { merchant.merchant_info.description }</p>
+              <p><strong>Phone Number</strong>: { merchant.merchant_info.phone_number }</p>
               <ShowMerchant merchant={ merchant } />
               <br/>
             </div>

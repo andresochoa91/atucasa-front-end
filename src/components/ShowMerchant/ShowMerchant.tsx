@@ -1,25 +1,39 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC } from 'react';
 
-const ShowMerchant: FC<TMerchantProps> = ({ merchant }): JSX.Element => {
+interface IMerchantProps {
+  merchant: TShowMerchant
+};
 
-  const [ current_user, setCurrentUser ] = useState<TCurrentUser>();
-
-  console.log(merchant.user_id)
-  console.log(`${process.env.REACT_APP_API}/users/${merchant.user_id?.toString()}`)
-
-  useEffect(() => {
-    fetch(`${process.env.REACT_APP_API}/users/${merchant.user_id}`)
-    .then(response => response.json())
-    .then(data => {
-      console.log(data.user);
-      setCurrentUser(data.user);
-    })
-    .catch(console.error);
-  }, [merchant.user_id]);
-
+const ShowMerchant: FC<IMerchantProps> = ({ merchant }): JSX.Element => {
+  const { country, state, city, address } = merchant.location;
   return (
-    <div>
-      { current_user && current_user.email}
+    <div key={ merchant.merchant_info.id }>
+      <p><strong>Email</strong>: { merchant.email}</p>
+      <p><strong>Location</strong>
+        : { `${country}, ${state}, ${city}, ${address}.` }
+      </p>
+      <br/>
+      <h3>Links</h3>
+      {
+        merchant.links.map((link) => (
+          <div key={ link.id }>
+            <p><strong>Site Name</strong>: { link.site_name}</p>
+            <p><strong>Url</strong>: { link.url}</p>
+            <br/>
+          </div>
+        ))
+      }
+      <h3>Products</h3>
+      {
+        merchant.products.map((product) => (
+          <div key={ product.id }>
+            <p><strong>Product Name</strong>: { product.product_name}</p>
+            <p><strong>Description</strong>: { product.description}</p>
+            <p><strong>Price</strong>: { product.price}</p>
+            <br/>
+          </div>
+        ))
+      }
     </div>
   );
 };
