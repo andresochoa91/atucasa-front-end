@@ -30,8 +30,7 @@ exports.Provider = function (_a) {
             method: "GET",
             credentials: "include",
             headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json"
+                "Content-Type": "application/json"
             }
         })
             .then(function (response) { return response.json(); })
