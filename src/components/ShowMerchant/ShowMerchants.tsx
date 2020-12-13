@@ -26,7 +26,7 @@ const ShowMerchants: FC = (): JSX.Element => {
         merchants.map((merchant) => {
           return(
             <div key={ merchant.merchant_info.user_id }>
-              <p><strong>Merchant Name</strong>: { merchant.merchant_info.merchant_name }</p>
+              <h2>{ merchant.merchant_info.merchant_name }</h2>
               <p><strong>Description</strong>: { merchant.merchant_info.description }</p>
               <p><strong>Phone Number</strong>: { merchant.merchant_info.phone_number }</p>
               <ShowMerchant merchant={ merchant } />
