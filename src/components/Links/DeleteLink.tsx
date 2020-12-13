@@ -21,9 +21,7 @@ const DeleteLink: FC<TLinkProps & TLinksProps> = ({ link, handleLinks }): JSX.El
   };
 
   return (
-    <>
-      <button onClick={ handleDelete }>Delete</button>  
-    </>
+    <button onClick={ handleDelete }>Delete</button>  
   );
 };
 

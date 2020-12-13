@@ -29,8 +29,7 @@ var Customer = function () {
     return (react_1["default"].createElement(react_1["default"].Fragment, null, (currentUser && currentCustomer && location) && (react_1["default"].createElement(react_1["default"].Fragment, null,
         react_1["default"].createElement("h1", null, "Customer"),
         react_1["default"].createElement("button", { onClick: function () { return setShowMerchants(!showMerchants); } }, showMerchants ? "Don't show merchants" : "Show Merchants"),
-        showMerchants &&
-            react_1["default"].createElement(ShowMerchants_1["default"], null),
+        showMerchants && react_1["default"].createElement(ShowMerchants_1["default"], null),
         react_1["default"].createElement(EditUser_1["default"], null),
         react_1["default"].createElement(EditCustomer_1["default"], { handleCurrentCustomer: handleCurrentCustomer }),
         react_1["default"].createElement(EditLocation_1["default"], null),

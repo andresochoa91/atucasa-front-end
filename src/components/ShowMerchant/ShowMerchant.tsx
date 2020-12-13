@@ -29,15 +29,16 @@ const ShowMerchant: FC<IMerchantProps> = ({ merchant }): JSX.Element => {
         { showProducts ? "Do not show products" : "Show products" }
       </button>
       {
-        showProducts &&
-        merchant.products.map((product) => (
-          <div key={ product.id }>
-            <p><strong>Product Name</strong>: { product.product_name}</p>
-            <p><strong>Description</strong>: { product.description}</p>
-            <p><strong>Price</strong>: { product.price}</p>
-            <br/>
-          </div>
-        ))
+        showProducts && (
+          merchant.products.map((product) => (
+            <div key={ product.id }>
+              <p><strong>Product Name</strong>: { product.product_name}</p>
+              <p><strong>Description</strong>: { product.description}</p>
+              <p><strong>Price</strong>: { product.price}</p>
+              <br/>
+            </div>
+          ))
+        )
       }
     </div>
   );

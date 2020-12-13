@@ -7,12 +7,6 @@ const EditUser: FC = (): JSX.Element => {
   const [ newPassword, setNewPassword ] = useState<string>("");
   const [ currentPassword, setCurrentPassword ] = useState<string>("");
 
-  // useEffect(() => {
-  //   if (currentUser) {
-  //     setNewEmail(currentUser.email);
-  //   }
-  // }, [currentUser]);
-
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>): void => {
     event.preventDefault();
     const { value, name } = event.target;
@@ -56,7 +50,6 @@ const EditUser: FC = (): JSX.Element => {
         setNewPassword("");
         setCurrentPassword("");
         handleCurrentUser();
-
       }
     })
     .catch(console.error);
@@ -65,7 +58,7 @@ const EditUser: FC = (): JSX.Element => {
   return (
     <>
       {
-        currentUser && 
+        currentUser && (
           <>
             <h2>Edit User</h2>
             <form onSubmit={ handleSubmit } >
@@ -101,6 +94,7 @@ const EditUser: FC = (): JSX.Element => {
             </form>
             <br/>
           </>
+        )
       }
     </>
   );

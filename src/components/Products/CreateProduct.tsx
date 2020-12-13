@@ -20,9 +20,7 @@ const CreateProduct: FC<TProductsProps> = ({ handleProducts }): JSX.Element => {
         setPrice :
       name === "available" ? 
         setAvailable :
-      // name === "productPicture" ? 
       setProductPicture
-      // setTax 
     )(value);
   };
 

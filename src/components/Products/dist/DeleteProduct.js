@@ -19,7 +19,6 @@ var DeleteProduct = function (_a) {
             })["catch"](console.error);
         }
     };
-    return (react_1["default"].createElement(react_1["default"].Fragment, null,
-        react_1["default"].createElement("button", { onClick: handleDelete }, "Delete")));
+    return (react_1["default"].createElement("button", { onClick: handleDelete }, "Delete"));
 };
 exports["default"] = DeleteProduct;

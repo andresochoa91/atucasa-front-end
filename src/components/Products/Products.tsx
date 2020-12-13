@@ -26,9 +26,15 @@ const Products: FC = (): JSX.Element => {
   return (
     <>
       <h2>Products</h2>
-      { products.map((product) => (
-        <Product handleProducts={ handleProducts } key={ product.id } product={ product }/>
-      )) }
+      { 
+        products.map((product) => (
+          <Product 
+            handleProducts={ handleProducts } 
+            key={ product.id } 
+            product={ product }
+          />
+        )) 
+      }
       <CreateProduct handleProducts={ handleProducts } />
     </>
   );

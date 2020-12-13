@@ -9,18 +9,16 @@ var Link = function (_a) {
     var handleMode = function () {
         setInEditMode(!inEditMode);
     };
-    return (react_1["default"].createElement(react_1["default"].Fragment, null, inEditMode ?
-        react_1["default"].createElement(EditLink_1["default"], { handleMode: handleMode, link: link, handleLinks: handleLinks }) :
-        react_1["default"].createElement(react_1["default"].Fragment, null,
-            react_1["default"].createElement("p", null,
-                react_1["default"].createElement("strong", null, "Site Name: "),
-                link.site_name),
-            react_1["default"].createElement("p", null,
-                react_1["default"].createElement("strong", null, "Url: "),
-                link.url),
-            react_1["default"].createElement("button", { onClick: handleMode }, "Edit"),
-            react_1["default"].createElement(DeleteLink_1["default"], { link: link, handleLinks: handleLinks }),
-            react_1["default"].createElement("br", null),
-            react_1["default"].createElement("br", null))));
+    return (react_1["default"].createElement(react_1["default"].Fragment, null, inEditMode ? (react_1["default"].createElement(EditLink_1["default"], { handleMode: handleMode, link: link, handleLinks: handleLinks })) : (react_1["default"].createElement(react_1["default"].Fragment, null,
+        react_1["default"].createElement("p", null,
+            react_1["default"].createElement("strong", null, "Site Name: "),
+            link.site_name),
+        react_1["default"].createElement("p", null,
+            react_1["default"].createElement("strong", null, "Url: "),
+            link.url),
+        react_1["default"].createElement("button", { onClick: handleMode }, "Edit"),
+        react_1["default"].createElement(DeleteLink_1["default"], { link: link, handleLinks: handleLinks }),
+        react_1["default"].createElement("br", null),
+        react_1["default"].createElement("br", null)))));
 };
 exports["default"] = Link;

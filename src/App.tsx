@@ -12,22 +12,20 @@ const App:FC = () => {
     <div>
       <h1>Welcome to atucasa.com</h1>
       {
-        currentUser 
-        ?
-          <>
-            <SignOut />
-            {
-              currentUser.role === "customer" ?
-                <Customer />
-              :
-                <Merchant />
-            }
-          </>
-        :
-          <>
-            <SignUp />
-            <SignIn />
-          </>
+        currentUser ?
+        <>
+          <SignOut />
+          {
+            currentUser.role === "customer" ?
+              <Customer />
+            :
+              <Merchant />
+          }
+        </> :
+        <>
+          <SignUp />
+          <SignIn />
+        </>
       }
     </div>
   );
