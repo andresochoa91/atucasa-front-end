@@ -25,7 +25,7 @@ const Product: FC<TProductProps & TProductsProps> = ({ product, handleProducts }
           <p><strong>Available: </strong>{ product.available ? "yes" : "no" }</p>
           <p><strong>Product_picture: </strong>{ product.product_picture }</p>
           <p><strong>Tax: </strong>{ product.tax }</p>
-          <button onClick={ handleMode }>Edit</button>
+          <button onClick={ () => setInEditMode(!setInEditMode) }>Edit</button>
           <DeleteProduct 
             product={ product } 
             handleProducts={ handleProducts } 

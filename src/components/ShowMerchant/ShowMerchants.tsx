@@ -23,18 +23,16 @@ const ShowMerchants: FC = (): JSX.Element => {
     <>
       <h1>Merchants</h1>
       { 
-        merchants.map((merchant) => {
-          return(
-            <div key={ merchant.merchant_info.user_id }>
-              <h2>{ merchant.merchant_info.merchant_name }</h2>
-              <p><strong>Description</strong>: { merchant.merchant_info.description }</p>
-              <p><strong>Phone Number</strong>: { merchant.merchant_info.phone_number }</p>
-              <ShowMerchant merchant={ merchant } />
-              <br/>
-              <br/>
-            </div>
-          );
-        }) 
+        merchants.map((merchant) => (
+          <div key={ merchant.merchant_info.user_id }>
+            <h2>{ merchant.merchant_info.merchant_name }</h2>
+            <p><strong>Description</strong>: { merchant.merchant_info.description }</p>
+            <p><strong>Phone Number</strong>: { merchant.merchant_info.phone_number }</p>
+            <ShowMerchant merchant={ merchant } />
+            <br/>
+            <br/>
+          </div>
+        )) 
       }
     </>
   );

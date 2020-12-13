@@ -11,12 +11,6 @@ const Customer: FC = (): JSX.Element => {
   const [ currentCustomer, setCurrentCustomer ] = useState<TCurrentCustomer | null>(null);
   const [ showMerchants, setShowMerchants ] = useState<boolean>(false);
 
-
-  const handleShowMerchants = (): void => {
-    setShowMerchants(!showMerchants);
-  };
-
-
   const handleCurrentCustomer = () => {
     fetch(`${process.env.REACT_APP_API}/current_user/customer`, {
       method: "GET",
@@ -41,7 +35,7 @@ const Customer: FC = (): JSX.Element => {
         (currentUser && currentCustomer && location) && (
           <>
             <h1>Customer</h1>
-            <button onClick={ handleShowMerchants } >
+            <button onClick={ () => setShowMerchants(!showMerchants) } >
                 { showMerchants ? "Don't show merchants" : "Show Merchants"}
             </button>
             {
