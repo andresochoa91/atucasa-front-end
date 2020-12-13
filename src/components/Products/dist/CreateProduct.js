@@ -19,10 +19,7 @@ var CreateProduct = function (_a) {
                     setPrice :
                     name === "available" ?
                         setAvailable :
-                        // name === "productPicture" ? 
-                        setProductPicture
-        // setTax 
-        )(value);
+                        setProductPicture)(value);
     };
     var handleAvailable = function (event) {
         event.preventDefault();

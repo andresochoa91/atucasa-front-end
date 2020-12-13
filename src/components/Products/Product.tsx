@@ -13,26 +13,29 @@ const Product: FC<TProductProps & TProductsProps> = ({ product, handleProducts }
   return (
     <>
       {
-        inEditMode ?
-        <>
-          <EditProduct handleMode={ handleMode } product={ product } handleProducts={ handleProducts } />
-        </>
-        :
-        <>
-          <p><strong>Product Name: </strong>{ product.product_name }</p> 
-          <p><strong>Description: </strong>{ product.description }</p>
-          <p><strong>Price: </strong>{ product.price }</p>
-          <p><strong>Available: </strong>{ product.available ? "yes" : "no" }</p>
-          <p><strong>Product_picture: </strong>{ product.product_picture }</p>
-          <p><strong>Tax: </strong>{ product.tax }</p>
-          <button onClick={ () => setInEditMode(!setInEditMode) }>Edit</button>
-          <DeleteProduct 
+        inEditMode ? (
+          <EditProduct
+            handleMode={ handleMode } 
             product={ product } 
             handleProducts={ handleProducts } 
-          />
-          <br/> 
-          <br/> 
-        </>
+          /> 
+        ) : (
+          <>
+            <p><strong>Product Name: </strong>{ product.product_name }</p> 
+            <p><strong>Description: </strong>{ product.description }</p>
+            <p><strong>Price: </strong>{ product.price }</p>
+            <p><strong>Available: </strong>{ product.available ? "yes" : "no" }</p>
+            <p><strong>Product_picture: </strong>{ product.product_picture }</p>
+            <p><strong>Tax: </strong>{ product.tax }</p>
+            <button onClick={ handleMode }>Edit</button>
+            <DeleteProduct 
+              product={ product } 
+              handleProducts={ handleProducts } 
+            />
+            <br/> 
+            <br/> 
+          </>
+        )
       }
     </>
   );

@@ -21,9 +21,7 @@ const DeleteProduct: FC<TProductProps & TProductsProps> = ({ product, handleProd
   };
 
   return (
-    <>
-      <button onClick={ handleDelete }>Delete</button>  
-    </>
+    <button onClick={ handleDelete }>Delete</button>  
   );
 };
 

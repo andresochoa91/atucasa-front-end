@@ -13,20 +13,22 @@ const Link: FC<TLinkProps & TLinksProps> = ({ link, handleLinks }): JSX.Element 
   return (
     <>
       {
-        inEditMode ?
-        <EditLink 
-          handleMode={ handleMode } 
-          link={ link } 
-          handleLinks={ handleLinks } 
-        /> :
-        <>
-          <p><strong>Site Name: </strong>{ link.site_name }</p> 
-          <p><strong>Url: </strong>{ link.url }</p>
-          <button onClick={ handleMode }>Edit</button>
-          <DeleteLink link={ link } handleLinks={ handleLinks } />
-          <br/> 
-          <br/> 
-        </>       
+        inEditMode ? (
+          <EditLink 
+            handleMode={ handleMode } 
+            link={ link } 
+            handleLinks={ handleLinks } 
+          /> 
+        ) : (
+          <>
+            <p><strong>Site Name: </strong>{ link.site_name }</p> 
+            <p><strong>Url: </strong>{ link.url }</p>
+            <button onClick={ handleMode }>Edit</button>
+            <DeleteLink link={ link } handleLinks={ handleLinks } />
+            <br/> 
+            <br/> 
+          </>       
+        )
       }
     </>
   );

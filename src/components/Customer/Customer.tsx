@@ -39,8 +39,7 @@ const Customer: FC = (): JSX.Element => {
                 { showMerchants ? "Don't show merchants" : "Show Merchants"}
             </button>
             {
-              showMerchants &&
-              <ShowMerchants />
+              showMerchants && <ShowMerchants />
             }
             <EditUser />
             <EditCustomer handleCurrentCustomer={handleCurrentCustomer}/>

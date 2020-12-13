@@ -67,7 +67,7 @@ const EditLocation: FC = (): JSX.Element => {
   return (
     <>
       {
-        location && 
+        location && (
           <>
             <h2>Edit Location</h2>
             <form onSubmit={ handleSubmit } >
@@ -127,6 +127,7 @@ const EditLocation: FC = (): JSX.Element => {
             </form>
             <br/>
           </>
+        )
       }
     </>
   );
