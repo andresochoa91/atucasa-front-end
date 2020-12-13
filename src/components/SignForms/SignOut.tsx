@@ -4,7 +4,6 @@ import { AtucasaContext } from '../../Context';
 const SignOut: FC = () => {
   const { setCurrentUser } = useContext<TContextProps>(AtucasaContext);
 
-
   const handleSignOut = (event:React.MouseEvent<HTMLButtonElement>):void => {
     event.preventDefault();
     fetch(`${process.env.REACT_APP_API}/logout`, {

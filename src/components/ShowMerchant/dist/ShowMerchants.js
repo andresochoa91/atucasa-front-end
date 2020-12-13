@@ -19,20 +19,18 @@ var ShowMerchants = function () {
     }, []);
     return (react_1["default"].createElement(react_1["default"].Fragment, null,
         react_1["default"].createElement("h1", null, "Merchants"),
-        merchants.map(function (merchant) {
-            return (react_1["default"].createElement("div", { key: merchant.merchant_info.user_id },
-                react_1["default"].createElement("h2", null, merchant.merchant_info.merchant_name),
-                react_1["default"].createElement("p", null,
-                    react_1["default"].createElement("strong", null, "Description"),
-                    ": ",
-                    merchant.merchant_info.description),
-                react_1["default"].createElement("p", null,
-                    react_1["default"].createElement("strong", null, "Phone Number"),
-                    ": ",
-                    merchant.merchant_info.phone_number),
-                react_1["default"].createElement(ShowMerchant_1["default"], { merchant: merchant }),
-                react_1["default"].createElement("br", null),
-                react_1["default"].createElement("br", null)));
-        })));
+        merchants.map(function (merchant) { return (react_1["default"].createElement("div", { key: merchant.merchant_info.user_id },
+            react_1["default"].createElement("h2", null, merchant.merchant_info.merchant_name),
+            react_1["default"].createElement("p", null,
+                react_1["default"].createElement("strong", null, "Description"),
+                ": ",
+                merchant.merchant_info.description),
+            react_1["default"].createElement("p", null,
+                react_1["default"].createElement("strong", null, "Phone Number"),
+                ": ",
+                merchant.merchant_info.phone_number),
+            react_1["default"].createElement(ShowMerchant_1["default"], { merchant: merchant }),
+            react_1["default"].createElement("br", null),
+            react_1["default"].createElement("br", null))); })));
 };
 exports["default"] = ShowMerchants;

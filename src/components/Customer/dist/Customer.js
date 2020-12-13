@@ -11,9 +11,6 @@ var Customer = function () {
     var _a = react_1.useContext(Context_1.AtucasaContext), currentUser = _a.currentUser, location = _a.location;
     var _b = react_1.useState(null), currentCustomer = _b[0], setCurrentCustomer = _b[1];
     var _c = react_1.useState(false), showMerchants = _c[0], setShowMerchants = _c[1];
-    var handleShowMerchants = function () {
-        setShowMerchants(!showMerchants);
-    };
     var handleCurrentCustomer = function () {
         fetch(process.env.REACT_APP_API + "/current_user/customer", {
             method: "GET",
@@ -31,7 +28,7 @@ var Customer = function () {
     react_1.useEffect(handleCurrentCustomer, []);
     return (react_1["default"].createElement(react_1["default"].Fragment, null, (currentUser && currentCustomer && location) && (react_1["default"].createElement(react_1["default"].Fragment, null,
         react_1["default"].createElement("h1", null, "Customer"),
-        react_1["default"].createElement("button", { onClick: handleShowMerchants }, showMerchants ? "Don't show merchants" : "Show Merchants"),
+        react_1["default"].createElement("button", { onClick: function () { return setShowMerchants(!showMerchants); } }, showMerchants ? "Don't show merchants" : "Show Merchants"),
         showMerchants &&
             react_1["default"].createElement(ShowMerchants_1["default"], null),
         react_1["default"].createElement(EditUser_1["default"], null),

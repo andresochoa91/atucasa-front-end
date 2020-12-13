@@ -8,8 +8,6 @@ const ShowMerchant: FC<IMerchantProps> = ({ merchant }): JSX.Element => {
   const { country, state, city, address } = merchant.location;
   const [ showProducts, setShowProducts ] = useState<boolean>(false);
 
-
-
   return (
     <div key={ merchant.merchant_info.id }>
       <p><strong>Email</strong>: { merchant.email}</p>

@@ -32,7 +32,7 @@ var Product = function (_a) {
                 react_1["default"].createElement("p", null,
                     react_1["default"].createElement("strong", null, "Tax: "),
                     product.tax),
-                react_1["default"].createElement("button", { onClick: handleMode }, "Edit"),
+                react_1["default"].createElement("button", { onClick: function () { return setInEditMode(!setInEditMode); } }, "Edit"),
                 react_1["default"].createElement(DeleteProduct_1["default"], { product: product, handleProducts: handleProducts }),
                 react_1["default"].createElement("br", null),
                 react_1["default"].createElement("br", null))));
