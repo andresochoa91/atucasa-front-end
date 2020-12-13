@@ -31,6 +31,7 @@ var ShowMerchants = function () {
                     ": ",
                     merchant.merchant_info.phone_number),
                 react_1["default"].createElement(ShowMerchant_1["default"], { merchant: merchant }),
+                react_1["default"].createElement("br", null),
                 react_1["default"].createElement("br", null)));
         })));
 };

@@ -31,6 +31,7 @@ const ShowMerchants: FC = (): JSX.Element => {
               <p><strong>Phone Number</strong>: { merchant.merchant_info.phone_number }</p>
               <ShowMerchant merchant={ merchant } />
               <br/>
+              <br/>
             </div>
           );
         }) 
