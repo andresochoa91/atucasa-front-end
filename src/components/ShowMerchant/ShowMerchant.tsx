@@ -1,4 +1,5 @@
 import React, { FC, useState } from 'react';
+import ShowProduct from '../ShowProducts/ShowProduct';
 
 interface IMerchantProps {
   merchant: TShowMerchant
@@ -7,6 +8,12 @@ interface IMerchantProps {
 const ShowMerchant: FC<IMerchantProps> = ({ merchant }): JSX.Element => {
   const { country, state, city, address } = merchant.location;
   const [ showProducts, setShowProducts ] = useState<boolean>(false);
+  const [ cart, setCart ] = useState<Array<TCartProduct>>([{
+    productName: "Papaya",
+    unitPrice: 2,
+    amount: 3,
+    tax: 0.2
+  }]);
 
   return (
     <div key={ merchant.merchant_info.id }>
@@ -32,14 +39,26 @@ const ShowMerchant: FC<IMerchantProps> = ({ merchant }): JSX.Element => {
         showProducts && (
           merchant.products.map((product) => (
             <div key={ product.id }>
-              <p><strong>Product Name</strong>: { product.product_name}</p>
-              <p><strong>Description</strong>: { product.description}</p>
-              <p><strong>Price</strong>: { product.price}</p>
-              <br/>
+              <ShowProduct cart={ cart } setCart={ setCart } product={ product }/>
             </div>
           ))
         )
       }
+      <br/>
+      <h3>Cart:</h3> 
+        { 
+          cart.map(cartProduct => {
+            return (
+              <>
+                <p><strong>Product Name</strong>: { cartProduct.productName }</p>
+                <p><strong>Unit Price</strong>: { cartProduct.unitPrice }</p>
+                <p><strong>Amount</strong>: { cartProduct.amount }</p>
+                <p><strong>Tax</strong>: { cartProduct.tax }</p>
+                <br/>
+              </>
+            );
+          }) 
+        }
     </div>
   );
 };
