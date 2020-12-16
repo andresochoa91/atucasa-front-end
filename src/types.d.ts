@@ -59,6 +59,7 @@ type TProduct = {
   product_name: string,
   description?: string,
   price: number,
+  category?: string,
   available: boolean,
   product_picture?: string,
   tax: number,
@@ -95,3 +96,10 @@ type TProductProps = {
 type THandleMode = {
   handleMode: () => void
 };
+
+type TCartProduct = {
+  productName?: string,
+  unitPrice?: number,
+  amount?: number,
+  tax?: number
+}
