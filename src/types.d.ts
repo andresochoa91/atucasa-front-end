@@ -101,5 +101,6 @@ type TCartProduct = {
   productName?: string,
   unitPrice?: number,
   amount?: number,
-  tax?: number
+  tax?: number,
+  id?: number
 }
