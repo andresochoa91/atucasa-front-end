@@ -3,7 +3,7 @@ import { AtucasaContext } from '../../Context';
 
 const SignIn: FC = (): JSX.Element => {
   const { handleCurrentUser } = useContext<TContextProps>(AtucasaContext);
-  const [ email, setEmail ] = useState<string>("h@v.com");
+  const [ email, setEmail ] = useState<string>("andres_ochoa91@hotmail.com");
   const [ password, setPassword ] = useState<string>("123456789");
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>):void => {
