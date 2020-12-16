@@ -1,12 +1,27 @@
-import React, { FC, useState} from 'react';
+import React, { FC, useState } from 'react';
 import ShowProduct from '../ShowProducts/ShowProduct';
 
-
 interface IProductsProps {
-  products: TProducts
+  products: TProducts,
+  merchantID: number | undefined,
+  currentCustomerID: number | undefined
+};
+
+interface IProductCheckout {
+  id?: number,
+  amount?: number
 }
 
-const ShowProducts: FC<IProductsProps> = ({ products }): JSX.Element => {
+interface ICheckout {
+  customer_id?: number,
+  merchant_id?: number,
+  accepted?: boolean,
+  current_user?: string,
+  delivery_fee?: number,
+  products?: Array<IProductCheckout>
+};
+
+const ShowProducts: FC<IProductsProps> = ({ products, merchantID, currentCustomerID }): JSX.Element => {
 
   const [ cart, setCart ] = useState<Array<TCartProduct>>([]);
 
@@ -14,6 +29,39 @@ const ShowProducts: FC<IProductsProps> = ({ products }): JSX.Element => {
     return Number(cart.reduce((acc, pr) => {
       return acc + ((pr.tax + pr.unitPrice) * pr.amount)
     }, 0).toFixed(2));
+  };
+
+  const handleCheckout = (): void => {
+
+    const checkout: ICheckout = {
+      accepted: true,
+      current_user: "merchant",
+      delivery_fee: 5,
+      products: cart.map(pr => {
+        return {
+          id: pr.id,
+          amount: pr.amount
+        }
+      })
+    };
+
+    if (currentCustomerID) checkout.customer_id = currentCustomerID;
+    if (merchantID) checkout.merchant_id = merchantID;
+
+    fetch(`${process.env.REACT_APP_API}/merchants/${merchantID}/create_order`, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(checkout)
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+      setCart([]);
+    })
+    .catch(console.error);
   };
 
   return (
@@ -58,7 +106,7 @@ const ShowProducts: FC<IProductsProps> = ({ products }): JSX.Element => {
           </tr>
         </tbody>
       </table>
-      <button>Checkout</button>
+      <button onClick={ handleCheckout }>Checkout</button>
     </>   
   );
 };

@@ -20,7 +20,8 @@ type TCurrentCustomer = {
   slug?: string,
   phone_number?: string,
   profile_picture?: string,
-  user_id?: number
+  user_id?: number,
+  id?: number
 };
 
 type TCurrentMerchant = {
