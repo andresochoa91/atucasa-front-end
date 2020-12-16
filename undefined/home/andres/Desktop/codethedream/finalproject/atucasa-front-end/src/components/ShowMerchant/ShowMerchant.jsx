@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import ShowProducts from '../ShowProducts/ShowProducts';
 ;
 var ShowMerchant = function (_a) {
-    var merchant = _a.merchant;
+    var merchant = _a.merchant, currentCustomerID = _a.currentCustomerID;
     var _b = merchant.location, country = _b.country, state = _b.state, city = _b.city, address = _b.address;
     var _c = useState(false), showProducts = _c[0], setShowProducts = _c[1];
     return (<div key={merchant.merchant_info.id}>
@@ -21,9 +21,7 @@ var ShowMerchant = function (_a) {
         {showProducts ? "Do not show products" : "Show products"}
       </button>
 
-      {showProducts && <ShowProducts products={merchant.products}/>}
-
-      
+      {showProducts && (<ShowProducts merchantID={merchant.merchant_info.id} currentCustomerID={currentCustomerID} products={merchant.products}/>)}
     </div>);
 };
 export default ShowMerchant;

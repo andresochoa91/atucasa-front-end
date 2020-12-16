@@ -1,7 +1,11 @@
 import React, { FC, useEffect, useState } from 'react';
 import ShowMerchant from './ShowMerchant';
 
-const ShowMerchants: FC = (): JSX.Element => {
+interface ICurrentCustomerProps {
+  currentCustomer: TCurrentCustomer
+}
+
+const ShowMerchants: FC<ICurrentCustomerProps> = ({ currentCustomer }): JSX.Element => {
 
   const [ merchants, setMerchants ] = useState<Array<TShowMerchant>>([]);
   
@@ -28,7 +32,7 @@ const ShowMerchants: FC = (): JSX.Element => {
             <h2>{ merchant.merchant_info.merchant_name }</h2>
             <p><strong>Description</strong>: { merchant.merchant_info.description }</p>
             <p><strong>Phone Number</strong>: { merchant.merchant_info.phone_number }</p>
-            <ShowMerchant merchant={ merchant } />
+            <ShowMerchant currentCustomerID={ currentCustomer.id } merchant={ merchant } />
             <br/>
             <br/>
           </div>
