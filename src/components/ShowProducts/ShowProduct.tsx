@@ -14,7 +14,8 @@ const ShowProduct: FC<TProductProps & ICartProps> = ({ product, setCart, cart })
       productName: product.product_name,
       unitPrice: product.price,
       amount: amount,
-      tax: product.tax
+      tax: product.tax,
+      id: product.id
     }]);
     setAmount(0);
   };

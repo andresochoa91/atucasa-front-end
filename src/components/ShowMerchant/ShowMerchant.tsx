@@ -1,6 +1,5 @@
 import React, { FC, useState } from 'react';
-import ShowProduct from '../ShowProducts/ShowProduct';
-
+import ShowProducts from '../ShowProducts/ShowProducts';
 interface IMerchantProps {
   merchant: TShowMerchant
 };
@@ -8,12 +7,6 @@ interface IMerchantProps {
 const ShowMerchant: FC<IMerchantProps> = ({ merchant }): JSX.Element => {
   const { country, state, city, address } = merchant.location;
   const [ showProducts, setShowProducts ] = useState<boolean>(false);
-  const [ cart, setCart ] = useState<Array<TCartProduct>>([{
-    productName: "Papaya",
-    unitPrice: 2,
-    amount: 3,
-    tax: 0.2
-  }]);
 
   return (
     <div key={ merchant.merchant_info.id }>
@@ -35,7 +28,12 @@ const ShowMerchant: FC<IMerchantProps> = ({ merchant }): JSX.Element => {
       <button onClick={ () => setShowProducts(!showProducts) }>
         { showProducts ? "Do not show products" : "Show products" }
       </button>
+
       {
+        showProducts && <ShowProducts products={ merchant.products }/>
+      }
+
+      {/* {
         showProducts && (
           merchant.products.map((product) => (
             <div key={ product.id }>
@@ -46,19 +44,19 @@ const ShowMerchant: FC<IMerchantProps> = ({ merchant }): JSX.Element => {
       }
       <br/>
       <h3>Cart:</h3> 
-        { 
-          cart.map(cartProduct => {
-            return (
-              <>
-                <p><strong>Product Name</strong>: { cartProduct.productName }</p>
-                <p><strong>Unit Price</strong>: { cartProduct.unitPrice }</p>
-                <p><strong>Amount</strong>: { cartProduct.amount }</p>
-                <p><strong>Tax</strong>: { cartProduct.tax }</p>
-                <br/>
-              </>
-            );
-          }) 
-        }
+      { 
+        cart.map(cartProduct => {
+          return (
+            <>
+              <p><strong>Product Name</strong>: { cartProduct.productName }</p>
+              <p><strong>Unit Price</strong>: { cartProduct.unitPrice }</p>
+              <p><strong>Amount</strong>: { cartProduct.amount }</p>
+              <p><strong>Tax</strong>: { cartProduct.tax }</p>
+              <br/>
+            </>
+          );
+        }) 
+      } */}
     </div>
   );
 };
