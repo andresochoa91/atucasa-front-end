@@ -20,20 +20,31 @@ const ShowProducts: FC<IProductsProps> = ({ products }): JSX.Element => {
           </div>
         ))
       }
-      <h3>Cart:</h3> 
-      { 
-        cart.map(cartProduct => {
-          return (
-            <div key={ cartProduct.id }>
-              <p><strong>Product Name</strong>: { cartProduct.productName }</p>
-              <p><strong>Unit Price</strong>: { cartProduct.unitPrice }</p>
-              <p><strong>Amount</strong>: { cartProduct.amount }</p>
-              <p><strong>Tax</strong>: { cartProduct.tax }</p>
-              <br/>
-            </div>
-          );
-        }) 
-      }
+      <h3>Cart:</h3>
+      <table style={{ textAlign: "center" }}>
+        <thead>
+          <tr>
+            <th>Product name</th>
+            <th>Unit Price</th>
+            <th>Amount</th>
+            <th>Tax</th>
+            <th>Semi Total</th>
+          </tr>
+        </thead>
+        <tbody>
+        { 
+          cart.map((cartProduct, cID) => (
+            <tr key={ cID }>
+              <td>{ cartProduct.productName }</td>
+              <td>{ cartProduct.unitPrice }</td>
+              <td>{ cartProduct.amount }</td>
+              <td>{ cartProduct.tax }</td>
+              <td>{ ((cartProduct.tax + cartProduct.unitPrice) * cartProduct.amount).toFixed(2) }</td>
+            </tr>
+          )) 
+        }
+        </tbody>
+      </table>
     </>   
   );
 };

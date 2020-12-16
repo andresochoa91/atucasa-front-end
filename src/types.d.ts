@@ -98,9 +98,9 @@ type THandleMode = {
 };
 
 type TCartProduct = {
-  productName?: string,
-  unitPrice?: number,
-  amount?: number,
-  tax?: number,
-  id?: number
+  productName: string,
+  unitPrice: number,
+  amount: number,
+  tax: number,
+  id: number
 }
