@@ -6,9 +6,11 @@ import EditLocation from'../Location/EditLocation';
 import Location from '../Location/Location';
 import Links from '../Links/Links';
 import Products from '../Products/Products';
+import Orders from '../Orders/Orders';
 
 const Merchant: FC = (): JSX.Element => {
   const { currentUser, location } = useContext<TContextProps>(AtucasaContext);
+  const [ showOrder, setShowOrder ] = useState<boolean>(false);
   const [ currentMerchant, setCurrentMerchant ] = useState<TCurrentMerchant | null>(null);
 
   const handleCurrentMerchant = () => {
@@ -35,6 +37,12 @@ const Merchant: FC = (): JSX.Element => {
         (currentUser && currentMerchant && location) && (
           <>
             <h1>Merchant</h1>
+            <button onClick={ () => setShowOrder(!showOrder) }>Show Orders</button>
+            {
+              showOrder && (
+                <Orders />
+              )
+            }
             <EditUser />
             <EditMerchant handleCurrentMerchant={ handleCurrentMerchant }/>
             <EditLocation />

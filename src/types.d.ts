@@ -104,4 +104,26 @@ type TCartProduct = {
   amount: number,
   tax: number,
   id: number
-}
+};
+
+type TProductOrder = {
+  id: number,
+  order_id: number,
+  product_id: number,
+  product_name: string,
+  price: number,
+  tax: number,
+  amount: number
+};
+
+type TOrder = {
+  id: number,
+  customer_id: number,
+  merchant_id: number,
+  delivery_fee: number,
+  tip: number,
+  accepted: boolean,
+  products_order: Array<TProductOrder>
+};
+
+type TOrders = Array<TOrder>;
