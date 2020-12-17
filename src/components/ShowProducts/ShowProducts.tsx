@@ -106,7 +106,33 @@ const ShowProducts: FC<IProductsProps> = ({ products, merchantID, currentCustome
               <tr key={ cID }>
                 <td>{ cartProduct.productName }</td>
                 <td>${ cartProduct.unitPrice }</td>
-                <td>{ cartProduct.amount }</td>
+                <td>
+                  <button
+                    onClick={ () => setCart(cart.map((pr, id) => {
+                      if (id === cID && pr.amount > 0) {
+                        pr.amount--
+                        return pr;
+                      } else {
+                        return pr;
+                      }
+                    })) }
+                  >
+                    -
+                  </button>
+                    { cartProduct.amount }
+                    <button
+                    onClick={ () => setCart(cart.map((pr, id) => {
+                      if (id === cID && pr.amount < 20) {
+                        pr.amount++
+                        return pr;
+                      } else {
+                        return pr;
+                      }
+                    })) }
+                  >
+                    +
+                  </button>
+                </td>
                 <td>${ cartProduct.tax.toFixed(2) }</td>
                 <td>${ ((cartProduct.tax + cartProduct.unitPrice) * cartProduct.amount).toFixed(2) }</td>
                 <td>
