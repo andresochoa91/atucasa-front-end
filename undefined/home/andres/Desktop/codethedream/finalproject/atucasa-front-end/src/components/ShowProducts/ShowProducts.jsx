@@ -71,7 +71,31 @@ var ShowProducts = function (_a) {
           {cart.map(function (cartProduct, cID) { return (<tr key={cID}>
                 <td>{cartProduct.productName}</td>
                 <td>${cartProduct.unitPrice}</td>
-                <td>{cartProduct.amount}</td>
+                <td>
+                  <button onClick={function () { return setCart(cart.map(function (pr, id) {
+        if (id === cID && pr.amount > 0) {
+            pr.amount--;
+            return pr;
+        }
+        else {
+            return pr;
+        }
+    })); }}>
+                    -
+                  </button>
+                    {cartProduct.amount}
+                    <button onClick={function () { return setCart(cart.map(function (pr, id) {
+        if (id === cID && pr.amount < 20) {
+            pr.amount++;
+            return pr;
+        }
+        else {
+            return pr;
+        }
+    })); }}>
+                    +
+                  </button>
+                </td>
                 <td>${cartProduct.tax.toFixed(2)}</td>
                 <td>${((cartProduct.tax + cartProduct.unitPrice) * cartProduct.amount).toFixed(2)}</td>
                 <td>
