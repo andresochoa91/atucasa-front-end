@@ -29,7 +29,8 @@ const ShowMerchant: FC<IMerchantProps> = ({ merchant, currentCustomerID }): JSX.
       <button onClick={ () => setShowProducts(!showProducts) }>
         { showProducts ? "Do not show products" : "Show products" }
       </button>
-
+      <br/>
+      <br/>
       {
         showProducts && (
           <ShowProducts 
