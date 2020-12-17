@@ -25,6 +25,7 @@ var ShowProduct = function (_a) {
         }
     };
     return (<>
+      {((cart.filter(function (pr) { return pr.id === product.id; })).length) ? (<p style={{ color: "#0a0" }}><strong>Product in Cart</strong></p>) : <></>}
       <p><strong>Product Name</strong>: {product.product_name}</p>
       <p><strong>Description</strong>: {product.description}</p>
       <p><strong>Unit Price</strong>: {product.price}</p>

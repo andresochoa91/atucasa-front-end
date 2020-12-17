@@ -20,7 +20,8 @@ var ShowMerchant = function (_a) {
       <button onClick={function () { return setShowProducts(!showProducts); }}>
         {showProducts ? "Do not show products" : "Show products"}
       </button>
-
+      <br />
+      <br />
       {showProducts && (<ShowProducts merchantID={merchant.merchant_info.id} currentCustomerID={currentCustomerID} products={merchant.products}/>)}
     </div>);
 };

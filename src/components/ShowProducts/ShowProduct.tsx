@@ -1,8 +1,8 @@
 import React, { FC, useState } from 'react';
 
 interface ICartProps {
-  setCart: React.Dispatch<React.SetStateAction<TCartProduct[]>>,
-  cart: TCartProduct[]
+  setCart: React.Dispatch<React.SetStateAction<Array<TCartProduct>>>,
+  cart: Array<TCartProduct>
 }
 
 const ShowProduct: FC<TProductProps & ICartProps> = ({ product, setCart, cart }): JSX.Element => {
@@ -26,6 +26,11 @@ const ShowProduct: FC<TProductProps & ICartProps> = ({ product, setCart, cart })
 
   return (
     <>
+      {
+        ((cart.filter(pr => pr.id === product.id)).length) ?  (
+          <p style={{color: "#0a0"}}><strong>Product in Cart</strong></p>
+        ) : <></>
+      }
       <p><strong>Product Name</strong>: { product.product_name }</p>
       <p><strong>Description</strong>: { product.description }</p>
       <p><strong>Unit Price</strong>: { product.price }</p>
