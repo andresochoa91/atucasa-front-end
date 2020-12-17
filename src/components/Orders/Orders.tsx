@@ -79,39 +79,8 @@ const Orders: FC = (): JSX.Element => {
               </tbody>
             </table>
             <br/>
-            <br/>
-            {/* <p><strong>Delivery Fee: </strong>{order.delivery_fee}</p>
-            <p><strong>Tip: </strong>{order.tip}</p> */}
           </>
         ))
-      }
-      {
-        // orders.map(order => (
-        //   {      
-        //     order.products_order.map(productOrder => (
-        //       <table style={{ textAlign: "center" }}>
-        //         <thead>
-        //           <tr>
-        //             <th>Product name</th>
-        //             <th>Unit Price</th>
-        //             <th>Amount</th>
-        //             <th>Unit Tax</th>
-        //             <th>Semi Total</th>
-        //           </tr>
-        //         </thead>
-        //         <tbody>
-        //           <tr>
-        //             <td></td>
-        //             <td></td>
-        //             <td></td>
-        //             <td></td>
-        //             <td></td>
-        //           </tr>
-        //         </tbody>
-        //       </table>
-        //     ))
-        //   }
-        // ))
       }
     </>
   );
