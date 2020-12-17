@@ -73,10 +73,7 @@ var Orders = function () {
               </tbody>
             </table>
             <br />
-            <br />
-            
           </>); })}
-      
     </>);
 };
 export default Orders;
