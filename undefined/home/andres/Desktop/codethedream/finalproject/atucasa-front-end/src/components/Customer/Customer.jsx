@@ -30,7 +30,9 @@ var Customer = function () {
     return (<>
       {(currentUser && currentCustomer && location) && (<>
             <h1>Customer</h1>
-            <button onClick={function () { return setShowOrder(!showOrder); }}>Show Orders</button>
+            <button onClick={function () { return setShowOrder(!showOrder); }}>
+              {!showOrder ? "Show Orders" : "Do Not Show Orders"}
+            </button>
             {showOrder && (<Orders />)}
             <br />
             <br />

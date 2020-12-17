@@ -25,7 +25,7 @@ const Orders: FC = (): JSX.Element => {
       <h2>Orders</h2>
       {
         orders.map(order => (
-          <>
+          <div key={ order.id }>
             <h3>Order #{ order.id }</h3>
             <table style={{ textAlign: "center" }}>
               <thead>
@@ -40,7 +40,7 @@ const Orders: FC = (): JSX.Element => {
               <tbody>
                 {
                   order.products_order.map(product => (                  
-                    <tr>
+                    <tr key={ product.id }>
                       <td>{ product.product_name }</td>
                       <td>{ product.price }</td>
                       <td>{ product.amount }</td>
@@ -79,7 +79,7 @@ const Orders: FC = (): JSX.Element => {
               </tbody>
             </table>
             <br/>
-          </>
+          </div>
         ))
       }
     </>

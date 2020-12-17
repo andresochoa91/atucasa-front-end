@@ -74,6 +74,11 @@ var ShowProducts = function (_a) {
                 <td>{cartProduct.amount}</td>
                 <td>${cartProduct.tax.toFixed(2)}</td>
                 <td>${((cartProduct.tax + cartProduct.unitPrice) * cartProduct.amount).toFixed(2)}</td>
+                <td>
+                  <button onClick={function () { return setCart(cart.filter(function (pr, id) { return id !== cID; })); }}>
+                    X
+                  </button>
+                </td>
               </tr>); })}
           <tr>
             <td></td>
