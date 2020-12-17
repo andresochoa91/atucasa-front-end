@@ -79,6 +79,21 @@ const ShowProducts: FC<IProductsProps> = ({ products, merchantID, currentCustome
     .catch(console.error);
   };
 
+  const handleAmount = (sign: string, cID: number):void => {
+    setCart(cart.map((pr, id) => {
+      if (sign === "-") {
+        if (id === cID && pr.amount > 0) {
+          pr.amount--;
+        }
+      } else if (sign === "+") {
+        if (id === cID && pr.amount < 20) {
+          pr.amount++;
+        }
+      }
+      return pr
+    }));
+  }
+
   return (
     <>
       {
@@ -107,31 +122,9 @@ const ShowProducts: FC<IProductsProps> = ({ products, merchantID, currentCustome
                 <td>{ cartProduct.productName }</td>
                 <td>${ cartProduct.unitPrice }</td>
                 <td>
-                  <button
-                    onClick={ () => setCart(cart.map((pr, id) => {
-                      if (id === cID && pr.amount > 0) {
-                        pr.amount--
-                        return pr;
-                      } else {
-                        return pr;
-                      }
-                    })) }
-                  >
-                    -
-                  </button>
-                    { cartProduct.amount }
-                    <button
-                    onClick={ () => setCart(cart.map((pr, id) => {
-                      if (id === cID && pr.amount < 20) {
-                        pr.amount++
-                        return pr;
-                      } else {
-                        return pr;
-                      }
-                    })) }
-                  >
-                    +
-                  </button>
+                  <button onClick={ () => handleAmount("-", cID) }>-</button>
+                  { cartProduct.amount }
+                  <button onClick={ () => handleAmount("+", cID) }>+</button>
                 </td>
                 <td>${ cartProduct.tax.toFixed(2) }</td>
                 <td>${ ((cartProduct.tax + cartProduct.unitPrice) * cartProduct.amount).toFixed(2) }</td>

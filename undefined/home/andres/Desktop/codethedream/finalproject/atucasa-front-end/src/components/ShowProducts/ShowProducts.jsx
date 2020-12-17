@@ -51,6 +51,21 @@ var ShowProducts = function (_a) {
         })
             .catch(console.error);
     };
+    var handleAmount = function (sign, cID) {
+        setCart(cart.map(function (pr, id) {
+            if (sign === "-") {
+                if (id === cID && pr.amount > 0) {
+                    pr.amount--;
+                }
+            }
+            else if (sign === "+") {
+                if (id === cID && pr.amount < 20) {
+                    pr.amount++;
+                }
+            }
+            return pr;
+        }));
+    };
     return (<>
       {products.map(function (product) { return (<div key={product.id}>
             <ShowProduct cart={cart} setCart={setCart} product={product}/>
@@ -72,29 +87,9 @@ var ShowProducts = function (_a) {
                 <td>{cartProduct.productName}</td>
                 <td>${cartProduct.unitPrice}</td>
                 <td>
-                  <button onClick={function () { return setCart(cart.map(function (pr, id) {
-        if (id === cID && pr.amount > 0) {
-            pr.amount--;
-            return pr;
-        }
-        else {
-            return pr;
-        }
-    })); }}>
-                    -
-                  </button>
-                    {cartProduct.amount}
-                    <button onClick={function () { return setCart(cart.map(function (pr, id) {
-        if (id === cID && pr.amount < 20) {
-            pr.amount++;
-            return pr;
-        }
-        else {
-            return pr;
-        }
-    })); }}>
-                    +
-                  </button>
+                  <button onClick={function () { return handleAmount("-", cID); }}>-</button>
+                  {cartProduct.amount}
+                  <button onClick={function () { return handleAmount("+", cID); }}>+</button>
                 </td>
                 <td>${cartProduct.tax.toFixed(2)}</td>
                 <td>${((cartProduct.tax + cartProduct.unitPrice) * cartProduct.amount).toFixed(2)}</td>
