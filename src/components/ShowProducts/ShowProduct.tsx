@@ -7,17 +7,21 @@ interface ICartProps {
 
 const ShowProduct: FC<TProductProps & ICartProps> = ({ product, setCart, cart }): JSX.Element => {
 
-  const [ amount, setAmount ] = useState<number>(0);
+  const [ amount, setAmount ] = useState<number>(1);
 
   const handleCart = (): void => {
-    setCart([...cart, {
-      productName: product.product_name,
-      unitPrice: product.price,
-      amount: amount,
-      tax: product.tax,
-      id: product.id
-    }]);
-    setAmount(0);
+    if (!((cart.filter(pr => pr.id === product.id)).length)) {
+      setCart([...cart, {
+        productName: product.product_name,
+        unitPrice: product.price,
+        amount: amount,
+        tax: product.tax,
+        id: product.id
+      }]);
+      setAmount(1);
+    } else {
+      console.log("Product already in the cart");
+    }
   };
 
   return (
@@ -27,7 +31,7 @@ const ShowProduct: FC<TProductProps & ICartProps> = ({ product, setCart, cart })
       <p><strong>Unit Price</strong>: { product.price }</p>
       <p><strong>Category</strong>: { product.category }</p>
       <p><strong>Amount</strong>:
-        <button onClick={ () => (amount > 0) ? setAmount(amount - 1) : amount }>-</button>
+        <button onClick={ () => (amount > 1) ? setAmount(amount - 1) : amount }>-</button>
           { amount }
         <button onClick={ () => (amount < 20) ? setAmount(amount + 1) : amount }>+</button>
       </p>

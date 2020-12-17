@@ -40,24 +40,24 @@ var Orders = function () {
               <tbody>
                 {order.products_order.map(function (product) { return (<tr key={product.id}>
                       <td>{product.product_name}</td>
-                      <td>{product.price}</td>
+                      <td>${(product.price).toFixed(2)}</td>
                       <td>{product.amount}</td>
-                      <td>{product.tax}</td>
-                      <td>{Number(((product.price + product.tax) * product.amount).toFixed(2))}</td>
+                      <td>${(product.tax).toFixed(2)}</td>
+                      <td>${Number(((product.price + product.tax) * product.amount).toFixed(2))}</td>
                     </tr>); })}
                 <tr>
                   <td></td>
                   <td></td>
                   <td></td>
                   <td><strong>Tip</strong></td>
-                  <td>{order.tip}</td>
+                  <td>${order.tip}</td>
                 </tr>
                 <tr>
                   <td></td>
                   <td></td>
                   <td></td>
                   <td><strong>Delivery Fee</strong></td>
-                  <td>{order.delivery_fee}</td>
+                  <td>${order.delivery_fee}</td>
                 </tr>
                 <tr>
                   <td></td>
@@ -65,9 +65,9 @@ var Orders = function () {
                   <td></td>
                   <td><strong>Total</strong></td>
                   <td>
-                    {Number((order.products_order.reduce(function (acc, pr) {
+                    ${(order.products_order.reduce(function (acc, pr) {
         return (acc + ((pr.price + pr.tax) * pr.amount));
-    }, 0) + order.tip + order.delivery_fee).toFixed(2))}
+    }, 0) + order.tip + order.delivery_fee).toFixed(2)}
                   </td>
                 </tr>
               </tbody>

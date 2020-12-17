@@ -8,16 +8,21 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
 import React, { useState } from 'react';
 var ShowProduct = function (_a) {
     var product = _a.product, setCart = _a.setCart, cart = _a.cart;
-    var _b = useState(0), amount = _b[0], setAmount = _b[1];
+    var _b = useState(1), amount = _b[0], setAmount = _b[1];
     var handleCart = function () {
-        setCart(__spreadArrays(cart, [{
-                productName: product.product_name,
-                unitPrice: product.price,
-                amount: amount,
-                tax: product.tax,
-                id: product.id
-            }]));
-        setAmount(0);
+        if (!((cart.filter(function (pr) { return pr.id === product.id; })).length)) {
+            setCart(__spreadArrays(cart, [{
+                    productName: product.product_name,
+                    unitPrice: product.price,
+                    amount: amount,
+                    tax: product.tax,
+                    id: product.id
+                }]));
+            setAmount(1);
+        }
+        else {
+            console.log("Product already in the cart");
+        }
     };
     return (<>
       <p><strong>Product Name</strong>: {product.product_name}</p>
@@ -25,7 +30,7 @@ var ShowProduct = function (_a) {
       <p><strong>Unit Price</strong>: {product.price}</p>
       <p><strong>Category</strong>: {product.category}</p>
       <p><strong>Amount</strong>:
-        <button onClick={function () { return (amount > 0) ? setAmount(amount - 1) : amount; }}>-</button>
+        <button onClick={function () { return (amount > 1) ? setAmount(amount - 1) : amount; }}>-</button>
           {amount}
         <button onClick={function () { return (amount < 20) ? setAmount(amount + 1) : amount; }}>+</button>
       </p>
