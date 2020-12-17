@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import ShowProduct from '../ShowProducts/ShowProduct';
 
 interface IProductsProps {
@@ -16,6 +16,7 @@ interface ICheckout {
   customer_id?: number,
   merchant_id?: number,
   accepted?: boolean,
+  tip?: number,
   current_user?: string,
   delivery_fee?: number,
   products?: Array<IProductCheckout>
@@ -24,18 +25,31 @@ interface ICheckout {
 const ShowProducts: FC<IProductsProps> = ({ products, merchantID, currentCustomerID }): JSX.Element => {
 
   const [ cart, setCart ] = useState<Array<TCartProduct>>([]);
+  const [ tip, setTip ] = useState<string>("");
+  const [ total, setTotal ] = useState<number>(0);
 
-  const total = (): number => {
-    return Number(cart.reduce((acc, pr) => {
-      return acc + ((pr.tax + pr.unitPrice) * pr.amount)
-    }, 0).toFixed(2));
+  const handleTip = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    setTip(event.target.value);
   };
+
+  const handleSuggestedTip = (): void => {
+    setTip((total * 0.15).toFixed(2));
+  };
+
+  useEffect(() => {
+    setTotal(
+      cart.reduce((acc, pr) => {
+        return acc + ((pr.tax + pr.unitPrice) * pr.amount)
+      }, 0)
+    );
+  }, [cart, tip]);
 
   const handleCheckout = (): void => {
 
     const checkout: ICheckout = {
       accepted: true,
       current_user: "merchant",
+      tip: Number(tip),
       delivery_fee: 5,
       products: cart.map(pr => {
         return {
@@ -60,6 +74,7 @@ const ShowProducts: FC<IProductsProps> = ({ products, merchantID, currentCustome
     .then(data => {
       console.log(data);
       setCart([]);
+      setTip("");
     })
     .catch(console.error);
   };
@@ -90,10 +105,10 @@ const ShowProducts: FC<IProductsProps> = ({ products, merchantID, currentCustome
             cart.map((cartProduct, cID) => (
               <tr key={ cID }>
                 <td>{ cartProduct.productName }</td>
-                <td>{ cartProduct.unitPrice }</td>
+                <td>${ cartProduct.unitPrice }</td>
                 <td>{ cartProduct.amount }</td>
-                <td>{ cartProduct.tax }</td>
-                <td>{ ((cartProduct.tax + cartProduct.unitPrice) * cartProduct.amount).toFixed(2) }</td>
+                <td>${ cartProduct.tax.toFixed(2) }</td>
+                <td>${ ((cartProduct.tax + cartProduct.unitPrice) * cartProduct.amount).toFixed(2) }</td>
               </tr>
             )) 
           }
@@ -101,8 +116,30 @@ const ShowProducts: FC<IProductsProps> = ({ products, merchantID, currentCustome
             <td></td>
             <td></td>
             <td></td>
+            <td><strong>Tip</strong></td>
+            <td>
+              $<input 
+                type="text"
+                value={ tip }
+                placeholder={ `Suggested: ${(total * 0.15).toFixed(2)}` }
+                onChange={ handleTip }
+              />
+            </td>
+            <td><button onClick={ handleSuggestedTip }>Apply suggested tip</button></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><strong>Delivery Fee</strong></td>
+            <td>$5</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
             <td><strong>Total</strong></td>
-            <td><strong>{ total() }</strong></td>
+            <td><strong>${ (total + Number(tip) + 5).toFixed(2) }</strong></td>
           </tr>
         </tbody>
       </table>
