@@ -79,7 +79,7 @@ const Cart: FC<IProductsProps> = ({ currentCustomerID, merchantID, cart, setCart
   const handleAmount = (sign: string, cID: number):void => {
     setCart(cart.map((pr, id) => {
       if (sign === "-") {
-        if (id === cID && pr.amount > 0) {
+        if (id === cID && pr.amount > 1) {
           pr.amount--;
         }
       } else if (sign === "+") {

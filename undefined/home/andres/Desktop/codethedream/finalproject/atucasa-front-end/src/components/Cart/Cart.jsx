@@ -53,7 +53,7 @@ var Cart = function (_a) {
     var handleAmount = function (sign, cID) {
         setCart(cart.map(function (pr, id) {
             if (sign === "-") {
-                if (id === cID && pr.amount > 0) {
+                if (id === cID && pr.amount > 1) {
                     pr.amount--;
                 }
             }
