@@ -25,7 +25,7 @@ var Orders = function () {
     }, []);
     return (<>
       <h2>Orders</h2>
-      {orders.map(function (order) { return (<>
+      {orders.map(function (order) { return (<div key={order.id}>
             <h3>Order #{order.id}</h3>
             <table style={{ textAlign: "center" }}>
               <thead>
@@ -38,7 +38,7 @@ var Orders = function () {
                 </tr>
               </thead>          
               <tbody>
-                {order.products_order.map(function (product) { return (<tr>
+                {order.products_order.map(function (product) { return (<tr key={product.id}>
                       <td>{product.product_name}</td>
                       <td>{product.price}</td>
                       <td>{product.amount}</td>
@@ -73,7 +73,7 @@ var Orders = function () {
               </tbody>
             </table>
             <br />
-          </>); })}
+          </div>); })}
     </>);
 };
 export default Orders;
