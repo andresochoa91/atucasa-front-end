@@ -1,4 +1,4 @@
-import React, { FC, useContext } from 'react';
+import React, { FC, useContext, useEffect, useState } from 'react';
 import { AtucasaContext } from '../../Context';
 
 interface IOrderProps {
@@ -7,8 +7,8 @@ interface IOrderProps {
 
 const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
 
-  const { currentUser } = useContext<TContextProps>(AtucasaContext)
-
+  const { currentUser } = useContext<TContextProps>(AtucasaContext);
+  const [ currentRole, setCurrentRole ] = useState<string>(order.current_user);
 
   const handleRole = (role:string, id:number): void => {
     fetch(`${process.env.REACT_APP_API}/current_user/orders/${id}`, {
@@ -21,6 +21,11 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
         current_user: role === "merchant" ? "customer" : "merchant"
       })
     })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+      setCurrentRole(data.order.current_user);
+    });
   };
 
   return (
@@ -78,21 +83,21 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
         </tbody>
       </table>
       {
-        currentUser?.role === "customer" && order.current_user === "customer" && !order.accepted ? (
+        currentUser?.role === "customer" && currentRole === "customer" && !order.accepted ? (
           <>
             <p>If you accept the changes, press confirm order, if not, press Cancel Order</p>
             <button>Confirm order</button>
             <button>Calcel order</button>
           </>
-        ) : currentUser?.role === "customer" && order.current_user === "merchant" && !order.accepted ? (
+        ) : currentUser?.role === "customer" && currentRole === "merchant" && !order.accepted ? (
           <p>Waiting for the merchant to confirm your order.</p>
-        ) : currentUser?.role === "merchant" && order.current_user === "merchant" && !order.accepted ? (
+        ) : currentUser?.role === "merchant" && currentRole === "merchant" && !order.accepted ? (
           <>
             <p>If you have all the products, press confirm order, if not, press Suggest Changes.</p>
             <button>Confirm order</button>
-            <button onClick={ () => handleRole(order.current_user, order.id) } >Suggest changes</button>
+            <button onClick={ () => handleRole(currentRole, order.id) } >Suggest changes</button>
           </>
-        ) : currentUser?.role === "merchant" && order.current_user === "customer" && !order.accepted ? (
+        ) : currentUser?.role === "merchant" && currentRole === "customer" && !order.accepted ? (
           <p>Waiting for the customer to confirm your order.</p>
         ) : (
           <p style={{color: "#0a0"}}>Order accepted</p>
