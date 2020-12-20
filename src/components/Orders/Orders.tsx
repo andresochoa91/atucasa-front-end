@@ -1,6 +1,9 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useContext, useEffect, useState } from 'react';
+import { AtucasaContext } from '../../Context';
 
 const Orders: FC = (): JSX.Element => {
+
+  const { currentUser } = useContext<TContextProps>(AtucasaContext)
 
   const [ orders, setOrders ] = useState<TOrders>([]);
 
@@ -78,6 +81,27 @@ const Orders: FC = (): JSX.Element => {
                 </tr>
               </tbody>
             </table>
+            {
+              currentUser?.role === "customer" && order.current_user === "customer" && !order.accepted ? (
+                <>
+                  <p>If you accept the changes, press confirm order, if not, press Cancel Order</p>
+                  <button>Confirm order</button>
+                  <button>Calcel order</button>
+                </>
+              ) : currentUser?.role === "customer" && order.current_user === "merchant" && !order.accepted ? (
+                <p>Waiting for the merchant to confirm your order.</p>
+              ) : currentUser?.role === "merchant" && order.current_user === "merchant" && !order.accepted ? (
+                <>
+                  <p>If you have all the products, press confirm order, if not, press Suggest Changes.</p>
+                  <button>Confirm order</button>
+                  <button>Suggest changes</button>
+                </>
+              ) : currentUser?.role === "merchant" && order.current_user === "customer" && !order.accepted ? (
+                <p>Waiting for the customer to confirm your order.</p>
+              ) : (
+                <p style={{color: "#0a0"}}>Order accepted</p>
+              )
+            }
             <br/>
           </div>
         ))

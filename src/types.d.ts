@@ -123,6 +123,7 @@ type TOrder = {
   delivery_fee: number,
   tip: number,
   accepted: boolean,
+  current_user: string,
   products_order: Array<TProductOrder>
 };
 
