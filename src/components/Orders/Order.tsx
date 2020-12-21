@@ -9,7 +9,7 @@ interface IOrderProps {
 const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
 
   const { currentUser } = useContext<TContextProps>(AtucasaContext);
-  const [ orderStatus, setOrderStatus ] = useState<boolean>(order.accepted);
+  const [ orderAccepted, setOrderAccepted ] = useState<boolean>(order.accepted);
   const [ orderCanceled, setOrderCanceled ] = useState<boolean>(order.canceled);
   const [ currentRole, setCurrentRole ] = useState<string>(order.current_user);
 
@@ -45,7 +45,7 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
         setCurrentRole(data.order.current_user);
         console.log(data);
       } else if (field === "accepted") {
-        setOrderStatus(true);
+        setOrderAccepted(true);
       } else if (field === "canceled") {
         setOrderCanceled(true);
       }
@@ -73,62 +73,72 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
                 currentUser={ currentUser }
                 currentRole={ currentRole }
                 product={ product }
+                orderAccepted={ orderAccepted }
+                orderCanceled={ orderCanceled }
                 key={ product.id } 
               />                         
             ))
           }
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td><strong>Tip</strong></td>
-            <td>${ order.tip }</td>
-          </tr>
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td><strong>Delivery Fee</strong></td>
-            <td>${ order.delivery_fee }</td>
-          </tr>
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td><strong>Total</strong></td>
-            <td>
-              ${ 
-                (order.products_order.reduce((acc, pr) => {
-                  return (acc + ((pr.price + pr.tax) * pr.amount));
-                }, 0) + order.tip + order.delivery_fee).toFixed(2)
-              }
-            </td>
-          </tr>
+          {
+            currentUser?.role === "customer" && (
+              <>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td><strong>Tip</strong></td>
+                  <td>${ order.tip }</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td><strong>Delivery Fee</strong></td>
+                  <td>${ order.delivery_fee }</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td><strong>Total</strong></td>
+                  <td>
+                    ${ 
+                      (order.products_order.reduce((acc, pr) => {
+                        return (acc + ((pr.price + pr.tax) * pr.amount));
+                      }, 0) + order.tip + order.delivery_fee).toFixed(2)
+                    }
+                  </td>
+                </tr>
+              </>
+            )
+          }
         </tbody>
       </table>
       {
-        !orderCanceled && currentUser?.role === "customer" && currentRole === "customer" && !orderStatus ? (
+        !orderCanceled && currentUser?.role === "customer" && currentRole === "customer" && !orderAccepted ? (
           <>
             <p>If you accept the changes, press confirm order, if not, press Cancel Order</p>
             <button onClick={ () => handleUpdate(order.id, "accepted") }>Confirm order</button>
             <button onClick={ () => handleUpdate(order.id, "canceled") }>Cancel order</button>
           </>
-        ) : !orderCanceled && currentUser?.role === "customer" && currentRole === "merchant" && !orderStatus ? (
+        ) : !orderCanceled && currentUser?.role === "customer" && currentRole === "merchant" && !orderAccepted ? (
           <p>Waiting for the merchant to confirm your order.</p>
-        ) : !orderCanceled && currentUser?.role === "merchant" && currentRole === "merchant" && !orderStatus ? (
+        ) : !orderCanceled && currentUser?.role === "merchant" && currentRole === "merchant" && !orderAccepted ? (
           <>
             <p>If you have all the products, press confirm order, if not, press Suggest Changes.</p>
             <button onClick={ () => handleUpdate(order.id, "accepted") }>Confirm order</button>
             <button onClick={ () => handleUpdate(order.id, "role") } >Suggest changes</button>
           </>
-        ) : !orderCanceled && currentUser?.role === "merchant" && currentRole === "customer" && !orderStatus ? (
+        ) : !orderCanceled && currentUser?.role === "merchant" && currentRole === "customer" && !orderAccepted ? (
           <p>Waiting for the customer to confirm your order.</p>
-        ) : !orderCanceled && orderStatus ? (
+        ) : !orderCanceled && orderAccepted ? (
           <p style={{color: "#0a0"}}>Order accepted</p>
         ) : (
           <p style={{color: "#f00"}}>Order canceled</p>
         )
       }
+      <br/>
+      <br/>
       <br/>
     </div>
   );
