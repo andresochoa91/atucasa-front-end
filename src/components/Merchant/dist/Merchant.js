@@ -8,9 +8,11 @@ var EditLocation_1 = require("../Location/EditLocation");
 var Location_1 = require("../Location/Location");
 var Links_1 = require("../Links/Links");
 var Products_1 = require("../Products/Products");
+var Orders_1 = require("../Orders/Orders");
 var Merchant = function () {
     var _a = react_1.useContext(Context_1.AtucasaContext), currentUser = _a.currentUser, location = _a.location;
-    var _b = react_1.useState(null), currentMerchant = _b[0], setCurrentMerchant = _b[1];
+    var _b = react_1.useState(false), showOrder = _b[0], setShowOrder = _b[1];
+    var _c = react_1.useState(null), currentMerchant = _c[0], setCurrentMerchant = _c[1];
     var handleCurrentMerchant = function () {
         fetch(process.env.REACT_APP_API + "/current_user/merchant", {
             method: "GET",
@@ -28,6 +30,8 @@ var Merchant = function () {
     react_1.useEffect(handleCurrentMerchant, []);
     return (react_1["default"].createElement(react_1["default"].Fragment, null, (currentUser && currentMerchant && location) && (react_1["default"].createElement(react_1["default"].Fragment, null,
         react_1["default"].createElement("h1", null, "Merchant"),
+        react_1["default"].createElement("button", { onClick: function () { return setShowOrder(!showOrder); } }, showOrder ? "Do not show orders" : "Show orders"),
+        showOrder && (react_1["default"].createElement(Orders_1["default"], null)),
         react_1["default"].createElement(EditUser_1["default"], null),
         react_1["default"].createElement(EditMerchant_1["default"], { handleCurrentMerchant: handleCurrentMerchant }),
         react_1["default"].createElement(EditLocation_1["default"], null),

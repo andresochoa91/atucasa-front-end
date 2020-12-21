@@ -11,10 +11,18 @@ interface IProduct {
 interface IProductProps {
   product: IProduct,
   currentUser: TCurrentUser | null,
-  currentRole: string
+  currentRole: string,
+  orderAccepted: boolean,
+  orderCanceled: boolean
 }
 
-const ProductOrder: FC<IProductProps> = ({ product, currentUser, currentRole }): JSX.Element => {
+const ProductOrder: FC<IProductProps> = ({ 
+  product, 
+  currentUser, 
+  currentRole, 
+  orderAccepted, 
+  orderCanceled 
+}): JSX.Element => {
 
   const [ currentAmount, setCurrentAmount ] = useState<number>(product.amount);
 
@@ -24,7 +32,11 @@ const ProductOrder: FC<IProductProps> = ({ product, currentUser, currentRole }):
       <td>${ (product.price).toFixed(2) }</td>
       <td>
         { 
-          currentUser?.role === "merchant" && currentRole === "merchant" && (
+          currentUser?.role === "merchant" && 
+          currentRole === "merchant" &&
+          !orderAccepted &&
+          !orderCanceled &&
+          (
             <button onClick={ () => currentAmount > 1 && setCurrentAmount(currentAmount - 1) }>
               -
             </button> 
@@ -32,7 +44,11 @@ const ProductOrder: FC<IProductProps> = ({ product, currentUser, currentRole }):
         }
         { currentAmount }
         { 
-          currentUser?.role === "merchant" && currentRole === "merchant" && (
+          currentUser?.role === "merchant" && 
+          currentRole === "merchant" &&
+          !orderAccepted &&
+          !orderCanceled &&
+          (
             <button onClick={ () => currentAmount < product.amount && setCurrentAmount(currentAmount + 1) }>
               +
             </button> 
@@ -40,9 +56,13 @@ const ProductOrder: FC<IProductProps> = ({ product, currentUser, currentRole }):
         }
       </td>
       <td>${ (product.tax).toFixed(2) }</td>
-      <td>${ Number(((product.price + product.tax) * product.amount).toFixed(2)) }</td>
+      <td>${ Number(((product.price + product.tax) * currentAmount).toFixed(2)) }</td>
       {
-        currentUser?.role === "merchant" && currentRole === "merchant" && (
+        currentUser?.role === "merchant" &&
+        currentRole === "merchant" && 
+        !orderAccepted &&
+        !orderCanceled &&
+        (
           <td><button>X</button></td>
         )
       }
