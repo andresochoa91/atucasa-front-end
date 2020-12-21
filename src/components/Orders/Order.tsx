@@ -80,7 +80,7 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
             ))
           }
           {
-            currentUser?.role === "customer" && (
+            (currentUser?.role === "customer" || orderAccepted || orderCanceled) && (
               <>
                 <tr>
                   <td></td>
