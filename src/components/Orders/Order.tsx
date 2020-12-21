@@ -23,8 +23,6 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
 
     const updateField: IUpdate = {};
 
-    // console.log(order.current_user)
-
     if (field === "role") {
       updateField.current_user = order.current_user === "merchant" ? "customer" : "merchant";
     } else if (field === "accepted") {
@@ -32,8 +30,6 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
     } else {
       updateField.canceled = true;
     }
-
-    // console.log(updateField.currentUser)
 
     fetch(`${process.env.REACT_APP_API}/current_user/orders/${id}`, {
       method: "PUT",
@@ -56,59 +52,6 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
     })
     .catch(console.error);
   };
-
-  // const handleRole = (role:string, id:number): void => {
-  //   fetch(`${process.env.REACT_APP_API}/current_user/orders/${id}`, {
-  //     method: "PUT",
-  //     credentials: "include",
-  //     headers: {
-  //       "Content-Type": "application/json"
-  //     },
-  //     body: JSON.stringify({
-  //       current_user: role === "merchant" ? "customer" : "merchant"
-  //     })
-  //   })
-  //   .then(response => response.json())
-  //   .then(data => {
-  //     console.log(data);
-  //     setCurrentRole(data.order.current_user);
-  //   })
-  //   .catch(console.error);
-  // };
-
-  // const handleOrderConfirmation = (id:number): void => {
-  //   fetch(`${process.env.REACT_APP_API}/current_user/orders/${id}`, {
-  //     method: "PUT",
-  //     credentials: "include",
-  //     headers: {
-  //       "Content-Type": "application/json"
-  //     },
-  //     body: JSON.stringify({ accepted: true })
-  //   })
-  //   .then(response => response.json())
-  //   .then(data => {
-  //     console.log(data);
-  //     setOrderStatus(true);
-  //   })
-  //   .catch(console.error);
-  // };
-
-  // const handleOrderCancelation = (id:number): void => {
-  //   fetch(`${process.env.REACT_APP_API}/current_user/orders/${id}`, {
-  //     method: "PUT",
-  //     credentials: "include",
-  //     headers: {
-  //       "Content-Type": "application/json"
-  //     },
-  //     body: JSON.stringify({ canceled: true })
-  //   })
-  //   .then(response => response.json())
-  //   .then(data => {
-  //     console.log(data);
-  //     setOrderCanceled(true);
-  //   })
-  //   .catch(console.error);
-  // };
 
   return (
     <div key={ order.id }>

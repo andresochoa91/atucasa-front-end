@@ -12,7 +12,6 @@ var Order = function (_a) {
     var handleUpdate = function (id, field) {
         ;
         var updateField = {};
-        // console.log(order.current_user)
         if (field === "role") {
             updateField.current_user = order.current_user === "merchant" ? "customer" : "merchant";
         }
@@ -22,7 +21,6 @@ var Order = function (_a) {
         else {
             updateField.canceled = true;
         }
-        // console.log(updateField.currentUser)
         fetch(process.env.REACT_APP_API + "/current_user/orders/" + id, {
             method: "PUT",
             credentials: "include",
@@ -45,56 +43,6 @@ var Order = function (_a) {
             }
         })["catch"](console.error);
     };
-    // const handleRole = (role:string, id:number): void => {
-    //   fetch(`${process.env.REACT_APP_API}/current_user/orders/${id}`, {
-    //     method: "PUT",
-    //     credentials: "include",
-    //     headers: {
-    //       "Content-Type": "application/json"
-    //     },
-    //     body: JSON.stringify({
-    //       current_user: role === "merchant" ? "customer" : "merchant"
-    //     })
-    //   })
-    //   .then(response => response.json())
-    //   .then(data => {
-    //     console.log(data);
-    //     setCurrentRole(data.order.current_user);
-    //   })
-    //   .catch(console.error);
-    // };
-    // const handleOrderConfirmation = (id:number): void => {
-    //   fetch(`${process.env.REACT_APP_API}/current_user/orders/${id}`, {
-    //     method: "PUT",
-    //     credentials: "include",
-    //     headers: {
-    //       "Content-Type": "application/json"
-    //     },
-    //     body: JSON.stringify({ accepted: true })
-    //   })
-    //   .then(response => response.json())
-    //   .then(data => {
-    //     console.log(data);
-    //     setOrderStatus(true);
-    //   })
-    //   .catch(console.error);
-    // };
-    // const handleOrderCancelation = (id:number): void => {
-    //   fetch(`${process.env.REACT_APP_API}/current_user/orders/${id}`, {
-    //     method: "PUT",
-    //     credentials: "include",
-    //     headers: {
-    //       "Content-Type": "application/json"
-    //     },
-    //     body: JSON.stringify({ canceled: true })
-    //   })
-    //   .then(response => response.json())
-    //   .then(data => {
-    //     console.log(data);
-    //     setOrderCanceled(true);
-    //   })
-    //   .catch(console.error);
-    // };
     return (react_1["default"].createElement("div", { key: order.id },
         react_1["default"].createElement("h3", null,
             "Order #",
