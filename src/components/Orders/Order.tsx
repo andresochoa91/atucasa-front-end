@@ -13,55 +13,42 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
   const [ orderCanceled, setOrderCanceled ] = useState<boolean>(order.canceled);
   const [ currentRole, setCurrentRole ] = useState<string>(order.current_user);
 
-  const handleRole = (role:string, id:number): void => {
-    fetch(`${process.env.REACT_APP_API}/current_user/orders/${id}`, {
-      method: "PUT",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        current_user: role === "merchant" ? "customer" : "merchant"
-      })
-    })
-    .then(response => response.json())
-    .then(data => {
-      console.log(data);
-      setCurrentRole(data.order.current_user);
-    })
-    .catch(console.error);
-  };
 
-  const handleOrderConfirmation = (id:number): void => {
-    fetch(`${process.env.REACT_APP_API}/current_user/orders/${id}`, {
-      method: "PUT",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ accepted: true })
-    })
-    .then(response => response.json())
-    .then(data => {
-      console.log(data);
-      setOrderStatus(true);
-    })
-    .catch(console.error);
-  };
+  const handleUpdate = (id:number, field:string): void => {
+    interface IUpdate {
+      current_user?: string,
+      accepted?: boolean,
+      canceled?: boolean
+    };
 
-  const handleOrderCancelation = (id:number): void => {
+    const updateField: IUpdate = {};
+
+    if (field === "role") {
+      updateField.current_user = order.current_user === "merchant" ? "customer" : "merchant";
+    } else if (field === "accepted") {
+      updateField.accepted = true;
+    } else {
+      updateField.canceled = true;
+    }
+
     fetch(`${process.env.REACT_APP_API}/current_user/orders/${id}`, {
       method: "PUT",
       credentials: "include",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ canceled: true })
+      body: JSON.stringify(updateField)
     })
     .then(response => response.json())
     .then(data => {
-      console.log(data);
-      setOrderCanceled(true);
+      if (field === "role") {
+        setCurrentRole(data.order.current_user);
+        console.log(data);
+      } else if (field === "accepted") {
+        setOrderStatus(true);
+      } else if (field === "canceled") {
+        setOrderCanceled(true);
+      }
     })
     .catch(console.error);
   };
@@ -87,23 +74,7 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
                 currentRole={ currentRole }
                 product={ product }
                 key={ product.id } 
-              />              
-              // <tr key={ product.id }>
-              //   <td>{ product.product_name }</td>
-              //   <td>${ (product.price).toFixed(2) }</td>
-              //   <td>
-              //     { currentUser?.role === "merchant" && currentRole === "merchant" && <button>-</button> }
-              //     { product.amount }
-              //     { currentUser?.role === "merchant" && currentRole === "merchant" && <button>+</button> }
-              //   </td>
-              //   <td>${ (product.tax).toFixed(2) }</td>
-              //   <td>${ Number(((product.price + product.tax) * product.amount).toFixed(2)) }</td>
-              //   {
-              //     currentUser?.role === "merchant" && currentRole === "merchant" && (
-              //       <td><button>X</button></td>
-              //     )
-              //   }
-              // </tr>               
+              />                         
             ))
           }
           <tr>
@@ -139,16 +110,16 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
         !orderCanceled && currentUser?.role === "customer" && currentRole === "customer" && !orderStatus ? (
           <>
             <p>If you accept the changes, press confirm order, if not, press Cancel Order</p>
-            <button onClick={ () => handleOrderConfirmation(order.id) }>Confirm order</button>
-            <button onClick={ () => handleOrderCancelation(order.id) }>Cancel order</button>
+            <button onClick={ () => handleUpdate(order.id, "accepted") }>Confirm order</button>
+            <button onClick={ () => handleUpdate(order.id, "canceled") }>Cancel order</button>
           </>
         ) : !orderCanceled && currentUser?.role === "customer" && currentRole === "merchant" && !orderStatus ? (
           <p>Waiting for the merchant to confirm your order.</p>
         ) : !orderCanceled && currentUser?.role === "merchant" && currentRole === "merchant" && !orderStatus ? (
           <>
             <p>If you have all the products, press confirm order, if not, press Suggest Changes.</p>
-            <button onClick={ () => handleOrderConfirmation(order.id) }>Confirm order</button>
-            <button onClick={ () => handleRole(currentRole, order.id) } >Suggest changes</button>
+            <button onClick={ () => handleUpdate(order.id, "accepted") }>Confirm order</button>
+            <button onClick={ () => handleUpdate(order.id, "role") } >Suggest changes</button>
           </>
         ) : !orderCanceled && currentUser?.role === "merchant" && currentRole === "customer" && !orderStatus ? (
           <p>Waiting for the customer to confirm your order.</p>
