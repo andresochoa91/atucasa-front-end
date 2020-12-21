@@ -18,7 +18,7 @@ var ProductOrder = function (_a) {
             (product.tax).toFixed(2)),
         react_1["default"].createElement("td", null,
             "$",
-            Number(((product.price + product.tax) * product.amount).toFixed(2))),
+            Number(((product.price + product.tax) * currentAmount).toFixed(2))),
         (currentUser === null || currentUser === void 0 ? void 0 : currentUser.role) === "merchant" && currentRole === "merchant" && (react_1["default"].createElement("td", null,
             react_1["default"].createElement("button", null, "X")))));
 };

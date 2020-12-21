@@ -40,7 +40,7 @@ const ProductOrder: FC<IProductProps> = ({ product, currentUser, currentRole }):
         }
       </td>
       <td>${ (product.tax).toFixed(2) }</td>
-      <td>${ Number(((product.price + product.tax) * product.amount).toFixed(2)) }</td>
+      <td>${ Number(((product.price + product.tax) * currentAmount).toFixed(2)) }</td>
       {
         currentUser?.role === "merchant" && currentRole === "merchant" && (
           <td><button>X</button></td>

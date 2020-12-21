@@ -37,7 +37,11 @@ const Merchant: FC = (): JSX.Element => {
         (currentUser && currentMerchant && location) && (
           <>
             <h1>Merchant</h1>
-            <button onClick={ () => setShowOrder(!showOrder) }>Show Orders</button>
+            <button onClick={ () => setShowOrder(!showOrder) }>
+              {
+                showOrder ? "Do not show orders" : "Show orders"
+              }
+            </button>
             {
               showOrder && (
                 <Orders />
