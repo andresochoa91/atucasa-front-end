@@ -1,5 +1,6 @@
 import React, { FC, useContext, useState } from 'react';
 import { AtucasaContext } from '../../Context';
+import ProductOrder from './ProductOrder';
 
 interface IOrderProps {
   order: TOrder
@@ -38,9 +39,7 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({
-        accepted: true
-      })
+      body: JSON.stringify({ accepted: true })
     })
     .then(response => response.json())
     .then(data => {
@@ -57,9 +56,7 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({
-        canceled: true
-      })
+      body: JSON.stringify({ canceled: true })
     })
     .then(response => response.json())
     .then(data => {
@@ -84,14 +81,29 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
         </thead>          
         <tbody>
           {
-            order.products_order.map(product => (                  
-              <tr key={ product.id }>
-                <td>{ product.product_name }</td>
-                <td>${ (product.price).toFixed(2) }</td>
-                <td>{ product.amount }</td>
-                <td>${ (product.tax).toFixed(2) }</td>
-                <td>${ Number(((product.price + product.tax) * product.amount).toFixed(2)) }</td>
-              </tr>               
+            order.products_order.map(product => (    
+              <ProductOrder 
+                currentUser={ currentUser }
+                currentRole={ currentRole }
+                product={ product }
+                key={ product.id } 
+              />              
+              // <tr key={ product.id }>
+              //   <td>{ product.product_name }</td>
+              //   <td>${ (product.price).toFixed(2) }</td>
+              //   <td>
+              //     { currentUser?.role === "merchant" && currentRole === "merchant" && <button>-</button> }
+              //     { product.amount }
+              //     { currentUser?.role === "merchant" && currentRole === "merchant" && <button>+</button> }
+              //   </td>
+              //   <td>${ (product.tax).toFixed(2) }</td>
+              //   <td>${ Number(((product.price + product.tax) * product.amount).toFixed(2)) }</td>
+              //   {
+              //     currentUser?.role === "merchant" && currentRole === "merchant" && (
+              //       <td><button>X</button></td>
+              //     )
+              //   }
+              // </tr>               
             ))
           }
           <tr>
@@ -128,7 +140,7 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
           <>
             <p>If you accept the changes, press confirm order, if not, press Cancel Order</p>
             <button onClick={ () => handleOrderConfirmation(order.id) }>Confirm order</button>
-            <button onClick={ () => handleOrderCancelation(order.id) }>Calcel order</button>
+            <button onClick={ () => handleOrderCancelation(order.id) }>Cancel order</button>
           </>
         ) : !orderCanceled && currentUser?.role === "customer" && currentRole === "merchant" && !orderStatus ? (
           <p>Waiting for the merchant to confirm your order.</p>
