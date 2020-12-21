@@ -9,7 +9,7 @@ var ProductOrder = function (_a) {
         react_1["default"].createElement("td", null,
             "$",
             (product.price).toFixed(2)),
-        react_1["default"].createElement("td", null,
+        react_1["default"].createElement("td", { style: { color: product.amount !== currentAmount ? "#f00" : "#000" } },
             (currentUser === null || currentUser === void 0 ? void 0 : currentUser.role) === "merchant" &&
                 currentRole === "merchant" &&
                 !orderAccepted &&
@@ -31,7 +31,11 @@ var ProductOrder = function (_a) {
             currentRole === "merchant" &&
             !orderAccepted &&
             !orderCanceled &&
-            (react_1["default"].createElement("td", null,
-                react_1["default"].createElement("button", null, "X")))));
+            (react_1["default"].createElement(react_1["default"].Fragment, null,
+                currentAmount === product.amount ? (react_1["default"].createElement("td", null,
+                    react_1["default"].createElement("button", null, "Confirm"))) : (react_1["default"].createElement("td", null,
+                    react_1["default"].createElement("button", null, "Suggest amount"))),
+                react_1["default"].createElement("td", null,
+                    react_1["default"].createElement("button", null, "Not Available"))))));
 };
 exports["default"] = ProductOrder;

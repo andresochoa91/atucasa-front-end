@@ -30,7 +30,7 @@ const ProductOrder: FC<IProductProps> = ({
     <tr key={ product.id }>
       <td>{ product.product_name }</td>
       <td>${ (product.price).toFixed(2) }</td>
-      <td>
+      <td style={{ color: product.amount !== currentAmount ? "#f00" : "#000" }}>
         { 
           currentUser?.role === "merchant" && 
           currentRole === "merchant" &&
@@ -63,7 +63,16 @@ const ProductOrder: FC<IProductProps> = ({
         !orderAccepted &&
         !orderCanceled &&
         (
-          <td><button>X</button></td>
+          <>
+            {
+              currentAmount === product.amount ? (
+                <td><button>Confirm</button></td>
+              ) : (
+                <td><button>Suggest amount</button></td>
+              )
+            }
+            <td><button>Not Available</button></td>
+          </>
         )
       }
     </tr>

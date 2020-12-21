@@ -57,7 +57,7 @@ var Order = function (_a) {
                     react_1["default"].createElement("th", null, "Semi Total"))),
             react_1["default"].createElement("tbody", null,
                 order.products_order.map(function (product) { return (react_1["default"].createElement(ProductOrder_1["default"], { currentUser: currentUser, currentRole: currentRole, product: product, orderAccepted: orderAccepted, orderCanceled: orderCanceled, key: product.id })); }),
-                (currentUser === null || currentUser === void 0 ? void 0 : currentUser.role) === "customer" && (react_1["default"].createElement(react_1["default"].Fragment, null,
+                ((currentUser === null || currentUser === void 0 ? void 0 : currentUser.role) === "customer" || orderAccepted || orderCanceled) && (react_1["default"].createElement(react_1["default"].Fragment, null,
                     react_1["default"].createElement("tr", null,
                         react_1["default"].createElement("td", null),
                         react_1["default"].createElement("td", null),
