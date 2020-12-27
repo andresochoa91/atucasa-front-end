@@ -25,19 +25,39 @@ const ProductOrder: FC<IProductProps> = ({
 }): JSX.Element => {
 
   const [ currentAmount, setCurrentAmount ] = useState<number>(product.amount);
+  const [ available, setAvailable ] = useState<boolean>(true);
+
+  // const handleSuggestedAmount = (): void => {
+  //   fetch(`${process.env.REACT_APP_API}/product_order/${product.id}`, {
+  //     method: "PUT",
+  //     credentials: "include",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify({
+  //       amount: currentAmount
+  //     })
+  //   })
+  // };
 
   return (
-    <tr key={ product.id }>
+    <tr 
+      style={{ 
+        backgroundColor: (
+          !available ? "#f00" : 
+          product.amount !== currentAmount ? "#ff0" : "#fff"
+        )
+      }} 
+      key={ product.id }
+    >
       <td>{ product.product_name }</td>
       <td>${ (product.price).toFixed(2) }</td>
-      <td style={{ color: product.amount !== currentAmount ? "#f00" : "#000" }}>
+      <td>
         { 
           currentUser?.role === "merchant" && 
           currentRole === "merchant" &&
           !orderAccepted &&
           !orderCanceled &&
           (
-            <button onClick={ () => currentAmount > 1 && setCurrentAmount(currentAmount - 1) }>
+            <button onClick={ () => ((currentAmount > 1) && available) && setCurrentAmount(currentAmount - 1) }>
               -
             </button> 
           )
@@ -49,7 +69,7 @@ const ProductOrder: FC<IProductProps> = ({
           !orderAccepted &&
           !orderCanceled &&
           (
-            <button onClick={ () => currentAmount < product.amount && setCurrentAmount(currentAmount + 1) }>
+            <button onClick={ () => ((currentAmount < product.amount) && available) && setCurrentAmount(currentAmount + 1) }>
               +
             </button> 
           )
@@ -57,24 +77,7 @@ const ProductOrder: FC<IProductProps> = ({
       </td>
       <td>${ (product.tax).toFixed(2) }</td>
       <td>${ Number(((product.price + product.tax) * currentAmount).toFixed(2)) }</td>
-      {
-        currentUser?.role === "merchant" &&
-        currentRole === "merchant" && 
-        !orderAccepted &&
-        !orderCanceled &&
-        (
-          <>
-            {
-              currentAmount === product.amount ? (
-                <td><button>Confirm</button></td>
-              ) : (
-                <td><button>Suggest amount</button></td>
-              )
-            }
-            <td><button>Not Available</button></td>
-          </>
-        )
-      }
+      <td><button onClick={ () => setAvailable(!available) }>{ available ? "Not Available" : "Available"}</button></td>
     </tr>
   );
 };

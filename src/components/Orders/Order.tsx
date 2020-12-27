@@ -139,7 +139,6 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
       }
       <br/>
       <br/>
-      <br/>
     </div>
   );
 };
