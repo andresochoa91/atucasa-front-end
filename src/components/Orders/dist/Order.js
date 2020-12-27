@@ -95,7 +95,6 @@ var Order = function (_a) {
             react_1["default"].createElement("button", { onClick: function () { return handleUpdate(order.id, "accepted"); } }, "Confirm order"),
             react_1["default"].createElement("button", { onClick: function () { return handleUpdate(order.id, "role"); } }, "Suggest changes"))) : !orderCanceled && (currentUser === null || currentUser === void 0 ? void 0 : currentUser.role) === "merchant" && currentRole === "customer" && !orderAccepted ? (react_1["default"].createElement("p", null, "Waiting for the customer to confirm your order.")) : !orderCanceled && orderAccepted ? (react_1["default"].createElement("p", { style: { color: "#0a0" } }, "Order accepted")) : (react_1["default"].createElement("p", { style: { color: "#f00" } }, "Order canceled")),
         react_1["default"].createElement("br", null),
-        react_1["default"].createElement("br", null),
         react_1["default"].createElement("br", null)));
 };
 exports["default"] = Order;
