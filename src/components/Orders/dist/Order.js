@@ -10,7 +10,7 @@ var Order = function (_a) {
     var _c = react_1.useState(order.canceled), orderCanceled = _c[0], setOrderCanceled = _c[1];
     var _d = react_1.useState(order.current_user), currentRole = _d[0], setCurrentRole = _d[1];
     var _e = react_1.useState(Array(order.products_order.length).fill(true)), acceptance = _e[0], setAcceptance = _e[1];
-    var _f = react_1.useState(""), message = _f[0], setMessage = _f[1];
+    var _f = react_1.useState(order.message), message = _f[0], setMessage = _f[1];
     var _g = react_1.useState(false), lastStage = _g[0], setLastStage = _g[1];
     var handleUpdate = function (id, field) {
         ;
@@ -50,6 +50,7 @@ var Order = function (_a) {
             }
         })["catch"](console.error);
     };
+    console.log(order.message);
     return (react_1["default"].createElement("div", { key: order.id },
         react_1["default"].createElement("h3", null,
             "Order #",
@@ -95,16 +96,24 @@ var Order = function (_a) {
                                 return (acc + ((pr.price + pr.tax) * pr.amount));
                             }, 0) + order.tip + order.delivery_fee).toFixed(2))))))),
         !orderCanceled && (currentUser === null || currentUser === void 0 ? void 0 : currentUser.role) === "customer" && currentRole === "customer" && !orderAccepted ? (react_1["default"].createElement(react_1["default"].Fragment, null,
+            react_1["default"].createElement("p", null,
+                react_1["default"].createElement("strong", null, "Message from merchant: "),
+                message),
             react_1["default"].createElement("p", null, "If you accept the changes, press confirm order, if not, press Cancel Order"),
             react_1["default"].createElement("button", { onClick: function () { return handleUpdate(order.id, "accepted"); } }, "Confirm order"),
             react_1["default"].createElement("button", { onClick: function () { return handleUpdate(order.id, "canceled"); } }, "Cancel order"))) : !orderCanceled && (currentUser === null || currentUser === void 0 ? void 0 : currentUser.role) === "customer" && currentRole === "merchant" && !orderAccepted ? (react_1["default"].createElement("p", null, "Waiting for the merchant to confirm your order.")) : !orderCanceled && (currentUser === null || currentUser === void 0 ? void 0 : currentUser.role) === "merchant" && currentRole === "merchant" && !orderAccepted ? (react_1["default"].createElement(react_1["default"].Fragment, null, !acceptance.filter(function (v) { return !v; }).length ? (react_1["default"].createElement("button", { onClick: function () { return handleUpdate(order.id, "accepted"); } }, "Confirm order")) : (react_1["default"].createElement("form", { onSubmit: function (event) {
                 event.preventDefault();
-                handleUpdate(order.id, "role");
+                if (message.length >= 20) {
+                    handleUpdate(order.id, "role");
+                }
+                else {
+                    console.log("Message needs to have at least 20 characters");
+                }
             } },
             react_1["default"].createElement("br", null),
             react_1["default"].createElement("label", null, "Message"),
             react_1["default"].createElement("br", null),
-            react_1["default"].createElement("textarea", { name: "message", value: message, onChange: function (event) { return setMessage(event.target.value); }, minLength: 10 }),
+            react_1["default"].createElement("textarea", { name: "message", value: message, onChange: function (event) { return setMessage(event.target.value); } }),
             react_1["default"].createElement("br", null),
             react_1["default"].createElement("input", { type: "submit", value: "Suggest changes" }))))) : !orderCanceled && (currentUser === null || currentUser === void 0 ? void 0 : currentUser.role) === "merchant" && currentRole === "customer" && !orderAccepted ? (react_1["default"].createElement("p", null, "Waiting for the customer to confirm your order.")) : !orderCanceled && orderAccepted ? (react_1["default"].createElement("p", { style: { color: "#0a0" } }, "Order accepted")) : (react_1["default"].createElement("p", { style: { color: "#f00" } }, "Order canceled")),
         react_1["default"].createElement("br", null),

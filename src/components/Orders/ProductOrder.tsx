@@ -120,7 +120,7 @@ const ProductOrder: FC<IProductProps> = ({
       <td>${ (product.tax).toFixed(2) }</td>
       <td>${ Number(((product.price + product.tax) * currentAmount).toFixed(2)) }</td>
       {
-        !orderAccepted && currentUser?.role === "merchant" && currentRole === "merchant" && (
+        (!orderAccepted && currentUser?.role === "merchant" && currentRole === "merchant") ? (
           <td>
             <button 
               onClick={ () => {
@@ -136,7 +136,19 @@ const ProductOrder: FC<IProductProps> = ({
               { available ? "Not Available" : "Available"}
             </button>
           </td>
-        ) 
+        ) : (!orderAccepted && currentUser?.role === "customer" && currentRole === "customer") && (
+          <>
+            {
+              !available ? (
+                <td>Not available</td>
+              ) : amountChanged ? (
+                <td>Amount suggested by merchant</td>
+              ) : (
+                <td>Available</td>
+              )
+            }
+          </>
+        )
       }
     </tr>
   );
