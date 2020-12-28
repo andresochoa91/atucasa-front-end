@@ -14,13 +14,15 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
   const [ currentRole, setCurrentRole ] = useState<string>(order.current_user);
   const [ acceptance, setAcceptance ] = useState<Array<boolean>>(Array(order.products_order.length).fill(true));
   const [ message, setMessage ] = useState<string>("");
+  const [ lastStage, setLastStage ] = useState<boolean>(false);
 
   const handleUpdate = (id:number, field:string): void => {
     interface IUpdate {
       current_user?: string,
       accepted?: boolean,
       canceled?: boolean,
-      message?: string
+      message?: string,
+      tip?: number | null
     };
 
     const updateField: IUpdate = {};
@@ -28,6 +30,7 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
     if (field === "role") {
       updateField.current_user = order.current_user === "merchant" ? "customer" : "merchant";
       updateField.message = message;
+      updateField.tip = null;
     } else if (field === "accepted") {
       updateField.accepted = true;
     } else {
@@ -45,8 +48,9 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
     .then(response => response.json())
     .then(data => {
       if (field === "role") {
+        if (!lastStage) setLastStage(true);
         setCurrentRole(data.order.current_user);
-        console.log(data);
+        // console.log(data);
       } else if (field === "accepted") {
         setOrderAccepted(true);
       } else if (field === "canceled") {
@@ -82,6 +86,7 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
                 orderCanceled={ orderCanceled }
                 key={ product.id } 
                 index={ index }
+                lastStage={ lastStage }
               />                         
             ))
           }
@@ -135,7 +140,12 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
               !acceptance.filter((v) => !v).length ? (
                 <button onClick={ () => handleUpdate(order.id, "accepted") }>Confirm order</button>
               ) : (
-                <>
+                <form 
+                  onSubmit={ (event) => {
+                    event.preventDefault();
+                    handleUpdate(order.id, "role"); 
+                  }}
+                >
                   <br/>
                   <label>Message</label>
                   <br/>
@@ -147,8 +157,11 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
                   >
                   </textarea>
                   <br/>
-                  <button onClick={ () => handleUpdate(order.id, "role") } >Suggest changes</button>
-                </>
+                  <input 
+                    type="submit" 
+                    value="Suggest changes"
+                  />
+                </form>
               )
             }
           </>
