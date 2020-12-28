@@ -2,7 +2,7 @@
 exports.__esModule = true;
 var react_1 = require("react");
 var ProductOrder = function (_a) {
-    var product = _a.product, currentUser = _a.currentUser, currentRole = _a.currentRole, orderAccepted = _a.orderAccepted, orderCanceled = _a.orderCanceled;
+    var product = _a.product, currentUser = _a.currentUser, currentRole = _a.currentRole, orderAccepted = _a.orderAccepted, orderCanceled = _a.orderCanceled, acceptance = _a.acceptance, setAcceptance = _a.setAcceptance, index = _a.index;
     var _b = react_1.useState(product.amount), currentAmount = _b[0], setCurrentAmount = _b[1];
     var _c = react_1.useState(true), available = _c[0], setAvailable = _c[1];
     var _d = react_1.useState(false), updated = _d[0], setUpdated = _d[1];
@@ -33,6 +33,11 @@ var ProductOrder = function (_a) {
                         if ((currentAmount > 1) && available) {
                             setCurrentAmount(currentAmount - 1);
                             setUpdated(true);
+                            setAcceptance(acceptance.map(function (v, i) {
+                                if (i === index)
+                                    return false;
+                                return v;
+                            }));
                         }
                     } }, "-")),
             currentAmount,
@@ -44,6 +49,11 @@ var ProductOrder = function (_a) {
                         if ((currentAmount < product.amount) && available) {
                             if (currentAmount + 1 === product.amount) {
                                 setUpdated(false);
+                                setAcceptance(acceptance.map(function (v, i) {
+                                    if (i === index)
+                                        return true;
+                                    return v;
+                                }));
                             }
                             setCurrentAmount(currentAmount + 1);
                         }
@@ -54,7 +64,15 @@ var ProductOrder = function (_a) {
         react_1["default"].createElement("td", null,
             "$",
             Number(((product.price + product.tax) * currentAmount).toFixed(2))),
-        react_1["default"].createElement("td", null,
-            react_1["default"].createElement("button", { onClick: function () { return setAvailable(!available); } }, available ? "Not Available" : "Available"))));
+        !orderAccepted && (react_1["default"].createElement("td", null,
+            react_1["default"].createElement("button", { onClick: function () {
+                    setAcceptance(acceptance.map(function (v, i) {
+                        if ((i === index) && !updated) {
+                            return !available;
+                        }
+                        return v;
+                    }));
+                    setAvailable(!available);
+                } }, available ? "Not Available" : "Available")))));
 };
 exports["default"] = ProductOrder;
