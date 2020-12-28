@@ -136,7 +136,11 @@ const ProductOrder: FC<IProductProps> = ({
               { available ? "Not Available" : "Available"}
             </button>
           </td>
-        ) : (!orderAccepted && currentUser?.role === "customer" && currentRole === "customer") && (
+        ) : (
+          !orderAccepted && 
+          currentUser?.role === "customer" &&
+          currentRole === "customer" && 
+          !orderCanceled) && (
           <>
             {
               !available ? (
