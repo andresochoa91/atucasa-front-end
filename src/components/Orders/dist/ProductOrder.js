@@ -70,7 +70,7 @@ var ProductOrder = function (_a) {
         react_1["default"].createElement("td", null,
             "$",
             Number(((product.price + product.tax) * currentAmount).toFixed(2))),
-        !orderAccepted && (currentUser === null || currentUser === void 0 ? void 0 : currentUser.role) === "merchant" && currentRole === "merchant" && (react_1["default"].createElement("td", null,
+        (!orderAccepted && (currentUser === null || currentUser === void 0 ? void 0 : currentUser.role) === "merchant" && currentRole === "merchant") ? (react_1["default"].createElement("td", null,
             react_1["default"].createElement("button", { onClick: function () {
                     setAcceptance(acceptance.map(function (v, i) {
                         if ((i === index) && !amountChanged) {
@@ -79,6 +79,6 @@ var ProductOrder = function (_a) {
                         return v;
                     }));
                     setAvailable(!available);
-                } }, available ? "Not Available" : "Available")))));
+                } }, available ? "Not Available" : "Available"))) : (!orderAccepted && (currentUser === null || currentUser === void 0 ? void 0 : currentUser.role) === "customer" && currentRole === "customer") && (react_1["default"].createElement(react_1["default"].Fragment, null, !available ? (react_1["default"].createElement("td", null, "Not available")) : amountChanged ? (react_1["default"].createElement("td", null, "Amount suggested by merchant")) : (react_1["default"].createElement("td", null, "Available"))))));
 };
 exports["default"] = ProductOrder;

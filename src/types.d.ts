@@ -127,7 +127,8 @@ type TOrder = {
   accepted: boolean,
   canceled: boolean,
   current_user: string,
-  products_order: Array<TProductOrder>
+  products_order: Array<TProductOrder>,
+  message: string
 };
 
 type TOrders = Array<TOrder>;

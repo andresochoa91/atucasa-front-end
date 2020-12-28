@@ -13,7 +13,7 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
   const [ orderCanceled, setOrderCanceled ] = useState<boolean>(order.canceled);
   const [ currentRole, setCurrentRole ] = useState<string>(order.current_user);
   const [ acceptance, setAcceptance ] = useState<Array<boolean>>(Array(order.products_order.length).fill(true));
-  const [ message, setMessage ] = useState<string>("");
+  const [ message, setMessage ] = useState<string>(order.message);
   const [ lastStage, setLastStage ] = useState<boolean>(false);
 
   const handleUpdate = (id:number, field:string): void => {
@@ -59,6 +59,8 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
     })
     .catch(console.error);
   };
+
+  console.log(order.message);
 
   return (
     <div key={ order.id }>
@@ -128,6 +130,7 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
       {
         !orderCanceled && currentUser?.role === "customer" && currentRole === "customer" && !orderAccepted ? (
           <>
+            <p><strong>Message from merchant: </strong>{ message }</p>
             <p>If you accept the changes, press confirm order, if not, press Cancel Order</p>
             <button onClick={ () => handleUpdate(order.id, "accepted") }>Confirm order</button>
             <button onClick={ () => handleUpdate(order.id, "canceled") }>Cancel order</button>
@@ -143,7 +146,11 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
                 <form 
                   onSubmit={ (event) => {
                     event.preventDefault();
-                    handleUpdate(order.id, "role"); 
+                    if (message.length >= 20) {
+                      handleUpdate(order.id, "role"); 
+                    } else {
+                      console.log("Message needs to have at least 20 characters");
+                    }
                   }}
                 >
                   <br/>
@@ -153,7 +160,6 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
                     name="message" 
                     value={ message }
                     onChange={ (event) => setMessage(event.target.value) }
-                    minLength={ 10 }
                   >
                   </textarea>
                   <br/>
