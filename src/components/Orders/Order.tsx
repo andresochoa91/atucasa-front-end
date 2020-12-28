@@ -1,4 +1,4 @@
-import React, { FC, useContext, useState } from 'react';
+import React, { FC, useContext, useEffect, useState } from 'react';
 import { AtucasaContext } from '../../Context';
 import ProductOrder from './ProductOrder';
 
@@ -15,6 +15,14 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
   const [ acceptance, setAcceptance ] = useState<Array<boolean>>(Array(order.products_order.length).fill(true));
   const [ message, setMessage ] = useState<string>(order.message);
   const [ lastStage, setLastStage ] = useState<boolean>(false);
+  const [ currentTip, setCurrentTip ] = useState<string>(order.tip === 0 ? "" : (order.tip).toString());
+  const [ semiTotal, setSemiTotal ] = useState<number>(0);
+
+  useEffect(() => {
+    setSemiTotal(order.products_order.reduce((acc, pr) => {
+      return (acc + ((pr.price + pr.tax) * pr.amount));
+    }, 0))
+  }, [order.products_order]);
 
   const handleUpdate = (id:number, field:string): void => {
     interface IUpdate {
@@ -30,8 +38,9 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
     if (field === "role") {
       updateField.current_user = order.current_user === "merchant" ? "customer" : "merchant";
       updateField.message = message;
-      updateField.tip = null;
+      updateField.tip = 0;
     } else if (field === "accepted") {
+      updateField.tip = Number(currentTip);
       updateField.accepted = true;
     } else {
       updateField.canceled = true;
@@ -59,8 +68,6 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
     })
     .catch(console.error);
   };
-
-  console.log(order.message);
 
   return (
     <div key={ order.id }>
@@ -100,7 +107,25 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
                   <td></td>
                   <td></td>
                   <td><strong>Tip</strong></td>
-                  <td>${ order.tip }</td>
+                  {
+                    (currentRole === "customer" && !orderAccepted) ? (
+                      <>
+                        <td>$ 
+                          <input 
+                            type="text"
+                            value={ currentTip }
+                            onChange={ (event) => setCurrentTip(event.target.value) }
+                            placeholder={ `Suggested: ${(semiTotal * 0.15).toFixed(2)}` }
+                          />
+                        </td>
+                        <td>
+                          <button onClick={ () => setCurrentTip((semiTotal * 0.15).toFixed(2)) }>
+                            Apply suggested tip
+                          </button>
+                        </td>
+                      </>
+                    ) : orderAccepted && <td>${ currentTip }</td>
+                  }
                 </tr>
                 <tr>
                   <td></td>
@@ -114,13 +139,7 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
                   <td></td>
                   <td></td>
                   <td><strong>Total</strong></td>
-                  <td>
-                    ${ 
-                      (order.products_order.reduce((acc, pr) => {
-                        return (acc + ((pr.price + pr.tax) * pr.amount));
-                      }, 0) + order.tip + order.delivery_fee).toFixed(2)
-                    }
-                  </td>
+                  <td>{ `$${(semiTotal+ Number(currentTip) + order.delivery_fee).toFixed(2)}` }</td>
                 </tr>
               </>
             )
