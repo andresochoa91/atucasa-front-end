@@ -26,6 +26,7 @@ const ProductOrder: FC<IProductProps> = ({
 
   const [ currentAmount, setCurrentAmount ] = useState<number>(product.amount);
   const [ available, setAvailable ] = useState<boolean>(true);
+  const [ updated, setUpdated ] = useState<boolean>(false);
 
   // const handleSuggestedAmount = (): void => {
   //   fetch(`${process.env.REACT_APP_API}/product_order/${product.id}`, {
@@ -43,7 +44,7 @@ const ProductOrder: FC<IProductProps> = ({
       style={{ 
         backgroundColor: (
           !available ? "#f00" : 
-          product.amount !== currentAmount ? "#ff0" : "#fff"
+          updated ? "#ff0" : "#fff"
         )
       }} 
       key={ product.id }
@@ -57,7 +58,14 @@ const ProductOrder: FC<IProductProps> = ({
           !orderAccepted &&
           !orderCanceled &&
           (
-            <button onClick={ () => ((currentAmount > 1) && available) && setCurrentAmount(currentAmount - 1) }>
+            <button 
+              onClick={ () => {
+                if ((currentAmount > 1) && available) {
+                  setCurrentAmount(currentAmount - 1); 
+                  setUpdated(true); 
+                }
+              }}
+            >
               -
             </button> 
           )
@@ -69,7 +77,16 @@ const ProductOrder: FC<IProductProps> = ({
           !orderAccepted &&
           !orderCanceled &&
           (
-            <button onClick={ () => ((currentAmount < product.amount) && available) && setCurrentAmount(currentAmount + 1) }>
+            <button 
+              onClick={ () => {
+                if ((currentAmount < product.amount) && available) {
+                  if (currentAmount + 1 === product.amount) {
+                    setUpdated(false);
+                  }
+                  setCurrentAmount(currentAmount + 1);
+                } 
+              }}
+            >
               +
             </button> 
           )
