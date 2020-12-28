@@ -13,7 +13,10 @@ interface IProductProps {
   currentUser: TCurrentUser | null,
   currentRole: string,
   orderAccepted: boolean,
-  orderCanceled: boolean
+  orderCanceled: boolean,
+  acceptance: boolean[],
+  setAcceptance: React.Dispatch<React.SetStateAction<boolean[]>>,
+  index: number
 }
 
 const ProductOrder: FC<IProductProps> = ({ 
@@ -21,7 +24,10 @@ const ProductOrder: FC<IProductProps> = ({
   currentUser, 
   currentRole, 
   orderAccepted, 
-  orderCanceled 
+  orderCanceled,
+  acceptance,
+  setAcceptance,
+  index
 }): JSX.Element => {
 
   const [ currentAmount, setCurrentAmount ] = useState<number>(product.amount);
@@ -62,7 +68,11 @@ const ProductOrder: FC<IProductProps> = ({
               onClick={ () => {
                 if ((currentAmount > 1) && available) {
                   setCurrentAmount(currentAmount - 1); 
-                  setUpdated(true); 
+                  setUpdated(true);
+                  setAcceptance(acceptance.map((v, i) => {
+                    if (i === index) return false;
+                    return v;
+                  })) ;
                 }
               }}
             >
@@ -82,6 +92,10 @@ const ProductOrder: FC<IProductProps> = ({
                 if ((currentAmount < product.amount) && available) {
                   if (currentAmount + 1 === product.amount) {
                     setUpdated(false);
+                    setAcceptance(acceptance.map((v, i) => {
+                      if (i === index) return true;
+                      return v;
+                    })) ;
                   }
                   setCurrentAmount(currentAmount + 1);
                 } 
@@ -94,7 +108,25 @@ const ProductOrder: FC<IProductProps> = ({
       </td>
       <td>${ (product.tax).toFixed(2) }</td>
       <td>${ Number(((product.price + product.tax) * currentAmount).toFixed(2)) }</td>
-      <td><button onClick={ () => setAvailable(!available) }>{ available ? "Not Available" : "Available"}</button></td>
+      {
+        !orderAccepted && (
+          <td>
+            <button 
+              onClick={ () => {
+                setAcceptance(acceptance.map((v, i) => {
+                  if ((i === index) && !updated) {
+                    return !available;
+                  }
+                  return v;
+                })); 
+                setAvailable(!available);
+              }}
+            >
+              { available ? "Not Available" : "Available"}
+            </button>
+          </td>
+        ) 
+      }
     </tr>
   );
 };

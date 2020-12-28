@@ -12,19 +12,22 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
   const [ orderAccepted, setOrderAccepted ] = useState<boolean>(order.accepted);
   const [ orderCanceled, setOrderCanceled ] = useState<boolean>(order.canceled);
   const [ currentRole, setCurrentRole ] = useState<string>(order.current_user);
-
+  const [ acceptance, setAcceptance ] = useState<Array<boolean>>(Array(order.products_order.length).fill(true));
+  const [ message, setMessage ] = useState<string>("");
 
   const handleUpdate = (id:number, field:string): void => {
     interface IUpdate {
       current_user?: string,
       accepted?: boolean,
-      canceled?: boolean
+      canceled?: boolean,
+      message?: string
     };
 
     const updateField: IUpdate = {};
 
     if (field === "role") {
       updateField.current_user = order.current_user === "merchant" ? "customer" : "merchant";
+      updateField.message = message;
     } else if (field === "accepted") {
       updateField.accepted = true;
     } else {
@@ -68,14 +71,17 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
         </thead>          
         <tbody>
           {
-            order.products_order.map(product => (    
-              <ProductOrder 
+            order.products_order.map((product, index) => (    
+              <ProductOrder
+                acceptance={ acceptance } 
+                setAcceptance={ setAcceptance } 
                 currentUser={ currentUser }
                 currentRole={ currentRole }
                 product={ product }
                 orderAccepted={ orderAccepted }
                 orderCanceled={ orderCanceled }
                 key={ product.id } 
+                index={ index }
               />                         
             ))
           }
@@ -125,9 +131,26 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
           <p>Waiting for the merchant to confirm your order.</p>
         ) : !orderCanceled && currentUser?.role === "merchant" && currentRole === "merchant" && !orderAccepted ? (
           <>
-            <p>If you have all the products, press confirm order, if not, press Suggest Changes.</p>
-            <button onClick={ () => handleUpdate(order.id, "accepted") }>Confirm order</button>
-            <button onClick={ () => handleUpdate(order.id, "role") } >Suggest changes</button>
+            {
+              !acceptance.filter((v) => !v).length ? (
+                <button onClick={ () => handleUpdate(order.id, "accepted") }>Confirm order</button>
+              ) : (
+                <>
+                  <br/>
+                  <label>Message</label>
+                  <br/>
+                  <textarea 
+                    name="message" 
+                    value={ message }
+                    onChange={ (event) => setMessage(event.target.value) }
+                    minLength={ 10 }
+                  >
+                  </textarea>
+                  <br/>
+                  <button onClick={ () => handleUpdate(order.id, "role") } >Suggest changes</button>
+                </>
+              )
+            }
           </>
         ) : !orderCanceled && currentUser?.role === "merchant" && currentRole === "customer" && !orderAccepted ? (
           <p>Waiting for the customer to confirm your order.</p>
