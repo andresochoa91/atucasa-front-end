@@ -1,11 +1,13 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 
 interface IProduct {
   id: number,
   product_name: string,
   price: number,
   amount: number,
-  tax: number
+  tax: number,
+  available: boolean,
+  amount_changed: boolean
 }
 
 interface IProductProps {
@@ -16,7 +18,8 @@ interface IProductProps {
   orderCanceled: boolean,
   acceptance: boolean[],
   setAcceptance: React.Dispatch<React.SetStateAction<boolean[]>>,
-  index: number
+  index: number,
+  lastStage: boolean
 }
 
 const ProductOrder: FC<IProductProps> = ({ 
@@ -27,30 +30,38 @@ const ProductOrder: FC<IProductProps> = ({
   orderCanceled,
   acceptance,
   setAcceptance,
-  index
+  index,
+  lastStage
 }): JSX.Element => {
 
   const [ currentAmount, setCurrentAmount ] = useState<number>(product.amount);
-  const [ available, setAvailable ] = useState<boolean>(true);
-  const [ updated, setUpdated ] = useState<boolean>(false);
+  const [ available, setAvailable ] = useState<boolean>(product.available);
+  const [ amountChanged, setAmountChanged ] = useState<boolean>(product.amount_changed);
 
-  // const handleSuggestedAmount = (): void => {
-  //   fetch(`${process.env.REACT_APP_API}/product_order/${product.id}`, {
-  //     method: "PUT",
-  //     credentials: "include",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify({
-  //       amount: currentAmount
-  //     })
-  //   })
-  // };
+  useEffect(() => {
+    if (lastStage) {
+      fetch(`${process.env.REACT_APP_API}/products_order/${product.id}`, {
+        method: "PUT",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          amount: available ? currentAmount : 0,
+          amount_changed: available ? amountChanged: false,
+          available
+        })
+      })
+      .then(response => response.json())
+      .then(console.log)
+      .catch(console.error);
+    }
+  }, [lastStage, product.id, available, currentAmount, amountChanged]);
 
   return (
     <tr 
       style={{ 
         backgroundColor: (
           !available ? "#f00" : 
-          updated ? "#ff0" : "#fff"
+          amountChanged ? "#ff0" : "#fff"
         )
       }} 
       key={ product.id }
@@ -68,7 +79,7 @@ const ProductOrder: FC<IProductProps> = ({
               onClick={ () => {
                 if ((currentAmount > 1) && available) {
                   setCurrentAmount(currentAmount - 1); 
-                  setUpdated(true);
+                  setAmountChanged(true);
                   setAcceptance(acceptance.map((v, i) => {
                     if (i === index) return false;
                     return v;
@@ -91,7 +102,7 @@ const ProductOrder: FC<IProductProps> = ({
               onClick={ () => {
                 if ((currentAmount < product.amount) && available) {
                   if (currentAmount + 1 === product.amount) {
-                    setUpdated(false);
+                    setAmountChanged(false);
                     setAcceptance(acceptance.map((v, i) => {
                       if (i === index) return true;
                       return v;
@@ -109,12 +120,12 @@ const ProductOrder: FC<IProductProps> = ({
       <td>${ (product.tax).toFixed(2) }</td>
       <td>${ Number(((product.price + product.tax) * currentAmount).toFixed(2)) }</td>
       {
-        !orderAccepted && (
+        !orderAccepted && currentUser?.role === "merchant" && currentRole === "merchant" && (
           <td>
             <button 
               onClick={ () => {
                 setAcceptance(acceptance.map((v, i) => {
-                  if ((i === index) && !updated) {
+                  if ((i === index) && !amountChanged) {
                     return !available;
                   }
                   return v;

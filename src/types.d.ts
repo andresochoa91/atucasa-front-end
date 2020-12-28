@@ -113,7 +113,9 @@ type TProductOrder = {
   product_name: string,
   price: number,
   tax: number,
-  amount: number
+  amount: number,
+  available: boolean,
+  amount_changed: boolean
 };
 
 type TOrder = {
