@@ -100,47 +100,53 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
             ))
           }
           {
-            (currentUser?.role === "customer" || orderAccepted || orderCanceled) && (
+            (currentUser?.role === "customer" || orderAccepted/*  || orderCanceled */) && (
               <>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td><strong>Tip</strong></td>
-                  {
-                    (currentRole === "customer" && !orderAccepted) ? (
-                      <>
-                        <td>$ 
-                          <input 
-                            type="text"
-                            value={ currentTip }
-                            onChange={ (event) => setCurrentTip(event.target.value) }
-                            placeholder={ `Suggested: ${(semiTotal * 0.15).toFixed(2)}` }
-                          />
-                        </td>
-                        <td>
-                          <button onClick={ () => setCurrentTip((semiTotal * 0.15).toFixed(2)) }>
-                            Apply suggested tip
-                          </button>
-                        </td>
-                      </>
-                    ) : orderAccepted && <td>${ currentTip }</td>
-                  }
-                </tr>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td><strong>Delivery Fee</strong></td>
-                  <td>${ order.delivery_fee }</td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td><strong>Total</strong></td>
-                  <td>{ `$${(semiTotal+ Number(currentTip) + order.delivery_fee).toFixed(2)}` }</td>
-                </tr>
+                {
+                  !orderCanceled && (
+                    <>
+                      <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><strong>Tip</strong></td>
+                        {
+                          (currentRole === "customer" && !orderAccepted) ? (
+                            <>
+                              <td>$ 
+                                <input 
+                                  type="text"
+                                  value={ currentTip }
+                                  onChange={ (event) => setCurrentTip(event.target.value) }
+                                  placeholder={ `Suggested: ${(semiTotal * 0.15).toFixed(2)}` }
+                                />
+                              </td>
+                              <td>
+                                <button onClick={ () => setCurrentTip((semiTotal * 0.15).toFixed(2)) }>
+                                  Apply suggested tip
+                                </button>
+                              </td>
+                            </>
+                          ) : orderAccepted && <td>${ currentTip }</td>
+                        }
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><strong>Delivery Fee</strong></td>
+                        <td>${ order.delivery_fee }</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><strong>Total</strong></td>
+                        <td>{ `$${(semiTotal+ Number(currentTip) + order.delivery_fee).toFixed(2)}` }</td>
+                      </tr>
+                    </>
+                  )
+                }
               </>
             )
           }

@@ -79,6 +79,9 @@ var ProductOrder = function (_a) {
                         return v;
                     }));
                     setAvailable(!available);
-                } }, available ? "Not Available" : "Available"))) : (!orderAccepted && (currentUser === null || currentUser === void 0 ? void 0 : currentUser.role) === "customer" && currentRole === "customer") && (react_1["default"].createElement(react_1["default"].Fragment, null, !available ? (react_1["default"].createElement("td", null, "Not available")) : amountChanged ? (react_1["default"].createElement("td", null, "Amount suggested by merchant")) : (react_1["default"].createElement("td", null, "Available"))))));
+                } }, available ? "Not Available" : "Available"))) : (!orderAccepted &&
+            (currentUser === null || currentUser === void 0 ? void 0 : currentUser.role) === "customer" &&
+            currentRole === "customer" &&
+            !orderCanceled) && (react_1["default"].createElement(react_1["default"].Fragment, null, !available ? (react_1["default"].createElement("td", null, "Not available")) : amountChanged ? (react_1["default"].createElement("td", null, "Amount suggested by merchant")) : (react_1["default"].createElement("td", null, "Available"))))));
 };
 exports["default"] = ProductOrder;
