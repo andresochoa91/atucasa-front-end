@@ -15,7 +15,7 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
   const [ acceptance, setAcceptance ] = useState<Array<boolean>>(Array(order.products_order.length).fill(true));
   const [ message, setMessage ] = useState<string>(order.message);
   const [ lastStage, setLastStage ] = useState<boolean>(false);
-  const [ currentTip, setCurrentTip ] = useState<string>(order.tip === 0 ? "" : (order.tip).toString());
+  const [ currentTip, setCurrentTip ] = useState<string>(order.tip === 0 && (!order.accepted) ? "" : (order.tip).toString());
   const [ semiTotal, setSemiTotal ] = useState<number>(0);
 
   useEffect(() => {
@@ -46,27 +46,32 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
       updateField.canceled = true;
     }
 
-    fetch(`${process.env.REACT_APP_API}/current_user/orders/${id}`, {
-      method: "PUT",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(updateField)
-    })
-    .then(response => response.json())
-    .then(data => {
-      if (field === "role") {
-        if (!lastStage) setLastStage(true);
-        setCurrentRole(data.order.current_user);
-        // console.log(data);
-      } else if (field === "accepted") {
-        setOrderAccepted(true);
-      } else if (field === "canceled") {
-        setOrderCanceled(true);
-      }
-    })
-    .catch(console.error);
+    if (field !== "accepted" || currentTip !== "") {
+      fetch(`${process.env.REACT_APP_API}/current_user/orders/${id}`, {
+        method: "PUT",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(updateField)
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (field === "role") {
+          if (!lastStage) setLastStage(true);
+          setCurrentRole(data.order.current_user);
+          // console.log(data);
+        } else if (field === "accepted") {
+          setOrderAccepted(true);
+        } else if (field === "canceled") {
+          setOrderCanceled(true);
+        }
+      })
+      .catch(console.error);
+    } else {
+      console.log("Add tip");
+    }
+
   };
 
   return (
@@ -127,7 +132,9 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
                                 </button>
                               </td>
                             </>
-                          ) : orderAccepted && <td>${ currentTip }</td>
+                          ) : (orderAccepted || (!orderAccepted && currentRole === "merchant")) && (
+                            <td>${ currentTip === "" ? 0 : currentTip }</td>
+                          )
                         }
                       </tr>
                       <tr>
