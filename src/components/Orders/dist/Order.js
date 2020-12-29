@@ -12,7 +12,7 @@ var Order = function (_a) {
     var _e = react_1.useState(Array(order.products_order.length).fill(true)), acceptance = _e[0], setAcceptance = _e[1];
     var _f = react_1.useState(order.message), message = _f[0], setMessage = _f[1];
     var _g = react_1.useState(false), lastStage = _g[0], setLastStage = _g[1];
-    var _h = react_1.useState(order.tip === 0 ? "" : (order.tip).toString()), currentTip = _h[0], setCurrentTip = _h[1];
+    var _h = react_1.useState(order.tip === 0 && (!order.accepted) ? "" : (order.tip).toString()), currentTip = _h[0], setCurrentTip = _h[1];
     var _j = react_1.useState(0), semiTotal = _j[0], setSemiTotal = _j[1];
     react_1.useEffect(function () {
         setSemiTotal(order.products_order.reduce(function (acc, pr) {
@@ -34,29 +34,34 @@ var Order = function (_a) {
         else {
             updateField.canceled = true;
         }
-        fetch(process.env.REACT_APP_API + "/current_user/orders/" + id, {
-            method: "PUT",
-            credentials: "include",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(updateField)
-        })
-            .then(function (response) { return response.json(); })
-            .then(function (data) {
-            if (field === "role") {
-                if (!lastStage)
-                    setLastStage(true);
-                setCurrentRole(data.order.current_user);
-                // console.log(data);
-            }
-            else if (field === "accepted") {
-                setOrderAccepted(true);
-            }
-            else if (field === "canceled") {
-                setOrderCanceled(true);
-            }
-        })["catch"](console.error);
+        if (field !== "accepted" || currentTip !== "") {
+            fetch(process.env.REACT_APP_API + "/current_user/orders/" + id, {
+                method: "PUT",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(updateField)
+            })
+                .then(function (response) { return response.json(); })
+                .then(function (data) {
+                if (field === "role") {
+                    if (!lastStage)
+                        setLastStage(true);
+                    setCurrentRole(data.order.current_user);
+                    // console.log(data);
+                }
+                else if (field === "accepted") {
+                    setOrderAccepted(true);
+                }
+                else if (field === "canceled") {
+                    setOrderCanceled(true);
+                }
+            })["catch"](console.error);
+        }
+        else {
+            console.log("Add tip");
+        }
     };
     return (react_1["default"].createElement("div", { key: order.id },
         react_1["default"].createElement("h3", null,
@@ -84,9 +89,9 @@ var Order = function (_a) {
                                 "$",
                                 react_1["default"].createElement("input", { type: "text", value: currentTip, onChange: function (event) { return setCurrentTip(event.target.value); }, placeholder: "Suggested: " + (semiTotal * 0.15).toFixed(2) })),
                             react_1["default"].createElement("td", null,
-                                react_1["default"].createElement("button", { onClick: function () { return setCurrentTip((semiTotal * 0.15).toFixed(2)); } }, "Apply suggested tip")))) : orderAccepted && react_1["default"].createElement("td", null,
+                                react_1["default"].createElement("button", { onClick: function () { return setCurrentTip((semiTotal * 0.15).toFixed(2)); } }, "Apply suggested tip")))) : (orderAccepted || (!orderAccepted && currentRole === "merchant")) && (react_1["default"].createElement("td", null,
                             "$",
-                            currentTip)),
+                            currentTip === "" ? 0 : currentTip))),
                     react_1["default"].createElement("tr", null,
                         react_1["default"].createElement("td", null),
                         react_1["default"].createElement("td", null),

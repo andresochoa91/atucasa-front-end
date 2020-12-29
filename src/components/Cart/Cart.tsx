@@ -43,37 +43,41 @@ const Cart: FC<IProductsProps> = ({ currentCustomerID, merchantID, cart, setCart
   }, [cart, tip]);
 
   const handleCheckout = (): void => {
-    const checkout: ICheckout = {
-      accepted: true,
-      current_user: "merchant",
-      tip: Number(tip),
-      delivery_fee: 5,
-      products: cart.map(pr => {
-        return {
-          id: pr.id,
-          amount: pr.amount
-        }
+    if (tip !== "") {
+      const checkout: ICheckout = {
+        accepted: true,
+        current_user: "merchant",
+        tip: Number(tip),
+        delivery_fee: 5,
+        products: cart.map(pr => {
+          return {
+            id: pr.id,
+            amount: pr.amount
+          }
+        })
+      };
+  
+      if (currentCustomerID) checkout.customer_id = currentCustomerID;
+      if (merchantID) checkout.merchant_id = merchantID;
+  
+      fetch(`${process.env.REACT_APP_API}/merchants/${merchantID}/create_order`, {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(checkout)
       })
-    };
-
-    if (currentCustomerID) checkout.customer_id = currentCustomerID;
-    if (merchantID) checkout.merchant_id = merchantID;
-
-    fetch(`${process.env.REACT_APP_API}/merchants/${merchantID}/create_order`, {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(checkout)
-    })
-    .then(response => response.json())
-    .then(data => {
-      console.log(data);
-      setCart([]);
-      setTip("");
-    })
-    .catch(console.error);
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        setCart([]);
+        setTip("");
+      })
+      .catch(console.error);
+    } else {
+      console.log("Add tip");
+    }
   };
 
   const handleAmount = (sign: string, cID: number):void => {
