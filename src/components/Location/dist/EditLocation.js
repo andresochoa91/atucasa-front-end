@@ -28,66 +28,63 @@ var EditLocation = function () {
     var handleSubmit = function (event) {
         event.preventDefault();
         var newLocation = {};
-        // if (country) newLocation.country = country;
-        // if (state) newLocation.state = state;
-        // if (city) newLocation.city = city;
-        // if (address) newLocation.address = address;
-        // if (zipCode) newLocation.zip_code = zipCode;
-        // if (details) newLocation.details = details;
         newLocation.country = country ? country : location === null || location === void 0 ? void 0 : location.country;
         newLocation.state = state ? state : location === null || location === void 0 ? void 0 : location.state;
         newLocation.city = city ? city : location === null || location === void 0 ? void 0 : location.city;
         newLocation.address = address ? address : location === null || location === void 0 ? void 0 : location.address;
         newLocation.zip_code = zipCode ? zipCode : location === null || location === void 0 ? void 0 : location.zip_code;
         newLocation.details = details ? details : location === null || location === void 0 ? void 0 : location.details;
-        fetch(process.env.REACT_APP_MAPQUEST_API + "&location=" + address + "," + city + "," + state + "," + zipCode)
+        fetch("" + process.env.REACT_APP_MAPQUEST_API + newLocation.address + "," + newLocation.city + "," + newLocation.state + "," + newLocation.zip_code)
             .then(function (response) { return response.json(); })
-            .then(console.log)["catch"](console.error);
-        // fetch(`${process.env.REACT_APP_API}/current_user/location`, {
-        //   method: "PUT",
-        //   credentials: "include",
-        //   headers: {
-        //     "Content-Type": "application/json"
-        //   },
-        //   body: JSON.stringify(newLocation)
-        // })
-        // .then(response => response.json())
-        // .then(data => {
-        //   console.log(data);
-        //   if (!data.error) {
-        //     setCountry("");
-        //     setState("");
-        //     setCity("");
-        //     setAddress("");
-        //     setZipCode("");
-        //     setDetails("");
-        //     handleLocation();
-        //   }
-        // })
-        // .catch(console.error);
+            .then(function (data) {
+            var _a = data.results[0].locations[0].displayLatLng, lat = _a.lat, lng = _a.lng;
+            newLocation.latitude = lat;
+            newLocation.longitude = lng;
+            fetch(process.env.REACT_APP_API + "/current_user/location", {
+                method: "PUT",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(newLocation)
+            })
+                .then(function (response2) { return response2.json(); })
+                .then(function (data2) {
+                console.log(data2);
+                if (!data2.error) {
+                    setCountry("");
+                    setState("");
+                    setCity("");
+                    setAddress("");
+                    setZipCode("");
+                    setDetails("");
+                    handleLocation();
+                }
+            })["catch"](console.error);
+        })["catch"](console.error);
     };
     return (react_1["default"].createElement(react_1["default"].Fragment, null, location && (react_1["default"].createElement(react_1["default"].Fragment, null,
         react_1["default"].createElement("h2", null, "Edit Location"),
         react_1["default"].createElement("form", { onSubmit: handleSubmit },
             react_1["default"].createElement("label", null, "Country"),
-            react_1["default"].createElement("input", { type: "text", name: "country", value: country, onChange: handleInput }),
+            react_1["default"].createElement("input", { type: "text", name: "country", value: country, onChange: handleInput, placeholder: location.country }),
             react_1["default"].createElement("br", null),
             react_1["default"].createElement("label", null, "State"),
-            react_1["default"].createElement("input", { type: "text", name: "state", value: state, onChange: handleInput }),
+            react_1["default"].createElement("input", { type: "text", name: "state", value: state, onChange: handleInput, placeholder: location.state }),
             react_1["default"].createElement("br", null),
             react_1["default"].createElement("label", null, "City"),
-            react_1["default"].createElement("input", { type: "text", name: "city", value: city, onChange: handleInput }),
+            react_1["default"].createElement("input", { type: "text", name: "city", value: city, onChange: handleInput, placeholder: location.city }),
             react_1["default"].createElement("br", null),
             react_1["default"].createElement("label", null, "Address"),
-            react_1["default"].createElement("input", { type: "text", name: "address", value: address, onChange: handleInput }),
+            react_1["default"].createElement("input", { type: "text", name: "address", value: address, onChange: handleInput, placeholder: location.address }),
             react_1["default"].createElement("br", null),
             react_1["default"].createElement("label", null, "Zip Code"),
-            react_1["default"].createElement("input", { type: "text", name: "zipCode", value: zipCode, onChange: handleInput }),
+            react_1["default"].createElement("input", { type: "text", name: "zipCode", value: zipCode, onChange: handleInput, placeholder: location.zip_code }),
             react_1["default"].createElement("br", null),
             react_1["default"].createElement("label", null, "Details"),
-            react_1["default"].createElement("input", { type: "text", name: "details", value: details, onChange: handleInput }),
+            react_1["default"].createElement("input", { type: "text", name: "details", value: details, onChange: handleInput, placeholder: location.details }),
             react_1["default"].createElement("br", null),
-            react_1["default"].createElement("input", { type: "submit", value: "Update", onChange: handleInput })),
+            react_1["default"].createElement("input", { type: "submit", value: "Update" })),
         react_1["default"].createElement("br", null)))));
 };
 exports["default"] = EditLocation;

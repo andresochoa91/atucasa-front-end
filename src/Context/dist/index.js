@@ -20,8 +20,8 @@ exports.Provider = function (_a) {
             .then(function (data) {
             console.log(data);
             if (!data.error) {
-                var _a = data.location, country = _a.country, city = _a.city, state = _a.state, address = _a.address, zip_code = _a.zip_code, details = _a.details;
-                setLocation({ country: country, city: city, state: state, address: address, zip_code: zip_code, details: details });
+                var _a = data.location, country = _a.country, city = _a.city, state = _a.state, address = _a.address, zip_code = _a.zip_code, details = _a.details, latitude = _a.latitude, longitude = _a.longitude;
+                setLocation({ country: country, city: city, state: state, address: address, zip_code: zip_code, details: details, latitude: latitude, longitude: longitude });
             }
         })["catch"](console.error);
     };

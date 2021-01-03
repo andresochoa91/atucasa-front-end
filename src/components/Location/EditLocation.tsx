@@ -33,13 +33,6 @@ const EditLocation: FC = (): JSX.Element => {
 
     const newLocation: TLocation = {};
 
-    // if (country) newLocation.country = country;
-    // if (state) newLocation.state = state;
-    // if (city) newLocation.city = city;
-    // if (address) newLocation.address = address;
-    // if (zipCode) newLocation.zip_code = zipCode;
-    // if (details) newLocation.details = details;
-
     newLocation.country = country ? country : location?.country;
     newLocation.state = state ? state : location?.state;
     newLocation.city = city ? city : location?.city;
@@ -47,33 +40,38 @@ const EditLocation: FC = (): JSX.Element => {
     newLocation.zip_code = zipCode ? zipCode : location?.zip_code;
     newLocation.details = details ? details : location?.details;
 
-    fetch(`${process.env.REACT_APP_MAPQUEST_API}&location=${address},${city},${state},${zipCode}`)
+    fetch(`${process.env.REACT_APP_MAPQUEST_API}${newLocation.address},${newLocation.city},${newLocation.state},${newLocation.zip_code}`)
     .then(response => response.json())
-    .then(console.log)
+    .then(data => { 
+      const { lat, lng } = data.results[0].locations[0].displayLatLng;
+      newLocation.latitude = lat;
+      newLocation.longitude = lng;      
+
+      fetch(`${process.env.REACT_APP_API}/current_user/location`, {
+        method: "PUT",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(newLocation)
+      })
+      .then(response2 => response2.json())
+      .then(data2 => {
+        console.log(data2);
+        if (!data2.error) {
+          setCountry("");
+          setState("");
+          setCity("");
+          setAddress("");
+          setZipCode("");
+          setDetails("");
+          handleLocation();
+        }
+      })
+      .catch(console.error);
+    })
     .catch(console.error);
 
-    // fetch(`${process.env.REACT_APP_API}/current_user/location`, {
-    //   method: "PUT",
-    //   credentials: "include",
-    //   headers: {
-    //     "Content-Type": "application/json"
-    //   },
-    //   body: JSON.stringify(newLocation)
-    // })
-    // .then(response => response.json())
-    // .then(data => {
-    //   console.log(data);
-    //   if (!data.error) {
-    //     setCountry("");
-    //     setState("");
-    //     setCity("");
-    //     setAddress("");
-    //     setZipCode("");
-    //     setDetails("");
-    //     handleLocation();
-    //   }
-    // })
-    // .catch(console.error);
   };
 
   return (
@@ -89,6 +87,7 @@ const EditLocation: FC = (): JSX.Element => {
                 name="country" 
                 value={ country }
                 onChange={ handleInput } 
+                placeholder={ location.country }
               />
               <br/>              
               <label>State</label>
@@ -97,6 +96,7 @@ const EditLocation: FC = (): JSX.Element => {
                 name="state" 
                 value={ state }
                 onChange={ handleInput } 
+                placeholder={ location.state }
               />
               <br/>
               <label>City</label>
@@ -105,6 +105,7 @@ const EditLocation: FC = (): JSX.Element => {
                 name="city" 
                 value={ city }
                 onChange={ handleInput } 
+                placeholder={ location.city }
               />
               <br/>
               <label>Address</label>
@@ -113,6 +114,7 @@ const EditLocation: FC = (): JSX.Element => {
                 name="address" 
                 value={ address }
                 onChange={ handleInput } 
+                placeholder={ location.address }
               />
               <br/>
               <label>Zip Code</label>
@@ -121,6 +123,7 @@ const EditLocation: FC = (): JSX.Element => {
                 name="zipCode" 
                 value={ zipCode }
                 onChange={ handleInput } 
+                placeholder={ location.zip_code }
               />
               <br/>
               <label>Details</label>
@@ -129,12 +132,12 @@ const EditLocation: FC = (): JSX.Element => {
                 name="details" 
                 value={ details }
                 onChange={ handleInput } 
+                placeholder={ location.details }
               />
               <br/>
               <input 
                 type="submit" 
                 value="Update"
-                onChange={ handleInput } 
               />
             </form>
             <br/>
