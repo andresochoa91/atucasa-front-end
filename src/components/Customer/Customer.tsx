@@ -33,8 +33,6 @@ const Customer: FC = (): JSX.Element => {
 
   useEffect(handleCurrentCustomer, []);
 
-  console.log(location)
-
   return(
     <>
       {
@@ -44,7 +42,9 @@ const Customer: FC = (): JSX.Element => {
             {
               (location.latitude && location.longitude) && (
                 <>
-                  <button onClick={ () => setShowMap(!showMap) }>Show Map</button>
+                  <button onClick={ () => setShowMap(!showMap) }>
+                    { !showMap ? "Show Map" : "Do not show map" }
+                  </button>
                   {
                     showMap && <MyMap lat={location.latitude} lng={location.longitude} />
                   }

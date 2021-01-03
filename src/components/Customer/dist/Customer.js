@@ -30,11 +30,10 @@ var Customer = function () {
         })["catch"](console.error);
     };
     react_1.useEffect(handleCurrentCustomer, []);
-    console.log(location);
     return (react_1["default"].createElement(react_1["default"].Fragment, null, (currentUser && currentCustomer && location) && (react_1["default"].createElement(react_1["default"].Fragment, null,
         react_1["default"].createElement("h1", null, "Customer"),
         (location.latitude && location.longitude) && (react_1["default"].createElement(react_1["default"].Fragment, null,
-            react_1["default"].createElement("button", { onClick: function () { return setShowMap(!showMap); } }, "Show Map"),
+            react_1["default"].createElement("button", { onClick: function () { return setShowMap(!showMap); } }, !showMap ? "Show Map" : "Do not show map"),
             showMap && react_1["default"].createElement(MyMap_1["default"], { lat: location.latitude, lng: location.longitude }))),
         react_1["default"].createElement("br", null),
         react_1["default"].createElement("br", null),

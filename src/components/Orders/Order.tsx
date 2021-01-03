@@ -46,7 +46,7 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
       updateField.canceled = true;
     }
 
-    if (field !== "accepted" || currentTip !== "") {
+    if (field !== "accepted" || (currentTip !== "" && (Number(currentTip) >= 0))) {
       fetch(`${process.env.REACT_APP_API}/current_user/orders/${id}`, {
         method: "PUT",
         credentials: "include",
@@ -69,7 +69,7 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
       })
       .catch(console.error);
     } else {
-      console.log("Add tip");
+      console.log("Add a correct tip");
     }
 
   };
