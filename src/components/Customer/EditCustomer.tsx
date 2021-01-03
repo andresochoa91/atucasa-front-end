@@ -1,10 +1,11 @@
 import React, { FC, useState } from 'react';
 
 interface ICustomerProps {
-  handleCurrentCustomer: () => void
+  handleCurrentCustomer: () => void,
+  currentCustomer: TCurrentCustomer
 };
 
-const EditCustomer: FC<ICustomerProps> = ({ handleCurrentCustomer }): JSX.Element => {
+const EditCustomer: FC<ICustomerProps> = ({ handleCurrentCustomer, currentCustomer }): JSX.Element => {
   const [ username, setUsername ] = useState<string>("");
   const [ firstName, setFirstName ] = useState<string>("");
   const [ lastName, setLastName ] = useState<string>("");
@@ -74,6 +75,7 @@ const EditCustomer: FC<ICustomerProps> = ({ handleCurrentCustomer }): JSX.Elemen
           name="username"
           value={ username }
           onChange={ handleInput }
+          placeholder={ currentCustomer.username }
         />
         <br/>
         <label>First Name</label>
@@ -82,6 +84,7 @@ const EditCustomer: FC<ICustomerProps> = ({ handleCurrentCustomer }): JSX.Elemen
           name="firstName"
           value={ firstName }
           onChange={ handleInput }
+          placeholder={ currentCustomer.first_name }
         />
         <br/>
         <label>Last Name</label>
@@ -90,6 +93,7 @@ const EditCustomer: FC<ICustomerProps> = ({ handleCurrentCustomer }): JSX.Elemen
           name="lastName"
           value={ lastName }
           onChange={ handleInput }
+          placeholder={ currentCustomer.last_name }
         />
         <br/>
         <label>Phone Number</label>
@@ -98,6 +102,7 @@ const EditCustomer: FC<ICustomerProps> = ({ handleCurrentCustomer }): JSX.Elemen
           name="phoneNumber"
           value={ phoneNumber } 
           onChange={ handleInput } 
+          placeholder={ currentCustomer.phone_number }
         />
         <br/>
         <label>Profile picture</label>

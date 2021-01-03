@@ -68,6 +68,7 @@ const EditUser: FC = (): JSX.Element => {
                 name="newEmail" 
                 value={ newEmail }
                 onChange={ handleInput } 
+                placeholder={ currentUser.email }
               />
               <br/>
               <label>New Password</label>
