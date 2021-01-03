@@ -34,7 +34,7 @@ var Order = function (_a) {
         else {
             updateField.canceled = true;
         }
-        if (field !== "accepted" || currentTip !== "") {
+        if (field !== "accepted" || (currentTip !== "" && (Number(currentTip) >= 0))) {
             fetch(process.env.REACT_APP_API + "/current_user/orders/" + id, {
                 method: "PUT",
                 credentials: "include",
@@ -60,7 +60,7 @@ var Order = function (_a) {
             })["catch"](console.error);
         }
         else {
-            console.log("Add tip");
+            console.log("Add a correct tip");
         }
     };
     return (react_1["default"].createElement("div", { key: order.id },

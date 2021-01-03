@@ -1,7 +1,8 @@
-import React, { FC, useContext } from 'react';
+import React, { FC, useContext, useEffect, useState } from 'react';
 import { AtucasaContext } from '../../Context';
 import { MapContainer, TileLayer, Popup, Circle } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
+import Place from './Place';
 
 interface ILatLngProps {
   lat: number
@@ -11,6 +12,23 @@ interface ILatLngProps {
 const MyMap: FC<ILatLngProps> = ({ lat, lng }): JSX.Element => {
 
   const { location } = useContext<TContextProps>(AtucasaContext);
+  const [ merchants, setMerchants ] = useState<Array<TShowMerchant>>([]);
+  
+  useEffect(() => {
+    fetch(`${process.env.REACT_APP_API}/merchants`, {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+    .then(response => response.json())
+    .then(data => {
+      setMerchants(data.merchants);
+    })
+  }, []);
+
+  console.log(merchants)
 
   return (
     <div>
@@ -34,7 +52,6 @@ const MyMap: FC<ILatLngProps> = ({ lat, lng }): JSX.Element => {
           }}
         >
         </Circle>
-
         <Circle
           center={[lat, lng]}
           radius={14}
@@ -48,6 +65,14 @@ const MyMap: FC<ILatLngProps> = ({ lat, lng }): JSX.Element => {
           </Popup>
         </Circle>
 
+      {
+        merchants.map((merchant) => (
+          <Place 
+            merchant={ merchant }
+            key={ merchant.email }
+          />
+        ))
+      }
 
       </MapContainer>
     </div>

@@ -20,7 +20,7 @@ var Cart = function (_a) {
         }, 0));
     }, [cart, tip]);
     var handleCheckout = function () {
-        if (tip !== "") {
+        if (tip !== "" && (Number(tip) >= 0)) {
             var checkout = {
                 accepted: true,
                 current_user: "merchant",
@@ -53,7 +53,7 @@ var Cart = function (_a) {
             })["catch"](console.error);
         }
         else {
-            console.log("Add tip");
+            console.log("Add a correct tip");
         }
     };
     var handleAmount = function (sign, cID) {

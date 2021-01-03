@@ -43,7 +43,7 @@ const Cart: FC<IProductsProps> = ({ currentCustomerID, merchantID, cart, setCart
   }, [cart, tip]);
 
   const handleCheckout = (): void => {
-    if (tip !== "") {
+    if (tip !== "" && (Number(tip) >= 0)) {
       const checkout: ICheckout = {
         accepted: true,
         current_user: "merchant",
@@ -76,7 +76,7 @@ const Cart: FC<IProductsProps> = ({ currentCustomerID, merchantID, cart, setCart
       })
       .catch(console.error);
     } else {
-      console.log("Add tip");
+      console.log("Add a correct tip");
     }
   };
 
