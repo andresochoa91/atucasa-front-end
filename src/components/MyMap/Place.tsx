@@ -7,7 +7,8 @@ interface IMerchantProps {
 
 const Place: FC<IMerchantProps> = ({ merchant }): JSX.Element => {
 
-  const { latitude, longitude, address } = merchant.location;
+  const { latitude, longitude } = merchant.location;
+  const { merchant_name } = merchant.merchant_info;
 
   return (
     <>
@@ -23,7 +24,7 @@ const Place: FC<IMerchantProps> = ({ merchant }): JSX.Element => {
             }}
           >
             <Popup>
-              <p>{`Your location: ${address}`}</p>
+              <p>{`${ merchant_name }`}</p>
             </Popup>
           </Circle>
         )
