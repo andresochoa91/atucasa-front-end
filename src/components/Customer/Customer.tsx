@@ -74,7 +74,10 @@ const Customer: FC = (): JSX.Element => {
               )
             }
             <EditUser />
-            <EditCustomer handleCurrentCustomer={handleCurrentCustomer}/>
+            <EditCustomer 
+              currentCustomer={ currentCustomer }
+              handleCurrentCustomer={handleCurrentCustomer}
+            />
             <EditLocation />
             <h2>User information</h2>
             <p><strong>Email: </strong>{ currentUser.email }</p>

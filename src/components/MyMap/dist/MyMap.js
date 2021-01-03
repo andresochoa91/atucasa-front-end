@@ -22,7 +22,6 @@ var MyMap = function (_a) {
             setMerchants(data.merchants);
         });
     }, []);
-    console.log(merchants);
     return (react_1["default"].createElement("div", null,
         react_1["default"].createElement(react_leaflet_1.MapContainer, { center: [lat, lng], zoom: 20, minZoom: 10, style: { height: "400px", width: "700px" } },
             react_1["default"].createElement(react_leaflet_1.TileLayer, { attribution: '&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors', url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" }),

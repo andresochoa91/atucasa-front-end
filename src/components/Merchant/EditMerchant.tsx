@@ -1,10 +1,11 @@
 import React, { FC, useState } from 'react';
 
 interface IMerchantProps {
-  handleCurrentMerchant: () => void
+  handleCurrentMerchant: () => void,
+  currentMerchant: TCurrentMerchant
 };
 
-const EditMerchant: FC<IMerchantProps> = ({ handleCurrentMerchant }): JSX.Element => {
+const EditMerchant: FC<IMerchantProps> = ({ handleCurrentMerchant, currentMerchant }): JSX.Element => {
   const [ merchantName, setMerchantName ] = useState<string>("");
   const [ phoneNumber, setPhoneNumber ] = useState<string>("");
   const [ taxId, setTaxId ] = useState<string>("");
@@ -75,6 +76,7 @@ const EditMerchant: FC<IMerchantProps> = ({ handleCurrentMerchant }): JSX.Elemen
           name="merchantName"
           value={ merchantName }
           onChange={ handleInput } 
+          placeholder={ currentMerchant.merchant_name }
         />
         <br/>
         <label>Phone Number</label>
@@ -83,6 +85,7 @@ const EditMerchant: FC<IMerchantProps> = ({ handleCurrentMerchant }): JSX.Elemen
           name="phoneNumber"
           value={ phoneNumber }
           onChange={ handleInput } 
+          placeholder={ currentMerchant.phone_number }
         />
         <br/>
         <label>Tax ID</label>
@@ -91,6 +94,7 @@ const EditMerchant: FC<IMerchantProps> = ({ handleCurrentMerchant }): JSX.Elemen
           name="taxId"
           value={ taxId }
           onChange={ handleInput } 
+          placeholder={ currentMerchant.tax_id }
         />
         <br/>
         <label>Description</label>
@@ -99,6 +103,7 @@ const EditMerchant: FC<IMerchantProps> = ({ handleCurrentMerchant }): JSX.Elemen
           name="description"
           value={ description }
           onChange={ handleInput } 
+          placeholder={ currentMerchant.description }
         />
         <br/>
         <label>Profile Picture</label>

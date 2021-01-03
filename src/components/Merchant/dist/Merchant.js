@@ -33,7 +33,7 @@ var Merchant = function () {
         react_1["default"].createElement("button", { onClick: function () { return setShowOrder(!showOrder); } }, showOrder ? "Do not show orders" : "Show orders"),
         showOrder && (react_1["default"].createElement(Orders_1["default"], null)),
         react_1["default"].createElement(EditUser_1["default"], null),
-        react_1["default"].createElement(EditMerchant_1["default"], { handleCurrentMerchant: handleCurrentMerchant }),
+        react_1["default"].createElement(EditMerchant_1["default"], { handleCurrentMerchant: handleCurrentMerchant, currentMerchant: currentMerchant }),
         react_1["default"].createElement(EditLocation_1["default"], null),
         react_1["default"].createElement("h2", null, "Personal information"),
         react_1["default"].createElement("p", null,

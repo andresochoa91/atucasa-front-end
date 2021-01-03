@@ -28,8 +28,6 @@ const MyMap: FC<ILatLngProps> = ({ lat, lng }): JSX.Element => {
     })
   }, []);
 
-  console.log(merchants)
-
   return (
     <div>
       <MapContainer

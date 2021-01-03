@@ -48,7 +48,10 @@ const Merchant: FC = (): JSX.Element => {
               )
             }
             <EditUser />
-            <EditMerchant handleCurrentMerchant={ handleCurrentMerchant }/>
+            <EditMerchant 
+              handleCurrentMerchant={ handleCurrentMerchant }
+              currentMerchant={ currentMerchant }
+            />
             <EditLocation />
             <h2>Personal information</h2>
             <p><strong>Email: </strong>{ currentUser.email }</p>
