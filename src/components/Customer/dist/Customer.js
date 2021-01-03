@@ -14,6 +14,7 @@ var Customer = function () {
     var _b = react_1.useState(null), currentCustomer = _b[0], setCurrentCustomer = _b[1];
     var _c = react_1.useState(false), showOrder = _c[0], setShowOrder = _c[1];
     var _d = react_1.useState(false), showMerchants = _d[0], setShowMerchants = _d[1];
+    var _e = react_1.useState(false), showMap = _e[0], setShowMap = _e[1];
     var handleCurrentCustomer = function () {
         fetch(process.env.REACT_APP_API + "/current_user/customer", {
             method: "GET",
@@ -29,9 +30,14 @@ var Customer = function () {
         })["catch"](console.error);
     };
     react_1.useEffect(handleCurrentCustomer, []);
+    console.log(location);
     return (react_1["default"].createElement(react_1["default"].Fragment, null, (currentUser && currentCustomer && location) && (react_1["default"].createElement(react_1["default"].Fragment, null,
-        react_1["default"].createElement(MyMap_1["default"], null),
         react_1["default"].createElement("h1", null, "Customer"),
+        (location.latitude && location.longitude) && (react_1["default"].createElement(react_1["default"].Fragment, null,
+            react_1["default"].createElement("button", { onClick: function () { return setShowMap(!showMap); } }, "Show Map"),
+            showMap && react_1["default"].createElement(MyMap_1["default"], { lat: location.latitude, lng: location.longitude }))),
+        react_1["default"].createElement("br", null),
+        react_1["default"].createElement("br", null),
         react_1["default"].createElement("button", { onClick: function () { return setShowOrder(!showOrder); } }, !showOrder ? "Show Orders" : "Do Not Show Orders"),
         showOrder && (react_1["default"].createElement(Orders_1["default"], null)),
         react_1["default"].createElement("br", null),

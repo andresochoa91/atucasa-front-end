@@ -13,6 +13,7 @@ const Customer: FC = (): JSX.Element => {
   const [ currentCustomer, setCurrentCustomer ] = useState<TCurrentCustomer | null>(null);
   const [ showOrder, setShowOrder ] = useState<boolean>(false);
   const [ showMerchants, setShowMerchants ] = useState<boolean>(false);
+  const [ showMap, setShowMap ] = useState<boolean>(false);
 
   const handleCurrentCustomer = () => {
     fetch(`${process.env.REACT_APP_API}/current_user/customer`, {
@@ -32,14 +33,26 @@ const Customer: FC = (): JSX.Element => {
 
   useEffect(handleCurrentCustomer, []);
 
+  console.log(location)
+
   return(
     <>
       {
         (currentUser && currentCustomer && location) && (
           <>
-            <MyMap />
             <h1>Customer</h1>
-
+            {
+              (location.latitude && location.longitude) && (
+                <>
+                  <button onClick={ () => setShowMap(!showMap) }>Show Map</button>
+                  {
+                    showMap && <MyMap lat={location.latitude} lng={location.longitude} />
+                  }
+                </>
+              )
+            }
+            <br/>
+            <br/>
             <button 
               onClick={ () => setShowOrder(!showOrder) }
             >

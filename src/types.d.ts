@@ -10,7 +10,9 @@ type TLocation = {
   city?: string,
   address?: string,
   zip_code?: string,
-  details?: string
+  details?: string,
+  latitude?: number,
+  longitude?: number
 };
 
 type TCurrentCustomer = {
