@@ -33,35 +33,47 @@ const EditLocation: FC = (): JSX.Element => {
 
     const newLocation: TLocation = {};
 
-    if (country) newLocation.country = country;
-    if (state) newLocation.state = state;
-    if (city) newLocation.city = city;
-    if (address) newLocation.address = address;
-    if (zipCode) newLocation.zip_code = zipCode;
-    if (details) newLocation.details = details;
+    // if (country) newLocation.country = country;
+    // if (state) newLocation.state = state;
+    // if (city) newLocation.city = city;
+    // if (address) newLocation.address = address;
+    // if (zipCode) newLocation.zip_code = zipCode;
+    // if (details) newLocation.details = details;
 
-    fetch(`${process.env.REACT_APP_API}/current_user/location`, {
-      method: "PUT",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(newLocation)
-    })
+    newLocation.country = country ? country : location?.country;
+    newLocation.state = state ? state : location?.state;
+    newLocation.city = city ? city : location?.city;
+    newLocation.address = address ? address : location?.address;
+    newLocation.zip_code = zipCode ? zipCode : location?.zip_code;
+    newLocation.details = details ? details : location?.details;
+
+    fetch(`${process.env.REACT_APP_MAPQUEST_API}&location=${address},${city},${state},${zipCode}`)
     .then(response => response.json())
-    .then(data => {
-      console.log(data);
-      if (!data.error) {
-        setCountry("");
-        setState("");
-        setCity("");
-        setAddress("");
-        setZipCode("");
-        setDetails("");
-        handleLocation();
-      }
-    })
+    .then(console.log)
     .catch(console.error);
+
+    // fetch(`${process.env.REACT_APP_API}/current_user/location`, {
+    //   method: "PUT",
+    //   credentials: "include",
+    //   headers: {
+    //     "Content-Type": "application/json"
+    //   },
+    //   body: JSON.stringify(newLocation)
+    // })
+    // .then(response => response.json())
+    // .then(data => {
+    //   console.log(data);
+    //   if (!data.error) {
+    //     setCountry("");
+    //     setState("");
+    //     setCity("");
+    //     setAddress("");
+    //     setZipCode("");
+    //     setDetails("");
+    //     handleLocation();
+    //   }
+    // })
+    // .catch(console.error);
   };
 
   return (
