@@ -1,20 +1,20 @@
-import React, { FC, useEffect } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, Circle } from "react-leaflet";
+import React, { FC/* , useEffect */ } from 'react';
+import { MapContainer, TileLayer/* , Marker */, Popup, Circle } from "react-leaflet";
 // import CurrentLocation from './CurrentLocation';
 // import Store from './Store';
 import "leaflet/dist/leaflet.css";
-import L from 'leaflet';
-import marker_icon_2x from "leaflet/dist/images/marker-icon-2x.png";
-import marker_icon from "leaflet/dist/images/marker-icon.png"
-import marker_shadow from "leaflet/dist/images/marker-shadow.png";
+// import L from 'leaflet';
+// import marker_icon_2x from "leaflet/dist/images/marker-icon-2x.png";
+// import marker_icon from "leaflet/dist/images/marker-icon.png"
+// import marker_shadow from "leaflet/dist/images/marker-shadow.png";
 
 const MyMap: FC = (): JSX.Element => {
 
-  const DefaultIcon = L.icon({
-    iconRetinaUrl: marker_icon_2x,
-    iconUrl: marker_icon,
-    shadowUrl: marker_shadow
-  })
+  // const DefaultIcon = L.icon({
+  //   iconRetinaUrl: marker_icon_2x,
+  //   iconUrl: marker_icon,
+  //   shadowUrl: marker_shadow
+  // })
 
   // useEffect(() => {
 
@@ -45,6 +45,8 @@ const MyMap: FC = (): JSX.Element => {
       <MapContainer
         center={[	37.747131, -122.472583]} 
         zoom={20} 
+        // maxZoom={ 20 }
+        minZoom={ 5 }
         style={{ height: "400px", width: "700px" }}
       >
         <TileLayer
@@ -63,20 +65,24 @@ const MyMap: FC = (): JSX.Element => {
 
         <Circle
           center={[37.747131, -122.472583]}
-          radius={ 4000 }
+          radius={ 8000 }
+          pathOptions={{ 
+            fillColor: "#00a",
+            stroke: false 
+          }}
         >
         </Circle>
-        
+
         <Circle
           center={[37.747131, -122.472583]}
           radius={14}
           pathOptions={{ 
             fillColor: "#00a",
-            weight: 5 
+            weight: 6 
           }}
         >
           <Popup>
-            {37.747131}{-122.472583}
+            <p>{`Your location: ${37.747131}, ${-122.472583}`}</p>
           </Popup>
         </Circle>
 
