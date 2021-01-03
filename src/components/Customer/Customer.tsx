@@ -6,6 +6,7 @@ import EditLocation from '../Location/EditLocation';
 import Location from '../Location/Location';
 import ShowMerchants from '../ShowMerchant/ShowMerchants';
 import Orders from '../Orders/Orders';
+import MyMap from '../MyMap/MyMap';
 
 const Customer: FC = (): JSX.Element => {
   const { currentUser, location } = useContext<TContextProps>(AtucasaContext);
@@ -36,7 +37,9 @@ const Customer: FC = (): JSX.Element => {
       {
         (currentUser && currentCustomer && location) && (
           <>
+            <MyMap />
             <h1>Customer</h1>
+
             <button 
               onClick={ () => setShowOrder(!showOrder) }
             >

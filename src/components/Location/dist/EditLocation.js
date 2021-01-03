@@ -28,39 +28,43 @@ var EditLocation = function () {
     var handleSubmit = function (event) {
         event.preventDefault();
         var newLocation = {};
-        if (country)
-            newLocation.country = country;
-        if (state)
-            newLocation.state = state;
-        if (city)
-            newLocation.city = city;
-        if (address)
-            newLocation.address = address;
-        if (zipCode)
-            newLocation.zip_code = zipCode;
-        if (details)
-            newLocation.details = details;
-        fetch(process.env.REACT_APP_API + "/current_user/location", {
-            method: "PUT",
-            credentials: "include",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(newLocation)
-        })
+        // if (country) newLocation.country = country;
+        // if (state) newLocation.state = state;
+        // if (city) newLocation.city = city;
+        // if (address) newLocation.address = address;
+        // if (zipCode) newLocation.zip_code = zipCode;
+        // if (details) newLocation.details = details;
+        newLocation.country = country ? country : location === null || location === void 0 ? void 0 : location.country;
+        newLocation.state = state ? state : location === null || location === void 0 ? void 0 : location.state;
+        newLocation.city = city ? city : location === null || location === void 0 ? void 0 : location.city;
+        newLocation.address = address ? address : location === null || location === void 0 ? void 0 : location.address;
+        newLocation.zip_code = zipCode ? zipCode : location === null || location === void 0 ? void 0 : location.zip_code;
+        newLocation.details = details ? details : location === null || location === void 0 ? void 0 : location.details;
+        fetch(process.env.REACT_APP_MAPQUEST_API + "&location=" + address + "," + city + "," + state + "," + zipCode)
             .then(function (response) { return response.json(); })
-            .then(function (data) {
-            console.log(data);
-            if (!data.error) {
-                setCountry("");
-                setState("");
-                setCity("");
-                setAddress("");
-                setZipCode("");
-                setDetails("");
-                handleLocation();
-            }
-        })["catch"](console.error);
+            .then(console.log)["catch"](console.error);
+        // fetch(`${process.env.REACT_APP_API}/current_user/location`, {
+        //   method: "PUT",
+        //   credentials: "include",
+        //   headers: {
+        //     "Content-Type": "application/json"
+        //   },
+        //   body: JSON.stringify(newLocation)
+        // })
+        // .then(response => response.json())
+        // .then(data => {
+        //   console.log(data);
+        //   if (!data.error) {
+        //     setCountry("");
+        //     setState("");
+        //     setCity("");
+        //     setAddress("");
+        //     setZipCode("");
+        //     setDetails("");
+        //     handleLocation();
+        //   }
+        // })
+        // .catch(console.error);
     };
     return (react_1["default"].createElement(react_1["default"].Fragment, null, location && (react_1["default"].createElement(react_1["default"].Fragment, null,
         react_1["default"].createElement("h2", null, "Edit Location"),
