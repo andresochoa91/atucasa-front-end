@@ -70,8 +70,8 @@ var Customer = function () {
             react_1["default"].createElement("strong", null, "Phone Number: "),
             currentCustomer.phone_number),
         react_1["default"].createElement("p", null,
-            react_1["default"].createElement("strong", null, "Profile Picture: "),
-            currentCustomer.profile_picture),
+            react_1["default"].createElement("strong", null, "Profile Picture: ")),
+        react_1["default"].createElement("img", { src: currentCustomer.profile_picture, alt: "pic", height: 100 }),
         react_1["default"].createElement(Location_1["default"], null)))));
 };
 exports["default"] = Customer;
