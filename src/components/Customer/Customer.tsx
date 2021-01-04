@@ -88,7 +88,12 @@ const Customer: FC = (): JSX.Element => {
             <p><strong>Last Name: </strong>{ currentCustomer.last_name }</p>
             <p><strong>Slug: </strong>{ currentCustomer.slug }</p>
             <p><strong>Phone Number: </strong>{ currentCustomer.phone_number }</p>
-            <p><strong>Profile Picture: </strong>{ currentCustomer.profile_picture }</p>
+            <p><strong>Profile Picture: </strong></p>
+            <img 
+              src={ currentCustomer.profile_picture } 
+              alt="pic"
+              height={ 100 }
+            />
             <Location />
           </>
         )
