@@ -12,14 +12,18 @@ const ShowProducts: FC<IProductsProps> = ({ products, merchantID, currentCustome
 
   const [ cart, setCart ] = useState<Array<TCartProduct>>([]);
 
+  console.log(products)
+
   return (
     <>
       {
         products.map((product) => (
-          <div key={ product.id }>
-            <ShowProduct cart={ cart } setCart={ setCart } product={ product }/>
-            <br/>
-          </div>
+          product.available && (
+            <div key={ product.id }>
+              <ShowProduct cart={ cart } setCart={ setCart } product={ product }/>
+              <br/>
+            </div>
+          )
         ))
       }
       <Cart 
