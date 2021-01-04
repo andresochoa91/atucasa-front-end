@@ -123,7 +123,7 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
                                   type="text"
                                   value={ currentTip }
                                   onChange={ (event) => setCurrentTip(event.target.value) }
-                                  placeholder={ `Suggested: ${(semiTotal * 0.15).toFixed(2)}` }
+                                  placeholder={ `Suggested: $${(semiTotal * 0.15).toFixed(2)}` }
                                 />
                               </td>
                               <td>

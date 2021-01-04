@@ -87,7 +87,7 @@ var Order = function (_a) {
                         (currentRole === "customer" && !orderAccepted) ? (react_1["default"].createElement(react_1["default"].Fragment, null,
                             react_1["default"].createElement("td", null,
                                 "$",
-                                react_1["default"].createElement("input", { type: "text", value: currentTip, onChange: function (event) { return setCurrentTip(event.target.value); }, placeholder: "Suggested: " + (semiTotal * 0.15).toFixed(2) })),
+                                react_1["default"].createElement("input", { type: "text", value: currentTip, onChange: function (event) { return setCurrentTip(event.target.value); }, placeholder: "Suggested: $" + (semiTotal * 0.15).toFixed(2) })),
                             react_1["default"].createElement("td", null,
                                 react_1["default"].createElement("button", { onClick: function () { return setCurrentTip((semiTotal * 0.15).toFixed(2)); } }, "Apply suggested tip")))) : (orderAccepted || (!orderAccepted && currentRole === "merchant")) && (react_1["default"].createElement("td", null,
                             "$",
