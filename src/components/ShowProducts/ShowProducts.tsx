@@ -12,8 +12,6 @@ const ShowProducts: FC<IProductsProps> = ({ products, merchantID, currentCustome
 
   const [ cart, setCart ] = useState<Array<TCartProduct>>([]);
 
-  console.log(products)
-
   return (
     <>
       {
