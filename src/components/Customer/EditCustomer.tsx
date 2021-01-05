@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react';
-import UploadImage from '../UploadImage';
+import UpdateImage from '../UpdateImage';
 interface ICustomerProps {
   handleCurrentCustomer: () => void,
   currentCustomer: TCurrentCustomer
@@ -11,8 +11,6 @@ const EditCustomer: FC<ICustomerProps> = ({ handleCurrentCustomer, currentCustom
   const [ lastName, setLastName ] = useState<string>("");
   const [ phoneNumber, setPhoneNumber ] = useState<string>("");
   const [ profilePicture, setProfilePicture ] = useState<string>("");
-  const [ copyUrl, setCopyUrl ] = useState<boolean>(false);
-  const [ uploadImage, setUploadImage ] = useState<boolean>(false);
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>): void => {
     event.preventDefault();
@@ -109,78 +107,13 @@ const EditCustomer: FC<ICustomerProps> = ({ handleCurrentCustomer, currentCustom
         <br/>
         <label>Profile Picture</label>
         <br/>
-        <img 
-          src={ profilePicture ? profilePicture : currentCustomer.profile_picture } 
-          alt="img"
-          height={ 200 }
+        <UpdateImage 
+          currentPicture = { currentCustomer.profile_picture }
+          userName = { currentCustomer.username }
+          handleInput = { handleInput }
+          newPicture = { profilePicture }
+          setNewPicture = { setProfilePicture }
         />
-        <br/>
-        {
-          profilePicture && (
-            <>
-              <button onClick={ () => setProfilePicture("") }>Keep original image</button>
-              <br/>
-            </>
-          )
-        }
-        {
-          !uploadImage && (
-            <button 
-              onClick={ (event) => {
-                event.preventDefault();
-                setCopyUrl(!copyUrl);
-                setUploadImage(false); 
-              }}
-            >
-              { !copyUrl ? "Copy url of the image" : "Go back" }
-            </button>
-          )
-        }
-        {
-          !copyUrl && (
-            <button 
-              onClick={ (event) => {
-                event.preventDefault();
-                setUploadImage(!uploadImage);
-                setCopyUrl(false); 
-              }}
-            >
-              { !uploadImage ? "Upload image from Computer" : "Go back" }
-            </button>
-          )
-        }
-        <br/>
-        <br/>
-        {
-          copyUrl && (
-            <>
-              <label>Copy url of the image</label>
-              <input 
-                type="text"
-                name="profilePicture"
-                value={ profilePicture }
-                onChange={ handleInput }
-                placeholder={ currentCustomer.profile_picture }
-              />
-              <br/>
-              <br/>
-            </>
-          )
-        }
-        {
-          uploadImage && (
-            <>
-              <label>Upload image</label>
-              <br/>
-              <UploadImage 
-                setPicture={ setProfilePicture }
-                pictureName={ currentCustomer.username }
-              />
-              <br/>
-              <br/>
-            </>
-          )
-        }
         <input type="submit" value="Update"/>
       </form>
       <br/>

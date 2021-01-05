@@ -61,8 +61,18 @@ const Merchant: FC = (): JSX.Element => {
             <p><strong>Phone Number: </strong>{  currentMerchant.phone_number }</p>
             <p><strong>Tax ID: </strong>{ currentMerchant.tax_id }</p>
             <p><strong>Description: </strong>{  currentMerchant.description }</p>
-            <p><strong>Profile Picture: </strong>{  currentMerchant.profile_picture }</p>
-            <p><strong>Background Picture: </strong>{  currentMerchant.background_picture }</p>
+            <p><strong>Profile Picture: </strong></p>
+            <img 
+              src={ currentMerchant.profile_picture } 
+              alt="pic"
+              height={ 100 }
+            />
+            <p><strong>Background Picture: </strong></p>
+            <img 
+              src={ currentMerchant.background_picture } 
+              alt="pic"
+              height={ 100 }
+            />
             <Location />
             <Links />
             <Products />
