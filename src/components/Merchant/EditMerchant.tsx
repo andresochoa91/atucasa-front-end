@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react';
-
+import UpdateImage from '../UpdateImage';
 interface IMerchantProps {
   handleCurrentMerchant: () => void,
   currentMerchant: TCurrentMerchant
@@ -107,19 +107,27 @@ const EditMerchant: FC<IMerchantProps> = ({ handleCurrentMerchant, currentMercha
         />
         <br/>
         <label>Profile Picture</label>
-        <input 
+        {/* <input 
           type="text"
           name="profilePicture"
           value={ profilePicture }
           onChange={ handleInput } 
+        /> */}
+        <UpdateImage 
+          currentPicture = { currentMerchant.profile_picture }
+          userName = { currentMerchant.merchant_name }
+          handleInput = { handleInput }
+          newPicture = { profilePicture }
+          setNewPicture = { setProfilePicture }
         />
         <br/>
         <label>Background Picture</label>
-        <input 
-          type="text"
-          name="backgroundPicture"
-          value={ backgroundPicture }
-          onChange={ handleInput } 
+        <UpdateImage 
+          currentPicture = { currentMerchant.background_picture }
+          userName = { currentMerchant.merchant_name }
+          handleInput = { handleInput }
+          newPicture = { backgroundPicture }
+          setNewPicture = { setBackgroundPicture }
         />
         <br/>
         <input type="submit" value="Update"/>

@@ -1,6 +1,7 @@
 "use strict";
 exports.__esModule = true;
 var react_1 = require("react");
+var UpdateImage_1 = require("../UpdateImage");
 ;
 var EditMerchant = function (_a) {
     var handleCurrentMerchant = _a.handleCurrentMerchant, currentMerchant = _a.currentMerchant;
@@ -78,10 +79,10 @@ var EditMerchant = function (_a) {
             react_1["default"].createElement("input", { type: "text", name: "description", value: description, onChange: handleInput, placeholder: currentMerchant.description }),
             react_1["default"].createElement("br", null),
             react_1["default"].createElement("label", null, "Profile Picture"),
-            react_1["default"].createElement("input", { type: "text", name: "profilePicture", value: profilePicture, onChange: handleInput }),
+            react_1["default"].createElement(UpdateImage_1["default"], { currentPicture: currentMerchant.profile_picture, userName: currentMerchant.merchant_name, handleInput: handleInput, newPicture: profilePicture, setNewPicture: setProfilePicture }),
             react_1["default"].createElement("br", null),
             react_1["default"].createElement("label", null, "Background Picture"),
-            react_1["default"].createElement("input", { type: "text", name: "backgroundPicture", value: backgroundPicture, onChange: handleInput }),
+            react_1["default"].createElement(UpdateImage_1["default"], { currentPicture: currentMerchant.background_picture, userName: currentMerchant.merchant_name, handleInput: handleInput, newPicture: backgroundPicture, setNewPicture: setBackgroundPicture }),
             react_1["default"].createElement("br", null),
             react_1["default"].createElement("input", { type: "submit", value: "Update" })),
         react_1["default"].createElement("br", null)));
