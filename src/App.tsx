@@ -15,41 +15,31 @@ const App:FC = () => {
       <h1>Welcome to atucasa.com</h1>
       <Switch>
         {
-          currentUser || !loggedOut ? (
-            currentUser ? (
-              <>
-                <Route exact path="/" render={() => <Redirect to="/home" />}/>
-                <Route path="/home" render={() => (
-                  <>
-                    <SignOut />
-                    {
-                      currentUser.role === "customer" ?
-                        <Customer />
-                      :
-                        <Merchant />
-                    }
-                  </> 
-                )}/>
-              </>
-            ) : (
-              <>
-              {/* <Redirect to="/" /> */}
+          loggedOut || !currentUser ? (
+            <>
+              {
+                  loggedOut && <Redirect to="/" />
+              }
               <Route exact path="/" render={() => (
                 <>
                   <SignUp />
                   <SignIn />
                 </>
               )}/>
-            </>  
-            )
+            </>
           ) : (
             <>
-              <Redirect to="/" />
-              <Route exact path="/" render={() => (
+              <Route exact path="/" render={() => <Redirect to="/home" />}/>
+              <Route path="/home" render={() => (
                 <>
-                  <SignUp />
-                  <SignIn />
-                </>
+                  <SignOut />
+                  {
+                    currentUser.role === "customer" ?
+                      <Customer />
+                    :
+                      <Merchant />
+                  }
+                </> 
               )}/>
             </>
           )
