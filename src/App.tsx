@@ -8,30 +8,43 @@ import Merchant from './components/Merchant/Merchant';
 import { Route, Switch, Redirect } from 'react-router-dom';
 
 const App:FC = () => {
-  const { currentUser } = useContext<TContextProps>(AtucasaContext);
+  const { currentUser, loggedOut } = useContext<TContextProps>(AtucasaContext);
+
   return (
     <div>
       <h1>Welcome to atucasa.com</h1>
       <Switch>
         {
-          currentUser ? (
-            <>
-              <Route exact path="/" render={() => <Redirect to="/home" />}/>
-              <Route path="/home" render={() => (
+          currentUser || !loggedOut ? (
+            currentUser ? (
+              <>
+                <Route exact path="/" render={() => <Redirect to="/home" />}/>
+                <Route path="/home" render={() => (
+                  <>
+                    <SignOut />
+                    {
+                      currentUser.role === "customer" ?
+                        <Customer />
+                      :
+                        <Merchant />
+                    }
+                  </> 
+                )}/>
+              </>
+            ) : (
+              <>
+              {/* <Redirect to="/" /> */}
+              <Route exact path="/" render={() => (
                 <>
-                  <SignOut />
-                  {
-                    currentUser.role === "customer" ?
-                      <Customer />
-                    :
-                      <Merchant />
-                  }
-                </> 
+                  <SignUp />
+                  <SignIn />
+                </>
               )}/>
-            </>
+            </>  
+            )
           ) : (
             <>
-              {/* <Redirect to="/" /> */}
+              <Redirect to="/" />
               <Route exact path="/" render={() => (
                 <>
                   <SignUp />

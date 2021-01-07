@@ -5,6 +5,7 @@ export const AtucasaContext = createContext({} as TContextProps);
 export const Provider: FC = ({ children }) => {
   const [ currentUser, setCurrentUser ] = useState<TCurrentUser | null>(null);
   const [ location, setLocation ] = useState<TLocation | null>(null);
+  const [ loggedOut, setLoggedOut ] = useState<boolean>(false);
 
   const handleLocation = (): void => {
     fetch(`${process.env.REACT_APP_API}/current_user/location`, {
@@ -56,7 +57,9 @@ export const Provider: FC = ({ children }) => {
       handleCurrentUser,
       location,
       setLocation,
-      handleLocation
+      handleLocation,
+      loggedOut,
+      setLoggedOut
     }}>
       { children }
     </AtucasaContext.Provider>

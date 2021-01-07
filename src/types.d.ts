@@ -77,7 +77,9 @@ type TContextProps = {
   handleCurrentUser: () => void,
   location: TLocation | null,
   setLocation: React.Dispatch<React.SetStateAction<TLocation | null>>,
-  handleLocation: () => void
+  handleLocation: () => void,
+  setLoggedOut: React.Dispatch<React.SetStateAction<boolean>>,
+  loggedOut: boolean
 };
 
 type TLinksProps = {
