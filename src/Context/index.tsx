@@ -42,6 +42,7 @@ export const Provider: FC = ({ children }) => {
       if (!data.error) {
         const { id, email, role } = data.user;
         setCurrentUser({ user_id: id, email, role });
+        setLoggedOut(false);
         handleLocation();
       }
     })

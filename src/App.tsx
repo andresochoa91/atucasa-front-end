@@ -15,7 +15,7 @@ const App:FC = () => {
       <h1>Welcome to atucasa.com</h1>
       <Switch>
         {
-          loggedOut || !currentUser ? (
+          (loggedOut || !currentUser) ? (
             <>
               {
                   loggedOut && <Redirect to="/" />
@@ -34,10 +34,7 @@ const App:FC = () => {
                 <>
                   <SignOut />
                   {
-                    currentUser.role === "customer" ?
-                      <Customer />
-                    :
-                      <Merchant />
+                    currentUser.role === "customer" ? <Customer /> : <Merchant />
                   }
                 </> 
               )}/>
