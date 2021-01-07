@@ -97,6 +97,6 @@ const UpdateImage: FC<IImageProps> = (
       }
     </div>
   )
-}
+};
 
 export default UpdateImage
