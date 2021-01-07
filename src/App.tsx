@@ -31,7 +31,7 @@ const App:FC = () => {
             </>
           ) : (
             <>
-              <Redirect to="/" />
+              {/* <Redirect to="/" /> */}
               <Route exact path="/" render={() => (
                 <>
                   <SignUp />
