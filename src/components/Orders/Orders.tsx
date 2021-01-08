@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
-import GoBack from '../GoBack/GoBack';
+import { Link } from 'react-router-dom';
 import Order from './Order';
 
 const Orders: FC = (): JSX.Element => {
@@ -24,8 +24,8 @@ const Orders: FC = (): JSX.Element => {
   }, []);
 
   return (
-    <>
-      <GoBack />       
+    <> 
+      <Link to="/home">Go back to home page</Link>       
       <h2>Orders</h2>
       {
         orders.map(order => (

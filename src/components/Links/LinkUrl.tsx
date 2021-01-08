@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 import EditLink from './EditLink';
 import DeleteLink from './DeleteLink';
 
-const Link: FC<TLinkProps & TLinksProps> = ({ link, handleLinks }): JSX.Element => {
+const LinkUrl: FC<TLinkProps & TLinksProps> = ({ link, handleLinks }): JSX.Element => {
 
   const [ inEditMode, setInEditMode ] = useState<boolean>(false);
 
@@ -34,4 +34,4 @@ const Link: FC<TLinkProps & TLinksProps> = ({ link, handleLinks }): JSX.Element 
   );
 };
 
-export default Link;
+export default LinkUrl;

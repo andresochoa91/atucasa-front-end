@@ -1,6 +1,6 @@
 import React, { FC, useContext, useState/* , useEffect */ } from 'react';
 import { AtucasaContext } from '../../Context';
-import GoBack from '../GoBack/GoBack';
+import { Link } from 'react-router-dom';
 
 const EditUser: FC = (): JSX.Element => {
   const { currentUser, handleCurrentUser } = useContext<TContextProps>(AtucasaContext);
@@ -58,15 +58,12 @@ const EditUser: FC = (): JSX.Element => {
 
   return (
     <>
-      <GoBack />
+      <Link to="/home">Go back to home page</Link>    
       {
         currentUser && (
           <>
             <h2>Edit User</h2>
-            <GoBack 
-              message="to user information"
-              url="/user_information"
-            />
+            <Link to="/home/user_information">Go back to user information</Link>    
             <form onSubmit={ handleSubmit } >
               <label>New Email</label>
               <input 

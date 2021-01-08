@@ -1,6 +1,6 @@
 import React, { FC, useContext, useState } from 'react';
 import { AtucasaContext } from '../../Context';
-import GoBack from '../GoBack/GoBack';
+import { Link } from 'react-router-dom';
 
 const EditLocation: FC = (): JSX.Element => {
   const { location, handleLocation } = useContext<TContextProps>(AtucasaContext);
@@ -77,15 +77,12 @@ const EditLocation: FC = (): JSX.Element => {
 
   return (
     <>
-      <GoBack />
+      <Link to="/home">Go back to home page</Link>    
       {
         location && (
           <>
             <h2>Edit Location</h2>
-            <GoBack 
-              message="to location"
-              url="/location"
-            />
+            <Link to="/home/location">Go back to location</Link>    
             <form onSubmit={ handleSubmit } >
               <label>Country</label>
               <input 

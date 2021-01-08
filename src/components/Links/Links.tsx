@@ -1,7 +1,7 @@
 import React, { FC, useState, useEffect } from 'react';
-import GoBack from '../GoBack/GoBack';
+import { Link } from 'react-router-dom';
 import CreateLink from './CreateLink';
-import Link from './Link';
+import LinkUrl from './LinkUrl';
 
 const Links: FC = (): JSX.Element => {
   const [ links, setLinks ] = useState<TLinks>([]);
@@ -26,10 +26,10 @@ const Links: FC = (): JSX.Element => {
 
   return (
     <>
-      <GoBack />
+      <Link to="/home">Go back to home page</Link>    
       <h2>Links</h2>
       { links.map((link) => (
-        <Link handleLinks={ handleLinks } link={ link } key={ link.id } />
+        <LinkUrl handleLinks={ handleLinks } link={ link } key={ link.id } />
       )) }
       <CreateLink handleLinks={ handleLinks } />
     </>

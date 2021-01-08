@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react';
-import GoBack from '../GoBack/GoBack';
+import { Link } from 'react-router-dom';
 import UpdateImage from '../UpdateImage/UpdateImage';
 import { useHistory } from 'react-router-dom';
 
@@ -73,12 +73,9 @@ const EditCustomer: FC<ICustomerProps> = ({ handleCurrentCustomer, currentCustom
 
   return(
     <>
-      <GoBack />
+      <Link to="/home">Go back to home page</Link>    
       <h2>Edit Customer</h2>
-      <GoBack 
-        message="to user information"
-        url="/personal_information"
-      />
+      <Link to="/home/personal_information">Go back to personal information</Link>    
       <form onSubmit={ handleSubmit }>
       <label>Username: </label>
         <input 

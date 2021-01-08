@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
-import GoBack from '../GoBack/GoBack';
+import { Link } from 'react-router-dom';
 import ShowMerchant from './ShowMerchant';
 
 interface ICurrentCustomerProps {
@@ -26,7 +26,7 @@ const ShowMerchants: FC<ICurrentCustomerProps> = ({ currentCustomer }): JSX.Elem
 
   return (
     <>
-      <GoBack />
+      <Link to="/home">Go back to home page</Link>    
       <h1>Merchants</h1>
       { 
         merchants.map((merchant) => (

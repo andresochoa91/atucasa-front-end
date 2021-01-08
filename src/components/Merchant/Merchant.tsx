@@ -8,7 +8,6 @@ import Links from '../Links/Links';
 import Products from '../Products/Products';
 import Orders from '../Orders/Orders';
 import { Switch, Link, Route } from 'react-router-dom';
-import GoBack from '../GoBack/GoBack';
 
 const Merchant: FC = (): JSX.Element => {
   const { currentUser, location } = useContext<TContextProps>(AtucasaContext);
@@ -40,15 +39,9 @@ const Merchant: FC = (): JSX.Element => {
           <Switch>
             <Route exact path="/home" render={() => (
               <>
-                <Link to="/home/edit_user">Edit user</Link>
-                <br/>
-                <Link to="/home/edit_merchant">Edit merchant</Link>
-                <br/>
-                <Link to="/home/edit_location">Edit location</Link>
-                <br/>
                 <Link to="/home/orders">Orders</Link>
                 <br/>
-                <Link to="/home/personal_information">Personal Information</Link>
+                <Link to="/home/user_information">Personal Information</Link>
                 <br/>
                 <Link to="/home/location">Location</Link>
                 <br/>          
@@ -67,10 +60,14 @@ const Merchant: FC = (): JSX.Element => {
             )}/> 
             <Route path="/home/edit_location" render={() => <EditLocation />}/> 
             <Route path="/home/orders" render={() => <Orders />}/> 
-            <Route path="/home/personal_information" render={() => (
+            <Route path="/home/user_information" render={() => (
               <>
-                <GoBack />
-                <h2>Personal information</h2>
+                <Link to="/home">Go back to home page</Link>    
+                <h2>User information</h2>
+                <Link to="/home/edit_user">Update email or password</Link>
+                <br/>
+                <Link to="/home/edit_merchant">Edit merchant information</Link>
+                <br/>
                 <p><strong>Email: </strong>{ currentUser.email }</p>
                 <p><strong>Role: </strong>{ currentUser.role }</p>
                 <p><strong>Merchant Name: </strong>{ currentMerchant.merchant_name }</p>

@@ -1,6 +1,5 @@
 import React, { FC, useContext } from 'react';
 import { AtucasaContext } from '../../Context';
-import GoBack from '../GoBack/GoBack';
 import { Link } from 'react-router-dom';
 
 const Location: FC = (): JSX.Element => {
@@ -8,7 +7,7 @@ const Location: FC = (): JSX.Element => {
 
   return (
     <>
-      <GoBack />
+      <Link to="/home">Go back to home page</Link>    
       {
         location && (
           <>

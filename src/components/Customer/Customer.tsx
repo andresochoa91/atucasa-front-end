@@ -8,7 +8,6 @@ import ShowMerchants from '../ShowMerchant/ShowMerchants';
 import Orders from '../Orders/Orders';
 import MyMap from '../MyMap/MyMap';
 import { Switch, Link, Route } from 'react-router-dom';
-import GoBack from '../GoBack/GoBack';
 
 const Customer: FC = (): JSX.Element => {
   const { currentUser, location } = useContext<TContextProps>(AtucasaContext);
@@ -80,7 +79,7 @@ const Customer: FC = (): JSX.Element => {
             <Route path="/home/user_information" 
               render={() => (
                 <>
-                  <GoBack />
+                  <Link to="/home">Go back to home page</Link>     
                   <h2>User information</h2>
                   <Link to='/home/edit_user'>Update email and/or password</Link>
                   <p><strong>Email: </strong>{ currentUser.email }</p>
@@ -91,7 +90,7 @@ const Customer: FC = (): JSX.Element => {
             <Route path="/home/personal_information" 
               render={() => (
                 <>
-                  <GoBack />
+                  <Link to="/home">Go back to home page</Link>    
                   <h2>Personal information</h2>
                   <Link to='/home/edit_customer'>Edit personal information</Link>
                   <p><strong>Username: </strong>{ currentCustomer.username }</p>

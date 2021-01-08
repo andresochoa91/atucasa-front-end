@@ -1,5 +1,5 @@
 import React, { FC, useState, useEffect } from 'react';
-import GoBack from '../GoBack/GoBack';
+import { Link } from 'react-router-dom';
 import CreateProduct from './CreateProduct';
 import Product from './Product';
 
@@ -26,7 +26,7 @@ const Products: FC = (): JSX.Element => {
 
   return (
     <>
-      <GoBack />
+      <Link to="/home">Go back to home page</Link>    
       <h2>Products</h2>
       { 
         products.map((product) => (

@@ -3,7 +3,7 @@ import { AtucasaContext } from '../../Context';
 import { MapContainer, TileLayer, Popup, Circle } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import Place from './Place';
-import GoBack from '../GoBack/GoBack';
+import { Link } from 'react-router-dom';
 
 interface ILatLngProps {
   lat: number
@@ -31,7 +31,7 @@ const MyMap: FC<ILatLngProps> = ({ lat, lng }): JSX.Element => {
 
   return (
     <div>
-      <GoBack />       
+      <Link to="/home">Go back to home page</Link>      
       <MapContainer
         center={[	lat, lng]} 
         zoom={20} 

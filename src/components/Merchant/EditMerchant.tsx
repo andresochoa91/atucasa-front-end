@@ -1,6 +1,7 @@
 import React, { FC, useState } from 'react';
-import GoBack from '../GoBack/GoBack';
 import UpdateImage from '../UpdateImage/UpdateImage';
+import { Link } from 'react-router-dom';
+
 interface IMerchantProps {
   handleCurrentMerchant: () => void,
   currentMerchant: TCurrentMerchant
@@ -69,8 +70,9 @@ const EditMerchant: FC<IMerchantProps> = ({ handleCurrentMerchant, currentMercha
 
   return(
     <>
-      <GoBack />
+      <Link to="/home">Go back to home page</Link>    
       <h2>Edit Merchant</h2>
+      <Link to="/home/user_information">Go back to user information</Link>
       <form onSubmit={ handleSubmit }>
         <label>Merchant Name</label>
         <input 
