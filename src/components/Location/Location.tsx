@@ -1,11 +1,13 @@
 import React, { FC, useContext } from 'react';
 import { AtucasaContext } from '../../Context';
+import GoBack from '../GoBack/GoBack';
 
 const Location: FC = (): JSX.Element => {
   const { location } = useContext<TContextProps>(AtucasaContext);
 
   return (
     <>
+      <GoBack />
       {
         location && (
           <>

@@ -1,4 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
+import GoBack from '../GoBack/GoBack';
 import ShowMerchant from './ShowMerchant';
 
 interface ICurrentCustomerProps {
@@ -25,6 +26,7 @@ const ShowMerchants: FC<ICurrentCustomerProps> = ({ currentCustomer }): JSX.Elem
 
   return (
     <>
+      <GoBack />
       <h1>Merchants</h1>
       { 
         merchants.map((merchant) => (

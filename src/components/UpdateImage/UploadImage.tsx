@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { app } from '../base';
+import { app } from '../../base';
 
 interface IPictureProps {
   setPicture: React.Dispatch<React.SetStateAction<string>>,

@@ -1,4 +1,5 @@
 import React, { FC, useState, useEffect } from 'react';
+import GoBack from '../GoBack/GoBack';
 import CreateLink from './CreateLink';
 import Link from './Link';
 
@@ -25,6 +26,7 @@ const Links: FC = (): JSX.Element => {
 
   return (
     <>
+      <GoBack />
       <h2>Links</h2>
       { links.map((link) => (
         <Link handleLinks={ handleLinks } link={ link } key={ link.id } />

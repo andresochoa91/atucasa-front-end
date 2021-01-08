@@ -8,6 +8,7 @@ import Links from '../Links/Links';
 import Products from '../Products/Products';
 import Orders from '../Orders/Orders';
 import { Switch, Link, Route } from 'react-router-dom';
+import GoBack from '../GoBack/GoBack';
 
 const Merchant: FC = (): JSX.Element => {
   const { currentUser, location } = useContext<TContextProps>(AtucasaContext);
@@ -33,12 +34,12 @@ const Merchant: FC = (): JSX.Element => {
   
   return (
     <>
+      <h1>Merchant</h1>
       {
         (currentUser && currentMerchant && location) && (          
           <Switch>
             <Route exact path="/home" render={() => (
               <>
-                <h1>Merchant</h1>
                 <Link to="/home/edit_user">Edit user</Link>
                 <br/>
                 <Link to="/home/edit_merchant">Edit merchant</Link>
@@ -68,7 +69,8 @@ const Merchant: FC = (): JSX.Element => {
             <Route path="/home/orders" render={() => <Orders />}/> 
             <Route path="/home/personal_information" render={() => (
               <>
-              <h2>Personal information</h2>
+                <GoBack />
+                <h2>Personal information</h2>
                 <p><strong>Email: </strong>{ currentUser.email }</p>
                 <p><strong>Role: </strong>{ currentUser.role }</p>
                 <p><strong>Merchant Name: </strong>{ currentMerchant.merchant_name }</p>

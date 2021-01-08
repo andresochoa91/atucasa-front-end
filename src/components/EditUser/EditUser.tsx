@@ -1,5 +1,6 @@
 import React, { FC, useContext, useState/* , useEffect */ } from 'react';
 import { AtucasaContext } from '../../Context';
+import GoBack from '../GoBack/GoBack';
 
 const EditUser: FC = (): JSX.Element => {
   const { currentUser, handleCurrentUser } = useContext<TContextProps>(AtucasaContext);
@@ -57,6 +58,7 @@ const EditUser: FC = (): JSX.Element => {
 
   return (
     <>
+      <GoBack />
       {
         currentUser && (
           <>

@@ -1,4 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
+import GoBack from '../GoBack/GoBack';
 import Order from './Order';
 
 const Orders: FC = (): JSX.Element => {
@@ -24,6 +25,7 @@ const Orders: FC = (): JSX.Element => {
 
   return (
     <>
+      <GoBack />       
       <h2>Orders</h2>
       {
         orders.map(order => (

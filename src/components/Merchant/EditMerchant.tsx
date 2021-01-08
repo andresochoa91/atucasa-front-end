@@ -1,5 +1,6 @@
 import React, { FC, useState } from 'react';
-import UpdateImage from '../UpdateImage';
+import GoBack from '../GoBack/GoBack';
+import UpdateImage from '../UpdateImage/UpdateImage';
 interface IMerchantProps {
   handleCurrentMerchant: () => void,
   currentMerchant: TCurrentMerchant
@@ -68,6 +69,7 @@ const EditMerchant: FC<IMerchantProps> = ({ handleCurrentMerchant, currentMercha
 
   return(
     <>
+      <GoBack />
       <h2>Edit Merchant</h2>
       <form onSubmit={ handleSubmit }>
         <label>Merchant Name</label>

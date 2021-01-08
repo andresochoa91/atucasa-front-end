@@ -1,4 +1,5 @@
 import React, { FC, useState, useEffect } from 'react';
+import GoBack from '../GoBack/GoBack';
 import CreateProduct from './CreateProduct';
 import Product from './Product';
 
@@ -25,6 +26,7 @@ const Products: FC = (): JSX.Element => {
 
   return (
     <>
+      <GoBack />
       <h2>Products</h2>
       { 
         products.map((product) => (

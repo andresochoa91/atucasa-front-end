@@ -1,5 +1,6 @@
 import React, { FC, useState } from 'react';
-import UpdateImage from '../UpdateImage';
+import GoBack from '../GoBack/GoBack';
+import UpdateImage from '../UpdateImage/UpdateImage';
 interface ICustomerProps {
   handleCurrentCustomer: () => void,
   currentCustomer: TCurrentCustomer
@@ -67,6 +68,7 @@ const EditCustomer: FC<ICustomerProps> = ({ handleCurrentCustomer, currentCustom
 
   return(
     <>
+      <GoBack />
       <h2>Edit Customer</h2>
       <form onSubmit={ handleSubmit }>
       <label>Username</label>
