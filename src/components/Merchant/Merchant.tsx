@@ -34,68 +34,66 @@ const Merchant: FC = (): JSX.Element => {
   return (
     <>
       {
-        (currentUser && currentMerchant && location) && (
-          <>
-            <Switch>
-              <Route exact path="/home" render={() => (
-                <>
-                  <h1>Merchant</h1>
-                  <Link to="/home/edit_user">Edit user</Link>
-                  <br/>
-                  <Link to="/home/edit_merchant">Edit merchant</Link>
-                  <br/>
-                  <Link to="/home/edit_location">Edit location</Link>
-                  <br/>
-                  <Link to="/home/orders">Orders</Link>
-                  <br/>
-                  <Link to="/home/personal_information">Personal Information</Link>
-                  <br/>
-                  <Link to="/home/location">Location</Link>
-                  <br/>          
-                  <Link to="/home/links">Links</Link>
-                  <br/>      
-                  <Link to="/home/products">Products</Link>
-                  <br/>    
-                </>
-              )}/> 
-              <Route path="/home/edit_user" render={() => <EditUser />}/> 
-              <Route path="/home/edit_merchant" render={() => (
-                <EditMerchant 
-                  handleCurrentMerchant={ handleCurrentMerchant }
-                  currentMerchant={ currentMerchant }
+        (currentUser && currentMerchant && location) && (          
+          <Switch>
+            <Route exact path="/home" render={() => (
+              <>
+                <h1>Merchant</h1>
+                <Link to="/home/edit_user">Edit user</Link>
+                <br/>
+                <Link to="/home/edit_merchant">Edit merchant</Link>
+                <br/>
+                <Link to="/home/edit_location">Edit location</Link>
+                <br/>
+                <Link to="/home/orders">Orders</Link>
+                <br/>
+                <Link to="/home/personal_information">Personal Information</Link>
+                <br/>
+                <Link to="/home/location">Location</Link>
+                <br/>          
+                <Link to="/home/links">Links</Link>
+                <br/>      
+                <Link to="/home/products">Products</Link>
+                <br/>    
+              </>
+            )}/> 
+            <Route path="/home/edit_user" render={() => <EditUser />}/> 
+            <Route path="/home/edit_merchant" render={() => (
+              <EditMerchant 
+                handleCurrentMerchant={ handleCurrentMerchant }
+                currentMerchant={ currentMerchant }
+              />
+            )}/> 
+            <Route path="/home/edit_location" render={() => <EditLocation />}/> 
+            <Route path="/home/orders" render={() => <Orders />}/> 
+            <Route path="/home/personal_information" render={() => (
+              <>
+              <h2>Personal information</h2>
+                <p><strong>Email: </strong>{ currentUser.email }</p>
+                <p><strong>Role: </strong>{ currentUser.role }</p>
+                <p><strong>Merchant Name: </strong>{ currentMerchant.merchant_name }</p>
+                <p><strong>Slug: </strong>{ currentMerchant.slug }</p>
+                <p><strong>Phone Number: </strong>{  currentMerchant.phone_number }</p>
+                <p><strong>Tax ID: </strong>{ currentMerchant.tax_id }</p>
+                <p><strong>Description: </strong>{  currentMerchant.description }</p>
+                <p><strong>Profile Picture: </strong></p>
+                <img 
+                  src={ currentMerchant.profile_picture } 
+                  alt="pic"
+                  height={ 100 }
                 />
-              )}/> 
-              <Route path="/home/edit_location" render={() => <EditLocation />}/> 
-              <Route path="/home/orders" render={() => <Orders />}/> 
-              <Route path="/home/personal_information" render={() => (
-                <>
-                <h2>Personal information</h2>
-                  <p><strong>Email: </strong>{ currentUser.email }</p>
-                  <p><strong>Role: </strong>{ currentUser.role }</p>
-                  <p><strong>Merchant Name: </strong>{ currentMerchant.merchant_name }</p>
-                  <p><strong>Slug: </strong>{ currentMerchant.slug }</p>
-                  <p><strong>Phone Number: </strong>{  currentMerchant.phone_number }</p>
-                  <p><strong>Tax ID: </strong>{ currentMerchant.tax_id }</p>
-                  <p><strong>Description: </strong>{  currentMerchant.description }</p>
-                  <p><strong>Profile Picture: </strong></p>
-                  <img 
-                    src={ currentMerchant.profile_picture } 
-                    alt="pic"
-                    height={ 100 }
-                  />
-                  <p><strong>Background Picture: </strong></p>
-                  <img 
-                    src={ currentMerchant.background_picture } 
-                    alt="pic"
-                    height={ 100 }
-                  />
-                </>
-              )}/>
-              <Route path="/home/location" render={() => <Location />}/> 
-              <Route path="/home/links" render={() => <Links />}/> 
-              <Route path="/home/products" render={() => <Products />}/> 
-            </Switch>
-          </>
+                <p><strong>Background Picture: </strong></p>
+                <img 
+                  src={ currentMerchant.background_picture } 
+                  alt="pic"
+                  height={ 100 }
+                />
+              </>
+            )}/>
+            <Route path="/home/location" render={() => <Location />}/> 
+            <Route path="/home/links" render={() => <Links />}/> 
+            <Route path="/home/products" render={() => <Products />}/> 
+          </Switch>          
         )
       }
     </>
