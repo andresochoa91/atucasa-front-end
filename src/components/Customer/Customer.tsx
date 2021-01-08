@@ -46,15 +46,11 @@ const Customer: FC = (): JSX.Element => {
                 <br/>
                 <Link to="/home/merchants">Merchants</Link>
                 <br/>
-                <Link to="/home/edit_user">Edit user</Link>
-                <br/>
-                <Link to="/home/edit_customer">Edit customer</Link>
-                <br/>
-                <Link to="/home/edit_location">Edit location</Link>
-                <br/>
                 <Link to="/home/user_information">User information</Link>
                 <br/>
                 <Link to="/home/personal_information">Personal information</Link>
+                <br/>
+                <Link to="/home/location">Location</Link>
                 <br/>
               </>
             )} />
@@ -86,6 +82,7 @@ const Customer: FC = (): JSX.Element => {
                 <>
                   <GoBack />
                   <h2>User information</h2>
+                  <Link to='/home/edit_user'>Update email and/or password</Link>
                   <p><strong>Email: </strong>{ currentUser.email }</p>
                   <p><strong>Role: </strong>{ currentUser.role }</p>
                 </>
@@ -96,6 +93,7 @@ const Customer: FC = (): JSX.Element => {
                 <>
                   <GoBack />
                   <h2>Personal information</h2>
+                  <Link to='/home/edit_customer'>Edit personal information</Link>
                   <p><strong>Username: </strong>{ currentCustomer.username }</p>
                   <p><strong>First Name: </strong>{ currentCustomer.first_name }</p>
                   <p><strong>Last Name: </strong>{ currentCustomer.last_name }</p>

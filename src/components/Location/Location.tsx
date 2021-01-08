@@ -1,6 +1,7 @@
 import React, { FC, useContext } from 'react';
 import { AtucasaContext } from '../../Context';
 import GoBack from '../GoBack/GoBack';
+import { Link } from 'react-router-dom';
 
 const Location: FC = (): JSX.Element => {
   const { location } = useContext<TContextProps>(AtucasaContext);
@@ -12,6 +13,7 @@ const Location: FC = (): JSX.Element => {
         location && (
           <>
             <h2>Location</h2>
+            <Link to="/home/edit_location">Edit location</Link>
             <p><strong>Country: </strong>{ location.country }</p>
             <p><strong>State: </strong>{ location.state }</p>
             <p><strong>City: </strong>{ location.city }</p>

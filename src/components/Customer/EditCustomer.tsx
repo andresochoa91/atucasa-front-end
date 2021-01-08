@@ -1,6 +1,8 @@
 import React, { FC, useState } from 'react';
 import GoBack from '../GoBack/GoBack';
 import UpdateImage from '../UpdateImage/UpdateImage';
+import { useHistory } from 'react-router-dom';
+
 interface ICustomerProps {
   handleCurrentCustomer: () => void,
   currentCustomer: TCurrentCustomer
@@ -12,6 +14,8 @@ const EditCustomer: FC<ICustomerProps> = ({ handleCurrentCustomer, currentCustom
   const [ lastName, setLastName ] = useState<string>("");
   const [ phoneNumber, setPhoneNumber ] = useState<string>("");
   const [ profilePicture, setProfilePicture ] = useState<string>("");
+
+  const history = useHistory();
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>): void => {
     event.preventDefault();
@@ -59,6 +63,7 @@ const EditCustomer: FC<ICustomerProps> = ({ handleCurrentCustomer, currentCustom
         setPhoneNumber("");
         setProfilePicture("");
         handleCurrentCustomer();
+        history.push('/home/personal_information');
       } else {
         console.log(data);
       }
@@ -71,7 +76,7 @@ const EditCustomer: FC<ICustomerProps> = ({ handleCurrentCustomer, currentCustom
       <GoBack />
       <h2>Edit Customer</h2>
       <form onSubmit={ handleSubmit }>
-      <label>Username</label>
+      <label>Username: </label>
         <input 
           type="text"
           name="username"
@@ -80,7 +85,7 @@ const EditCustomer: FC<ICustomerProps> = ({ handleCurrentCustomer, currentCustom
           placeholder={ currentCustomer.username }
         />
         <br/>
-        <label>First Name</label>
+        <label>First Name: </label>
         <input 
           type="text"
           name="firstName"
@@ -89,7 +94,7 @@ const EditCustomer: FC<ICustomerProps> = ({ handleCurrentCustomer, currentCustom
           placeholder={ currentCustomer.first_name }
         />
         <br/>
-        <label>Last Name</label>
+        <label>Last Name: </label>
         <input 
           type="text"
           name="lastName"
@@ -98,7 +103,7 @@ const EditCustomer: FC<ICustomerProps> = ({ handleCurrentCustomer, currentCustom
           placeholder={ currentCustomer.last_name }
         />
         <br/>
-        <label>Phone Number</label>
+        <label>Phone Number: </label>
         <input 
           type="text"
           name="phoneNumber"
@@ -107,7 +112,7 @@ const EditCustomer: FC<ICustomerProps> = ({ handleCurrentCustomer, currentCustom
           placeholder={ currentCustomer.phone_number }
         />
         <br/>
-        <label>Profile Picture</label>
+        <label>Profile Picture: </label>
         <br/>
         <UpdateImage 
           currentPicture = { currentCustomer.profile_picture }
