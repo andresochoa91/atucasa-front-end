@@ -63,6 +63,10 @@ const EditUser: FC = (): JSX.Element => {
         currentUser && (
           <>
             <h2>Edit User</h2>
+            <GoBack 
+              message="to user information"
+              url="/user_information"
+            />
             <form onSubmit={ handleSubmit } >
               <label>New Email</label>
               <input 

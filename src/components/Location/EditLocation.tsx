@@ -82,6 +82,10 @@ const EditLocation: FC = (): JSX.Element => {
         location && (
           <>
             <h2>Edit Location</h2>
+            <GoBack 
+              message="to location"
+              url="/location"
+            />
             <form onSubmit={ handleSubmit } >
               <label>Country</label>
               <input 

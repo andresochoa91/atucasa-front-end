@@ -75,6 +75,10 @@ const EditCustomer: FC<ICustomerProps> = ({ handleCurrentCustomer, currentCustom
     <>
       <GoBack />
       <h2>Edit Customer</h2>
+      <GoBack 
+        message="to user information"
+        url="/personal_information"
+      />
       <form onSubmit={ handleSubmit }>
       <label>Username: </label>
         <input 
