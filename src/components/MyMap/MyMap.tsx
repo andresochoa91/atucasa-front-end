@@ -12,7 +12,7 @@ interface ILatLngProps {
 
 const MyMap: FC<ILatLngProps> = ({ lat, lng }): JSX.Element => {
 
-  const { location } = useContext<TContextProps>(AtucasaContext);
+  const { location, currentUser } = useContext<TContextProps>(AtucasaContext);
   const [ merchants, setMerchants ] = useState<Array<TShowMerchant>>([]);
   
   useEffect(() => {
@@ -66,12 +66,14 @@ const MyMap: FC<ILatLngProps> = ({ lat, lng }): JSX.Element => {
         </Circle>
 
       {
-        merchants.map((merchant) => (
-          <Place 
-            merchant={ merchant }
-            key={ merchant.email }
-          />
-        ))
+        currentUser?.role === "customer" && (
+          merchants.map((merchant) => (
+            <Place 
+              merchant={ merchant }
+              key={ merchant.email }
+            />
+          ))
+        )
       }
 
       </MapContainer>

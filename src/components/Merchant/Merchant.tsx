@@ -8,6 +8,7 @@ import Links from '../Links/Links';
 import Products from '../Products/Products';
 import Orders from '../Orders/Orders';
 import { Switch, Link, Route } from 'react-router-dom';
+import MyMap from '../MyMap/MyMap';
 
 const Merchant: FC = (): JSX.Element => {
   const { currentUser, location } = useContext<TContextProps>(AtucasaContext);
@@ -39,6 +40,8 @@ const Merchant: FC = (): JSX.Element => {
           <Switch>
             <Route exact path="/home" render={() => (
               <>
+                <Link to="/home/map">Show Map</Link>
+                <br/>
                 <Link to="/home/orders">Orders</Link>
                 <br/>
                 <Link to="/home/user_information">Personal Information</Link>
@@ -49,6 +52,15 @@ const Merchant: FC = (): JSX.Element => {
                 <br/>      
                 <Link to="/home/products">Products</Link>
                 <br/>    
+              </>
+            )}/> 
+            <Route path="/home/map" render={() => (
+              <>
+                {
+                  location.latitude && location.longitude && (
+                    <MyMap lat={location.latitude} lng={location.longitude} />
+                  )
+                }
               </>
             )}/> 
             <Route path="/home/edit_user" render={() => <EditUser />}/> 
