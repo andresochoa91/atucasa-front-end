@@ -3,10 +3,10 @@ import React, { FC, useState } from 'react'
 const EditProduct: FC<TProductsProps & TProductProps & THandleMode> = ({ handleProducts, product, handleMode }): JSX.Element => {
 
   const [ productName, setProductName ] = useState<string>(product.product_name);
-  const [ description, setDescription ] = useState<string | undefined>(product.description);
+  const [ description, setDescription ] = useState<string | undefined>(product.description ? product.description : "");
   const [ price, setPrice ] = useState<string>(product.price.toString());
   const [ available, setAvailable ] = useState<string>(product.available ? "yes" : "no");
-  const [ productPicture, setProductPicture ] = useState<string | undefined>(product.product_picture);
+  const [ productPicture, setProductPicture ] = useState<string | undefined>(product.product_picture ? product.product_picture : "");
 
   const productAvailable = product.available ? "yes" : "no";
   const productNotAvailable = product.available ? "no" : "yes";
