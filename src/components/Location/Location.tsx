@@ -7,12 +7,12 @@ const Location: FC = (): JSX.Element => {
 
   return (
     <>
-      <Link to="/home">Go back to home page</Link>    
+      <Link to="/">Go back to home page</Link>    
       {
         location && (
           <>
             <h2>Location</h2>
-            <Link to="/home/edit_location">Edit location</Link>
+            <Link to="/edit_location">Edit location</Link>
             <p><strong>Country: </strong>{ location.country }</p>
             <p><strong>State: </strong>{ location.state }</p>
             <p><strong>City: </strong>{ location.city }</p>

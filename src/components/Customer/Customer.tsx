@@ -37,23 +37,23 @@ const Customer: FC = (): JSX.Element => {
         (currentUser && currentCustomer && location) && (
           <>
             <h1>Customer</h1>
-            <Route exact path="/home" render={() => (
+            <Route exact path="/" render={() => (
               <>
-                <Link to="/home/map">Open Map</Link>
+                <Link to="/map">Open Map</Link>
                 <br/>
-                <Link to="/home/orders">Orders</Link>
+                <Link to="/orders">Orders</Link>
                 <br/>
-                <Link to="/home/merchants">Merchants</Link>
+                <Link to="/merchants">Merchants</Link>
                 <br/>
-                <Link to="/home/user_information">User information</Link>
+                <Link to="/user_information">User information</Link>
                 <br/>
-                <Link to="/home/personal_information">Personal information</Link>
+                <Link to="/personal_information">Personal information</Link>
                 <br/>
-                <Link to="/home/location">Location</Link>
+                <Link to="/location">Location</Link>
                 <br/>
               </>
             )} />
-            <Route path="/home/map" render={() => (
+            <Route path="/map" render={() => (
               <>
                 {
                   location.latitude && location.longitude && (
@@ -62,37 +62,37 @@ const Customer: FC = (): JSX.Element => {
                 }
               </>
             )}/>
-            <Route path="/home/orders" render={() => <Orders />} />
-            <Route path="/home/merchants" 
+            <Route path="/orders" render={() => <Orders />} />
+            <Route path="/merchants" 
               render={() => (
                 <ShowMerchants currentCustomer={ currentCustomer }/>
               )}
             />
-            <Route path="/home/edit_user" render={() => <EditUser />} />
-            <Route path="/home/edit_customer" render={() => (
+            <Route path="/edit_user" render={() => <EditUser />} />
+            <Route path="/edit_customer" render={() => (
               <EditCustomer 
                 currentCustomer={ currentCustomer }
                 handleCurrentCustomer={handleCurrentCustomer}
               />
             )} />
-            <Route path="/home/edit_location" render={() => <EditLocation />} />
-            <Route path="/home/user_information" 
+            <Route path="/edit_location" render={() => <EditLocation />} />
+            <Route path="/user_information" 
               render={() => (
                 <>
-                  <Link to="/home">Go back to home page</Link>     
+                  <Link to="/">Go back to home page</Link>     
                   <h2>User information</h2>
-                  <Link to='/home/edit_user'>Update email and/or password</Link>
+                  <Link to='/edit_user'>Update email and/or password</Link>
                   <p><strong>Email: </strong>{ currentUser.email }</p>
                   <p><strong>Role: </strong>{ currentUser.role }</p>
                 </>
               )
             } />
-            <Route path="/home/personal_information" 
+            <Route path="/personal_information" 
               render={() => (
                 <>
-                  <Link to="/home">Go back to home page</Link>    
+                  <Link to="">Go back to home page</Link>    
                   <h2>Personal information</h2>
-                  <Link to='/home/edit_customer'>Edit personal information</Link>
+                  <Link to='/edit_customer'>Edit personal information</Link>
                   <p><strong>Username: </strong>{ currentCustomer.username }</p>
                   <p><strong>First Name: </strong>{ currentCustomer.first_name }</p>
                   <p><strong>Last Name: </strong>{ currentCustomer.last_name }</p>
@@ -107,7 +107,7 @@ const Customer: FC = (): JSX.Element => {
                 </>
               )
             } />
-            <Route path="/home/location" render={() => <Location />} />
+            <Route path="/location" render={() => <Location />} />
           </>
         )
       }

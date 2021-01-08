@@ -38,23 +38,23 @@ const Merchant: FC = (): JSX.Element => {
       {
         (currentUser && currentMerchant && location) && (          
           <Switch>
-            <Route exact path="/home" render={() => (
+            <Route exact path="/" render={() => (
               <>
-                <Link to="/home/map">Show Map</Link>
+                <Link to="/map">Show Map</Link>
                 <br/>
-                <Link to="/home/orders">Orders</Link>
+                <Link to="/orders">Orders</Link>
                 <br/>
-                <Link to="/home/user_information">Personal Information</Link>
+                <Link to="/user_information">Personal Information</Link>
                 <br/>
-                <Link to="/home/location">Location</Link>
+                <Link to="/location">Location</Link>
                 <br/>          
-                <Link to="/home/links">Links</Link>
+                <Link to="/links">Links</Link>
                 <br/>      
-                <Link to="/home/products">Products</Link>
+                <Link to="/products">Products</Link>
                 <br/>    
               </>
             )}/> 
-            <Route path="/home/map" render={() => (
+            <Route path="/map" render={() => (
               <>
                 {
                   location.latitude && location.longitude && (
@@ -63,22 +63,22 @@ const Merchant: FC = (): JSX.Element => {
                 }
               </>
             )}/> 
-            <Route path="/home/edit_user" render={() => <EditUser />}/> 
-            <Route path="/home/edit_merchant" render={() => (
+            <Route path="/edit_user" render={() => <EditUser />}/> 
+            <Route path="/edit_merchant" render={() => (
               <EditMerchant 
                 handleCurrentMerchant={ handleCurrentMerchant }
                 currentMerchant={ currentMerchant }
               />
             )}/> 
-            <Route path="/home/edit_location" render={() => <EditLocation />}/> 
-            <Route path="/home/orders" render={() => <Orders />}/> 
-            <Route path="/home/user_information" render={() => (
+            <Route path="/edit_location" render={() => <EditLocation />}/> 
+            <Route path="/orders" render={() => <Orders />}/> 
+            <Route path="/user_information" render={() => (
               <>
-                <Link to="/home">Go back to home page</Link>    
+                <Link to="/">Go back to home page</Link>    
                 <h2>User information</h2>
-                <Link to="/home/edit_user">Update email or password</Link>
+                <Link to="/edit_user">Update email or password</Link>
                 <br/>
-                <Link to="/home/edit_merchant">Edit merchant information</Link>
+                <Link to="/edit_merchant">Edit merchant information</Link>
                 <br/>
                 <p><strong>Email: </strong>{ currentUser.email }</p>
                 <p><strong>Role: </strong>{ currentUser.role }</p>
@@ -101,9 +101,9 @@ const Merchant: FC = (): JSX.Element => {
                 />
               </>
             )}/>
-            <Route path="/home/location" render={() => <Location />}/> 
-            <Route path="/home/links" render={() => <Links />}/> 
-            <Route path="/home/products" render={() => <Products />}/> 
+            <Route path="/location" render={() => <Location />}/> 
+            <Route path="/links" render={() => <Links />}/> 
+            <Route path="/products" render={() => <Products />}/> 
           </Switch>          
         )
       }

@@ -70,9 +70,9 @@ const EditMerchant: FC<IMerchantProps> = ({ handleCurrentMerchant, currentMercha
 
   return(
     <>
-      <Link to="/home">Go back to home page</Link>    
+      <Link to="/">Go back to home page</Link>    
       <h2>Edit Merchant</h2>
-      <Link to="/home/user_information">Go back to user information</Link>
+      <Link to="/user_information">Go back to user information</Link>
       <form onSubmit={ handleSubmit }>
         <label>Merchant Name</label>
         <input 

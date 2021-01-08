@@ -58,12 +58,12 @@ const EditUser: FC = (): JSX.Element => {
 
   return (
     <>
-      <Link to="/home">Go back to home page</Link>    
+      <Link to="/">Go back to home page</Link>    
       {
         currentUser && (
           <>
             <h2>Edit User</h2>
-            <Link to="/home/user_information">Go back to user information</Link>    
+            <Link to="/user_information">Go back to user information</Link>    
             <form onSubmit={ handleSubmit } >
               <label>New Email</label>
               <input 

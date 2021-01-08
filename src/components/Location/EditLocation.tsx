@@ -77,12 +77,12 @@ const EditLocation: FC = (): JSX.Element => {
 
   return (
     <>
-      <Link to="/home">Go back to home page</Link>    
+      <Link to="/">Go back to home page</Link>    
       {
         location && (
           <>
             <h2>Edit Location</h2>
-            <Link to="/home/location">Go back to location</Link>    
+            <Link to="/location">Go back to location</Link>    
             <form onSubmit={ handleSubmit } >
               <label>Country</label>
               <input 

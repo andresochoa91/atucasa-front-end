@@ -63,7 +63,7 @@ const EditCustomer: FC<ICustomerProps> = ({ handleCurrentCustomer, currentCustom
         setPhoneNumber("");
         setProfilePicture("");
         handleCurrentCustomer();
-        history.push('/home/personal_information');
+        history.push('/personal_information');
       } else {
         console.log(data);
       }
@@ -73,9 +73,9 @@ const EditCustomer: FC<ICustomerProps> = ({ handleCurrentCustomer, currentCustom
 
   return(
     <>
-      <Link to="/home">Go back to home page</Link>    
+      <Link to="/">Go back to home page</Link>    
       <h2>Edit Customer</h2>
-      <Link to="/home/personal_information">Go back to personal information</Link>    
+      <Link to="/personal_information">Go back to personal information</Link>    
       <form onSubmit={ handleSubmit }>
       <label>Username: </label>
         <input 

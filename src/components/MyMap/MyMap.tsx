@@ -31,7 +31,7 @@ const MyMap: FC<ILatLngProps> = ({ lat, lng }): JSX.Element => {
 
   return (
     <div>
-      <Link to="/home">Go back to home page</Link>      
+      <Link to="/">Go back to home page</Link>      
       <MapContainer
         center={[	lat, lng]} 
         zoom={20} 

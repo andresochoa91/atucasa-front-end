@@ -25,7 +25,7 @@ const Orders: FC = (): JSX.Element => {
 
   return (
     <> 
-      <Link to="/home">Go back to home page</Link>       
+      <Link to="/">Go back to home page</Link>       
       <h2>Orders</h2>
       {
         orders.map(order => (

@@ -26,7 +26,7 @@ const ShowMerchants: FC<ICurrentCustomerProps> = ({ currentCustomer }): JSX.Elem
 
   return (
     <>
-      <Link to="/home">Go back to home page</Link>    
+      <Link to="/">Go back to home page</Link>    
       <h1>Merchants</h1>
       { 
         merchants.map((merchant) => (
