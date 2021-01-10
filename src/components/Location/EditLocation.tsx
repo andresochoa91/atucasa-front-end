@@ -44,9 +44,22 @@ const EditLocation: FC = (): JSX.Element => {
     fetch(`${process.env.REACT_APP_MAPQUEST_API}${newLocation.address},${newLocation.city},${newLocation.state},${newLocation.zip_code}`)
     .then(response => response.json())
     .then(data => { 
-      const { lat, lng } = data.results[0].locations[0].displayLatLng;
-      newLocation.latitude = lat;
-      newLocation.longitude = lng;      
+      const { 
+        displayLatLng,
+        adminArea1, 
+        adminArea3,
+        adminArea5, 
+        street, 
+        postalCode 
+      } = data.results[0].locations[0];
+
+      newLocation.latitude = displayLatLng.lat;
+      newLocation.longitude = displayLatLng.lng;
+      newLocation.country = adminArea1;
+      newLocation.state = adminArea3;
+      newLocation.city = adminArea5;
+      newLocation.address = street;
+      newLocation.zip_code = postalCode;
 
       fetch(`${process.env.REACT_APP_API}/current_user/location`, {
         method: "PUT",
