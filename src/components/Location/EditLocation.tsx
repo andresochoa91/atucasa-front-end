@@ -1,15 +1,17 @@
 import React, { FC, useContext, useState } from 'react';
 import { AtucasaContext } from '../../Context';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 const EditLocation: FC = (): JSX.Element => {
-  const { location, handleLocation } = useContext<TContextProps>(AtucasaContext);
+  const { location/* , handleLocation */ } = useContext<TContextProps>(AtucasaContext);
   const [ country, setCountry ] = useState<string>("");
   const [ state, setState ] = useState<string>("");
   const [ city, setCity ] = useState<string>("");
   const [ address, setAddress ] = useState<string>("");
   const [ zipCode, setZipCode ] = useState<string>("");
   const [ details, setDetails ] = useState<string>("");
+
+  const history = useHistory();
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>): void => {
     event.preventDefault();
@@ -73,13 +75,8 @@ const EditLocation: FC = (): JSX.Element => {
       .then(data2 => {
         console.log(data2);
         if (!data2.error) {
-          setCountry("");
-          setState("");
-          setCity("");
-          setAddress("");
-          setZipCode("");
-          setDetails("");
-          handleLocation();
+          history.push('/home/location');
+          // handleLocation();
         }
       })
       .catch(console.error);
