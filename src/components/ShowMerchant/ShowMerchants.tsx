@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import ShowMerchant from './ShowMerchant';
 
 interface ICurrentCustomerProps {
-  currentCustomer: TCurrentCustomer
+  currentCustomer?: TCurrentCustomer
 }
 
 const ShowMerchants: FC<ICurrentCustomerProps> = ({ currentCustomer }): JSX.Element => {
@@ -13,7 +13,7 @@ const ShowMerchants: FC<ICurrentCustomerProps> = ({ currentCustomer }): JSX.Elem
   
   return (
     <>
-      <Link to="/home">Go back to home page</Link>    
+      <Link to="/">Go back to home page</Link>    
       <h1>Merchants</h1>
       { 
         merchants.map((merchant) => (
@@ -21,7 +21,10 @@ const ShowMerchants: FC<ICurrentCustomerProps> = ({ currentCustomer }): JSX.Elem
             <h2>{ merchant.merchant_info.merchant_name }</h2>
             <p><strong>Description</strong>: { merchant.merchant_info.description }</p>
             <p><strong>Phone Number</strong>: { merchant.merchant_info.phone_number }</p>
-            <ShowMerchant currentCustomerID={ currentCustomer.id } merchant={ merchant } />
+            <ShowMerchant 
+              merchant={ merchant } 
+              {...(currentCustomer && { currentCustomerID: currentCustomer.id })} 
+            />
             <br/>
             <br/>
           </div>

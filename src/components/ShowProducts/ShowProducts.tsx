@@ -5,7 +5,7 @@ import ShowProduct from '../ShowProducts/ShowProduct';
 interface IProductsProps {
   products: TProducts,
   merchantID: number | undefined,
-  currentCustomerID: number | undefined
+  currentCustomerID?: number
 };
 
 const ShowProducts: FC<IProductsProps> = ({ products, merchantID, currentCustomerID }): JSX.Element => {
@@ -24,12 +24,16 @@ const ShowProducts: FC<IProductsProps> = ({ products, merchantID, currentCustome
           )
         ))
       }
-      <Cart 
-        cart={ cart } 
-        setCart={ setCart } 
-        merchantID={ merchantID }
-        currentCustomerID={ currentCustomerID }
-      />
+      {
+        currentCustomerID && (
+          <Cart 
+            cart={ cart } 
+            setCart={ setCart } 
+            merchantID={ merchantID }
+            currentCustomerID={ currentCustomerID }
+          />
+        )
+      }
     </>   
   );
 };

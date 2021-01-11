@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 import ShowProducts from '../ShowProducts/ShowProducts';
 interface IMerchantProps {
   merchant: TShowMerchant,
-  currentCustomerID: number | undefined
+  currentCustomerID?: number
 };
 
 const ShowMerchant: FC<IMerchantProps> = ({ merchant, currentCustomerID }): JSX.Element => {
@@ -23,11 +23,11 @@ const ShowMerchant: FC<IMerchantProps> = ({ merchant, currentCustomerID }): JSX.
       <br/>
       <br/>
       {
-        showProducts && (
+        showProducts && (          
           <ShowProducts 
             merchantID={ merchant.merchant_info.id } 
-            currentCustomerID={ currentCustomerID }
             products={ merchant.products }
+            {...(currentCustomerID && { currentCustomerID })}
           />
         )
       }

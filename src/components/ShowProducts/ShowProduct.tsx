@@ -1,4 +1,5 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, useContext } from 'react';
+import { AtucasaContext } from '../../Context';
 
 interface ICartProps {
   setCart: React.Dispatch<React.SetStateAction<Array<TCartProduct>>>,
@@ -8,6 +9,7 @@ interface ICartProps {
 const ShowProduct: FC<TProductProps & ICartProps> = ({ product, setCart, cart }): JSX.Element => {
 
   const [ amount, setAmount ] = useState<number>(1);
+  const { currentUser } = useContext<TContextProps>(AtucasaContext);
 
   const checkProductId = (cart.filter(pr => pr.id === product.id)).length;
 
@@ -35,23 +37,29 @@ const ShowProduct: FC<TProductProps & ICartProps> = ({ product, setCart, cart })
       }
       <p><strong>Product Name</strong>: { product.product_name }</p>
       <p><strong>Description</strong>: { product.description }</p>
-      <p><strong>Unit Price</strong>: { product.price }</p>
+      <p><strong>Unit Price</strong>: ${ product.price }</p>
       <p><strong>Category</strong>: { product.category }</p>
       {
-        !checkProductId && (
+        currentUser && (
           <>
-            <p><strong>Amount</strong>:
-              <button onClick={ () => (amount > 1) ? setAmount(amount - 1) : amount }>-</button>
-                { amount }
-              <button onClick={ () => (amount < 20) ? setAmount(amount + 1) : amount }>+</button>
-            </p>
-            <p><strong>Total price: $</strong>{ amount * product.price }</p>
-            <button onClick={ handleCart } >Add to cart</button>
+            {
+              !checkProductId && (
+                <>
+                  <p><strong>Amount</strong>:
+                    <button onClick={ () => (amount > 1) ? setAmount(amount - 1) : amount }>-</button>
+                      { amount }
+                    <button onClick={ () => (amount < 20) ? setAmount(amount + 1) : amount }>+</button>
+                  </p>
+                  <p><strong>Total price: $</strong>{ amount * product.price }</p>
+                  <button onClick={ handleCart } >Add to cart</button>
+                  <br/>
+                  <br/>
+                </>
+              ) 
+            }
           </>
-        ) 
+        )
       }
-      <br/>
-      <br/>
     </>
   );
 };
