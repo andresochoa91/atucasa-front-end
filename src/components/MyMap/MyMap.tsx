@@ -1,4 +1,4 @@
-import React, { FC, useContext, useEffect, useState } from 'react';
+import React, { FC, useContext } from 'react';
 import { AtucasaContext } from '../../Context';
 import { MapContainer, TileLayer, Popup, Circle } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
@@ -12,23 +12,8 @@ interface ILatLngProps {
 
 const MyMap: FC<ILatLngProps> = ({ lat, lng }): JSX.Element => {
 
-  const { location, currentUser } = useContext<TContextProps>(AtucasaContext);
-  const [ merchants, setMerchants ] = useState<Array<TShowMerchant>>([]);
+  const { location, currentUser, merchants } = useContext<TContextProps>(AtucasaContext);
   
-  useEffect(() => {
-    fetch(`${process.env.REACT_APP_API}/merchants`, {
-      method: "GET",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-    .then(response => response.json())
-    .then(data => {
-      setMerchants(data.merchants);
-    })
-  }, []);
-
   return (
     <div>
       <Link to="/home">Go back to home page</Link>      

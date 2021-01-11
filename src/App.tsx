@@ -6,6 +6,7 @@ import SignOut from './components/SignForms/SignOut';
 import Customer from './components/Customer/Customer';
 import Merchant from './components/Merchant/Merchant';
 import { Route, Switch, Redirect, Link } from 'react-router-dom';
+import ShowMerchants2 from './components/ShowMerchants2/ShowMerchants2';
 
 const App:FC = () => {
   const { currentUser, loggedOut } = useContext<TContextProps>(AtucasaContext);
@@ -24,10 +25,10 @@ const App:FC = () => {
                 <>
                   <SignUp />
                   <SignIn />
-                  <Link to="/whatever">Yayaya</Link>
+                  <Link to="/merchants">Yayaya</Link>
                 </>
               )}/>
-              <Route path="/whatever" render={() => <h1>Yayayayaya</h1>} />
+              <Route path="/merchants" render={() => <ShowMerchants2 />} />
             </>
           ) : (
             <>
@@ -38,10 +39,10 @@ const App:FC = () => {
                   {
                     currentUser.role === "customer" ? <Customer /> : <Merchant />
                   }
-                  <Link to="/whatever">Yayaya</Link>
+                  <Link to="/merchants">Yayaya</Link>
                 </> 
               )}/>
-              <Route exact path="/whatever" render={() => <h1>Yayayayaya</h1>} />
+              <Route exact path="/merchants" render={() => <ShowMerchants2 />} />
             </>
           )
         }
