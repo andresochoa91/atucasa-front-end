@@ -79,7 +79,9 @@ type TContextProps = {
   setLocation: React.Dispatch<React.SetStateAction<TLocation | null>>,
   handleLocation: () => void,
   setLoggedOut: React.Dispatch<React.SetStateAction<boolean>>,
-  loggedOut: boolean
+  loggedOut: boolean,
+  merchants: Array<TShowMerchant>,
+  setMerchants: React.Dispatch<React.SetStateAction<Array<TShowMerchant>>>
 };
 
 type TLinksProps = {

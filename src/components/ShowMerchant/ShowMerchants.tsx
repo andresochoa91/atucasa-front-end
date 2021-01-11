@@ -1,4 +1,5 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useContext } from 'react';
+import { AtucasaContext } from '../../Context';
 import { Link } from 'react-router-dom';
 import ShowMerchant from './ShowMerchant';
 
@@ -8,22 +9,8 @@ interface ICurrentCustomerProps {
 
 const ShowMerchants: FC<ICurrentCustomerProps> = ({ currentCustomer }): JSX.Element => {
 
-  const [ merchants, setMerchants ] = useState<Array<TShowMerchant>>([]);
+  const { merchants } = useContext<TContextProps>(AtucasaContext);
   
-  useEffect(() => {
-    fetch(`${process.env.REACT_APP_API}/merchants`, {
-      method: "GET",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-    .then(response => response.json())
-    .then(data => {
-      setMerchants(data.merchants);
-    })
-  }, []);
-
   return (
     <>
       <Link to="/home">Go back to home page</Link>    

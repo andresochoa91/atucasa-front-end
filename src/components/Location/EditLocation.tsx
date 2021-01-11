@@ -3,7 +3,7 @@ import { AtucasaContext } from '../../Context';
 import { Link, useHistory } from 'react-router-dom';
 
 const EditLocation: FC = (): JSX.Element => {
-  const { location/* , handleLocation */ } = useContext<TContextProps>(AtucasaContext);
+  const { location, handleLocation } = useContext<TContextProps>(AtucasaContext);
   const [ country, setCountry ] = useState<string>("");
   const [ state, setState ] = useState<string>("");
   const [ city, setCity ] = useState<string>("");
@@ -76,7 +76,7 @@ const EditLocation: FC = (): JSX.Element => {
         console.log(data2);
         if (!data2.error) {
           history.push('/home/location');
-          // handleLocation();
+          handleLocation();
         }
       })
       .catch(console.error);
