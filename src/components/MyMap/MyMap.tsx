@@ -15,6 +15,9 @@ const MyMap: FC<ILatLngProps> = ({ lat, lng }): JSX.Element => {
   const { location, currentUser, merchants } = useContext<TContextProps>(AtucasaContext);
   const [ latitude, setLatitude ] = useState<number>(lat ? lat : 0);
   const [ longitude, setLongitude ] = useState<number>(lng ? lng : 0);
+  const [ currentAddress, setCurrentAddress ] = useState<string>(location?.address ? location?.address : "");
+  const [ currentCity, setCurrentCity ] = useState<string>(location?.city ? location?.city : "");
+  const [ currentState, setCurrentState ] = useState<string>(location?.state ? location?.state : "");
 
   useEffect(() => {
     if (!currentUser) {
@@ -22,9 +25,12 @@ const MyMap: FC<ILatLngProps> = ({ lat, lng }): JSX.Element => {
         fetch(`${process.env.REACT_APP_MAPQUEST_API_THREE}${position.coords.latitude},${position.coords.longitude}`)
         .then(response => response.json())
         .then(data => {
-          const { displayLatLng } = data.results[0].locations[0];
+          const { displayLatLng, street, adminArea3, adminArea4 } = data.results[0].locations[0];
           setLatitude(displayLatLng.lat);
           setLongitude(displayLatLng.lng);
+          setCurrentAddress(street);
+          setCurrentCity(adminArea4);
+          setCurrentState(adminArea3);
         })
         .catch(console.error);
       })
@@ -80,6 +86,11 @@ const MyMap: FC<ILatLngProps> = ({ lat, lng }): JSX.Element => {
                   <Place 
                     merchant={ merchant }
                     key={ merchant.email }
+                    lat={ latitude }
+                    lng={ longitude }
+                    currentAddress={ currentAddress }
+                    currentCity={ currentCity }
+                    currentState={ currentState }
                   />
                 ))
               )

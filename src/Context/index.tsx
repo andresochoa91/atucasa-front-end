@@ -69,7 +69,7 @@ export const Provider: FC = ({ children }) => {
 
   useEffect(handleCurrentUser, []);
 
-  useEffect(() => {
+  const handleMerchants = ():void => {
     fetch(`${process.env.REACT_APP_API}/merchants`, {
       method: "GET",
       credentials: "include",
@@ -81,7 +81,9 @@ export const Provider: FC = ({ children }) => {
     .then(data => {
       setMerchants(data.merchants);
     })
-  }, []);
+  };
+
+  useEffect(handleMerchants, []);
 
   return (
     <AtucasaContext.Provider value={{
@@ -97,7 +99,8 @@ export const Provider: FC = ({ children }) => {
       setMerchants,
       currentCustomer,
       setCurrentCustomer,
-      handleCurrentCustomer
+      handleCurrentCustomer,
+      handleMerchants
     }}>
       { children }
     </AtucasaContext.Provider>
