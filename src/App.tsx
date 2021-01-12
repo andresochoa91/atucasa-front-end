@@ -7,7 +7,7 @@ import Customer from './components/Customer/Customer';
 import Merchant from './components/Merchant/Merchant';
 import { Route, Switch, Redirect, Link } from 'react-router-dom';
 import MyMap from './components/MyMap/MyMap';
-import ShowMerchantNoLogged from './components/ShowMerchant/ShowMerchantNoLogged';
+import ShowMerchant from './components/ShowMerchant/ShowMerchant';
 
 const App:FC = () => {
   const { currentUser, loggedOut } = useContext<TContextProps>(AtucasaContext);
@@ -34,7 +34,7 @@ const App:FC = () => {
               <Route 
                 exact path="/merchants/:slug" 
                 render={(props) => (
-                  <ShowMerchantNoLogged {...props} />
+                  <ShowMerchant {...props} />
                 )} 
               />
             </>
@@ -55,7 +55,7 @@ const App:FC = () => {
               <Route 
                 exact path="/merchants/:slug" 
                 render={(props) => (
-                  <ShowMerchantNoLogged {...props} />
+                  <ShowMerchant {...props} />
                 )} 
               />
             </>

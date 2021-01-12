@@ -46,10 +46,6 @@ type TShowMerchant = {
   products: TProducts
 };
 
-// type TMerchantProps = {
-//   merchant: TCurrentMerchant
-// }
-
 type TLink = {
   site_name: string,
   url: string,
