@@ -1,7 +1,6 @@
 import React, { FC, useContext } from 'react';
 import { AtucasaContext } from '../../Context';
 import { Link } from 'react-router-dom';
-import ShowMerchant from './ShowMerchant';
 
 interface ICurrentCustomerProps {
   currentCustomer?: TCurrentCustomer
@@ -21,10 +20,15 @@ const ShowMerchants: FC<ICurrentCustomerProps> = ({ currentCustomer }): JSX.Elem
             <h2>{ merchant.merchant_info.merchant_name }</h2>
             <p><strong>Description</strong>: { merchant.merchant_info.description }</p>
             <p><strong>Phone Number</strong>: { merchant.merchant_info.phone_number }</p>
-            <ShowMerchant 
+            <Link 
+              to={`/merchants/${merchant.merchant_info.slug}`}
+            >
+              Visit { merchant.merchant_info.merchant_name } website
+            </Link>
+            {/* <ShowMerchant 
               merchant={ merchant } 
               {...(currentCustomer && { currentCustomerID: currentCustomer.id })} 
-            />
+            /> */}
             <br/>
             <br/>
           </div>
