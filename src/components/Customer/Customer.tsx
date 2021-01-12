@@ -26,12 +26,16 @@ const Customer: FC = (): JSX.Element => {
             <h1>Customer</h1>
             <Route exact path="/home" render={() => (
               <>
-                <Link to="/home/map">Open Map</Link>
-                <br/>
+                {/* <Link to="/home/map">Open Map</Link>
+                <br/> */}
+                <MyMap 
+                  lat={ location.latitude }
+                  lng={ location.longitude }
+                />
                 <Link to="/home/orders">Orders</Link>
                 <br/>
-                <Link to="/home/merchants">Merchants</Link>
-                <br/>
+                {/* <Link to="/home/merchants">Merchants</Link>
+                <br/> */}
                 <Link to="/home/user_information">User information</Link>
                 <br/>
                 <Link to="/home/personal_information">Personal information</Link>
@@ -50,11 +54,11 @@ const Customer: FC = (): JSX.Element => {
               </>
             )}/>
             <Route path="/home/orders" render={() => <Orders />} />
-            <Route path="/home/merchants" 
+            {/* <Route path="/home/merchants" 
               render={() => (
                 <ShowMerchants currentCustomer={ currentCustomer }/>
               )}
-            />
+            /> */}
             <Route path="/home/edit_user" render={() => <EditUser />} />
             <Route path="/home/edit_customer" render={() => (
               <EditCustomer 

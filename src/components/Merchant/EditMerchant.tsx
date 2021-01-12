@@ -1,6 +1,7 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useContext, useState } from 'react';
 import UpdateImage from '../UpdateImage/UpdateImage';
 import { Link } from 'react-router-dom';
+import { AtucasaContext } from '../../Context';
 
 interface IMerchantProps {
   handleCurrentMerchant: () => void,
@@ -8,6 +9,7 @@ interface IMerchantProps {
 };
 
 const EditMerchant: FC<IMerchantProps> = ({ handleCurrentMerchant, currentMerchant }): JSX.Element => {
+  const { handleMerchants } = useContext<TContextProps>(AtucasaContext);
   const [ merchantName, setMerchantName ] = useState<string>("");
   const [ phoneNumber, setPhoneNumber ] = useState<string>("");
   const [ taxId, setTaxId ] = useState<string>("");
@@ -63,6 +65,7 @@ const EditMerchant: FC<IMerchantProps> = ({ handleCurrentMerchant, currentMercha
         setProfilePicture("");
         setBackgroundPicture("");
         handleCurrentMerchant();
+        handleMerchants();
       }
     })
     .catch(console.error);

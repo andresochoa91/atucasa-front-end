@@ -3,7 +3,7 @@ import { AtucasaContext } from '../../Context';
 // import { useHistory } from 'react-router-dom';
 
 const SignOut: FC = () => {
-  const { setCurrentUser, setLoggedOut, setCurrentCustomer } = useContext<TContextProps>(AtucasaContext);
+  const { setCurrentUser, setLoggedOut, setCurrentCustomer, handleMerchants } = useContext<TContextProps>(AtucasaContext);
   // const history = useHistory();
 
   const handleSignOut = ():void => {
@@ -17,6 +17,7 @@ const SignOut: FC = () => {
       setLoggedOut(true);
       setCurrentUser(null);
       setCurrentCustomer(null);
+      handleMerchants();
     })
     .catch(err => console.error(err))
   };

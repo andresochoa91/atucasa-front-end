@@ -66,6 +66,8 @@ const ShowMerchantNoLogged:FC<IMerchantProps & RouteComponentProps> = ({ match, 
       {
         currentMerchant && (
           <div key={ currentMerchant.merchant_info.id }>
+            <p style={{ color: "red" }}>You have to be logged to buy through the website</p>
+            <p style={{ color: "red" }}>You can always contact the merchant through their phone or email</p>
             <h2>{ currentMerchant.merchant_info.merchant_name }</h2>
             <p><strong>Description</strong>: { currentMerchant.merchant_info.description }</p>
             <p><strong>Phone Number</strong>: { currentMerchant.merchant_info.phone_number }</p>
