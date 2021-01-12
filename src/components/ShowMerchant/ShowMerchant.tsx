@@ -1,5 +1,7 @@
 import React, { FC, useState } from 'react';
+// import { useParams } from 'react-router-dom';
 import ShowProducts from '../ShowProducts/ShowProducts';
+
 interface IMerchantProps {
   merchant: TShowMerchant,
   currentCustomerID?: number

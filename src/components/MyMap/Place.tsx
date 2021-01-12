@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { Circle, Popup } from 'react-leaflet';
+import { Link } from 'react-router-dom';
 
 interface IMerchantProps {
   merchant: TShowMerchant
@@ -25,6 +26,9 @@ const Place: FC<IMerchantProps> = ({ merchant }): JSX.Element => {
           >
             <Popup>
               <p>{`${ merchant_name }`}</p>
+              <Link to={`/merchants/${ merchant.merchant_info.slug }`}>
+                { merchant.merchant_info.merchant_name }
+              </Link>
             </Popup>
           </Circle>
         )
