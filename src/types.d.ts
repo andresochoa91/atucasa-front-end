@@ -81,7 +81,10 @@ type TContextProps = {
   setLoggedOut: React.Dispatch<React.SetStateAction<boolean>>,
   loggedOut: boolean,
   merchants: Array<TShowMerchant>,
-  setMerchants: React.Dispatch<React.SetStateAction<Array<TShowMerchant>>>
+  setMerchants: React.Dispatch<React.SetStateAction<Array<TShowMerchant>>>,
+  currentCustomer: TCurrentCustomer | null,
+  setCurrentCustomer: React.Dispatch<React.SetStateAction<TCurrentCustomer | null>>,
+  handleCurrentCustomer: () => void
 };
 
 type TLinksProps = {

@@ -1,4 +1,4 @@
-import React, { FC, useState, useContext, useEffect } from 'react';
+import React, { FC, useContext, useEffect } from 'react';
 import { AtucasaContext } from '../../Context';
 import EditUser from '../EditUser/EditUser';
 import EditCustomer from'./EditCustomer';
@@ -10,26 +10,13 @@ import MyMap from '../MyMap/MyMap';
 import { Switch, Link, Route } from 'react-router-dom';
 
 const Customer: FC = (): JSX.Element => {
-  const { currentUser, location } = useContext<TContextProps>(AtucasaContext);
-  const [ currentCustomer, setCurrentCustomer ] = useState<TCurrentCustomer | null>(null);
+  const { currentUser, location, handleCurrentCustomer, currentCustomer } = useContext<TContextProps>(AtucasaContext);
 
-  const handleCurrentCustomer = () => {
-    fetch(`${process.env.REACT_APP_API}/current_user/customer`, {
-      method: "GET",
-      credentials: 'include',
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-    .then(response => response.json())
-    .then(data => {
-      console.log(data);
-      setCurrentCustomer(data.customer);
-    })
-    .catch(console.error);
-  };
-
-  useEffect(handleCurrentCustomer, []);
+  useEffect(() => {
+    if (!currentCustomer) {
+      handleCurrentCustomer();
+    }
+  }, [currentCustomer, handleCurrentCustomer]);
 
   return(
     <Switch>

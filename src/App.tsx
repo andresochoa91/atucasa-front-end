@@ -6,8 +6,8 @@ import SignOut from './components/SignForms/SignOut';
 import Customer from './components/Customer/Customer';
 import Merchant from './components/Merchant/Merchant';
 import { Route, Switch, Redirect, Link } from 'react-router-dom';
-import ShowMerchants2 from './components/ShowMerchants2/ShowMerchants2';
-import ShowMerchants from './components/ShowMerchant/ShowMerchants';
+import MyMap from './components/MyMap/MyMap';
+import ShowMerchantNoLogged from './components/ShowMerchant/ShowMerchantNoLogged';
 
 const App:FC = () => {
   const { currentUser, loggedOut } = useContext<TContextProps>(AtucasaContext);
@@ -26,10 +26,17 @@ const App:FC = () => {
                 <>
                   <SignUp />
                   <SignIn />
-                  <Link to="/merchants">Yayaya</Link>
+                  <Link to="/home/map">Show Map</Link>
                 </>
               )}/>
-              <Route path="/merchants" render={() => <ShowMerchants />} />
+              {/* <Route path="/merchants" render={() => <ShowMerchants />} /> */}
+              <Route path="/home/map" render={() => <MyMap />} />
+              <Route 
+                exact path="/merchants/:slug" 
+                render={(props) => (
+                  <ShowMerchantNoLogged {...props} />
+                )} 
+              />
             </>
           ) : (
             <>
@@ -40,10 +47,17 @@ const App:FC = () => {
                   {
                     currentUser.role === "customer" ? <Customer /> : <Merchant />
                   }
-                  <Link to="/merchants">Yayaya</Link>
+                  {/* <Link to="/merchants">Yayaya</Link> */}
                 </> 
               )}/>
-              <Route exact path="/merchants" render={() => <ShowMerchants />} />
+              {/* <Route exact path="/merchants" render={() => <ShowMerchants />} /> */}
+              <Route exact path="/home/map" render={() => <MyMap />} />
+              <Route 
+                exact path="/merchants/:slug" 
+                render={(props) => (
+                  <ShowMerchantNoLogged {...props} />
+                )} 
+              />
             </>
           )
         }

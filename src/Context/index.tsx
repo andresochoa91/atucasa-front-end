@@ -7,6 +7,23 @@ export const Provider: FC = ({ children }) => {
   const [ location, setLocation ] = useState<TLocation | null>(null);
   const [ loggedOut, setLoggedOut ] = useState<boolean>(false);
   const [ merchants, setMerchants ] = useState<Array<TShowMerchant>>([]);
+  const [ currentCustomer, setCurrentCustomer ] = useState<TCurrentCustomer | null>(null);
+
+  const handleCurrentCustomer = () => {
+    fetch(`${process.env.REACT_APP_API}/current_user/customer`, {
+      method: "GET",
+      credentials: 'include',
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+      setCurrentCustomer(data.customer);
+    })
+    .catch(console.error);
+  };
 
   const handleLocation = (): void => {
     fetch(`${process.env.REACT_APP_API}/current_user/location`, {
@@ -77,7 +94,10 @@ export const Provider: FC = ({ children }) => {
       loggedOut,
       setLoggedOut,
       merchants,
-      setMerchants
+      setMerchants,
+      currentCustomer,
+      setCurrentCustomer,
+      handleCurrentCustomer
     }}>
       { children }
     </AtucasaContext.Provider>

@@ -1,15 +1,16 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useContext, useState } from 'react';
+import { AtucasaContext } from '../../Context';
 import Cart from '../Cart/Cart';
 import ShowProduct from '../ShowProducts/ShowProduct';
 
 interface IProductsProps {
   products: TProducts,
-  merchantID: number | undefined,
-  currentCustomerID?: number
+  merchantID: number | undefined
 };
 
-const ShowProducts: FC<IProductsProps> = ({ products, merchantID, currentCustomerID }): JSX.Element => {
+const ShowProducts: FC<IProductsProps> = ({ products, merchantID }): JSX.Element => {
 
+  const { currentCustomer } = useContext<TContextProps>(AtucasaContext);
   const [ cart, setCart ] = useState<Array<TCartProduct>>([]);
 
   return (
@@ -25,12 +26,12 @@ const ShowProducts: FC<IProductsProps> = ({ products, merchantID, currentCustome
         ))
       }
       {
-        currentCustomerID && (
+        currentCustomer && (
           <Cart 
             cart={ cart } 
             setCart={ setCart } 
             merchantID={ merchantID }
-            currentCustomerID={ currentCustomerID }
+            currentCustomerID={ currentCustomer.id }
           />
         )
       }
