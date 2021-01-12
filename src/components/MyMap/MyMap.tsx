@@ -1,9 +1,10 @@
 import React, { FC, useContext, useEffect, useState } from 'react';
 import { AtucasaContext } from '../../Context';
-import { MapContainer, TileLayer, Popup, Circle } from "react-leaflet";
+import { MapContainer, TileLayer, Popup, Circle, Marker } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import Place from './Place';
 import { Link } from 'react-router-dom';
+import L from 'leaflet';
 
 interface ILatLngProps {
   lat?: number
@@ -42,7 +43,9 @@ const MyMap: FC<ILatLngProps> = ({ lat, lng }): JSX.Element => {
       {
         (latitude && longitude) ? (
           <div>
-            <Link to="/">Go back to home page</Link>      
+            {
+              !currentUser && <Link to="/">Go back to home page</Link>
+            }
             <MapContainer
               center={[ latitude, longitude]} 
               zoom={13} 
@@ -56,7 +59,7 @@ const MyMap: FC<ILatLngProps> = ({ lat, lng }): JSX.Element => {
 
               <Circle
                 center={ [latitude, longitude] }
-                radius={ 8000 }
+                radius={ 7000 }
                 pathOptions={{ 
                   fillColor: "#00a",
                   stroke: false 
@@ -79,22 +82,35 @@ const MyMap: FC<ILatLngProps> = ({ lat, lng }): JSX.Element => {
                   )
                 }
               </Circle>
+              {
+                currentUser && (
+                  <Marker
+                    position={ [latitude, longitude] }
+                    icon={ L.divIcon({html: `<img height="25" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Ficons.iconarchive.com%2Ficons%2Fgoogle%2Fnoto-emoji-travel-places%2F1024%2F42486-house-icon.png&f=1&nofb=1"/><strong style="font-size:12px">Your Location</strong>`, className:""}) }
+                    
+                  >
+                    <Popup>
+                      <p>{ currentUser ? `Your location: ${location?.address}` : "Your area"}</p>
+                    </Popup>
+                  </Marker>
+                )
+              }
 
-            {
-              (currentUser?.role === "customer" || !currentUser) && (
-                merchants.map((merchant) => (
-                  <Place 
-                    merchant={ merchant }
-                    key={ merchant.email }
-                    lat={ latitude }
-                    lng={ longitude }
-                    currentAddress={ currentAddress }
-                    currentCity={ currentCity }
-                    currentState={ currentState }
-                  />
-                ))
-              )
-            }
+              {
+                (currentUser?.role === "customer" || !currentUser) && (
+                  merchants.map((merchant) => (
+                    <Place 
+                      merchant={ merchant }
+                      key={ merchant.email }
+                      lat={ latitude }
+                      lng={ longitude }
+                      currentAddress={ currentAddress }
+                      currentCity={ currentCity }
+                      currentState={ currentState }
+                    />
+                  ))
+                )
+              }
 
             </MapContainer>
           </div>
