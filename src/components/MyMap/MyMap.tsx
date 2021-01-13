@@ -25,7 +25,7 @@ const MyMap: FC<ILatLngProps> = ({ lat, lng }): JSX.Element => {
   useEffect(() => {
     if (!currentUser) {
       navigator.geolocation.getCurrentPosition((position) => {
-        fetch(`${process.env.REACT_APP_MAPQUEST_API_THREE}${position.coords.latitude},${position.coords.longitude}`)
+        fetch(`${process.env.REACT_APP_MAPQUEST_GET_ADDRESS_FROM_COORDS}${position.coords.latitude},${position.coords.longitude}`)
         .then(response => response.json())
         .then(data => {
           const { displayLatLng, street, adminArea3, adminArea4 } = data.results[0].locations[0];

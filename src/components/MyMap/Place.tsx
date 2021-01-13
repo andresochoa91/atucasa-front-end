@@ -23,7 +23,7 @@ const Place: FC<IMerchantProps> = ({ merchant, lat, lng, currentAddress, current
   useEffect(() => {
     if (merchant.location.address && merchant.location.city && merchant.location.state) {
       if (location && location.city && location.address && location.state ) {
-        fetch(`${process.env.REACT_APP_MAPQUEST_API_TWO}${location?.address},${location?.city},${location?.state}&to=${merchant.location.address},${merchant.location.city},${merchant.location.state}`)
+        fetch(`${process.env.REACT_APP_MAPQUEST_GET_ROUTE}${location?.address},${location?.city},${location?.state}&to=${merchant.location.address},${merchant.location.city},${merchant.location.state}`)
         .then(response => response.json())
         .then(data => {
           console.log(data)
@@ -31,7 +31,7 @@ const Place: FC<IMerchantProps> = ({ merchant, lat, lng, currentAddress, current
         })
         .catch(console.error);
       } else if (currentAddress && currentCity && currentState) {
-        fetch(`${process.env.REACT_APP_MAPQUEST_API_TWO}${currentAddress},${currentCity},${currentState}&to=${merchant.location.address},${merchant.location.city},${merchant.location.state}`)
+        fetch(`${process.env.REACT_APP_MAPQUEST_GET_ROUTE}${currentAddress},${currentCity},${currentState}&to=${merchant.location.address},${merchant.location.city},${merchant.location.state}`)
         .then(response => response.json())
         .then(data => {
           if (data.route.distance < 5) setShowPlace(true);

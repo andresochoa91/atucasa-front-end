@@ -44,7 +44,7 @@ const EditLocation: FC = (): JSX.Element => {
     newLocation.zip_code = zipCode ? zipCode : location?.zip_code;
     newLocation.details = details ? details : location?.details;
 
-    fetch(`${process.env.REACT_APP_MAPQUEST_API}${newLocation.address},${newLocation.city},${newLocation.state},${newLocation.zip_code}`)
+    fetch(`${process.env.REACT_APP_MAPQUEST_GET_DATA_FROM_ADDRESS}${newLocation.address},${newLocation.city},${newLocation.state},${newLocation.zip_code}`)
     .then(response => response.json())
     .then(data => { 
       const { 

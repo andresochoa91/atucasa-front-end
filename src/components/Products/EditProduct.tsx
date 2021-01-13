@@ -101,12 +101,12 @@ const EditProduct: FC<TProductsProps & TProductProps & THandleMode> = ({ handleP
         </select>
         <br/>
         <label>Product Picture</label>   
-        <input 
+        {/* <input 
           type="text"
           name="productPicture"
           value={ productPicture }  
           onChange={ handleInput } 
-        />
+        /> */}
         <UpdateImage
           currentPicture = { product.product_picture }
           userName = { currentUser?.email }
