@@ -6,6 +6,7 @@ import Place from './Place';
 import { Link } from 'react-router-dom';
 import L from 'leaflet';
 import BackHomePage from '../BackHomePage/BackHomePage';
+import house from '../../pictures/house.png';
 
 interface ILatLngProps {
   lat?: number,
@@ -90,8 +91,7 @@ const MyMap: FC<ILatLngProps> = ({ lat, lng }): JSX.Element => {
                 currentUser && (
                   <Marker
                     position={ [latitude, longitude] }
-                    icon={ L.divIcon({html: `<img height="25" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Ficons.iconarchive.com%2Ficons%2Fgoogle%2Fnoto-emoji-travel-places%2F1024%2F42486-house-icon.png&f=1&nofb=1"/><strong style="font-size:12px">Your Location</strong>`, className:""}) }
-                    
+                    icon={ L.divIcon({html: `<img height="25" src="${house}"/><strong style="font-size:12px">Your Location</strong>`, className:""}) }  
                   >
                     <Popup>
                       <p>{ currentUser ? `Your location: ${location?.address}` : "Your area"}</p>

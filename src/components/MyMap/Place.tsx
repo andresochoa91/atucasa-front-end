@@ -3,6 +3,7 @@ import { Circle, Popup, Marker } from 'react-leaflet';
 import { Link } from 'react-router-dom';
 import { AtucasaContext } from '../../Context';
 import L from 'leaflet';
+import store from '../../pictures/store.png';
 
 interface IMerchantProps {
   merchant: TShowMerchant,
@@ -63,7 +64,7 @@ const Place: FC<IMerchantProps> = ({ merchant, lat, lng, currentAddress, current
             </Circle>
             <Marker
               position={ [latitude, longitude] }
-              icon={ L.divIcon({html: `<img height="25" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fsweetdreamschildcare24-7.com%2Fwp-content%2Fuploads%2F2015%2F06%2Fmarket-store-icon.png&f=1&nofb=1"/>`, className:""}) }
+              icon={ L.divIcon({html: `<img height="25" src="${store}"/>`, className:""}) }
               
             >
               <Popup>
