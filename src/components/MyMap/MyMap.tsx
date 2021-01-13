@@ -102,18 +102,16 @@ const MyMap: FC<ILatLngProps> = ({ lat, lng }): JSX.Element => {
 
               {
                 (currentUser?.role === "customer" || !currentUser) && (
-                  (searchMerchants ? searchMerchants : merchants).map((merchant) => (
-                    <>
-                      <Place 
-                        merchant={ merchant }
-                        key={ merchant.email }
-                        lat={ latitude }
-                        lng={ longitude }
-                        currentAddress={ currentAddress }
-                        currentCity={ currentCity }
-                        currentState={ currentState }
-                      />
-                    </>
+                  (searchMerchants ? searchMerchants : merchants).map((merchant, id) => (
+                    <Place 
+                      merchant={ merchant }
+                      key={ `${merchant.email}${id}` }
+                      lat={ latitude }
+                      lng={ longitude }
+                      currentAddress={ currentAddress }
+                      currentCity={ currentCity }
+                      currentState={ currentState }
+                    />
                   ))
                 )
               }
