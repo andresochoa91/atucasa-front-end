@@ -1,7 +1,9 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useContext, useState } from 'react'
+import { AtucasaContext } from '../../Context';
+import UpdateImage from '../UpdateImage/UpdateImage';
 
 const CreateProduct: FC<TProductsProps> = ({ handleProducts }): JSX.Element => {
-
+  const { currentUser } = useContext<TContextProps>(AtucasaContext);
   const [ productName, setProductName ] = useState<string>("");
   const [ description, setDescription ] = useState<string>("");
   const [ price, setPrice ] = useState<string>("");
@@ -97,12 +99,20 @@ const CreateProduct: FC<TProductsProps> = ({ handleProducts }): JSX.Element => {
         </select>
         <br/>
         <label>Product Picture</label>   
-        <input 
+        {/* <input 
           type="text"
           name="productPicture"
           value={ productPicture }  
           onChange={ handleInput } 
+        /> */}
+        <UpdateImage 
+          currentPicture = { "" }
+          userName = { currentUser?.email }
+          handleInput = { handleInput }
+          newPicture = { productPicture }
+          setNewPicture = { setProductPicture }
         />
+        
         <br/>
         <input type="submit" value="Submit"/>
       </form> 

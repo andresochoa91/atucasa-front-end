@@ -1,12 +1,14 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useContext, useState } from 'react'
+import { AtucasaContext } from '../../Context';
+import UpdateImage from '../UpdateImage/UpdateImage';
 
 const EditProduct: FC<TProductsProps & TProductProps & THandleMode> = ({ handleProducts, product, handleMode }): JSX.Element => {
-
+  const { currentUser } = useContext<TContextProps>(AtucasaContext);
   const [ productName, setProductName ] = useState<string>(product.product_name);
   const [ description, setDescription ] = useState<string | undefined>(product.description ? product.description : "");
   const [ price, setPrice ] = useState<string>(product.price.toString());
   const [ available, setAvailable ] = useState<string>(product.available ? "yes" : "no");
-  const [ productPicture, setProductPicture ] = useState<string | undefined>(product.product_picture ? product.product_picture : "");
+  const [ productPicture, setProductPicture ] = useState<string>(product.product_picture ? product.product_picture : "");
 
   const productAvailable = product.available ? "yes" : "no";
   const productNotAvailable = product.available ? "no" : "yes";
@@ -105,6 +107,15 @@ const EditProduct: FC<TProductsProps & TProductProps & THandleMode> = ({ handleP
           value={ productPicture }  
           onChange={ handleInput } 
         />
+        <UpdateImage
+          currentPicture = { product.product_picture }
+          userName = { currentUser?.email }
+          handleInput = { handleInput }
+          newPicture = { productPicture }
+          setNewPicture = { setProductPicture }
+        />
+        <br/>
+
         <br/>
         <input type="submit" value="Submit"/>
         <button onClick={ handleMode }>Cancel</button>

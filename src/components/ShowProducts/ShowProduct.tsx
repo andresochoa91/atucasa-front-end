@@ -35,6 +35,11 @@ const ShowProduct: FC<TProductProps & ICartProps> = ({ product, setCart, cart })
           <p style={{color: "#0a0"}}><strong>Product in Cart</strong></p>
         ) : <></>
       }
+      <img 
+        src={ product.product_picture } 
+        alt={ product.product_name }
+        height={ 100 }
+      />
       <p><strong>Product Name</strong>: { product.product_name }</p>
       <p><strong>Description</strong>: { product.description }</p>
       <p><strong>Unit Price</strong>: ${ product.price }</p>

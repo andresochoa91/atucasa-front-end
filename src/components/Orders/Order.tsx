@@ -60,7 +60,6 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
         if (field === "role") {
           if (!lastStage) setLastStage(true);
           setCurrentRole(data.order.current_user);
-          // console.log(data);
         } else if (field === "accepted") {
           setOrderAccepted(true);
         } else if (field === "canceled") {
