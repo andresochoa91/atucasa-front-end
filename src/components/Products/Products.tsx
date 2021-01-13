@@ -1,9 +1,12 @@
-import React, { FC, useState, useEffect } from 'react';
+import React, { FC, useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { AtucasaContext } from '../../Context';
+import BackHomePage from '../BackHomePage/BackHomePage';
 import CreateProduct from './CreateProduct';
 import Product from './Product';
 
 const Products: FC = (): JSX.Element => {
+  const { currentUser } = useContext<TContextProps>(AtucasaContext);
   const [ products, setProducts ] = useState<TProducts>([]);
   
   const handleProducts = (): void => {
@@ -26,7 +29,9 @@ const Products: FC = (): JSX.Element => {
 
   return (
     <>
-      <Link to="/home">Go back to home page</Link>    
+      {
+        currentUser ? <BackHomePage /> : <Link to="/">Go back to home page</Link> 
+      }   
       <h2>Products</h2>
       { 
         products.map((product) => (

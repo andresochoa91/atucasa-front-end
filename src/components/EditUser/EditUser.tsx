@@ -1,6 +1,7 @@
 import React, { FC, useContext, useState/* , useEffect */ } from 'react';
 import { AtucasaContext } from '../../Context';
 import { Link } from 'react-router-dom';
+import BackHomePage from '../BackHomePage/BackHomePage';
 
 const EditUser: FC = (): JSX.Element => {
   const { currentUser, handleCurrentUser } = useContext<TContextProps>(AtucasaContext);
@@ -58,7 +59,7 @@ const EditUser: FC = (): JSX.Element => {
 
   return (
     <>
-      <Link to="/home">Go back to home page</Link>    
+      <BackHomePage />    
       {
         currentUser && (
           <>

@@ -2,6 +2,7 @@ import React, { FC, useState } from 'react';
 import { Link } from 'react-router-dom';
 import UpdateImage from '../UpdateImage/UpdateImage';
 import { useHistory } from 'react-router-dom';
+import BackHomePage from '../BackHomePage/BackHomePage';
 
 interface ICustomerProps {
   handleCurrentCustomer: () => void,
@@ -73,7 +74,7 @@ const EditCustomer: FC<ICustomerProps> = ({ handleCurrentCustomer, currentCustom
 
   return(
     <>
-      <Link to="/home">Go back to home page</Link>    
+      <BackHomePage />    
       <h2>Edit Customer</h2>
       <Link to="/home/personal_information">Go back to personal information</Link>    
       <form onSubmit={ handleSubmit }>

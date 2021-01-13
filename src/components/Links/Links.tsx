@@ -1,5 +1,5 @@
 import React, { FC, useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import BackHomePage from '../BackHomePage/BackHomePage';
 import CreateLink from './CreateLink';
 import LinkUrl from './LinkUrl';
 
@@ -26,7 +26,7 @@ const Links: FC = (): JSX.Element => {
 
   return (
     <>
-      <Link to="/home">Go back to home page</Link>    
+      <BackHomePage />  
       <h2>Links</h2>
       { links.map((link) => (
         <LinkUrl handleLinks={ handleLinks } link={ link } key={ link.id } />

@@ -1,6 +1,7 @@
 import React, { FC, useContext } from 'react';
 import { AtucasaContext } from '../../Context';
 import { Link } from 'react-router-dom';
+import BackHomePage from '../BackHomePage/BackHomePage';
 
 interface ICurrentCustomerProps {
   currentCustomer?: TCurrentCustomer
@@ -12,7 +13,7 @@ const ShowMerchants: FC<ICurrentCustomerProps> = ({ currentCustomer }): JSX.Elem
   
   return (
     <>
-      <Link to="/">Go back to home page</Link>    
+      <BackHomePage />  
       <h1>Merchants</h1>
       { 
         merchants.map((merchant) => (

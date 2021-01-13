@@ -1,6 +1,7 @@
 import React, { FC, useContext, useEffect, useState } from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { AtucasaContext } from '../../Context';
+import BackHomePage from '../BackHomePage/BackHomePage';
 import ShowProducts from '../ShowProducts/ShowProducts';
 import SignOut from '../SignForms/SignOut';
 
@@ -62,12 +63,21 @@ const ShowMerchantNoLogged:FC<IMerchantProps & RouteComponentProps> = ({ match, 
           </>
         )
       }
-      <Link to="/">Go back to home page</Link>
+      {
+        currentUser ? <BackHomePage /> : <Link to="/">Go back to home page</Link>
+      }
+      
       {
         currentMerchant && (
           <div key={ currentMerchant.merchant_info.id }>
-            <p style={{ color: "red" }}>You have to be logged to buy through the website</p>
-            <p style={{ color: "red" }}>You can always contact the merchant through their phone or email</p>
+            {
+              !currentUser && (
+                <>
+                  <p style={{ color: "red" }}>You have to be logged to buy through the website</p>
+                  <p style={{ color: "red" }}>You can always contact the merchant through their phone or email</p>
+                </>
+              )
+            }
             <h2>{ currentMerchant.merchant_info.merchant_name }</h2>
             <p><strong>Description</strong>: { currentMerchant.merchant_info.description }</p>
             <p><strong>Phone Number</strong>: { currentMerchant.merchant_info.phone_number }</p>

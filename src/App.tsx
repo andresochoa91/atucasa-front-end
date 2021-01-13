@@ -51,7 +51,11 @@ const App:FC = () => {
                 </> 
               )}/>
               {/* <Route exact path="/merchants" render={() => <ShowMerchants />} /> */}
-              <Route exact path="/home/map" render={() => <MyMap />} />
+              {
+                !currentUser && (
+                  <Route exact path="/home/map" render={() => <MyMap />} />
+                )
+              }
               <Route 
                 exact path="/merchants/:slug" 
                 render={(props) => (

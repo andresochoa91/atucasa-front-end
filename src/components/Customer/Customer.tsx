@@ -1,22 +1,40 @@
-import React, { FC, useContext, useEffect } from 'react';
+import React, { FC, useContext, useEffect, useState } from 'react';
 import { AtucasaContext } from '../../Context';
 import EditUser from '../EditUser/EditUser';
 import EditCustomer from'./EditCustomer';
 import EditLocation from '../Location/EditLocation';
 import Location from '../Location/Location';
-import ShowMerchants from '../ShowMerchant/ShowMerchants';
+// import ShowMerchants from '../ShowMerchant/ShowMerchants';
 import Orders from '../Orders/Orders';
 import MyMap from '../MyMap/MyMap';
 import { Switch, Link, Route } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import BackHomePage from '../BackHomePage/BackHomePage';
 
 const Customer: FC = (): JSX.Element => {
-  const { currentUser, location, handleCurrentCustomer, currentCustomer } = useContext<TContextProps>(AtucasaContext);
+  const { currentUser, location, handleCurrentCustomer, currentCustomer, setSearchMerchants } = useContext<TContextProps>(AtucasaContext);
+  const [ searchbox, setSearchbox ] = useState<string>(""); 
+
+  const history = useHistory();
 
   useEffect(() => {
     if (!currentCustomer) {
       handleCurrentCustomer();
     }
   }, [currentCustomer, handleCurrentCustomer]);
+
+  const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    fetch(`${process.env.REACT_APP_API}/merchants/product/${searchbox}`)
+    .then(response => response.json())
+    .then((data) => {
+      console.log(data);
+      setSearchMerchants(data.merchants);
+      setSearchbox("");
+      history.push('/home/map');
+    })
+    .catch(console.error);
+  };
 
   return(
     <Switch>
@@ -26,12 +44,23 @@ const Customer: FC = (): JSX.Element => {
             <h1>Customer</h1>
             <Route exact path="/home" render={() => (
               <>
-                {/* <Link to="/home/map">Open Map</Link>
-                <br/> */}
-                <MyMap 
+                <Link to="/home/map">See merchants close to you on map</Link>
+                <br/>
+                {/* <MyMap 
                   lat={ location.latitude }
                   lng={ location.longitude }
-                />
+                /> */}
+                <form onSubmit={ handleSearch }>
+                  <label>Look for product: </label>
+                  <input 
+                    type="text"
+                    name={ "searchbox" }
+                    onChange={ (event) => setSearchbox(event.target.value) }
+                    value={ searchbox }
+                  />
+                  <input type="submit"/>
+                </form>
+                <br/>
                 <Link to="/home/orders">Orders</Link>
                 <br/>
                 {/* <Link to="/home/merchants">Merchants</Link>
@@ -70,7 +99,7 @@ const Customer: FC = (): JSX.Element => {
             <Route path="/home/user_information" 
               render={() => (
                 <>
-                  <Link to="/home">Go back to home page</Link>     
+                  <BackHomePage />     
                   <h2>User information</h2>
                   <Link to='/home/edit_user'>Update email and/or password</Link>
                   <p><strong>Email: </strong>{ currentUser.email }</p>
@@ -81,7 +110,7 @@ const Customer: FC = (): JSX.Element => {
             <Route path="/home/personal_information" 
               render={() => (
                 <>
-                  <Link to="/home">Go back to home page</Link>    
+                  <BackHomePage />    
                   <h2>Personal information</h2>
                   <Link to='/home/edit_customer'>Edit personal information</Link>
                   <p><strong>Username: </strong>{ currentCustomer.username }</p>
