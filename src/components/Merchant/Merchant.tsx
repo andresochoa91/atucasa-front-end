@@ -9,6 +9,7 @@ import Products from '../Products/Products';
 import Orders from '../Orders/Orders';
 import { Switch, Link, Route } from 'react-router-dom';
 import MyMap from '../MyMap/MyMap';
+import BackHomePage from '../BackHomePage/BackHomePage';
 
 const Merchant: FC = (): JSX.Element => {
   const { currentUser, location } = useContext<TContextProps>(AtucasaContext);
@@ -74,7 +75,7 @@ const Merchant: FC = (): JSX.Element => {
             <Route path="/home/orders" render={() => <Orders />}/> 
             <Route path="/home/user_information" render={() => (
               <>
-                <Link to="/home">Go back to home page</Link>    
+                <BackHomePage />   
                 <h2>User information</h2>
                 <Link to="/home/edit_user">Update email or password</Link>
                 <br/>

@@ -7,6 +7,7 @@ export const Provider: FC = ({ children }) => {
   const [ location, setLocation ] = useState<TLocation | null>(null);
   const [ loggedOut, setLoggedOut ] = useState<boolean>(false);
   const [ merchants, setMerchants ] = useState<Array<TShowMerchant>>([]);
+  const [ searchMerchants, setSearchMerchants ] = useState<Array<TShowMerchant> | null>(null);
   const [ currentCustomer, setCurrentCustomer ] = useState<TCurrentCustomer | null>(null);
 
   const handleCurrentCustomer = () => {
@@ -100,7 +101,9 @@ export const Provider: FC = ({ children }) => {
       currentCustomer,
       setCurrentCustomer,
       handleCurrentCustomer,
-      handleMerchants
+      handleMerchants,
+      searchMerchants,
+      setSearchMerchants
     }}>
       { children }
     </AtucasaContext.Provider>

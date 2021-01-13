@@ -5,15 +5,16 @@ import "leaflet/dist/leaflet.css";
 import Place from './Place';
 import { Link } from 'react-router-dom';
 import L from 'leaflet';
+import BackHomePage from '../BackHomePage/BackHomePage';
 
 interface ILatLngProps {
-  lat?: number
+  lat?: number,
   lng?: number
 }
 
 const MyMap: FC<ILatLngProps> = ({ lat, lng }): JSX.Element => {
 
-  const { location, currentUser, merchants } = useContext<TContextProps>(AtucasaContext);
+  const { location, currentUser, merchants, searchMerchants } = useContext<TContextProps>(AtucasaContext);
   const [ latitude, setLatitude ] = useState<number>(lat ? lat : 0);
   const [ longitude, setLongitude ] = useState<number>(lng ? lng : 0);
   const [ currentAddress, setCurrentAddress ] = useState<string>(location?.address ? location?.address : "");
@@ -38,14 +39,17 @@ const MyMap: FC<ILatLngProps> = ({ lat, lng }): JSX.Element => {
     }
   }, [currentUser]);
 
+  console.log(searchMerchants);
+
   return (
     <>
       {
         (latitude && longitude) ? (
           <div>
             {
-              !currentUser && <Link to="/">Go back to home page</Link>
+              currentUser ? <BackHomePage /> : <Link to="/">Go back to home page</Link>
             }
+            
             <MapContainer
               center={[ latitude, longitude]} 
               zoom={13} 
@@ -98,16 +102,18 @@ const MyMap: FC<ILatLngProps> = ({ lat, lng }): JSX.Element => {
 
               {
                 (currentUser?.role === "customer" || !currentUser) && (
-                  merchants.map((merchant) => (
-                    <Place 
-                      merchant={ merchant }
-                      key={ merchant.email }
-                      lat={ latitude }
-                      lng={ longitude }
-                      currentAddress={ currentAddress }
-                      currentCity={ currentCity }
-                      currentState={ currentState }
-                    />
+                  (searchMerchants ? searchMerchants : merchants).map((merchant) => (
+                    <>
+                      <Place 
+                        merchant={ merchant }
+                        key={ merchant.email }
+                        lat={ latitude }
+                        lng={ longitude }
+                        currentAddress={ currentAddress }
+                        currentCity={ currentCity }
+                        currentState={ currentState }
+                      />
+                    </>
                   ))
                 )
               }
@@ -115,7 +121,9 @@ const MyMap: FC<ILatLngProps> = ({ lat, lng }): JSX.Element => {
             </MapContainer>
           </div>
         ) : (
-          <p>Loading map...</p>
+          <>
+            <p>Loading map...</p>
+          </>
         )
       }
     </>
