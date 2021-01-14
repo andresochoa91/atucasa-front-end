@@ -1,4 +1,5 @@
 import React, { FC, useContext, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { AtucasaContext } from '../../Context';
 import ProductOrder from './ProductOrder';
 
@@ -17,12 +18,35 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
   const [ lastStage, setLastStage ] = useState<boolean>(false);
   const [ currentTip, setCurrentTip ] = useState<string>(order.tip === 0 && (!order.accepted) ? "" : (order.tip).toString());
   const [ semiTotal, setSemiTotal ] = useState<number>(0);
+  const [ delivery, setDelivery ] = useState<string>("");
+  const [ colorDelivery, setColorDelivery ] = useState<string>("");
+  const [ orderPlaced, setOrderPlaced ] = useState<string>("");
+  const [ estimatedArrival, setEstimatedArrival ] = useState<string>("");
 
   useEffect(() => {
+
+    fetch(`${process.env.REACT_APP_API}/current_user/check_delivered/${order.id}`)
+    .then(response => response.json())
+    .then(data => {
+      if (!data.error) {
+        setDelivery(data.message); 
+        setColorDelivery(data.color);
+        const tempOrderPlaced = new Date(data.order_placed);
+        const tempEstimatedArrival = new Date(data.estimated_arrival);
+        const tOP = tempOrderPlaced;
+        const tEA = tempEstimatedArrival;
+
+        setOrderPlaced(`${tOP.getHours()}:${(tOP.getMinutes()).toString().length < 2 ? `0${tOP.getMinutes()}` : tOP.getMinutes()}, ${tOP.getMonth() + 1}/${tOP.getDate()}/${tOP.getFullYear()}`)
+        setEstimatedArrival(`${tEA.getHours()}:${(tEA.getMinutes()).toString().length < 2 ? `0${tEA.getMinutes()}` : tEA.getMinutes()}, ${tEA.getMonth() + 1}/${tEA.getDate()}/${tEA.getFullYear()}`)
+      }
+      console.log(data);
+    })
+    .catch(console.error);
+
     setSemiTotal(order.products_order.reduce((acc, pr) => {
       return (acc + ((pr.price + pr.tax) * pr.amount));
     }, 0))
-  }, [order.products_order]);
+  }, [order, orderAccepted]);
 
   const handleUpdate = (id:number, field:string): void => {
     interface IUpdate {
@@ -30,7 +54,8 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
       accepted?: boolean,
       canceled?: boolean,
       message?: string,
-      tip?: number | null
+      tip?: number | null,
+      time_acceptance?: string
     };
 
     const updateField: IUpdate = {};
@@ -42,6 +67,8 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
     } else if (field === "accepted") {
       updateField.tip = Number(currentTip);
       updateField.accepted = true;
+      updateField.time_acceptance = (new Date()).toString();
+      console.log(updateField);
     } else {
       updateField.canceled = true;
     }
@@ -70,12 +97,25 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
     } else {
       console.log("Add a correct tip");
     }
-
   };
 
   return (
     <div key={ order.id }>
       <h3>Order #{ order.id }</h3>
+      { 
+        currentUser?.role === "customer" ? (
+          <>
+            <h3>Merchant Name: { order.merchant_name }</h3>
+            <Link to={`/merchants/${order.merchant_slug}`}>Visit Merchant Website</Link>
+          </>
+        ) : (
+          <>
+            <h3>Customer Name: { order.customer_name }</h3> 
+            <h3>Address to deliver: { `${order.customer_location.address}, ${order.customer_location.city}, ${order.customer_location.state}` }</h3>
+            { order.customer_location.details && <h4>Details of the location: {order.customer_location.details}</h4> }
+          </>
+        )
+      }
       <table style={{ textAlign: "center" }}>
         <thead>
           <tr>
@@ -205,7 +245,12 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
         ) : !orderCanceled && currentUser?.role === "merchant" && currentRole === "customer" && !orderAccepted ? (
           <p>Waiting for the customer to confirm your order.</p>
         ) : !orderCanceled && orderAccepted ? (
-          <p style={{color: "#0a0"}}>Order accepted</p>
+          <>
+            { delivery !== "Order delivered" && <p style={{color: "#0a0"}}>Order accepted</p> }
+            { (delivery && currentUser?.role === "customer") && <p style={{color: colorDelivery}}>{ delivery }</p> }
+            { orderPlaced && <p><strong>Order placed: </strong>{ orderPlaced }</p>}
+            { delivery !== "Order delivered" && <p><strong>Estimated arrival: </strong>{ estimatedArrival }</p>}
+          </>
         ) : (
           <p style={{color: "#f00"}}>Order canceled</p>
         )

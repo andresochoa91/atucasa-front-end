@@ -126,6 +126,8 @@ type TProductOrder = {
   amount_changed: boolean
 };
 
+
+
 type TOrder = {
   id: number,
   customer_id: number,
@@ -136,7 +138,11 @@ type TOrder = {
   canceled: boolean,
   current_user: string,
   products_order: Array<TProductOrder>,
-  message: string
+  message: string,
+  merchant_name: string,
+  merchant_slug: string,
+  customer_name: string,
+  customer_location: TLocation
 };
 
 type TOrders = Array<TOrder>;

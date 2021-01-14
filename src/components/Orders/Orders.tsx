@@ -17,7 +17,7 @@ const Orders: FC = (): JSX.Element => {
     })
     .then(response => response.json())
     .then(data => {
-      setOrders([...data.orders]);
+      setOrders([...data.orders].reverse());
       console.log(data.orders);
     })
     .catch(console.error);
