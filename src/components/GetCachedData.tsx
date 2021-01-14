@@ -7,7 +7,7 @@ export const getCachedData = async(url:string, mapquestType:string) => {
 
   const fetchData = mapquestType !== "coords" ? 
   await fetch(`${process.env.REACT_APP_API}/cache/${url}`) :
-  await fetch(`${process.env.REACT_APP_API}/cache/show_without_url`, {
+  await fetch(`${process.env.REACT_APP_API}/cache/show_no_url`, {
     method: "POST",
     credentials: "include",
     headers: { "Content-Type": "application/json" },

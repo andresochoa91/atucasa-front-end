@@ -26,7 +26,6 @@ const MyMap: FC<ILatLngProps> = ({ lat, lng }): JSX.Element => {
   useEffect(() => {
     if (!currentUser) {
       navigator.geolocation.getCurrentPosition((position) => {
-
         getCachedData(`${position.coords.latitude},${position.coords.longitude}`, "coords")
         .then(response => {
           return JSON.parse(response.data.strData);
