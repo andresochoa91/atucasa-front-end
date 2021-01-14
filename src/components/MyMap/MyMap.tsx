@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import L from 'leaflet';
 import BackHomePage from '../BackHomePage/BackHomePage';
 import house from '../../pictures/house.png';
+import { getCachedData } from '../GetCachedData';
 
 interface ILatLngProps {
   lat?: number,
@@ -25,8 +26,11 @@ const MyMap: FC<ILatLngProps> = ({ lat, lng }): JSX.Element => {
   useEffect(() => {
     if (!currentUser) {
       navigator.geolocation.getCurrentPosition((position) => {
-        fetch(`${process.env.REACT_APP_MAPQUEST_GET_ADDRESS_FROM_COORDS}${position.coords.latitude},${position.coords.longitude}`)
-        .then(response => response.json())
+
+        getCachedData(`${position.coords.latitude},${position.coords.longitude}`, "coords")
+        .then(response => {
+          return JSON.parse(response.data.strData);
+        })
         .then(data => {
           const { displayLatLng, street, adminArea3, adminArea4 } = data.results[0].locations[0];
           setLatitude(displayLatLng.lat);
@@ -36,6 +40,18 @@ const MyMap: FC<ILatLngProps> = ({ lat, lng }): JSX.Element => {
           setCurrentState(adminArea3);
         })
         .catch(console.error);
+
+        // fetch(`${process.env.REACT_APP_MAPQUEST_GET_ADDRESS_FROM_COORDS}${position.coords.latitude},${position.coords.longitude}`)
+        // .then(response => response.json())
+        // .then(data => {
+        //   const { displayLatLng, street, adminArea3, adminArea4 } = data.results[0].locations[0];
+        //   setLatitude(displayLatLng.lat);
+        //   setLongitude(displayLatLng.lng);
+        //   setCurrentAddress(street);
+        //   setCurrentCity(adminArea4);
+        //   setCurrentState(adminArea3);
+        // })
+        // .catch(console.error);
       })
     }
   }, [currentUser]);
