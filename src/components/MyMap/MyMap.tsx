@@ -48,11 +48,11 @@ const MyMap: FC<ILatLngProps> = ({ lat, lng }): JSX.Element => {
   return (
     <>
       {
+        currentUser ? <BackHomePage /> : <Link to="/">Go back to home page</Link>
+      }
+      {
         (latitude && longitude) ? (
           <div>
-            {
-              currentUser ? <BackHomePage /> : <Link to="/">Go back to home page</Link>
-            }
             
             <MapContainer
               center={[ latitude, longitude]} 
@@ -121,10 +121,10 @@ const MyMap: FC<ILatLngProps> = ({ lat, lng }): JSX.Element => {
 
             </MapContainer>
           </div>
+        ) : !currentUser ? (
+          <p>Loading map...</p>
         ) : (
-          <>
-            <p>Loading map...</p>
-          </>
+          <p style={{ color: "red" }}>Please set up your location to display map</p>
         )
       }
     </>
