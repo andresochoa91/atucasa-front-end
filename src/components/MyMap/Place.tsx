@@ -34,17 +34,7 @@ const Place: FC<IMerchantProps> = ({ merchant, lat, lng, currentAddress, current
           if (data.route.distance < 5) setShowPlace(true);
         })
         .catch(console.error);
-
-        // fetch(`${process.env.REACT_APP_MAPQUEST_GET_ROUTE}${location?.address},${location?.city},${location?.state}&to=${merchant.location.address},${merchant.location.city},${merchant.location.state}`)
-        // .then(response => response.json())
-        // .then(data => {
-        //   console.log(data)
-        //   if (data.route.distance < 5) setShowPlace(true);
-        // })
-        // .catch(console.error);
       } else if (currentAddress && currentCity && currentState) {
-
-
         getCachedData(`${currentAddress},${currentCity},${currentState}&to=${merchant.location.address},${merchant.location.city},${merchant.location.state}`, "route")
         .then(response => {
           return JSON.parse(response.data.strData);
@@ -54,14 +44,6 @@ const Place: FC<IMerchantProps> = ({ merchant, lat, lng, currentAddress, current
           if (data.route.distance < 5) setShowPlace(true);
         })
         .catch(console.error);
-
-
-        // fetch(`${process.env.REACT_APP_MAPQUEST_GET_ROUTE}${currentAddress},${currentCity},${currentState}&to=${merchant.location.address},${merchant.location.city},${merchant.location.state}`)
-        // .then(response => response.json())
-        // .then(data => {
-        //   if (data.route.distance < 5) setShowPlace(true);
-        // })
-        // .catch(console.error);
       }
     }
   }, [location, merchant, currentAddress, currentCity, currentState]);

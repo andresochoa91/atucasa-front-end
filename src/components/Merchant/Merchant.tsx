@@ -55,15 +55,18 @@ const Merchant: FC = (): JSX.Element => {
                 <br/>    
               </>
             )}/> 
-            <Route path="/home/map" render={() => (
-              <>
-                {
-                  location.latitude && location.longitude && (
-                    <MyMap lat={location.latitude} lng={location.longitude} />
-                  )
-                }
-              </>
-            )}/> 
+            {
+              location.latitude && location.longitude && (
+                <Route path="/home/map" render={() => (
+                  <MyMap lat={location.latitude} lng={location.longitude} />
+                )}/>
+              )
+            }
+            {/* <Route path="/home/map" render={() => (
+              location.latitude && location.longitude && (
+                <MyMap lat={location.latitude} lng={location.longitude} />
+              )
+            )}/>  */}
             <Route path="/home/edit_user" render={() => <EditUser />}/> 
             <Route path="/home/edit_merchant" render={() => (
               <EditMerchant 

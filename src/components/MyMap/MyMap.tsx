@@ -40,18 +40,6 @@ const MyMap: FC<ILatLngProps> = ({ lat, lng }): JSX.Element => {
           setCurrentState(adminArea3);
         })
         .catch(console.error);
-
-        // fetch(`${process.env.REACT_APP_MAPQUEST_GET_ADDRESS_FROM_COORDS}${position.coords.latitude},${position.coords.longitude}`)
-        // .then(response => response.json())
-        // .then(data => {
-        //   const { displayLatLng, street, adminArea3, adminArea4 } = data.results[0].locations[0];
-        //   setLatitude(displayLatLng.lat);
-        //   setLongitude(displayLatLng.lng);
-        //   setCurrentAddress(street);
-        //   setCurrentCity(adminArea4);
-        //   setCurrentState(adminArea3);
-        // })
-        // .catch(console.error);
       })
     }
   }, [currentUser]);
