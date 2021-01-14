@@ -2,6 +2,7 @@ import React, { FC, useContext, useState } from 'react';
 import { AtucasaContext } from '../../Context';
 import { Link, useHistory } from 'react-router-dom';
 import BackHomePage from '../BackHomePage/BackHomePage';
+import { getCachedData } from '../GetCachedData';
 
 const EditLocation: FC = (): JSX.Element => {
   const { location, handleLocation } = useContext<TContextProps>(AtucasaContext);
@@ -44,9 +45,11 @@ const EditLocation: FC = (): JSX.Element => {
     newLocation.zip_code = zipCode ? zipCode : location?.zip_code;
     newLocation.details = details ? details : location?.details;
 
-    fetch(`${process.env.REACT_APP_MAPQUEST_GET_DATA_FROM_ADDRESS}${newLocation.address},${newLocation.city},${newLocation.state},${newLocation.zip_code}`)
-    .then(response => response.json())
-    .then(data => { 
+    getCachedData(`${newLocation.address},${newLocation.city},${newLocation.state},${newLocation.zip_code}`, "address")
+    .then(response => {
+      return JSON.parse(response.data.strData);
+    })
+    .then(data => {
       const { 
         displayLatLng,
         adminArea1, 
@@ -83,6 +86,47 @@ const EditLocation: FC = (): JSX.Element => {
       .catch(console.error);
     })
     .catch(console.error);
+
+
+    // fetch(`${process.env.REACT_APP_MAPQUEST_GET_DATA_FROM_ADDRESS}${newLocation.address},${newLocation.city},${newLocation.state},${newLocation.zip_code}`)
+    // .then(response => response.json())
+    // .then(data => { 
+    //   const { 
+    //     displayLatLng,
+    //     adminArea1, 
+    //     adminArea3,
+    //     adminArea5, 
+    //     street, 
+    //     postalCode 
+    //   } = data.results[0].locations[0];
+
+    //   newLocation.latitude = displayLatLng.lat;
+    //   newLocation.longitude = displayLatLng.lng;
+    //   newLocation.country = adminArea1;
+    //   newLocation.state = adminArea3;
+    //   newLocation.city = adminArea5;
+    //   newLocation.address = street;
+    //   newLocation.zip_code = postalCode;
+
+    //   fetch(`${process.env.REACT_APP_API}/current_user/location`, {
+    //     method: "PUT",
+    //     credentials: "include",
+    //     headers: {
+    //       "Content-Type": "application/json"
+    //     },
+    //     body: JSON.stringify(newLocation)
+    //   })
+    //   .then(response2 => response2.json())
+    //   .then(data2 => {
+    //     console.log(data2);
+    //     if (!data2.error) {
+    //       history.push('/home/location');
+    //       handleLocation();
+    //     }
+    //   })
+    //   .catch(console.error);
+    // })
+    // .catch(console.error);
 
   };
 

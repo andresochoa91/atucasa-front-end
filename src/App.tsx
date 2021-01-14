@@ -54,17 +54,17 @@ const App:FC = () => {
   // })
   // .catch(console.error);
 
-  getCachedData("37.7467530,-122.472138", "coords")
-  .then(data => {
-    console.log(JSON.parse(data.data.strData));
-  })
-  .catch(console.error);
+  // getCachedData("37.7467530,-122.472138", "coords")
+  // .then(data => {
+  //   console.log(JSON.parse(data.data.strData));
+  // })
+  // .catch(console.error);
 
   return (
     <div>
       <h1>Welcome to atucasa.com</h1>
       {
-        (false) && (
+        (true) && (
           <Switch>
             {
               (loggedOut || !currentUser) ? (
