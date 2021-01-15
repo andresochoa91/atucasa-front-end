@@ -22,7 +22,7 @@ const LinkUrl: FC<TLinkProps & TLinksProps> = ({ link, handleLinks }): JSX.Eleme
         ) : (
           <>
             <p><strong>Site Name: </strong>{ link.site_name }</p> 
-            <p><strong>Url: </strong>{ link.url }</p>
+            <p><strong>Url: </strong><a href={ link.url }>{ link.url }</a></p>
             <button onClick={ handleMode }>Edit</button>
             <DeleteLink link={ link } handleLinks={ handleLinks } />
             <br/> 

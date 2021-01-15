@@ -1,6 +1,6 @@
 import React, { FC, useContext, useState } from 'react';
 import UpdateImage from '../UpdateImage/UpdateImage';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { AtucasaContext } from '../../Context';
 import BackHomePage from '../BackHomePage/BackHomePage';
 
@@ -17,6 +17,8 @@ const EditMerchant: FC<IMerchantProps> = ({ handleCurrentMerchant, currentMercha
   const [ description, setDescription ] = useState<string>("");
   const [ profilePicture, setProfilePicture ] = useState<string>("");
   const [ backgroundPicture, setBackgroundPicture ] = useState<string>("");
+
+  const history = useHistory();
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>): void => {
     event.preventDefault();
@@ -67,6 +69,7 @@ const EditMerchant: FC<IMerchantProps> = ({ handleCurrentMerchant, currentMercha
         setBackgroundPicture("");
         handleCurrentMerchant();
         handleMerchants();
+        history.push("/home/user_information");
       }
     })
     .catch(console.error);

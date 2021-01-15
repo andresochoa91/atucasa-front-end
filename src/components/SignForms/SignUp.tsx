@@ -46,7 +46,15 @@ const SignUp: FC = (): JSX.Element => {
       if (!data.error) {
         handleCurrentUser();
       } else {
-        console.log(data)
+        const { password, email, password_confirmation } = data.error;
+        if (password) {
+          alert(password[0]);
+        } else if (email) {
+          alert(email[0]);
+        } else if (passwordConfirmation) {
+          alert(password_confirmation[0]);
+        }
+        console.log(data.error)
       }
     })
     .catch(console.error);
