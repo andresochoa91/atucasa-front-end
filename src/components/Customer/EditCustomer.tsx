@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import UpdateImage from '../UpdateImage/UpdateImage';
 import { useHistory } from 'react-router-dom';
 import BackHomePage from '../BackHomePage/BackHomePage';
+import { profile } from 'console';
 
 interface ICustomerProps {
   handleCurrentCustomer: () => void,
@@ -36,6 +37,11 @@ const EditCustomer: FC<ICustomerProps> = ({ handleCurrentCustomer, currentCustom
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
+  
+    if (!username && !firstName && !lastName && !phoneNumber && !profilePicture) {
+      alert("There is nothing to update");
+      return;
+    };
 
     const newDataCustomer:TCurrentCustomer = {};
     if (username) newDataCustomer.username = username;
