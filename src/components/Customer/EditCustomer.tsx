@@ -65,8 +65,22 @@ const EditCustomer: FC<ICustomerProps> = ({ handleCurrentCustomer, currentCustom
         setProfilePicture("");
         handleCurrentCustomer();
         history.push('/home/personal_information');
-      } else {
+      } else if (data.error) {
         console.log(data);
+        ((error) => {
+          const { username, first_name, last_name, phone_number, profile_picture } = error;
+          if (username) {
+            alert(`Username ${username[0]}`);
+          } else if (first_name) {
+            alert(`First Name ${first_name[0]}`);
+          } else if (last_name) {
+            alert(`Last Name ${last_name[0]}`);
+          } else if (phone_number) {
+            alert(`Phone Number has a ${phone_number[0]}\n Ex: 3127894561`);
+          } else if (profile_picture) {
+            alert(`Profile Picture has a ${profile_picture[0]}\n\nUrl needs to start with "http://" or "https://"`);
+          } 
+        })(data.error);
       }
     })
     .catch(console.error);
