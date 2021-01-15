@@ -83,10 +83,10 @@ const Cart: FC<IProductsProps> = ({ currentCustomerID, merchantID, cart, setCart
       .catch(console.error);
     } else {
       // console.log("Add a correct tip");
-      if (tip === "") {
-        alert("Add tip");
-      } else if (!cart.length) {
+      if (!cart.length) {
         alert("Cart can't be empty");
+      } else if (tip === "") {
+        alert("Add tip");
       }
     }
   };

@@ -95,7 +95,7 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
       })
       .catch(console.error);
     } else {
-      console.log("Add a correct tip");
+      alert("Add tip");
     }
   };
 
@@ -110,7 +110,8 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
           </>
         ) : (
           <>
-            <h3>Customer Name: { order.customer_name }</h3> 
+            <h3>Customer Name: { order.customer_name }</h3>
+            <img height={ 100 } src={ order.customer_picture } alt="img" /> 
             <h3>Address to deliver: { `${order.customer_location.address}, ${order.customer_location.city}, ${order.customer_location.state}` }</h3>
             { order.customer_location.details && <h4>Details of the location: {order.customer_location.details}</h4> }
           </>
@@ -220,7 +221,7 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
                     if (message.length >= 20) {
                       handleUpdate(order.id, "role"); 
                     } else {
-                      console.log("Message needs to have at least 20 characters");
+                      alert("The order has been modified, then it needs a message.\n\nMessage needs to have at least 20 characters");
                     }
                   }}
                 >
