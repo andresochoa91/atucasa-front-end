@@ -21,6 +21,12 @@ const Orders: FC = (): JSX.Element => {
       console.log(data.orders);
     })
     .catch(console.error);
+
+    const refreshPage = () => {
+      window.location.reload();
+    }
+
+    setTimeout(refreshPage, 600000);
   }, []);
 
   return (

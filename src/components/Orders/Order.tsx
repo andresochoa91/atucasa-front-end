@@ -44,7 +44,8 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
 
     setSemiTotal(order.products_order.reduce((acc, pr) => {
       return (acc + ((pr.price + pr.tax) * pr.amount));
-    }, 0))
+    }, 0));
+
   }, [order, orderAccepted]);
 
   const handleUpdate = (id:number, field:string): void => {

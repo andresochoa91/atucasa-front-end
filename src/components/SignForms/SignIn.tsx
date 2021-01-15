@@ -31,7 +31,8 @@ const SignIn: FC = (): JSX.Element => {
         console.log(data);
         handleCurrentUser();
       } else {
-        console.log(data);
+        alert(data.error);
+        // console.log(data);
       }
     })
     .catch(console.error);
