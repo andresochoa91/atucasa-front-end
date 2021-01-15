@@ -62,7 +62,7 @@ const EditUser: FC = (): JSX.Element => {
           }
         }
       } else {
-        alert("Please add anything to update")
+        alert("There is nothing to update")
       }
     })
     .catch(console.error);

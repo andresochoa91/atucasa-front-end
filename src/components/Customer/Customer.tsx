@@ -122,7 +122,7 @@ const Customer: FC = (): JSX.Element => {
                   <p><strong>Username: </strong>{ currentCustomer.username }</p>
                   <p><strong>First Name: </strong>{ currentCustomer.first_name }</p>
                   <p><strong>Last Name: </strong>{ currentCustomer.last_name }</p>
-                  <p><strong>Slug: </strong>{ currentCustomer.slug }</p>
+                  {/* <p><strong>Slug: </strong>{ currentCustomer.slug }</p> */}
                   <p><strong>Phone Number: </strong>{ currentCustomer.phone_number }</p>
                   <p><strong>Profile Picture: </strong></p>
                   <img 
