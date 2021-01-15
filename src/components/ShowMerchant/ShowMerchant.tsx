@@ -14,7 +14,7 @@ interface IMerchantProps {
 };
 
 const ShowMerchantNoLogged:FC<IMerchantProps & RouteComponentProps> = ({ match, merchant }):JSX.Element => {
-  const { currentUser } = useContext<TContextProps>(AtucasaContext);
+  const { currentUser, handleCurrentUser } = useContext<TContextProps>(AtucasaContext);
   const [ currentMerchant, setCurrentMerchant ] = useState<TShowMerchant | null>(null);
   const [ showProducts, setShowProducts ] = useState<boolean>(false);
   const [ country, setCountry ] = useState<string>();
@@ -23,6 +23,7 @@ const ShowMerchantNoLogged:FC<IMerchantProps & RouteComponentProps> = ({ match, 
   const [ address, setAddress ] = useState<string>();
 
   useEffect(() => {
+    let mounted = true;
     if (merchant) {
       const { country, state, city, address } = merchant.location;
       setCurrentMerchant(merchant);
@@ -34,22 +35,25 @@ const ShowMerchantNoLogged:FC<IMerchantProps & RouteComponentProps> = ({ match, 
       fetch(`${process.env.REACT_APP_API}/${match.params.slug}`)
       .then(response => response.json())
       .then(data => {
-        setCurrentMerchant({
-          email: data.email ? data.email : "",
-          links: data.links ? data.links : [],
-          location: data.location,
-          merchant_info: data.merchant_info ? data.merchant_info : "",
-          products: data.products
-        })
-        console.log(data.location)
-        const { country, state, city, address } = data.location;
-        setCountry(country);
-        setState(state);
-        setCity(city);
-        setAddress(address);
+        if (mounted) {
+          setCurrentMerchant({
+            email: data.email ? data.email : "",
+            links: data.links ? data.links : [],
+            location: data.location,
+            merchant_info: data.merchant_info ? data.merchant_info : "",
+            products: data.products
+          })
+          console.log(data.location)
+          const { country, state, city, address } = data.location;
+          setCountry(country);
+          setState(state);
+          setCity(city);
+          setAddress(address);
+        }
       })
       .catch(console.error);
     }
+    return () => {mounted = false};
   }, [match.params.slug, merchant]);
 
   return (
@@ -87,7 +91,12 @@ const ShowMerchantNoLogged:FC<IMerchantProps & RouteComponentProps> = ({ match, 
             </p>
             <br/>
             <h3>Products</h3>
-            <button onClick={ () => setShowProducts(!showProducts) }>
+            <button 
+              onClick={ () => {
+                setShowProducts(!showProducts);
+                handleCurrentUser();  
+              }
+            }>
               { showProducts ? "Do not show products" : "Show products" }
             </button>
             <br/>

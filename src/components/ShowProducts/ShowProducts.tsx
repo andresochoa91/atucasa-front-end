@@ -10,8 +10,9 @@ interface IProductsProps {
 
 const ShowProducts: FC<IProductsProps> = ({ products, merchantID }): JSX.Element => {
 
-  const { currentCustomer } = useContext<TContextProps>(AtucasaContext);
+  const { currentCustomer/* , handleCurrentUser */, currentUser } = useContext<TContextProps>(AtucasaContext);
   const [ cart, setCart ] = useState<Array<TCartProduct>>([]);
+  const [ openCart, setOpenCart ] = useState<boolean>(false);
 
   return (
     <>
@@ -26,12 +27,25 @@ const ShowProducts: FC<IProductsProps> = ({ products, merchantID }): JSX.Element
         ))
       }
       {
-        currentCustomer && (
+        currentUser && (
+          <button onClick={() => {
+            // if (!currentUser) {
+            //   handleCurrentUser();
+            // }
+            setOpenCart(!openCart);
+          }
+          }>
+            { openCart ? "Close Cart" : "Open Cart" }
+          </button>
+        )
+      }
+      {
+        openCart && currentUser && (
           <Cart 
             cart={ cart } 
             setCart={ setCart } 
             merchantID={ merchantID }
-            currentCustomerID={ currentCustomer.id }
+            currentCustomerID={ currentCustomer?.id }
           />
         )
       }

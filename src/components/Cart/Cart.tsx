@@ -29,7 +29,10 @@ const Cart: FC<IProductsProps> = ({ currentCustomerID, merchantID, cart, setCart
 
 
   const handleTip = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    setTip(event.target.value);
+    const currentTip = Number(event.target.value);
+    if ((currentTip && currentTip > 0) || (event.target.value === "")) {
+      setTip(event.target.value);
+    }
   };
 
   const handleSuggestedTip = (): void => {
@@ -80,6 +83,11 @@ const Cart: FC<IProductsProps> = ({ currentCustomerID, merchantID, cart, setCart
       .catch(console.error);
     } else {
       console.log("Add a correct tip");
+      if (tip === "") {
+        alert("Add tip");
+      } else {
+        alert("The tip you added is invalid")
+      }
     }
   };
 
