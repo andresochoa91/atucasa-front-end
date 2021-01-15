@@ -1,4 +1,5 @@
 import React, { FC, useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 
 interface IProductsProps {
   merchantID: number | undefined,
@@ -24,6 +25,7 @@ const Cart: FC<IProductsProps> = ({ currentCustomerID, merchantID, cart, setCart
 
   const [ tip, setTip ] = useState<string>("");
   const [ total, setTotal ] = useState<number>(0);
+  const history = useHistory();
 
 
   const handleTip = (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -73,6 +75,7 @@ const Cart: FC<IProductsProps> = ({ currentCustomerID, merchantID, cart, setCart
         console.log(data);
         setCart([]);
         setTip("");
+        history.push("/home/orders");
       })
       .catch(console.error);
     } else {

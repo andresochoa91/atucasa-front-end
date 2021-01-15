@@ -24,7 +24,6 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
   const [ estimatedArrival, setEstimatedArrival ] = useState<string>("");
 
   useEffect(() => {
-
     fetch(`${process.env.REACT_APP_API}/current_user/check_delivered/${order.id}`)
     .then(response => response.json())
     .then(data => {
