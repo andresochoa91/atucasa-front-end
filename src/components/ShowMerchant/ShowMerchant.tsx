@@ -21,6 +21,7 @@ const ShowMerchantNoLogged:FC<IMerchantProps & RouteComponentProps> = ({ match, 
   const [ state, setState ] = useState<string>();
   const [ city, setCity ] = useState<string>();
   const [ address, setAddress ] = useState<string>();
+  const [ userChecked, setUserChecked ] = useState<boolean>(false);
 
   useEffect(() => {
     let mounted = true;
@@ -94,7 +95,10 @@ const ShowMerchantNoLogged:FC<IMerchantProps & RouteComponentProps> = ({ match, 
             <button 
               onClick={ () => {
                 setShowProducts(!showProducts);
-                handleCurrentUser();  
+                if (!userChecked) {
+                  handleCurrentUser();  
+                  setUserChecked(true);
+                }
               }
             }>
               { showProducts ? "Do not show products" : "Show products" }
