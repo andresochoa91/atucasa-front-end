@@ -30,7 +30,7 @@ const Cart: FC<IProductsProps> = ({ currentCustomerID, merchantID, cart, setCart
 
   const handleTip = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const currentTip = Number(event.target.value);
-    if ((currentTip && currentTip > 0) || (event.target.value === "")) {
+    if ((currentTip === 0 && event.target.value.length < 5) || (currentTip && currentTip > 0) || (event.target.value === "")) {
       setTip(event.target.value);
     }
   };
@@ -48,7 +48,7 @@ const Cart: FC<IProductsProps> = ({ currentCustomerID, merchantID, cart, setCart
   }, [cart, tip]);
 
   const handleCheckout = (): void => {
-    if (tip !== "" && (Number(tip) >= 0)) {
+    if (tip !== "" && (Number(tip) >= 0) && cart.length) {
       const checkout: ICheckout = {
         accepted: true,
         current_user: "merchant",
@@ -82,11 +82,11 @@ const Cart: FC<IProductsProps> = ({ currentCustomerID, merchantID, cart, setCart
       })
       .catch(console.error);
     } else {
-      console.log("Add a correct tip");
+      // console.log("Add a correct tip");
       if (tip === "") {
         alert("Add tip");
-      } else {
-        alert("The tip you added is invalid")
+      } else if (!cart.length) {
+        alert("Cart can't be empty");
       }
     }
   };
