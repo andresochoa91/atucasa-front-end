@@ -47,10 +47,22 @@ const EditUser: FC = (): JSX.Element => {
     })
     .then(response => response.json())
     .then(data => {
-      console.log(data);
-      if (!data.error) {
-        handleCurrentUser();
-        history.push("/home/user_information");
+      if (newEmail || newPassword) {
+        if (!data.error) {
+          handleCurrentUser();
+          history.push("/home/user_information");
+        } else if (data.error) {
+          const { current_password, password, email } = data.error;
+          if (current_password) {
+            alert(current_password);
+          } else if (password) {
+            alert(`Password ${password[0]}`);
+          } else if (email) {
+            alert(email[0]);
+          }
+        }
+      } else {
+        alert("Please add anything to update")
       }
     })
     .catch(console.error);
@@ -62,10 +74,12 @@ const EditUser: FC = (): JSX.Element => {
       {
         currentUser && (
           <>
-            <h2>Edit User</h2>
+            <h2>Update Email or Password</h2>
+            <p style={{ color: "#f60" }}>To change email or password, current password is required</p>
+            <p style={{ color: "#f60" }}>If you only want to update email, you can leave password field in blank, and viceversa</p>
             <Link to="/home/user_information">Go back to user information</Link>    
             <form onSubmit={ handleSubmit } >
-              <label>New Email</label>
+              <label>New Email: </label>
               <input 
                 type="email"
                 name="newEmail" 
@@ -74,7 +88,7 @@ const EditUser: FC = (): JSX.Element => {
                 placeholder={ currentUser.email }
               />
               <br/>
-              <label>New Password</label>
+              <label>New Password: </label>
               <input 
                 type="password"
                 name="newPassword"
@@ -82,7 +96,7 @@ const EditUser: FC = (): JSX.Element => {
                 onChange={ handleInput } 
               />
               <br/>
-              <label>Current Password</label>
+              <label>Type current password to confirm changes: </label>
               <input 
                 type="password"
                 name="currentPassword"
