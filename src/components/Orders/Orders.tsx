@@ -22,11 +22,11 @@ const Orders: FC = (): JSX.Element => {
     })
     .catch(console.error);
 
-    const refreshPage = () => {
-      window.location.reload();
-    }
+    // const refreshPage = () => {
+    //   window.location.reload();
+    // }
 
-    setTimeout(refreshPage, 600000);
+    // setTimeout(refreshPage, 600000);
   }, []);
 
   return (

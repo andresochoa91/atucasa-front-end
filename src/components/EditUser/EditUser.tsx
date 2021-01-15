@@ -1,6 +1,6 @@
 import React, { FC, useContext, useState/* , useEffect */ } from 'react';
 import { AtucasaContext } from '../../Context';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import BackHomePage from '../BackHomePage/BackHomePage';
 
 const EditUser: FC = (): JSX.Element => {
@@ -8,6 +8,7 @@ const EditUser: FC = (): JSX.Element => {
   const [ newEmail, setNewEmail ] = useState<string>("");
   const [ newPassword, setNewPassword ] = useState<string>("");
   const [ currentPassword, setCurrentPassword ] = useState<string>("");
+  const history = useHistory();
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>): void => {
     event.preventDefault();
@@ -48,10 +49,8 @@ const EditUser: FC = (): JSX.Element => {
     .then(data => {
       console.log(data);
       if (!data.error) {
-        setNewEmail("");
-        setNewPassword("");
-        setCurrentPassword("");
         handleCurrentUser();
+        history.push("/home/user_information");
       }
     })
     .catch(console.error);
