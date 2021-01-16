@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import UpdateImage from '../UpdateImage/UpdateImage';
 import { useHistory } from 'react-router-dom';
 import BackHomePage from '../BackHomePage/BackHomePage';
-import { profile } from 'console';
+// import { profile } from 'console';
 
 interface ICustomerProps {
   handleCurrentCustomer: () => void,

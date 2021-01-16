@@ -44,6 +44,7 @@ const CreateProduct: FC<TProductsProps> = ({ handleProducts }): JSX.Element => {
       alert("Price can't be empty");
       return;
     }
+    
     fetch(`${process.env.REACT_APP_API}/current_user/products`, {
       method: "POST",
       credentials: "include",

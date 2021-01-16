@@ -1,4 +1,4 @@
-import React, { FC, useState, useContext, useEffect } from 'react';
+import React, { FC, useContext, useEffect } from 'react';
 import { AtucasaContext } from '../../Context';
 import EditUser from '../EditUser/EditUser';
 import EditMerchant from'./EditMerchant';
@@ -12,8 +12,7 @@ import MyMap from '../MyMap/MyMap';
 import BackHomePage from '../BackHomePage/BackHomePage';
 
 const Merchant: FC = (): JSX.Element => {
-  const { currentUser, location } = useContext<TContextProps>(AtucasaContext);
-  const [ currentMerchant, setCurrentMerchant ] = useState<TCurrentMerchant | null>(null);
+  const { currentUser, location, currentMerchant, setCurrentMerchant } = useContext<TContextProps>(AtucasaContext);
 
   const handleCurrentMerchant = () => {
     fetch(`${process.env.REACT_APP_API}/current_user/merchant`, {
@@ -31,7 +30,7 @@ const Merchant: FC = (): JSX.Element => {
     .catch(console.error);
   };
 
-  useEffect(handleCurrentMerchant, []);
+  useEffect(handleCurrentMerchant, [setCurrentMerchant]);
   
   return (
     <>
@@ -55,13 +54,6 @@ const Merchant: FC = (): JSX.Element => {
                 <br/>    
               </>
             )}/> 
-            {/* {
-              location.latitude && location.longitude && (
-                <Route path="/home/map" render={() => (
-                  <MyMap lat={location.latitude} lng={location.longitude} />
-                )}/>
-              )
-            } */}
 
             <Route path="/home/map" render={() => (
               location.latitude && location.longitude ? (
@@ -70,11 +62,6 @@ const Merchant: FC = (): JSX.Element => {
                 <MyMap />
               )
             )}/>
-            {/* <Route path="/home/map" render={() => (
-              location.latitude && location.longitude && (
-                <MyMap lat={location.latitude} lng={location.longitude} />
-              )
-            )}/>  */}
             <Route path="/home/edit_user" render={() => <EditUser />}/> 
             <Route path="/home/edit_merchant" render={() => (
               <EditMerchant 

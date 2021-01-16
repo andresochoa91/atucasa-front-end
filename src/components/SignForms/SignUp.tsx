@@ -1,17 +1,21 @@
 import React, { FC, useState, useContext } from 'react';
 import { AtucasaContext } from '../../Context';
+import MainModal from '../MainModal/MainModal';
+import { Form, Col, Button } from 'react-bootstrap';
 
 const SignUp: FC = (): JSX.Element => {
 
-  const { handleCurrentUser } = useContext<TContextProps>(AtucasaContext);
+  const { handleCurrentUser, currentMessageValidation, setCurrentMessageValidation } = useContext<TContextProps>(AtucasaContext);
 
   const [ email, setEmail ] = useState<string>("h@v.com");
   const [ password, setPassword ] = useState<string>("123456789");
   const [ passwordConfirmation, setPasswordConfirmation ] = useState<string>("123456789");
   const [ role, setRole ] = useState<string>("customer");
+  const [ currentMessage, setCurrentMessage ] = useState<string>();
+  const [ validated, setValidated ] = useState<boolean>(false);
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>):void => {
-    const { name, value } = event.target;
+    const { name, value } = event.currentTarget;
     ( 
       name === "email" ? setEmail : 
       name === "password" ? setPassword :
@@ -26,7 +30,7 @@ const SignUp: FC = (): JSX.Element => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
-    // fetch("https://atucasa-api.herokuapp.com/signup", {
+    setValidated(true);
     fetch(`${process.env.REACT_APP_API}/signup`, {
       method: "POST",
       credentials: "include",
@@ -48,13 +52,15 @@ const SignUp: FC = (): JSX.Element => {
       } else {
         const { password, email, password_confirmation } = data.error;
         if (password) {
-          alert(password[0]);
+          setCurrentMessage(`Password ${password[0]}`);
+          setCurrentMessageValidation(true);
         } else if (email) {
-          alert(email[0]);
-        } else if (passwordConfirmation) {
-          alert(password_confirmation[0]);
+          setCurrentMessage(email[0]);
+          setCurrentMessageValidation(true);
+        } else if (password_confirmation) {
+          setCurrentMessage("Password confirmation doesn't match");
+          setCurrentMessageValidation(true);
         }
-        console.log(data.error)
       }
     })
     .catch(console.error);
@@ -62,42 +68,75 @@ const SignUp: FC = (): JSX.Element => {
 
   return (
     <>
-      <h1>Sign Up</h1>
-      <form onSubmit={ handleSubmit }>
-        <label>Email</label>
-        <input 
-          type="email"
-          placeholder="email"
-          name="email"
-          value={ email }
-          onChange={ handleInput }
-          required
-        />
-        <label>Password</label>
-        <input 
-          type="password"
-          placeholder="password"
-          name="password"
-          value={ password }
-          onChange={ handleInput }
-          required
-        />
-        <label>Password Confirmation</label>
-        <input 
-          type="password"
-          placeholder="password confirmation"
-          name="passwordConfirmation"
-          value={ passwordConfirmation }
-          onChange={ handleInput }
-          required
-        />
-        <label>Role</label>
-        <select name="role" id="role">
-          <option value="customer" onClick={ handleRole }>Customer</option>
-          <option value="merchant" onClick={ handleRole }>Merchant</option>
-        </select>
-        <input type="submit"/>
-      </form>
+      <div className="mt-4">
+        <MainModal
+          currentMessageValidation={ currentMessageValidation }
+          setCurrentMessageValidation={ setCurrentMessageValidation }
+          titleMessage="Error signing up"
+        >
+          <p>{ currentMessage }</p>
+        </MainModal>
+
+        <h2>Sign Up</h2>
+        <Form noValidate validated={validated} onSubmit={handleSubmit}>
+          <Form.Group className="mx-auto" as={Col} md="10" controlId="validationCustom02">
+            <Form.Label>Email</Form.Label>
+            <Form.Control
+              type="email"
+              placeholder="Email"
+              name="email"
+              defaultValue={ email }
+              onChange={ handleInput }
+              required
+            />
+            <Form.Control.Feedback type="invalid">
+              Please provide a valid email address.
+            </Form.Control.Feedback>
+            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+          </Form.Group>
+
+          <Form.Group className="mx-auto" as={Col} md="10" controlId="validationCustom03">
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              type="password"
+              placeholder="Password"
+              name="password"
+              defaultValue={ password }
+              onChange={ handleInput }
+              required
+            />
+            <Form.Control.Feedback type="invalid">
+              Please provide a valid password.
+            </Form.Control.Feedback>
+            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+          </Form.Group>
+
+          <Form.Group className="mx-auto" as={Col} md="10" controlId="validationCustom04">
+            <Form.Label>Confirm Password</Form.Label>
+            <Form.Control
+              type="password"
+              placeholder="Confirm Password"
+              name="confirmPassword"
+              defaultValue={ passwordConfirmation }
+              onChange={ handleInput }
+              required
+            />
+            <Form.Control.Feedback type="invalid">
+              Please provide a valid password.
+            </Form.Control.Feedback>
+            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+          </Form.Group>
+
+          <Form.Label>Type of user</Form.Label>
+          <br/>
+          <select name="role" id="role">
+            <option value="customer" onClick={ handleRole }>Customer</option>
+            <option value="merchant" onClick={ handleRole }>Merchant</option>
+          </select>
+          <br/><br/>
+          <Button className="w-75" type="submit">Register</Button>
+        </Form>
+      </div>
     </>
   );
 };

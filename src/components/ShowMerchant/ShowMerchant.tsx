@@ -3,7 +3,6 @@ import { Link, RouteComponentProps } from 'react-router-dom';
 import { AtucasaContext } from '../../Context';
 import BackHomePage from '../BackHomePage/BackHomePage';
 import ShowProducts from '../ShowProducts/ShowProducts';
-import SignOut from '../SignForms/SignOut';
 
 interface IParams {
   params: { slug: string }
@@ -59,15 +58,6 @@ const ShowMerchantNoLogged:FC<IMerchantProps & RouteComponentProps> = ({ match, 
 
   return (
     <>
-      {
-        currentUser && (
-          <>
-            <SignOut />
-            <br/>
-            <br/>
-          </>
-        )
-      }
       {
         currentUser ? <BackHomePage /> : <Link to="/">Go back to home page</Link>
       }

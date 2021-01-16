@@ -2,7 +2,6 @@
 /**
  * Get url cachedData from back-end. The purpose of this is to reduce calls to third party api, saving money
  */
-// const url = `This is me`;
 export const getCachedData = async(url:string, mapquestType:string) => {
 
   const fetchData = mapquestType !== "coords" ? 
