@@ -1,8 +1,10 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import UpdateImage from '../UpdateImage/UpdateImage';
 import { useHistory } from 'react-router-dom';
 import BackHomePage from '../BackHomePage/BackHomePage';
+import { AtucasaContext } from '../../Context';
+import MainModal from '../MainModal/MainModal';
 // import { profile } from 'console';
 
 interface ICustomerProps {
@@ -11,6 +13,13 @@ interface ICustomerProps {
 };
 
 const EditCustomer: FC<ICustomerProps> = ({ handleCurrentCustomer, currentCustomer }): JSX.Element => {
+  const { 
+    setCurrentMessageValidation, 
+    currentMessage, 
+    setCurrentMessage,
+    currentTitleMessage,
+    setCurrentTitleMessage 
+  } = useContext<TContextProps>(AtucasaContext);
   const [ username, setUsername ] = useState<string>("");
   const [ firstName, setFirstName ] = useState<string>("");
   const [ lastName, setLastName ] = useState<string>("");
@@ -39,7 +48,10 @@ const EditCustomer: FC<ICustomerProps> = ({ handleCurrentCustomer, currentCustom
     event.preventDefault();
   
     if (!username && !firstName && !lastName && !phoneNumber && !profilePicture) {
-      alert("There is nothing to update");
+      // alert("There is nothing to update");
+      setCurrentMessage("There is nothing to update");
+      setCurrentTitleMessage("Fields empty")
+      setCurrentMessageValidation(true);
       return;
     };
 
@@ -76,16 +88,22 @@ const EditCustomer: FC<ICustomerProps> = ({ handleCurrentCustomer, currentCustom
         ((error) => {
           const { username, first_name, last_name, phone_number, profile_picture } = error;
           if (username) {
-            alert(`Username ${username[0]}`);
+            setCurrentMessage(`Username ${username[0]}`);
+            setCurrentTitleMessage("Error updating Username")
           } else if (first_name) {
-            alert(`First Name ${first_name[0]}`);
+            setCurrentMessage(`First Name ${first_name[0]}`);
+            setCurrentTitleMessage("Error updating First Name")
           } else if (last_name) {
-            alert(`Last Name ${last_name[0]}`);
+            setCurrentMessage(`Last Name ${last_name[0]}`);
+            setCurrentTitleMessage("Error updating Last Name")
           } else if (phone_number) {
-            alert(`Phone Number has a ${phone_number[0]}\n Ex: 3127894561`);
+            setCurrentMessage(`Phone Number has a ${phone_number[0]}. Ex: 3127894561`);
+            setCurrentTitleMessage("Error updating Phone Number")
           } else if (profile_picture) {
-            alert(`Profile Picture has a ${profile_picture[0]}\n\nUrl needs to start with "http://" or "https://"`);
-          } 
+            setCurrentMessage(`Profile Picture has a ${profile_picture[0]}. Url needs to start with "http://" or "https://"`);
+            setCurrentTitleMessage("Error updating Profile Picture")
+          }
+          setCurrentMessageValidation(true) 
         })(data.error);
       }
     })
@@ -94,6 +112,10 @@ const EditCustomer: FC<ICustomerProps> = ({ handleCurrentCustomer, currentCustom
 
   return(
     <>
+      <MainModal titleMessage={ currentTitleMessage }>
+        <p>{ currentMessage }</p>
+      </MainModal>
+      
       <BackHomePage />    
       <h2>Edit Customer</h2>
       <Link to="/home/personal_information">Go back to personal information</Link>    

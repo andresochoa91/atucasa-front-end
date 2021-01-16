@@ -1,12 +1,21 @@
-import React, { FC } from 'react';
+import React, { FC, useContext } from 'react';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 import { Row, Col, Jumbotron, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import MainModal from '../MainModal/MainModal';
+import { AtucasaContext } from '../../Context';
 
 const SignForms: FC = () => {
+
+  const { currentMessage, currentTitleMessage } = useContext<TContextProps>(AtucasaContext);
+
   return (
     <>
+      <MainModal titleMessage={ currentTitleMessage }>
+        <p>{ currentMessage }</p>
+      </MainModal>
+
       <div className="d-flex justify-content-center mt-5">
         <Jumbotron 
           className="rounded text-center text-white p-5" 

@@ -1,17 +1,20 @@
 import React, { FC, useState, useContext } from 'react';
 import { AtucasaContext } from '../../Context';
-import MainModal from '../MainModal/MainModal';
 import { Form, Col, Button } from 'react-bootstrap';
 
 const SignUp: FC = (): JSX.Element => {
 
-  const { handleCurrentUser, currentMessageValidation, setCurrentMessageValidation } = useContext<TContextProps>(AtucasaContext);
+  const { 
+    handleCurrentUser, 
+    setCurrentMessageValidation,
+    setCurrentMessage,
+    setCurrentTitleMessage 
+  } = useContext<TContextProps>(AtucasaContext);
 
   const [ email, setEmail ] = useState<string>("h@v.com");
   const [ password, setPassword ] = useState<string>("123456789");
   const [ passwordConfirmation, setPasswordConfirmation ] = useState<string>("123456789");
   const [ role, setRole ] = useState<string>("customer");
-  const [ currentMessage, setCurrentMessage ] = useState<string>();
   const [ validated, setValidated ] = useState<boolean>(false);
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>):void => {
@@ -53,14 +56,13 @@ const SignUp: FC = (): JSX.Element => {
         const { password, email, password_confirmation } = data.error;
         if (password) {
           setCurrentMessage(`Password ${password[0]}`);
-          setCurrentMessageValidation(true);
         } else if (email) {
           setCurrentMessage(email[0]);
-          setCurrentMessageValidation(true);
         } else if (password_confirmation) {
           setCurrentMessage("Password confirmation doesn't match");
-          setCurrentMessageValidation(true);
         }
+        setCurrentTitleMessage("Error Signing Up");
+        setCurrentMessageValidation(true);
       }
     })
     .catch(console.error);
@@ -69,14 +71,6 @@ const SignUp: FC = (): JSX.Element => {
   return (
     <>
       <div className="mt-4">
-        <MainModal
-          currentMessageValidation={ currentMessageValidation }
-          setCurrentMessageValidation={ setCurrentMessageValidation }
-          titleMessage="Error signing up"
-        >
-          <p>{ currentMessage }</p>
-        </MainModal>
-
         <h2>Sign Up</h2>
         <Form noValidate validated={validated} onSubmit={handleSubmit}>
           <Form.Group className="mx-auto" as={Col} md="10" controlId="validationCustom02">

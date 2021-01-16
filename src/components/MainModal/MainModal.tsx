@@ -4,8 +4,8 @@ import Button from 'react-bootstrap/Button';
 import { AtucasaContext } from '../../Context';
 
 interface IProps {
-  currentMessageValidation: boolean;
-  setCurrentMessageValidation: React.Dispatch<React.SetStateAction<boolean>>;
+  // currentMessageValidation: boolean;
+  // setCurrentMessageValidation: React.Dispatch<React.SetStateAction<boolean>>;
   children: React.ReactNode;
   titleMessage: string;
 }
