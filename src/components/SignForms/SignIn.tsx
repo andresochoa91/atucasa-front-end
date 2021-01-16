@@ -1,15 +1,18 @@
 import React, { FC, useState, useContext } from 'react';
 import { AtucasaContext } from '../../Context';
 import { Form, Button, Col } from 'react-bootstrap'
-import MainModal from '../MainModal/MainModal';
 
 const SignIn: FC = (): JSX.Element => {
-  const { handleCurrentUser, currentMessageValidation, setCurrentMessageValidation } = useContext<TContextProps>(AtucasaContext);
+  const { 
+    handleCurrentUser, 
+    setCurrentMessage,
+    setCurrentTitleMessage, 
+    setCurrentMessageValidation 
+  } = useContext<TContextProps>(AtucasaContext);
+
   const [ email, setEmail ] = useState<string>("andres_ochoa91@hotmail.com");
   const [ password, setPassword ] = useState<string>("123456789");
   const [ validated, setValidated ] = useState<boolean>(false);
-  const [ currentMessage, setCurrentMessage ] = useState<string>();
-
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>):void => {
     const { name, value } = event.currentTarget;
@@ -38,6 +41,7 @@ const SignIn: FC = (): JSX.Element => {
         handleCurrentUser();
       } else {
         setCurrentMessage(data.error);
+        setCurrentTitleMessage("Error signing in");
         setCurrentMessageValidation(true);
       }
     })
@@ -47,14 +51,6 @@ const SignIn: FC = (): JSX.Element => {
   return (
     <>
       <div className="mt-4">
-        <MainModal 
-          currentMessageValidation={ currentMessageValidation } 
-          setCurrentMessageValidation={ setCurrentMessageValidation }
-          titleMessage="Error signin in"
-        >
-          <p>{ currentMessage }</p>
-        </MainModal>
-
         <h2>Sign In</h2>
         <Form noValidate validated={validated} onSubmit={handleSubmit}>
           <Form.Group className="mx-auto" as={Col} md="10" controlId="validationCustom02">

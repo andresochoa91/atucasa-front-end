@@ -11,6 +11,8 @@ export const Provider: FC = ({ children }) => {
   const [ currentCustomer, setCurrentCustomer ] = useState<TCurrentCustomer | null>(null);
   const [ currentMerchant, setCurrentMerchant ] = useState<TCurrentMerchant | null>(null);
   const [ currentMessageValidation, setCurrentMessageValidation ] = useState<boolean>(false);
+  const [ currentMessage, setCurrentMessage ] = useState<string>("");
+  const [ currentTitleMessage, setCurrentTitleMessage ] = useState<string>("");
 
   const handleCurrentCustomer = () => {
     fetch(`${process.env.REACT_APP_API}/current_user/customer`, {
@@ -54,7 +56,6 @@ export const Provider: FC = ({ children }) => {
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
-        // "Accept": "application/json"
       }
     })
     .then(response => response.json())
@@ -109,7 +110,11 @@ export const Provider: FC = ({ children }) => {
       searchMerchants,
       setSearchMerchants,
       currentMessageValidation,
-      setCurrentMessageValidation
+      setCurrentMessageValidation,
+      currentMessage, 
+      setCurrentMessage,
+      currentTitleMessage, 
+      setCurrentTitleMessage 
     }}>
       { children }
     </AtucasaContext.Provider>
