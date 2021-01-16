@@ -9,6 +9,7 @@ export const Provider: FC = ({ children }) => {
   const [ merchants, setMerchants ] = useState<Array<TShowMerchant>>([]);
   const [ searchMerchants, setSearchMerchants ] = useState<Array<TShowMerchant> | null>(null);
   const [ currentCustomer, setCurrentCustomer ] = useState<TCurrentCustomer | null>(null);
+  const [ currentMessageValidation, setCurrentMessageValidation ] = useState<boolean>(false);
 
   const handleCurrentCustomer = () => {
     fetch(`${process.env.REACT_APP_API}/current_user/customer`, {
@@ -103,7 +104,9 @@ export const Provider: FC = ({ children }) => {
       handleCurrentCustomer,
       handleMerchants,
       searchMerchants,
-      setSearchMerchants
+      setSearchMerchants,
+      currentMessageValidation,
+      setCurrentMessageValidation
     }}>
       { children }
     </AtucasaContext.Provider>

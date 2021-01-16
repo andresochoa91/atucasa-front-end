@@ -83,7 +83,9 @@ type TContextProps = {
   handleCurrentCustomer: () => void,
   handleMerchants: () => void,
   searchMerchants: Array<TShowMerchant> | null,
-  setSearchMerchants: React.Dispatch<React.SetStateAction<Array<TShowMerchant> | null>>
+  setSearchMerchants: React.Dispatch<React.SetStateAction<Array<TShowMerchant> | null>>,
+  currentMessageValidation: boolean,
+  setCurrentMessageValidation: React.Dispatch<React.SetStateAction<boolean>>
 };
 
 type TLinksProps = {

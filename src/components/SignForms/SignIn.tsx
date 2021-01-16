@@ -1,18 +1,24 @@
 import React, { FC, useState, useContext } from 'react';
 import { AtucasaContext } from '../../Context';
+import { Form, Button, Col } from 'react-bootstrap'
+import MainModal from '../MainModal/MainModal';
 
 const SignIn: FC = (): JSX.Element => {
-  const { handleCurrentUser } = useContext<TContextProps>(AtucasaContext);
+  const { handleCurrentUser, currentMessageValidation, setCurrentMessageValidation } = useContext<TContextProps>(AtucasaContext);
   const [ email, setEmail ] = useState<string>("andres_ochoa91@hotmail.com");
   const [ password, setPassword ] = useState<string>("123456789");
+  const [ validated, setValidated ] = useState<boolean>(false);
+  const [ currentMessage, setCurrentMessage ] = useState<string>();
+
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>):void => {
-    const { name, value } = event.target;
+    const { name, value } = event.currentTarget;
     ( name === "email" ? setEmail : setPassword )(value); 
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setValidated(true);
     fetch(`${process.env.REACT_APP_API}/login`, {
       method: "POST",
       credentials: "include",
@@ -31,8 +37,8 @@ const SignIn: FC = (): JSX.Element => {
         console.log(data);
         handleCurrentUser();
       } else {
-        alert(data.error);
-        // console.log(data);
+        setCurrentMessage(data.error);
+        setCurrentMessageValidation(true);
       }
     })
     .catch(console.error);
@@ -40,28 +46,50 @@ const SignIn: FC = (): JSX.Element => {
 
   return (
     <>
-      <h1>Sign In</h1>
-      <form onSubmit={ handleSubmit }>
-        <label>Email</label>
-        <input 
-          type="email"
-          placeholder="email"
-          name="email"
-          value={ email }
-          onChange={ handleInput }
-          required
-        />     
-        <label>Password</label>
-        <input 
-          type="password"
-          placeholder="password"
-          name="password"
-          value={ password }
-          onChange={ handleInput }
-          required
-        />
-        <input type="submit" />
-      </form>
+      <div className="mt-4">
+        <MainModal 
+          currentMessageValidation={ currentMessageValidation } 
+          setCurrentMessageValidation={ setCurrentMessageValidation }
+          titleMessage="Error signin in"
+        >
+          <p>{ currentMessage }</p>
+        </MainModal>
+
+        <h2>Sign In</h2>
+        <Form noValidate validated={validated} onSubmit={handleSubmit}>
+          <Form.Group className="mx-auto" as={Col} md="10" controlId="validationCustom02">
+            <Form.Label>Email</Form.Label>
+            <Form.Control
+              type="email"
+              placeholder="Email"
+              name="email"
+              defaultValue={ email }
+              onChange={ handleInput }
+              required
+            />
+            <Form.Control.Feedback type="invalid">
+              Please provide a valid email address.
+            </Form.Control.Feedback>
+            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+          </Form.Group>
+          <Form.Group className="mx-auto" as={Col} md="10" controlId="validationCustom03">
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              type="password"
+              placeholder="Password"
+              name="password"
+              defaultValue={ password }
+              onChange={ handleInput }
+              required
+            />
+            <Form.Control.Feedback type="invalid">
+              Please provide a valid password.
+            </Form.Control.Feedback>
+            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+          </Form.Group>        
+          <Button className="w-75" type="submit">Sign In</Button>
+        </Form>
+      </div>  
     </>
   );
 };
