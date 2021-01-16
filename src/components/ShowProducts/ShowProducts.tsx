@@ -27,7 +27,7 @@ const ShowProducts: FC<IProductsProps> = ({ products, merchantID }): JSX.Element
         ))
       }
       {
-        currentUser && (
+        currentUser && currentUser.role === "customer" && (
           <button 
             onClick={() => {
               setOpenCart(!openCart);

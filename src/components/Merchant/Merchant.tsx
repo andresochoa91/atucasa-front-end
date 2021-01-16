@@ -95,7 +95,7 @@ const Merchant: FC = (): JSX.Element => {
                 <p><strong>Email: </strong>{ currentUser.email }</p>
                 <p><strong>Role: </strong>{ currentUser.role }</p>
                 <p><strong>Merchant Name: </strong>{ currentMerchant.merchant_name }</p>
-                <p><strong>Slug: </strong>{ currentMerchant.slug }</p>
+                <Link to={`/merchants/${currentMerchant.slug}`}>Click here to visit your website</Link>
                 <p><strong>Phone Number: </strong>{  currentMerchant.phone_number }</p>
                 <p><strong>Tax ID: </strong>{ currentMerchant.tax_id }</p>
                 <p><strong>Description: </strong>{  currentMerchant.description }</p>
