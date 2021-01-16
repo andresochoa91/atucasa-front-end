@@ -26,6 +26,13 @@ const CreateProduct: FC<TProductsProps> = ({ handleProducts }): JSX.Element => {
     )(value);
   };
 
+  const handlePrice = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    const currentPrice = Number(event.target.value);
+    if ((currentPrice === 0 && event.target.value.length < 5) || (currentPrice && currentPrice > 0) || (event.target.value === "")) {
+      setPrice(event.target.value);
+    }
+  }
+
   const handleAvailable = (event:React.MouseEvent<HTMLOptionElement>):void => {
     event.preventDefault();
     setAvailable(event.currentTarget.value);
@@ -33,6 +40,10 @@ const CreateProduct: FC<TProductsProps> = ({ handleProducts }): JSX.Element => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
+    if (price === "") {
+      alert("Price can't be empty");
+      return;
+    }
     fetch(`${process.env.REACT_APP_API}/current_user/products`, {
       method: "POST",
       credentials: "include",
@@ -42,7 +53,7 @@ const CreateProduct: FC<TProductsProps> = ({ handleProducts }): JSX.Element => {
       body: JSON.stringify({
         product_name: productName,
         description,
-        price: Number(price),
+        price: Number(price) > 0 ? Number(price) : -1,
         available: available === "yes" ? true : false,
         product_picture: productPicture,
         tax: Number(price) * 0.09
@@ -58,7 +69,15 @@ const CreateProduct: FC<TProductsProps> = ({ handleProducts }): JSX.Element => {
         setProductPicture("");
         handleProducts();
       } else {
-        console.log(data);
+        console.log(data.error);
+        const { product_name, price, product_picture } = data.error;
+        if (product_name) {
+          alert(`Product name ${product_name[0]}`)
+        } else if (price) {
+          alert(`Price ${price[0]}`)
+        } else if (product_picture) {
+          alert(`Product picture ${product_picture[0]}`)
+        }
       }
     })
     .catch(console.error);
@@ -68,7 +87,7 @@ const CreateProduct: FC<TProductsProps> = ({ handleProducts }): JSX.Element => {
     <>
       <h2>Create Product</h2>
       <form onSubmit={ handleSubmit }>
-        <label>Product Name</label>   
+        <label><strong>Product Name: </strong></label>   
         <input 
           type="text"
           name="productName"
@@ -76,7 +95,7 @@ const CreateProduct: FC<TProductsProps> = ({ handleProducts }): JSX.Element => {
           onChange={ handleInput } 
         />
         <br/>
-        <label>Description</label>   
+        <label><strong>Description: </strong></label>   
         <input 
           type="text"
           name="description"
@@ -84,21 +103,21 @@ const CreateProduct: FC<TProductsProps> = ({ handleProducts }): JSX.Element => {
           onChange={ handleInput } 
         />
         <br/>
-        <label>Price</label>   
+        <label><strong>Price: </strong></label>   
         <input 
           type="text"
           name="price"
           value={ price }  
-          onChange={ handleInput } 
+          onChange={ handlePrice } 
         />
         <br/>
-        <label>Available</label>
+        <label><strong>Available: </strong></label>
         <select name="available" id="available">
           <option value="yes" onClick={ handleAvailable }>Yes</option>
           <option value="no" onClick={ handleAvailable }>No</option>
         </select>
         <br/>
-        <label>Product Picture</label>   
+        <label><strong>Product Picture:</strong></label>   
         {/* <input 
           type="text"
           name="productPicture"
