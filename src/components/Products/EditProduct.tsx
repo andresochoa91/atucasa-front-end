@@ -82,6 +82,21 @@ const EditProduct: FC<TProductsProps & TProductProps & THandleMode> = ({ handleP
     <>
       <h2>Edit Product</h2>
       <form onSubmit={ handleSubmit }>
+        <label>Product Picture</label>   
+        {/* <input 
+          type="text"
+          name="productPicture"
+          value={ productPicture }  
+          onChange={ handleInput } 
+        /> */}
+        <UpdateImage
+          currentPicture = { product.product_picture }
+          userName = { currentUser?.email }
+          handleInput = { handleInput }
+          newPicture = { productPicture }
+          setNewPicture = { setProductPicture }
+        />
+        <br/>
         <label>Product Name</label>   
         <input 
           type="text"
@@ -113,21 +128,6 @@ const EditProduct: FC<TProductsProps & TProductProps & THandleMode> = ({ handleP
           <option value={ productNotAvailable } onClick={ handleAvailable }>{ productNotAvailable }</option>
         </>
         </select>
-        <br/>
-        <label>Product Picture</label>   
-        {/* <input 
-          type="text"
-          name="productPicture"
-          value={ productPicture }  
-          onChange={ handleInput } 
-        /> */}
-        <UpdateImage
-          currentPicture = { product.product_picture }
-          userName = { currentUser?.email }
-          handleInput = { handleInput }
-          newPicture = { productPicture }
-          setNewPicture = { setProductPicture }
-        />
         <br/>
 
         <br/>

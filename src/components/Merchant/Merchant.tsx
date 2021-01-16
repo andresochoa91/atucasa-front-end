@@ -35,7 +35,7 @@ const Merchant: FC = (): JSX.Element => {
   
   return (
     <>
-      <h1>Merchant</h1>
+      <h1>Welcome { currentMerchant?.merchant_name }</h1>
       {
         (currentUser && currentMerchant && location) && (          
           <Switch>
@@ -92,13 +92,7 @@ const Merchant: FC = (): JSX.Element => {
                 <br/>
                 <Link to="/home/edit_merchant">Edit merchant information</Link>
                 <br/>
-                <p><strong>Email: </strong>{ currentUser.email }</p>
-                <p><strong>Role: </strong>{ currentUser.role }</p>
-                <p><strong>Merchant Name: </strong>{ currentMerchant.merchant_name }</p>
                 <Link to={`/merchants/${currentMerchant.slug}`}>Click here to visit your website</Link>
-                <p><strong>Phone Number: </strong>{  currentMerchant.phone_number }</p>
-                <p><strong>Tax ID: </strong>{ currentMerchant.tax_id }</p>
-                <p><strong>Description: </strong>{  currentMerchant.description }</p>
                 <p><strong>Profile Picture: </strong></p>
                 <img 
                   src={ currentMerchant.profile_picture } 
@@ -111,6 +105,12 @@ const Merchant: FC = (): JSX.Element => {
                   alt="pic"
                   height={ 100 }
                 />
+                <p><strong>Email: </strong>{ currentUser.email }</p>
+                {/* <p><strong>Role: </strong>{ currentUser.role }</p> */}
+                <p><strong>Merchant Name: </strong>{ currentMerchant.merchant_name }</p>
+                <p><strong>Phone Number: </strong>{  currentMerchant.phone_number }</p>
+                <p><strong>Tax ID: </strong>{ currentMerchant.tax_id }</p>
+                <p><strong>Description: </strong>{  currentMerchant.description }</p>
               </>
             )}/>
             <Route path="/home/location" render={() => <Location />}/> 

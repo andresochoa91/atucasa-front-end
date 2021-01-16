@@ -15,7 +15,7 @@ const App:FC = (): JSX.Element => {
 
   return (
     <div>
-      <h1>Welcome to atucasa.com</h1>
+      <h1>A Tu Casa</h1>
       <Switch>
         {
           currentUser ? (

@@ -98,6 +98,15 @@ const EditCustomer: FC<ICustomerProps> = ({ handleCurrentCustomer, currentCustom
       <h2>Edit Customer</h2>
       <Link to="/home/personal_information">Go back to personal information</Link>    
       <form onSubmit={ handleSubmit }>
+      <label>Profile Picture: </label>
+      <br/>
+      <UpdateImage 
+        currentPicture = { currentCustomer.profile_picture }
+        userName = { currentCustomer.username }
+        handleInput = { handleInput }
+        newPicture = { profilePicture }
+        setNewPicture = { setProfilePicture }
+      />
       <label>Username: </label>
         <input 
           type="text"
@@ -134,15 +143,6 @@ const EditCustomer: FC<ICustomerProps> = ({ handleCurrentCustomer, currentCustom
           placeholder={ currentCustomer.phone_number }
         />
         <br/>
-        <label>Profile Picture: </label>
-        <br/>
-        <UpdateImage 
-          currentPicture = { currentCustomer.profile_picture }
-          userName = { currentCustomer.username }
-          handleInput = { handleInput }
-          newPicture = { profilePicture }
-          setNewPicture = { setProfilePicture }
-        />
         <input type="submit" value="Update"/>
       </form>
       <br/>

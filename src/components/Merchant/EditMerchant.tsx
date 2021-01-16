@@ -81,6 +81,30 @@ const EditMerchant: FC<IMerchantProps> = ({ handleCurrentMerchant, currentMercha
       <h2>Edit Merchant</h2>
       <Link to="/home/user_information">Go back to user information</Link>
       <form onSubmit={ handleSubmit }>
+        <label>Profile Picture</label>
+        {/* <input 
+          type="text"
+          name="profilePicture"
+          value={ profilePicture }
+          onChange={ handleInput } 
+        /> */}
+        <UpdateImage 
+          currentPicture = { currentMerchant.profile_picture }
+          userName = { currentMerchant.merchant_name }
+          handleInput = { handleInput }
+          newPicture = { profilePicture }
+          setNewPicture = { setProfilePicture }
+        />
+        <br/>
+        <label>Background Picture</label>
+        <UpdateImage 
+          currentPicture = { currentMerchant.background_picture }
+          userName = { currentMerchant.merchant_name }
+          handleInput = { handleInput }
+          newPicture = { backgroundPicture }
+          setNewPicture = { setBackgroundPicture }
+        />
+        <br/>
         <label>Merchant Name</label>
         <input 
           type="text"
@@ -115,30 +139,6 @@ const EditMerchant: FC<IMerchantProps> = ({ handleCurrentMerchant, currentMercha
           value={ description }
           onChange={ handleInput } 
           placeholder={ currentMerchant.description }
-        />
-        <br/>
-        <label>Profile Picture</label>
-        {/* <input 
-          type="text"
-          name="profilePicture"
-          value={ profilePicture }
-          onChange={ handleInput } 
-        /> */}
-        <UpdateImage 
-          currentPicture = { currentMerchant.profile_picture }
-          userName = { currentMerchant.merchant_name }
-          handleInput = { handleInput }
-          newPicture = { profilePicture }
-          setNewPicture = { setProfilePicture }
-        />
-        <br/>
-        <label>Background Picture</label>
-        <UpdateImage 
-          currentPicture = { currentMerchant.background_picture }
-          userName = { currentMerchant.merchant_name }
-          handleInput = { handleInput }
-          newPicture = { backgroundPicture }
-          setNewPicture = { setBackgroundPicture }
         />
         <br/>
         <input type="submit" value="Update"/>

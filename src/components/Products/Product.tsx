@@ -21,19 +21,17 @@ const Product: FC<TProductProps & TProductsProps> = ({ product, handleProducts }
           /> 
         ) : (
           <>
-            <p><strong>Product Name: </strong>{ product.product_name }</p> 
-            <p><strong>Description: </strong>{ product.description }</p>
-            <p><strong>Price: </strong>{ product.price }</p>
-            <p><strong>Available: </strong>{ product.available ? "yes" : "no" }</p>
             <p>
-              <strong>Product_picture: </strong>
-              <br/>
               <img 
                 src={ `${product.product_picture}` } 
                 alt={ `${product.product_name}` }
                 height={ 100 }
               />
             </p>
+            <p><strong>Product Name: </strong>{ product.product_name }</p> 
+            <p><strong>Description: </strong>{ product.description }</p>
+            <p><strong>Price: </strong>{ product.price }</p>
+            <p><strong>Available: </strong>{ product.available ? "yes" : "no" }</p>
             <p><strong>Tax: </strong>{ product.tax.toFixed(2) }</p>
             <button onClick={ handleMode }>Edit</button>
             <DeleteProduct 
