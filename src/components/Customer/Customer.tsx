@@ -41,7 +41,7 @@ const Customer: FC = (): JSX.Element => {
       {
         (currentUser && currentCustomer && location) && (
           <>
-            <h1>Customer</h1>
+            <h1>Welcome { currentCustomer.username }</h1>
             <Route exact path="/home" render={() => (
               <>
                 <Link to="/home/map">See merchants close to you on map</Link>
@@ -119,17 +119,17 @@ const Customer: FC = (): JSX.Element => {
                   <BackHomePage />    
                   <h2>Personal information</h2>
                   <Link to='/home/edit_customer'>Edit personal information</Link>
-                  <p><strong>Username: </strong>{ currentCustomer.username }</p>
-                  <p><strong>First Name: </strong>{ currentCustomer.first_name }</p>
-                  <p><strong>Last Name: </strong>{ currentCustomer.last_name }</p>
-                  {/* <p><strong>Slug: </strong>{ currentCustomer.slug }</p> */}
-                  <p><strong>Phone Number: </strong>{ currentCustomer.phone_number }</p>
                   <p><strong>Profile Picture: </strong></p>
                   <img 
                     src={ currentCustomer.profile_picture } 
                     alt="pic"
                     height={ 100 }
                   />
+                  <p><strong>Username: </strong>{ currentCustomer.username }</p>
+                  <p><strong>First Name: </strong>{ currentCustomer.first_name }</p>
+                  <p><strong>Last Name: </strong>{ currentCustomer.last_name }</p>
+                  {/* <p><strong>Slug: </strong>{ currentCustomer.slug }</p> */}
+                  <p><strong>Phone Number: </strong>{ currentCustomer.phone_number }</p>
                 </>
               )
             } />
