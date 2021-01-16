@@ -36,6 +36,12 @@ const EditProduct: FC<TProductsProps & TProductProps & THandleMode> = ({ handleP
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
+
+    if (price === "") {
+      alert("Price can't be empty");
+      return;
+    }
+
     fetch(`${process.env.REACT_APP_API}/current_user/products/${product.id}`, {
       method: "PUT",
       credentials: "include",
@@ -58,7 +64,15 @@ const EditProduct: FC<TProductsProps & TProductProps & THandleMode> = ({ handleP
         handleProducts();
         handleMode();
       } else {
-        console.log(data);
+        console.log(data.error);
+        const { product_name, price, product_picture } = data.error;
+        if (product_name) {
+          alert(`Product name ${product_name[0]}`)
+        } else if (price) {
+          alert(`Price ${price[0]}`)
+        } else if (product_picture) {
+          alert(`Product picture ${product_picture[0]}`)
+        }
       }
     })
     .catch(console.error);
