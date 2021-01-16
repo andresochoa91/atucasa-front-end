@@ -32,7 +32,11 @@ const CreateLink: FC<TLinksProps> = ({ handleLinks }): JSX.Element => {
         setUrl("")
         handleLinks();
       } else {
-        console.log(data);
+        if (data.error.site_name) {
+          alert(`Site name ${data.error.site_name[0]}`);
+        } else if (data.error.url) {
+          alert(`Url ${data.error.url[0]}`);
+        }
       }
     })
     .catch(console.error);
