@@ -1,12 +1,12 @@
 import React, { FC, useContext } from 'react';
 import { AtucasaContext } from './Context';
-import SignOut from './components/SignForms/SignOut';
 import Customer from './components/Customer/Customer';
 import Merchant from './components/Merchant/Merchant';
-import { Route, Switch, Redirect, Link } from 'react-router-dom';
+import { Route, Switch, Redirect} from 'react-router-dom';
 import MyMap from './components/MyMap/MyMap';
 import ShowMerchant from './components/ShowMerchant/ShowMerchant';
 import SignForms from './components/SignForms/SignForms';
+import MainNavbar from './components/MainNavbar/MainNavbar';
 
 
 const App:FC = (): JSX.Element => {
@@ -14,6 +14,7 @@ const App:FC = (): JSX.Element => {
 
   return (
     <div>
+      <MainNavbar />
       <Switch>
         {
           currentUser ? (
@@ -21,7 +22,6 @@ const App:FC = (): JSX.Element => {
               <Route exact path="/" render={() => <Redirect to="/home" />}/>
               <Route path="/home" render={() => (
                 <>
-                  <SignOut />
                   {
                     currentUser.role === "customer" ? <Customer /> : <Merchant />
                   }

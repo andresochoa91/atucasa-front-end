@@ -1,5 +1,4 @@
-import React, { FC, useContext, useState } from 'react';
-// import { PracticeFirebaseContext, IContextProps } from '../../Context'
+import React, { FC, useContext } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import { AtucasaContext } from '../../Context';
@@ -12,13 +11,7 @@ interface IProps {
 }
 
 const MainModal: FC<IProps> = ({ titleMessage, children }) => {
-  const { currentMessageValidation, setCurrentMessageValidation } = useContext<TContextProps>(AtucasaContext);
-
-  // const { 
-  //   currentMessageValidation,
-  //   setCurrentMessageValidation 
-  // } = useContext<IContextProps>(PracticeFirebaseContext);
-  
+  const { currentMessageValidation, setCurrentMessageValidation } = useContext<TContextProps>(AtucasaContext);  
   const handleClose = () => setCurrentMessageValidation(false);
 
   return(

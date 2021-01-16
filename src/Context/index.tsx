@@ -9,6 +9,7 @@ export const Provider: FC = ({ children }) => {
   const [ merchants, setMerchants ] = useState<Array<TShowMerchant>>([]);
   const [ searchMerchants, setSearchMerchants ] = useState<Array<TShowMerchant> | null>(null);
   const [ currentCustomer, setCurrentCustomer ] = useState<TCurrentCustomer | null>(null);
+  const [ currentMerchant, setCurrentMerchant ] = useState<TCurrentMerchant | null>(null);
   const [ currentMessageValidation, setCurrentMessageValidation ] = useState<boolean>(false);
 
   const handleCurrentCustomer = () => {
@@ -101,6 +102,8 @@ export const Provider: FC = ({ children }) => {
       setMerchants,
       currentCustomer,
       setCurrentCustomer,
+      currentMerchant,
+      setCurrentMerchant,
       handleCurrentCustomer,
       handleMerchants,
       searchMerchants,

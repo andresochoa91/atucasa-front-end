@@ -1,10 +1,9 @@
 import React, { FC, useContext } from 'react';
 import { AtucasaContext } from '../../Context';
-// import { useHistory } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 
 const SignOut: FC = () => {
   const { setCurrentUser, setLoggedOut, setCurrentCustomer, handleMerchants } = useContext<TContextProps>(AtucasaContext);
-  // const history = useHistory();
 
   const handleSignOut = ():void => {
     fetch(`${process.env.REACT_APP_API}/logout`, {
@@ -23,12 +22,12 @@ const SignOut: FC = () => {
   };
 
   return (
-    <button onClick={ () => {
-      // history.push('/');
-      handleSignOut(); 
-    }}>
-      Sign Out
-    </button>
+    <Button 
+      variant="outline-info" 
+      onClick={ () => handleSignOut() }
+    >
+      Sign out
+    </Button>
   );
 }
 
