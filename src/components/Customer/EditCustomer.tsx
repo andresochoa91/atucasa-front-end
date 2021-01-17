@@ -5,7 +5,6 @@ import { useHistory } from 'react-router-dom';
 import BackHomePage from '../BackHomePage/BackHomePage';
 import { AtucasaContext } from '../../Context';
 import MainModal from '../MainModal/MainModal';
-// import { profile } from 'console';
 
 interface ICustomerProps {
   handleCurrentCustomer: () => void,
@@ -48,7 +47,6 @@ const EditCustomer: FC<ICustomerProps> = ({ handleCurrentCustomer, currentCustom
     event.preventDefault();
   
     if (!username && !firstName && !lastName && !phoneNumber && !profilePicture) {
-      // alert("There is nothing to update");
       setCurrentMessage("There is nothing to update");
       setCurrentTitleMessage("Fields empty")
       setCurrentMessageValidation(true);
@@ -89,21 +87,21 @@ const EditCustomer: FC<ICustomerProps> = ({ handleCurrentCustomer, currentCustom
           const { username, first_name, last_name, phone_number, profile_picture } = error;
           if (username) {
             setCurrentMessage(`Username ${username[0]}`);
-            setCurrentTitleMessage("Error updating Username")
+            setCurrentTitleMessage("Error updating Username");
           } else if (first_name) {
             setCurrentMessage(`First Name ${first_name[0]}`);
-            setCurrentTitleMessage("Error updating First Name")
+            setCurrentTitleMessage("Error updating First Name");
           } else if (last_name) {
             setCurrentMessage(`Last Name ${last_name[0]}`);
-            setCurrentTitleMessage("Error updating Last Name")
+            setCurrentTitleMessage("Error updating Last Name");
           } else if (phone_number) {
             setCurrentMessage(`Phone Number has a ${phone_number[0]}. Ex: 3127894561`);
-            setCurrentTitleMessage("Error updating Phone Number")
+            setCurrentTitleMessage("Error updating Phone Number");
           } else if (profile_picture) {
             setCurrentMessage(`Profile Picture has a ${profile_picture[0]}. Url needs to start with "http://" or "https://"`);
-            setCurrentTitleMessage("Error updating Profile Picture")
+            setCurrentTitleMessage("Error updating Profile Picture");
           }
-          setCurrentMessageValidation(true) 
+          setCurrentMessageValidation(true); 
         })(data.error);
       }
     })

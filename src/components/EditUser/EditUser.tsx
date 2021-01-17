@@ -1,10 +1,19 @@
-import React, { FC, useContext, useState/* , useEffect */ } from 'react';
+import React, { FC, useContext, useState } from 'react';
 import { AtucasaContext } from '../../Context';
 import { Link, useHistory } from 'react-router-dom';
 import BackHomePage from '../BackHomePage/BackHomePage';
+import MainModal from '../MainModal/MainModal';
 
 const EditUser: FC = (): JSX.Element => {
-  const { currentUser, handleCurrentUser } = useContext<TContextProps>(AtucasaContext);
+  const { 
+    currentUser, 
+    handleCurrentUser,
+    currentMessage, 
+    setCurrentMessage,
+    currentTitleMessage,
+    setCurrentTitleMessage,
+    setCurrentMessageValidation  
+  } = useContext<TContextProps>(AtucasaContext);
   const [ newEmail, setNewEmail ] = useState<string>("");
   const [ newPassword, setNewPassword ] = useState<string>("");
   const [ currentPassword, setCurrentPassword ] = useState<string>("");
@@ -54,15 +63,21 @@ const EditUser: FC = (): JSX.Element => {
         } else if (data.error) {
           const { current_password, password, email } = data.error;
           if (current_password) {
-            alert(current_password);
+            setCurrentMessage(current_password);
+            setCurrentTitleMessage("Password Error");
           } else if (password) {
-            alert(`Password ${password[0]}`);
+            setCurrentMessage(`Password ${password[0]}`);
+            setCurrentTitleMessage("Error updating Password");
           } else if (email) {
-            alert(email[0]);
+            setCurrentMessage(email[0]);
+            setCurrentTitleMessage("Error updating Email");
           }
+          setCurrentMessageValidation(true); 
         }
       } else {
-        alert("There is nothing to update")
+        setCurrentMessage("There is nothing to update");
+        setCurrentTitleMessage("Error updating data");
+        setCurrentMessageValidation(true); 
       }
     })
     .catch(console.error);
@@ -70,6 +85,9 @@ const EditUser: FC = (): JSX.Element => {
 
   return (
     <>
+      <MainModal titleMessage={ currentTitleMessage }>
+        <p>{ currentMessage }</p>
+      </MainModal>
       <BackHomePage />    
       {
         currentUser && (

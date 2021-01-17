@@ -3,9 +3,18 @@ import { AtucasaContext } from '../../Context';
 import { Link, useHistory } from 'react-router-dom';
 import BackHomePage from '../BackHomePage/BackHomePage';
 import { getCachedData } from '../GetCachedData';
+import MainModal from '../MainModal/MainModal';
 
 const EditLocation: FC = (): JSX.Element => {
-  const { location, handleLocation } = useContext<TContextProps>(AtucasaContext);
+  const { 
+    location, 
+    handleLocation,
+    setCurrentMessageValidation, 
+    currentMessage, 
+    setCurrentMessage,
+    currentTitleMessage,
+    setCurrentTitleMessage  
+  } = useContext<TContextProps>(AtucasaContext);
   const [ country, setCountry ] = useState<string>("");
   const [ state, setState ] = useState<string>("");
   const [ city, setCity ] = useState<string>("");
@@ -37,7 +46,9 @@ const EditLocation: FC = (): JSX.Element => {
     event.preventDefault();
 
     if (!country && !state && !city && !address && !zipCode && !details) {
-      alert("There is nothing to update");
+      setCurrentMessage("There is nothing to update");
+      setCurrentTitleMessage("Error updating Location");
+      setCurrentMessageValidation(true); 
       return;
     }
 
@@ -53,19 +64,29 @@ const EditLocation: FC = (): JSX.Element => {
     ((newLocation) => {
       const { country, state, city, address, zip_code } = newLocation;
       if (country && country.length < 2) {
-        alert("Country is too short (minimum is 2 characters)");
+        setCurrentMessage("Country is too short (minimum is 2 characters)");
+        setCurrentTitleMessage("Error updating Country");
+        setCurrentMessageValidation(true);
         return; 
       } else if (state && state.length < 2) {
-        alert("State is too short (minimum is 2 characters)");
+        setCurrentMessage("State is too short (minimum is 2 characters)");
+        setCurrentTitleMessage("Error updating State");
+        setCurrentMessageValidation(true);
         return; 
       } else if (city && city.length < 2) {
-        alert("City is too short (minimum is 2 characters)");
+        setCurrentMessage("City is too short (minimum is 2 characters)");
+        setCurrentTitleMessage("Error updating City");
+        setCurrentMessageValidation(true);
         return; 
       } else if (address && address.length < 5) {
-        alert("Address is too short (minimum is 5 characters)");
+        setCurrentMessage("Address is too short (minimum is 5 characters)");
+        setCurrentTitleMessage("Error updating Address");
+        setCurrentMessageValidation(true);
         return; 
       } else if ((zip_code && !(Number(zip_code))) || (zip_code && ((zip_code.toString()).length !== 5))) {
-        alert("Zip code only allows 5 contiguous numbers");
+        setCurrentMessage("Zip code only allows 5 contiguous numbers");
+        setCurrentTitleMessage("Error updating Zip Code");
+        setCurrentMessageValidation(true);
         return; 
       }
       
@@ -118,6 +139,9 @@ const EditLocation: FC = (): JSX.Element => {
 
   return (
     <>
+      <MainModal titleMessage={ currentTitleMessage }>
+        <p>{ currentMessage }</p>
+      </MainModal>
       <BackHomePage />  
       {
         location && (
