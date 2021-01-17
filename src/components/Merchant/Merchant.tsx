@@ -33,7 +33,7 @@ const Merchant: FC = (): JSX.Element => {
   
   return (
     <>
-      <h1>Welcome { currentMerchant?.merchant_name }</h1>
+      {/* <h1>Welcome { currentMerchant?.merchant_name }</h1> */}
       {
         (currentUser && currentMerchant && location) && (          
           <Switch>
