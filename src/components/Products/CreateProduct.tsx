@@ -1,9 +1,19 @@
 import React, { FC, useContext, useState } from 'react'
 import { AtucasaContext } from '../../Context';
+import MainModal from '../MainModal/MainModal';
 import UpdateImage from '../UpdateImage/UpdateImage';
 
 const CreateProduct: FC<TProductsProps> = ({ handleProducts }): JSX.Element => {
-  const { currentUser } = useContext<TContextProps>(AtucasaContext);
+
+  const { 
+    currentUser,
+    setCurrentMessageValidation, 
+    currentMessage, 
+    setCurrentMessage,
+    currentTitleMessage,
+    setCurrentTitleMessage  
+  } = useContext<TContextProps>(AtucasaContext);
+
   const [ productName, setProductName ] = useState<string>("");
   const [ description, setDescription ] = useState<string>("");
   const [ price, setPrice ] = useState<string>("");
@@ -18,8 +28,6 @@ const CreateProduct: FC<TProductsProps> = ({ handleProducts }): JSX.Element => {
         setProductName : 
       name === "description" ? 
         setDescription : 
-      name === "price" ? 
-        setPrice :
       name === "available" ? 
         setAvailable :
       setProductPicture
@@ -41,7 +49,9 @@ const CreateProduct: FC<TProductsProps> = ({ handleProducts }): JSX.Element => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
     if (price === "") {
-      alert("Price can't be empty");
+      setCurrentMessage("Price can't be empty");
+      setCurrentTitleMessage("Error creating product");
+      setCurrentMessageValidation(true); 
       return;
     }
     
@@ -73,12 +83,14 @@ const CreateProduct: FC<TProductsProps> = ({ handleProducts }): JSX.Element => {
         console.log(data.error);
         const { product_name, price, product_picture } = data.error;
         if (product_name) {
-          alert(`Product name ${product_name[0]}`)
+          setCurrentMessage(`Product name ${product_name[0]}`);
         } else if (price) {
-          alert(`Price ${price[0]}`)
+          setCurrentMessage(`Price ${price[0]}`);
         } else if (product_picture) {
-          alert(`Product picture ${product_picture[0]}`)
+          setCurrentMessage(`Product picture ${product_picture[0]}`);
         }
+        setCurrentTitleMessage("Error creating product");
+        setCurrentMessageValidation(true); 
       }
     })
     .catch(console.error);
@@ -86,6 +98,9 @@ const CreateProduct: FC<TProductsProps> = ({ handleProducts }): JSX.Element => {
 
   return (
     <>
+      <MainModal titleMessage={ currentTitleMessage }>
+        <p>{ currentMessage }</p>
+      </MainModal>
       <h2>Create Product</h2>
       <form onSubmit={ handleSubmit }>
         <label><strong>Product Name: </strong></label>   

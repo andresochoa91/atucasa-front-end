@@ -1,6 +1,16 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useContext, useState } from 'react';
+import { AtucasaContext } from '../../Context';
+import MainModal from '../MainModal/MainModal';
 
 const EditLink: FC<THandleMode & TLinksProps & TLinkProps> = ({ handleMode, handleLinks, link }): JSX.Element => {
+
+  const { 
+    setCurrentMessageValidation, 
+    currentMessage, 
+    setCurrentMessage,
+    currentTitleMessage,
+    setCurrentTitleMessage 
+  } = useContext<TContextProps>(AtucasaContext);
 
   const [ siteName, setSiteName ] = useState<string>("");
   const [ url, setUrl ] = useState<string>("");
@@ -15,7 +25,9 @@ const EditLink: FC<THandleMode & TLinksProps & TLinkProps> = ({ handleMode, hand
     event.preventDefault();
 
     if (!siteName && !url) {
-      alert("There is nothing to update");
+      setCurrentMessage("There is nothing to update");
+      setCurrentTitleMessage("Error updating Site");
+      setCurrentMessageValidation(true); 
       return;
     }
 
@@ -44,9 +56,13 @@ const EditLink: FC<THandleMode & TLinksProps & TLinkProps> = ({ handleMode, hand
         handleLinks();
         handleMode();
       } else if (data.error.site_name) {
-        alert(`Site name ${data.error.site_name[0]}`);
+        setCurrentMessage(`Site Name ${data.error.site_name[0]}`);
+        setCurrentTitleMessage("Error updating Site Name");
+        setCurrentMessageValidation(true); 
       } else if (data.error.url) {
-        alert(data.error.url[0]);
+        setCurrentMessage(data.error.url[0]);
+        setCurrentTitleMessage("Error updating Url");
+        setCurrentMessageValidation(true); 
       }
     })
     .catch(console.error);
@@ -54,6 +70,9 @@ const EditLink: FC<THandleMode & TLinksProps & TLinkProps> = ({ handleMode, hand
 
   return (
     <>
+      <MainModal titleMessage={ currentTitleMessage }>
+        <p>{ currentMessage }</p>
+      </MainModal>
       <h2>Edit Link</h2>
       <form onSubmit={ handleSubmit }>
         <label>Site Name</label>   

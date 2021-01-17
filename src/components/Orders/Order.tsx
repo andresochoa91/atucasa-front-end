@@ -1,6 +1,7 @@
 import React, { FC, useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AtucasaContext } from '../../Context';
+import MainModal from '../MainModal/MainModal';
 import ProductOrder from './ProductOrder';
 
 interface IOrderProps {
@@ -9,7 +10,15 @@ interface IOrderProps {
 
 const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
 
-  const { currentUser } = useContext<TContextProps>(AtucasaContext);
+  const { 
+    currentUser,
+    setCurrentMessageValidation, 
+    currentMessage, 
+    setCurrentMessage,
+    currentTitleMessage,
+    setCurrentTitleMessage  
+  } = useContext<TContextProps>(AtucasaContext);
+
   const [ orderAccepted, setOrderAccepted ] = useState<boolean>(order.accepted);
   const [ orderCanceled, setOrderCanceled ] = useState<boolean>(order.canceled);
   const [ currentRole, setCurrentRole ] = useState<string>(order.current_user);
@@ -95,170 +104,181 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
       })
       .catch(console.error);
     } else {
-      alert("Add tip");
+      setCurrentMessage("Add Tip");
+      setCurrentTitleMessage("Error Submiting Order");
+      setCurrentMessageValidation(true); 
     }
   };
 
   return (
-    <div key={ order.id }>
-      <h3>Order #{ order.id }</h3>
-      { 
-        currentUser?.role === "customer" ? (
-          <>
-            <h3>Merchant Name: { order.merchant_name }</h3>
-            <Link to={`/merchants/${order.merchant_slug}`}>Visit Merchant Website</Link>
-          </>
-        ) : (
-          <>
-            <img height={ 100 } src={ order.customer_picture } alt="img" /> 
-            <h3>Customer Name: { order.customer_name }</h3>
-            <h3>Address to deliver: { `${order.customer_location.address}, ${order.customer_location.city}, ${order.customer_location.state}` }</h3>
-            { order.customer_location.details && <h4>Details of the location: {order.customer_location.details}</h4> }
-          </>
-        )
-      }
-      <table style={{ textAlign: "center" }}>
-        <thead>
-          <tr>
-            <th>Product name</th>
-            <th>Unit Price</th>
-            <th>Amount</th>
-            <th>Unit Tax</th>
-            <th>Semi Total</th>
-          </tr>
-        </thead>          
-        <tbody>
-          {
-            order.products_order.map((product, index) => (    
-              <ProductOrder
-                acceptance={ acceptance } 
-                setAcceptance={ setAcceptance } 
-                currentUser={ currentUser }
-                currentRole={ currentRole }
-                product={ product }
-                orderAccepted={ orderAccepted }
-                orderCanceled={ orderCanceled }
-                key={ product.id } 
-                index={ index }
-                lastStage={ lastStage }
-              />                         
-            ))
-          }
-          {
-            (currentUser?.role === "customer" || orderAccepted/*  || orderCanceled */) && (
-              <>
-                {
-                  !orderCanceled && (
-                    <>
-                      <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td><strong>Tip</strong></td>
-                        {
-                          (currentRole === "customer" && !orderAccepted) ? (
-                            <>
-                              <td>$ 
-                                <input 
-                                  type="text"
-                                  value={ currentTip }
-                                  onChange={ (event) => setCurrentTip(event.target.value) }
-                                  placeholder={ `Suggested: $${(semiTotal * 0.15).toFixed(2)}` }
-                                />
-                              </td>
-                              <td>
-                                <button onClick={ () => setCurrentTip((semiTotal * 0.15).toFixed(2)) }>
-                                  Apply suggested tip
-                                </button>
-                              </td>
-                            </>
-                          ) : (orderAccepted || (!orderAccepted && currentRole === "merchant")) && (
-                            <td>${ currentTip === "" ? 0 : currentTip }</td>
-                          )
-                        }
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td><strong>Delivery Fee</strong></td>
-                        <td>${ order.delivery_fee }</td>
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td><strong>Total</strong></td>
-                        <td>{ `$${(semiTotal+ Number(currentTip) + order.delivery_fee).toFixed(2)}` }</td>
-                      </tr>
-                    </>
-                  )
-                }
-              </>
-            )
-          }
-        </tbody>
-      </table>
-      {
-        !orderCanceled && currentUser?.role === "customer" && currentRole === "customer" && !orderAccepted ? (
-          <>
-            <p><strong>Message from merchant: </strong>{ message }</p>
-            <p>If you accept the changes, press confirm order, if not, press Cancel Order</p>
-            <button onClick={ () => handleUpdate(order.id, "accepted") }>Confirm order</button>
-            <button onClick={ () => handleUpdate(order.id, "canceled") }>Cancel order</button>
-          </>
-        ) : !orderCanceled && currentUser?.role === "customer" && currentRole === "merchant" && !orderAccepted ? (
-          <p>Waiting for the merchant to confirm your order.</p>
-        ) : !orderCanceled && currentUser?.role === "merchant" && currentRole === "merchant" && !orderAccepted ? (
-          <>
+    <>
+      <MainModal titleMessage={ currentTitleMessage }>
+        <p>{ currentMessage }</p>
+      </MainModal>
+
+      <div key={ order.id }>
+
+        <h3>Order #{ order.id }</h3>
+        { 
+          currentUser?.role === "customer" ? (
+            <>
+              <h3>Merchant Name: { order.merchant_name }</h3>
+              <Link to={`/merchants/${order.merchant_slug}`}>Visit Merchant Website</Link>
+            </>
+          ) : (
+            <>
+              <img height={ 100 } src={ order.customer_picture } alt="img" /> 
+              <h3>Customer Name: { order.customer_name }</h3>
+              <h3>Address to deliver: { `${order.customer_location.address}, ${order.customer_location.city}, ${order.customer_location.state}` }</h3>
+              { order.customer_location.details && <h4>Details of the location: {order.customer_location.details}</h4> }
+            </>
+          )
+        }
+        <table style={{ textAlign: "center" }}>
+          <thead>
+            <tr>
+              <th>Product name</th>
+              <th>Unit Price</th>
+              <th>Amount</th>
+              <th>Unit Tax</th>
+              <th>Semi Total</th>
+            </tr>
+          </thead>          
+          <tbody>
             {
-              !acceptance.filter((v) => !v).length ? (
-                <button onClick={ () => handleUpdate(order.id, "accepted") }>Confirm order</button>
-              ) : (
-                <form 
-                  onSubmit={ (event) => {
-                    event.preventDefault();
-                    if (message.length >= 20) {
-                      handleUpdate(order.id, "role"); 
-                    } else {
-                      alert("The order has been modified, then it needs a message.\n\nMessage needs to have at least 20 characters");
-                    }
-                  }}
-                >
-                  <br/>
-                  <label>Message</label>
-                  <br/>
-                  <textarea 
-                    name="message" 
-                    value={ message }
-                    onChange={ (event) => setMessage(event.target.value) }
-                  >
-                  </textarea>
-                  <br/>
-                  <input 
-                    type="submit" 
-                    value="Suggest changes"
-                  />
-                </form>
+              order.products_order.map((product, index) => (    
+                <ProductOrder
+                  acceptance={ acceptance } 
+                  setAcceptance={ setAcceptance } 
+                  currentUser={ currentUser }
+                  currentRole={ currentRole }
+                  product={ product }
+                  orderAccepted={ orderAccepted }
+                  orderCanceled={ orderCanceled }
+                  key={ product.id } 
+                  index={ index }
+                  lastStage={ lastStage }
+                />                         
+              ))
+            }
+            {
+              (currentUser?.role === "customer" || orderAccepted/*  || orderCanceled */) && (
+                <>
+                  {
+                    !orderCanceled && (
+                      <>
+                        <tr>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td><strong>Tip</strong></td>
+                          {
+                            (currentRole === "customer" && !orderAccepted) ? (
+                              <>
+                                <td>$ 
+                                  <input 
+                                    type="text"
+                                    value={ currentTip }
+                                    onChange={ (event) => setCurrentTip(event.target.value) }
+                                    placeholder={ `Suggested: $${(semiTotal * 0.15).toFixed(2)}` }
+                                  />
+                                </td>
+                                <td>
+                                  <button onClick={ () => setCurrentTip((semiTotal * 0.15).toFixed(2)) }>
+                                    Apply suggested tip
+                                  </button>
+                                </td>
+                              </>
+                            ) : (orderAccepted || (!orderAccepted && currentRole === "merchant")) && (
+                              <td>${ currentTip === "" ? 0 : currentTip }</td>
+                            )
+                          }
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td><strong>Delivery Fee</strong></td>
+                          <td>${ order.delivery_fee }</td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td><strong>Total</strong></td>
+                          <td>{ `$${(semiTotal+ Number(currentTip) + order.delivery_fee).toFixed(2)}` }</td>
+                        </tr>
+                      </>
+                    )
+                  }
+                </>
               )
             }
-          </>
-        ) : !orderCanceled && currentUser?.role === "merchant" && currentRole === "customer" && !orderAccepted ? (
-          <p>Waiting for the customer to confirm your order.</p>
-        ) : !orderCanceled && orderAccepted ? (
-          <>
-            { delivery !== "Order delivered" && <p style={{color: "#0a0"}}>Order accepted</p> }
-            { (delivery && currentUser?.role) && <p style={{color: colorDelivery}}>{ delivery }</p> }
-            { orderPlaced && <p><strong>Order placed: </strong>{ orderPlaced }</p>}
-            { delivery !== "Order delivered" && <p><strong>Estimated arrival: </strong>{ estimatedArrival }</p>}
-          </>
-        ) : (
-          <p style={{color: "#f00"}}>Order canceled</p>
-        )
-      }
-      <br/>
-      <br/>
-    </div>
+          </tbody>
+        </table>
+        {
+          !orderCanceled && currentUser?.role === "customer" && currentRole === "customer" && !orderAccepted ? (
+            <>
+              <p><strong>Message from merchant: </strong>{ message }</p>
+              <p>If you accept the changes, press confirm order, if not, press Cancel Order</p>
+              <button onClick={ () => handleUpdate(order.id, "accepted") }>Confirm order</button>
+              <button onClick={ () => handleUpdate(order.id, "canceled") }>Cancel order</button>
+            </>
+          ) : !orderCanceled && currentUser?.role === "customer" && currentRole === "merchant" && !orderAccepted ? (
+            <p>Waiting for the merchant to confirm your order.</p>
+          ) : !orderCanceled && currentUser?.role === "merchant" && currentRole === "merchant" && !orderAccepted ? (
+            <>
+              {
+                !acceptance.filter((v) => !v).length ? (
+                  <button onClick={ () => handleUpdate(order.id, "accepted") }>Confirm order</button>
+                ) : (
+                  <form 
+                    onSubmit={ (event) => {
+                      event.preventDefault();
+                      if (message.length >= 20) {
+                        handleUpdate(order.id, "role"); 
+                      } else {
+                        setCurrentMessage("The order has been modified, then it needs a message.\n\nMessage needs to have at least 20 characters");
+                        setCurrentTitleMessage("Error Suggesting changes in Order");
+                        setCurrentMessageValidation(true); 
+                      }
+                    }}
+                  >
+                    <br/>
+                    <label>Message</label>
+                    <br/>
+                    <textarea 
+                      name="message" 
+                      value={ message }
+                      onChange={ (event) => setMessage(event.target.value) }
+                    >
+                    </textarea>
+                    <br/>
+                    <input 
+                      type="submit" 
+                      value="Suggest changes"
+                    />
+                  </form>
+                )
+              }
+            </>
+          ) : !orderCanceled && currentUser?.role === "merchant" && currentRole === "customer" && !orderAccepted ? (
+            <p>Waiting for the customer to confirm your order.</p>
+          ) : !orderCanceled && orderAccepted ? (
+            <>
+              { delivery !== "Order delivered" && <p style={{color: "#0a0"}}>Order accepted</p> }
+              { (delivery && currentUser?.role) && <p style={{color: colorDelivery}}>{ delivery }</p> }
+              { orderPlaced && <p><strong>Order placed: </strong>{ orderPlaced }</p>}
+              { delivery !== "Order delivered" && <p><strong>Estimated arrival: </strong>{ estimatedArrival }</p>}
+            </>
+          ) : (
+            <p style={{color: "#f00"}}>Order canceled</p>
+          )
+        }
+        <br/>
+        <br/>
+      </div>
+    </>
   );
 };
 

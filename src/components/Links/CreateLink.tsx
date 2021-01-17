@@ -1,6 +1,16 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useContext, useState } from 'react'
+import { AtucasaContext } from '../../Context';
+import MainModal from '../MainModal/MainModal';
 
 const CreateLink: FC<TLinksProps> = ({ handleLinks }): JSX.Element => {
+
+  const {
+    setCurrentMessageValidation, 
+    currentMessage, 
+    setCurrentMessage,
+    currentTitleMessage,
+    setCurrentTitleMessage 
+  } = useContext<TContextProps>(AtucasaContext);
 
   const [ siteName, setSiteName ] = useState<string>("");
   const [ url, setUrl ] = useState<string>("");
@@ -33,10 +43,13 @@ const CreateLink: FC<TLinksProps> = ({ handleLinks }): JSX.Element => {
         handleLinks();
       } else {
         if (data.error.site_name) {
-          alert(`Site name ${data.error.site_name[0]}`);
+          setCurrentMessage(`Site name ${data.error.site_name[0]}`);
+          setCurrentTitleMessage("Error Site Name")
         } else if (data.error.url) {
-          alert(`Url ${data.error.url[0]}`);
+          setCurrentMessage(`${data.error.url[0]}`);
+          setCurrentTitleMessage("Error Url")
         }
+        setCurrentMessageValidation(true) 
       }
     })
     .catch(console.error);
@@ -44,6 +57,9 @@ const CreateLink: FC<TLinksProps> = ({ handleLinks }): JSX.Element => {
 
   return (
     <>
+      <MainModal titleMessage={ currentTitleMessage }>
+        <p>{ currentMessage }</p>
+      </MainModal>
       <h2>Create Link</h2>
       <form onSubmit={ handleSubmit }>
         <label>Site Name</label>   

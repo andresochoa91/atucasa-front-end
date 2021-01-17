@@ -1,5 +1,7 @@
-import React, { FC, useState, useEffect } from 'react';
+import React, { FC, useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import { AtucasaContext } from '../../Context';
+import MainModal from '../MainModal/MainModal';
 
 interface IProductsProps {
   merchantID: number | undefined,
@@ -22,6 +24,14 @@ interface ICheckout {
 };
 
 const Cart: FC<IProductsProps> = ({ currentCustomerID, merchantID, cart, setCart }): JSX.Element => {
+
+  const {
+    currentMessage,
+    setCurrentMessage,
+    currentTitleMessage,
+    setCurrentTitleMessage,
+    setCurrentMessageValidation
+  } = useContext<TContextProps>(AtucasaContext);
 
   const [ tip, setTip ] = useState<string>("");
   const [ total, setTotal ] = useState<number>(0);
@@ -82,12 +92,13 @@ const Cart: FC<IProductsProps> = ({ currentCustomerID, merchantID, cart, setCart
       })
       .catch(console.error);
     } else {
-      // console.log("Add a correct tip");
       if (!cart.length) {
-        alert("Cart can't be empty");
+        setCurrentMessage("Cart can't be empty");
       } else if (tip === "") {
-        alert("Add tip");
+        setCurrentMessage("Add tip");
       }
+      setCurrentTitleMessage("Error Submiting Order")
+      setCurrentMessageValidation(true);
     }
   };
 
@@ -108,6 +119,9 @@ const Cart: FC<IProductsProps> = ({ currentCustomerID, merchantID, cart, setCart
 
   return (
     <>
+      <MainModal titleMessage={ currentTitleMessage }>
+        <p>{ currentMessage }</p>
+      </MainModal>
       <h3>Cart:</h3>
       <table style={{ textAlign: "center" }}>
         <thead>
