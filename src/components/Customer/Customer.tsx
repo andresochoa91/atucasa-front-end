@@ -4,12 +4,10 @@ import EditUser from '../EditUser/EditUser';
 import EditCustomer from'./EditCustomer';
 import EditLocation from '../Location/EditLocation';
 import Location from '../Location/Location';
-// import ShowMerchants from '../ShowMerchant/ShowMerchants';
 import Orders from '../Orders/Orders';
 import MyMap from '../MyMap/MyMap';
 import { Switch, Link, Route } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
-// import BackHomePage from '../BackHomePage/BackHomePage';
 
 const Customer: FC = (): JSX.Element => {
   const { currentUser, location, handleCurrentCustomer, currentCustomer, setSearchMerchants } = useContext<TContextProps>(AtucasaContext);
@@ -41,15 +39,9 @@ const Customer: FC = (): JSX.Element => {
       {
         (currentUser && currentCustomer && location) && (
           <>
-            <h1>Welcome { currentCustomer.username }</h1>
             <Route exact path="/home" render={() => (
               <>
-                {/* <Link to="/home/map">See merchants close to you on map</Link> */}
-                {/* <br/> */}
-                {/* <MyMap 
-                  lat={ location.latitude }
-                  lng={ location.longitude }
-                /> */}
+                <h1>Welcome { currentCustomer.username }</h1>
                 <form onSubmit={ handleSearch }>
                   <label>Look for product: </label>
                   <input 
@@ -61,25 +53,8 @@ const Customer: FC = (): JSX.Element => {
                   <input type="submit"/>
                 </form>
                 <br/>
-                {/* <Link to="/home/orders">Orders</Link> */}
-                {/* <br/> */}
-                {/* <Link to="/home/merchants">Merchants</Link>
-                <br/> */}
-                {/* <Link to="/home/user_information">User information</Link> */}
-                {/* <br/> */}
-                {/* <Link to="/home/personal_information">Personal information</Link> */}
-                {/* <br/> */}
-                {/* <Link to="/home/location">Location</Link> */}
-                {/* <br/> */}
               </>
             )} />
-            {/* {
-              location.latitude && location.longitude && (
-                <Route path="/home/map" render={() => (
-                  <MyMap lat={location.latitude} lng={location.longitude} />
-                )} />
-              ) 
-            } */}
             <Route path="/home/map" render={() => (
               location.latitude && location.longitude ? (
                 <MyMap lat={location.latitude} lng={location.longitude} />
@@ -89,11 +64,6 @@ const Customer: FC = (): JSX.Element => {
             )}/>
 
             <Route path="/home/orders" render={() => <Orders />} />
-            {/* <Route path="/home/merchants" 
-              render={() => (
-                <ShowMerchants currentCustomer={ currentCustomer }/>
-              )}
-            /> */}
             <Route path="/home/edit_user" render={() => <EditUser />} />
             <Route path="/home/edit_customer" render={() => (
               <EditCustomer 
@@ -105,7 +75,6 @@ const Customer: FC = (): JSX.Element => {
             <Route path="/home/user_information" 
               render={() => (
                 <>
-                  {/* <BackHomePage />      */}
                   <h2>User information</h2>
                   <Link to='/home/edit_user'>Update email and/or password</Link>
                   <p><strong>Email: </strong>{ currentUser.email }</p>
@@ -116,7 +85,6 @@ const Customer: FC = (): JSX.Element => {
             <Route path="/home/personal_information" 
               render={() => (
                 <>
-                  {/* <BackHomePage />     */}
                   <h2>Personal information</h2>
                   <Link to='/home/edit_customer'>Edit personal information</Link>
                   <p><strong>Profile Picture: </strong></p>
@@ -128,7 +96,6 @@ const Customer: FC = (): JSX.Element => {
                   <p><strong>Username: </strong>{ currentCustomer.username }</p>
                   <p><strong>First Name: </strong>{ currentCustomer.first_name }</p>
                   <p><strong>Last Name: </strong>{ currentCustomer.last_name }</p>
-                  {/* <p><strong>Slug: </strong>{ currentCustomer.slug }</p> */}
                   <p><strong>Phone Number: </strong>{ currentCustomer.phone_number }</p>
                 </>
               )

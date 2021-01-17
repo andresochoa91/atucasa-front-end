@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { AtucasaContext } from '../../Context';
 import MainModal from '../MainModal/MainModal';
 import ProductOrder from './ProductOrder';
+import { Container, Row, Col, Table, Button } from 'react-bootstrap';
 
 interface IOrderProps {
   order: TOrder
@@ -113,28 +114,54 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
   return (
     <>
       <MainModal titleMessage={ currentTitleMessage }>
-        <p>{ currentMessage }</p>
+        <h6>{ currentMessage }</h6>
       </MainModal>
 
-      <div key={ order.id }>
-
-        <h3>Order #{ order.id }</h3>
+      <div key={ order.id } className="border pt-5">
+        <h4 className="text-center font-weight-bold">Order #{ order.id }</h4>
         { 
           currentUser?.role === "customer" ? (
             <>
-              <h3>Merchant Name: { order.merchant_name }</h3>
-              <Link to={`/merchants/${order.merchant_slug}`}>Visit Merchant Website</Link>
+              <h6 className="text-center"><strong>Merchant Name: </strong>{ order.merchant_name }</h6>
+              <h6 className="text-center"><Link to={`/merchants/${order.merchant_slug}`}>Visit Merchant Website</Link></h6>
+              
             </>
           ) : (
-            <>
-              <img height={ 100 } src={ order.customer_picture } alt="img" /> 
-              <h3>Customer Name: { order.customer_name }</h3>
-              <h3>Address to deliver: { `${order.customer_location.address}, ${order.customer_location.city}, ${order.customer_location.state}` }</h3>
-              { order.customer_location.details && <h4>Details of the location: {order.customer_location.details}</h4> }
-            </>
+            <div className="text-center">
+              <img 
+                height={ 100 } 
+                width={ 100 }
+                src={ order.customer_picture } 
+                alt="img"
+                className="mb-3 rounded-circle"
+              /> 
+              <h6><strong>Customer Name: </strong>{ order.customer_name }</h6>
+              <h6><strong>Address to deliver: </strong>{ `${order.customer_location.address}, ${order.customer_location.city}, ${order.customer_location.state}` }</h6>
+              { order.customer_location.details && <h6><strong>Details of the location: </strong>{order.customer_location.details}</h6> }
+            </div>
           )
         }
-        <table style={{ textAlign: "center" }}>
+
+
+        {
+          !orderCanceled && currentUser?.role === "customer" && currentRole === "merchant" && !orderAccepted ? (
+            <h6 className="text-center ">Waiting for the merchant to confirm your order.</h6>
+          ) : !orderCanceled && currentUser?.role === "merchant" && currentRole === "customer" && !orderAccepted ? (
+            <h6 className="text-center">Waiting for the customer to confirm order.</h6>
+          ) : !orderCanceled && orderAccepted ? (
+            <>
+              { delivery !== "Order delivered" && <h6 className="text-center" style={{color: "#0a0"}}>Order accepted</h6> }
+              { (delivery && currentUser?.role) && <h6 className="text-center" style={{color: colorDelivery}}>{ delivery }</h6> }
+              { orderPlaced && <h6 className="text-center"><strong>Order placed: </strong>{ orderPlaced }</h6>}
+              { delivery !== "Order delivered" && <h6 className="text-center"><strong>Estimated arrival: </strong>{ estimatedArrival }</h6>}
+            </>
+          ) : orderCanceled && (
+            <h6 className="text-center" style={{color: "#f00"}}>Order canceled</h6>
+          )
+        }
+
+
+        <Table className="w-auto mx-auto ml-4" style={{ textAlign: "center" }} borderless>
           <thead>
             <tr>
               <th>Product name</th>
@@ -184,9 +211,9 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
                                   />
                                 </td>
                                 <td>
-                                  <button onClick={ () => setCurrentTip((semiTotal * 0.15).toFixed(2)) }>
+                                  <Button className="btn-success" onClick={ () => setCurrentTip((semiTotal * 0.15).toFixed(2)) }>
                                     Apply suggested tip
-                                  </button>
+                                  </Button>
                                 </td>
                               </>
                             ) : (orderAccepted || (!orderAccepted && currentRole === "merchant")) && (
@@ -215,22 +242,14 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
               )
             }
           </tbody>
-        </table>
+        </Table>
+
         {
-          !orderCanceled && currentUser?.role === "customer" && currentRole === "customer" && !orderAccepted ? (
-            <>
-              <p><strong>Message from merchant: </strong>{ message }</p>
-              <p>If you accept the changes, press confirm order, if not, press Cancel Order</p>
-              <button onClick={ () => handleUpdate(order.id, "accepted") }>Confirm order</button>
-              <button onClick={ () => handleUpdate(order.id, "canceled") }>Cancel order</button>
-            </>
-          ) : !orderCanceled && currentUser?.role === "customer" && currentRole === "merchant" && !orderAccepted ? (
-            <p>Waiting for the merchant to confirm your order.</p>
-          ) : !orderCanceled && currentUser?.role === "merchant" && currentRole === "merchant" && !orderAccepted ? (
-            <>
+          (!orderCanceled && currentUser?.role === "merchant" && currentRole === "merchant" && !orderAccepted) && (
+            <div className="text-center">
               {
                 !acceptance.filter((v) => !v).length ? (
-                  <button onClick={ () => handleUpdate(order.id, "accepted") }>Confirm order</button>
+                  <Button onClick={ () => handleUpdate(order.id, "accepted") }>Confirm order</Button>
                 ) : (
                   <form 
                     onSubmit={ (event) => {
@@ -244,38 +263,36 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
                       }
                     }}
                   >
-                    <br/>
-                    <label>Message</label>
-                    <br/>
+                    <p><strong>Message</strong></p>
                     <textarea 
                       name="message" 
                       value={ message }
                       onChange={ (event) => setMessage(event.target.value) }
+                      placeholder="Message needs to have at least 20 characters"
                     >
                     </textarea>
                     <br/>
-                    <input 
+                    <br/>
+                    <Button 
                       type="submit" 
-                      value="Suggest changes"
-                    />
+                    >Suggest Changes</Button>
                   </form>
                 )
               }
-            </>
-          ) : !orderCanceled && currentUser?.role === "merchant" && currentRole === "customer" && !orderAccepted ? (
-            <p>Waiting for the customer to confirm your order.</p>
-          ) : !orderCanceled && orderAccepted ? (
-            <>
-              { delivery !== "Order delivered" && <p style={{color: "#0a0"}}>Order accepted</p> }
-              { (delivery && currentUser?.role) && <p style={{color: colorDelivery}}>{ delivery }</p> }
-              { orderPlaced && <p><strong>Order placed: </strong>{ orderPlaced }</p>}
-              { delivery !== "Order delivered" && <p><strong>Estimated arrival: </strong>{ estimatedArrival }</p>}
-            </>
-          ) : (
-            <p style={{color: "#f00"}}>Order canceled</p>
+            </div>
           )
         }
-        <br/>
+
+        {
+          (!orderCanceled && currentUser?.role === "customer" && currentRole === "customer" && !orderAccepted) && (
+            <div className="text-center">
+              <h6><strong>Message from merchant: </strong>{ message }</h6>
+              <h6>If you accept the changes, press confirm order, if not, press Cancel Order</h6>
+              <Button className="mr-2" onClick={ () => handleUpdate(order.id, "accepted") }>Confirm order</Button>
+              <Button className="mr-2 btn-danger" onClick={ () => handleUpdate(order.id, "canceled") }>Cancel order</Button>
+            </div>
+          )
+        }
         <br/>
       </div>
     </>

@@ -1,4 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
+import { Button } from 'react-bootstrap';
 
 interface IProduct {
   id: number,
@@ -75,7 +76,8 @@ const ProductOrder: FC<IProductProps> = ({
           !orderAccepted &&
           !orderCanceled &&
           (
-            <button 
+            <Button 
+              className="btn-outline-secondary btn-light mr-1"
               onClick={ () => {
                 if ((currentAmount > 1) && available) {
                   setCurrentAmount(currentAmount - 1); 
@@ -87,8 +89,8 @@ const ProductOrder: FC<IProductProps> = ({
                 }
               }}
             >
-              -
-            </button> 
+              &nbsp;-
+            </Button> 
           )
         }
         { currentAmount }
@@ -98,7 +100,8 @@ const ProductOrder: FC<IProductProps> = ({
           !orderAccepted &&
           !orderCanceled &&
           (
-            <button 
+            <Button 
+              className="btn-outline-secondary btn-light ml-1"
               onClick={ () => {
                 if ((currentAmount < product.amount) && available) {
                   if (currentAmount + 1 === product.amount) {
@@ -113,7 +116,7 @@ const ProductOrder: FC<IProductProps> = ({
               }}
             >
               +
-            </button> 
+            </Button> 
           )
         }
       </td>
@@ -122,7 +125,8 @@ const ProductOrder: FC<IProductProps> = ({
       {
         (!orderAccepted && currentUser?.role === "merchant" && currentRole === "merchant") ? (
           <td>
-            <button 
+            <Button 
+              className={ available ? "btn-danger" : "btn-light"}
               onClick={ () => {
                 setAcceptance(acceptance.map((v, i) => {
                   if ((i === index) && !amountChanged) {
@@ -134,7 +138,7 @@ const ProductOrder: FC<IProductProps> = ({
               }}
             >
               { available ? "Not Available" : "Available"}
-            </button>
+            </Button>
           </td>
         ) : (
           !orderAccepted && 
@@ -144,9 +148,9 @@ const ProductOrder: FC<IProductProps> = ({
           <>
             {
               !available ? (
-                <td>Not available</td>
+                <td className="font-weight-bold">Not available</td>
               ) : amountChanged ? (
-                <td>Amount suggested by merchant</td>
+                <td className="font-weight-bold">Amount suggested by merchant</td>
               ) : (
                 <td>Available</td>
               )

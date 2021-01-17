@@ -17,7 +17,7 @@ const MainNavbar: FC = () => {
     <>
       {
         currentUser && (
-          <Navbar bg="dark" variant="dark" className="py-0">
+          <Navbar bg="dark" variant="dark" className="py-0" sticky="top">
             <Nav className="mr-auto">
               <Navbar.Brand className="mt-2 lead" href="/home">A Tu Casa</Navbar.Brand>
               <NavLink className="nav-link px-3 py-3 ml-3 text-info" to="/home/map">Map</NavLink>
