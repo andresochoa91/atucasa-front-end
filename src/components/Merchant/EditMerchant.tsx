@@ -2,7 +2,6 @@ import React, { FC, useContext, useState } from 'react';
 import UpdateImage from '../UpdateImage/UpdateImage';
 import { Link, useHistory } from 'react-router-dom';
 import { AtucasaContext } from '../../Context';
-import BackHomePage from '../BackHomePage/BackHomePage';
 
 interface IMerchantProps {
   handleCurrentMerchant: () => void,
@@ -77,17 +76,10 @@ const EditMerchant: FC<IMerchantProps> = ({ handleCurrentMerchant, currentMercha
 
   return(
     <>
-      <BackHomePage /> 
       <h2>Edit Merchant</h2>
       <Link to="/home/user_information">Go back to user information</Link>
       <form onSubmit={ handleSubmit }>
         <label>Profile Picture</label>
-        {/* <input 
-          type="text"
-          name="profilePicture"
-          value={ profilePicture }
-          onChange={ handleInput } 
-        /> */}
         <UpdateImage 
           currentPicture = { currentMerchant.profile_picture }
           userName = { currentMerchant.merchant_name }

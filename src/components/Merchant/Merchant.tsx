@@ -7,9 +7,8 @@ import Location from '../Location/Location';
 import Links from '../Links/Links';
 import Products from '../Products/Products';
 import Orders from '../Orders/Orders';
-import { Switch, Link, Route } from 'react-router-dom';
+import { Switch, Link, Route, Redirect } from 'react-router-dom';
 import MyMap from '../MyMap/MyMap';
-import BackHomePage from '../BackHomePage/BackHomePage';
 
 const Merchant: FC = (): JSX.Element => {
   const { currentUser, location, currentMerchant, setCurrentMerchant } = useContext<TContextProps>(AtucasaContext);
@@ -38,23 +37,7 @@ const Merchant: FC = (): JSX.Element => {
       {
         (currentUser && currentMerchant && location) && (          
           <Switch>
-            <Route exact path="/home" render={() => (
-              <>
-                <Link to="/home/map">Show Map</Link>
-                <br/>
-                <Link to="/home/orders">Orders</Link>
-                <br/>
-                <Link to="/home/user_information">Personal Information</Link>
-                <br/>
-                <Link to="/home/location">Location</Link>
-                <br/>          
-                <Link to="/home/links">Links</Link>
-                <br/>      
-                <Link to="/home/products">Products</Link>
-                <br/>    
-              </>
-            )}/> 
-
+            <Route exact path="/home" render={() => <Redirect to={ `/merchants/${currentMerchant.slug}` } />} />
             <Route path="/home/map" render={() => (
               location.latitude && location.longitude ? (
                 <MyMap lat={location.latitude} lng={location.longitude} />
@@ -73,7 +56,6 @@ const Merchant: FC = (): JSX.Element => {
             <Route path="/home/orders" render={() => <Orders />}/> 
             <Route path="/home/user_information" render={() => (
               <>
-                <BackHomePage />   
                 <h2>User information</h2>
                 <Link to="/home/edit_user">Update email or password</Link>
                 <br/>
@@ -93,7 +75,6 @@ const Merchant: FC = (): JSX.Element => {
                   height={ 100 }
                 />
                 <p><strong>Email: </strong>{ currentUser.email }</p>
-                {/* <p><strong>Role: </strong>{ currentUser.role }</p> */}
                 <p><strong>Merchant Name: </strong>{ currentMerchant.merchant_name }</p>
                 <p><strong>Phone Number: </strong>{  currentMerchant.phone_number }</p>
                 <p><strong>Tax ID: </strong>{ currentMerchant.tax_id }</p>

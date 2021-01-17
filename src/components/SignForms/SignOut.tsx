@@ -3,7 +3,13 @@ import { AtucasaContext } from '../../Context';
 import { Button } from 'react-bootstrap';
 
 const SignOut: FC = () => {
-  const { setCurrentUser, setLoggedOut, setCurrentCustomer, handleMerchants } = useContext<TContextProps>(AtucasaContext);
+  const { 
+    setCurrentUser, 
+    setLoggedOut, 
+    setCurrentCustomer, 
+    handleMerchants,
+    setCurrentMerchant 
+  } = useContext<TContextProps>(AtucasaContext);
 
   const handleSignOut = ():void => {
     fetch(`${process.env.REACT_APP_API}/logout`, {
@@ -16,6 +22,7 @@ const SignOut: FC = () => {
       setLoggedOut(true);
       setCurrentUser(null);
       setCurrentCustomer(null);
+      setCurrentMerchant(null);
       handleMerchants();
     })
     .catch(err => console.error(err))

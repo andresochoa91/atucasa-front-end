@@ -1,14 +1,14 @@
 import React, { FC, useContext } from 'react';
 import { AtucasaContext } from '../../Context';
 import { Link } from 'react-router-dom';
-import BackHomePage from '../BackHomePage/BackHomePage';
+// import BackHomePage from '../BackHomePage/BackHomePage';
 
 const Location: FC = (): JSX.Element => {
   const { location } = useContext<TContextProps>(AtucasaContext);
 
   return (
     <>
-      <BackHomePage />   
+      {/* <BackHomePage />    */}
       {
         location && (
           <>
