@@ -1,7 +1,6 @@
 import React, { FC, useContext, useEffect, useState } from 'react';
-import { Link, RouteComponentProps } from 'react-router-dom';
+import { RouteComponentProps } from 'react-router-dom';
 import { AtucasaContext } from '../../Context';
-import BackHomePage from '../BackHomePage/BackHomePage';
 import ShowProducts from '../ShowProducts/ShowProducts';
 
 interface IParams {
@@ -58,10 +57,6 @@ const ShowMerchantNoLogged:FC<IMerchantProps & RouteComponentProps> = ({ match, 
 
   return (
     <>
-      {
-        currentUser ? <BackHomePage /> : <Link to="/">Go back to home page</Link>
-      }
-      
       {
         currentMerchant && (
           <div key={ currentMerchant.merchant_info.id }>

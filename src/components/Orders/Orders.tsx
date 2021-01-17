@@ -1,10 +1,8 @@
 import React, { FC, useEffect, useState } from 'react';
-import BackHomePage from '../BackHomePage/BackHomePage';
 import Order from './Order';
 
 const Orders: FC = (): JSX.Element => {
 
-  // const { currentUser } = useContext<TContextProps>(AtucasaContext)
   const [ orders, setOrders ] = useState<TOrders>([]);
 
   useEffect(() => {
@@ -31,7 +29,6 @@ const Orders: FC = (): JSX.Element => {
 
   return (
     <> 
-      <BackHomePage />     
       <h2>Orders</h2>
       {
         orders.map(order => (

@@ -1,7 +1,6 @@
 import React, { FC, useContext, useState } from 'react';
 import { AtucasaContext } from '../../Context';
 import { Link, useHistory } from 'react-router-dom';
-import BackHomePage from '../BackHomePage/BackHomePage';
 import { getCachedData } from '../GetCachedData';
 import MainModal from '../MainModal/MainModal';
 
@@ -142,7 +141,6 @@ const EditLocation: FC = (): JSX.Element => {
       <MainModal titleMessage={ currentTitleMessage }>
         <p>{ currentMessage }</p>
       </MainModal>
-      <BackHomePage />  
       {
         location && (
           <>

@@ -9,7 +9,7 @@ import Orders from '../Orders/Orders';
 import MyMap from '../MyMap/MyMap';
 import { Switch, Link, Route } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
-import BackHomePage from '../BackHomePage/BackHomePage';
+// import BackHomePage from '../BackHomePage/BackHomePage';
 
 const Customer: FC = (): JSX.Element => {
   const { currentUser, location, handleCurrentCustomer, currentCustomer, setSearchMerchants } = useContext<TContextProps>(AtucasaContext);
@@ -44,8 +44,8 @@ const Customer: FC = (): JSX.Element => {
             <h1>Welcome { currentCustomer.username }</h1>
             <Route exact path="/home" render={() => (
               <>
-                <Link to="/home/map">See merchants close to you on map</Link>
-                <br/>
+                {/* <Link to="/home/map">See merchants close to you on map</Link> */}
+                {/* <br/> */}
                 {/* <MyMap 
                   lat={ location.latitude }
                   lng={ location.longitude }
@@ -61,16 +61,16 @@ const Customer: FC = (): JSX.Element => {
                   <input type="submit"/>
                 </form>
                 <br/>
-                <Link to="/home/orders">Orders</Link>
-                <br/>
+                {/* <Link to="/home/orders">Orders</Link> */}
+                {/* <br/> */}
                 {/* <Link to="/home/merchants">Merchants</Link>
                 <br/> */}
-                <Link to="/home/user_information">User information</Link>
-                <br/>
-                <Link to="/home/personal_information">Personal information</Link>
-                <br/>
-                <Link to="/home/location">Location</Link>
-                <br/>
+                {/* <Link to="/home/user_information">User information</Link> */}
+                {/* <br/> */}
+                {/* <Link to="/home/personal_information">Personal information</Link> */}
+                {/* <br/> */}
+                {/* <Link to="/home/location">Location</Link> */}
+                {/* <br/> */}
               </>
             )} />
             {/* {
@@ -105,7 +105,7 @@ const Customer: FC = (): JSX.Element => {
             <Route path="/home/user_information" 
               render={() => (
                 <>
-                  <BackHomePage />     
+                  {/* <BackHomePage />      */}
                   <h2>User information</h2>
                   <Link to='/home/edit_user'>Update email and/or password</Link>
                   <p><strong>Email: </strong>{ currentUser.email }</p>
@@ -116,7 +116,7 @@ const Customer: FC = (): JSX.Element => {
             <Route path="/home/personal_information" 
               render={() => (
                 <>
-                  <BackHomePage />    
+                  {/* <BackHomePage />     */}
                   <h2>Personal information</h2>
                   <Link to='/home/edit_customer'>Edit personal information</Link>
                   <p><strong>Profile Picture: </strong></p>

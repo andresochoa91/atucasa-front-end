@@ -3,9 +3,7 @@ import { AtucasaContext } from '../../Context';
 import { MapContainer, TileLayer, Popup, Circle, Marker } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import Place from './Place';
-import { Link } from 'react-router-dom';
 import L from 'leaflet';
-import BackHomePage from '../BackHomePage/BackHomePage';
 import house from '../../pictures/house.png';
 import { getCachedData } from '../GetCachedData';
 
@@ -47,9 +45,6 @@ const MyMap: FC<ILatLngProps> = ({ lat, lng }): JSX.Element => {
 
   return (
     <>
-      {
-        currentUser ? <BackHomePage /> : <Link to="/">Go back to home page</Link>
-      }
       {
         (latitude && longitude) ? (
           <div>

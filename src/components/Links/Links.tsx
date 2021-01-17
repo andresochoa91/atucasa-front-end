@@ -1,5 +1,4 @@
 import React, { FC, useState, useEffect } from 'react';
-import BackHomePage from '../BackHomePage/BackHomePage';
 import CreateLink from './CreateLink';
 import LinkUrl from './LinkUrl';
 
@@ -26,7 +25,6 @@ const Links: FC = (): JSX.Element => {
 
   return (
     <>
-      <BackHomePage />  
       <h2>Links</h2>
       { links.map((link) => (
         <LinkUrl handleLinks={ handleLinks } link={ link } key={ link.id } />

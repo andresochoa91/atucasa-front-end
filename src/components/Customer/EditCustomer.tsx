@@ -2,7 +2,6 @@ import React, { FC, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import UpdateImage from '../UpdateImage/UpdateImage';
 import { useHistory } from 'react-router-dom';
-import BackHomePage from '../BackHomePage/BackHomePage';
 import { AtucasaContext } from '../../Context';
 import MainModal from '../MainModal/MainModal';
 
@@ -114,7 +113,6 @@ const EditCustomer: FC<ICustomerProps> = ({ handleCurrentCustomer, currentCustom
         <p>{ currentMessage }</p>
       </MainModal>
       
-      <BackHomePage />    
       <h2>Edit Customer</h2>
       <Link to="/home/personal_information">Go back to personal information</Link>    
       <form onSubmit={ handleSubmit }>
