@@ -60,7 +60,7 @@ const MainNavbar: FC = () => {
               } 
               id="basic-nav-dropdown"
             >
-              <NavDropdown.Item href="/home">Home</NavDropdown.Item>
+              {/* <NavDropdown.Item href="/home">Home</NavDropdown.Item> */}
               <NavDropdown.Item href="/home/user_information">Account</NavDropdown.Item>
               { currentCustomer && <NavDropdown.Item href="/home/personal_information">Personal Information</NavDropdown.Item> }
               <NavDropdown.Item href="/home/location">Location</NavDropdown.Item>

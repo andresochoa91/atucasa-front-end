@@ -41,19 +41,21 @@ const MyMap: FC<ILatLngProps> = ({ lat, lng }): JSX.Element => {
     }
   }, [currentUser]);
 
-  console.log(searchMerchants);
-
   return (
     <>
       {
         (latitude && longitude) ? (
-          <div>
-            
+          <div 
+            style={{
+              width: "900px"
+            }}
+            className="mx-auto"
+          >
             <MapContainer
               center={[ latitude, longitude]} 
-              zoom={13} 
+              zoom={15} 
               // minZoom={ 10 }
-              style={{ height: "400px", width: "700px" }}
+              style={{ height: "500px", width: "900px" }}
             >
               <TileLayer
                 attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'

@@ -7,13 +7,15 @@ import Location from '../Location/Location';
 import Orders from '../Orders/Orders';
 import MyMap from '../MyMap/MyMap';
 import { Switch, Link, Route } from 'react-router-dom';
-import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
 
 const Customer: FC = (): JSX.Element => {
   const { currentUser, location, handleCurrentCustomer, currentCustomer, setSearchMerchants } = useContext<TContextProps>(AtucasaContext);
   const [ searchbox, setSearchbox ] = useState<string>(""); 
+  const [ tempProduct, setTempProduct ] = useState<string>(""); 
+  const [ showMap, setShowMap ] = useState<boolean>(false);
 
-  const history = useHistory();
+  // const history = useHistory();
 
   useEffect(() => {
     if (!currentCustomer) {
@@ -28,8 +30,9 @@ const Customer: FC = (): JSX.Element => {
     .then((data) => {
       console.log(data);
       setSearchMerchants(data.merchants);
-      setSearchbox("");
-      history.push('/home/map');
+      setTempProduct(searchbox);
+      setShowMap(true);
+      // history.push('/home/map');
     })
     .catch(console.error);
   };
@@ -41,18 +44,40 @@ const Customer: FC = (): JSX.Element => {
           <>
             <Route exact path="/home" render={() => (
               <>
-                <h1>Welcome { currentCustomer.username }</h1>
+                <h1 className="mb-4">Welcome { currentCustomer.username }</h1>
+
+                <h5>Looking for products close to you?</h5>
+                <h5 className="mb-4" >Find closest merchants close to you that have your desired product</h5>
+
                 <form onSubmit={ handleSearch }>
-                  <label>Look for product: </label>
-                  <input 
-                    type="text"
-                    name={ "searchbox" }
-                    onChange={ (event) => setSearchbox(event.target.value) }
-                    value={ searchbox }
-                  />
-                  <input type="submit"/>
+                  <div className="input-group mb-3 container" id="searchbox">
+                    <input 
+                      type="text" 
+                      name={ "searchbox" }
+                      onChange={ (event) => setSearchbox(event.target.value) }
+                      placeholder="Type product" 
+                      value={ searchbox }
+                      className="ml-5 form-control" 
+                    />
+                    <div className="input-group-append mr-5">
+                      <button 
+                        type="submit"
+                        className="btn btn-outline-info" 
+                      >
+                        Search Product
+                      </button>
+                    </div>
+                  </div>
                 </form>
-                <br/>
+                { 
+                  showMap && (
+                    <div className="mt-5">
+                      <h5>These are the merchants close to you that have that match with "{ tempProduct }"</h5>
+                      <h5 className="mb-4">Click Merchant on map and visit their website to start buying</h5>
+                      <MyMap lat={location.latitude} lng={location.longitude} />
+                    </div>
+                  ) 
+                }
               </>
             )} />
             <Route path="/home/map" render={() => (
