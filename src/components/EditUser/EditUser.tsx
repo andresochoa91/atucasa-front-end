@@ -2,7 +2,7 @@ import React, { FC, useContext, useState } from 'react';
 import { AtucasaContext } from '../../Context';
 import { Link, useHistory } from 'react-router-dom';
 import MainModal from '../MainModal/MainModal';
-import ContainerJumbotron from '../ContainerJumbotron/ContainerJumbotron';
+// import ContainerJumbotron from '../ContainerJumbotron/ContainerJumbotron';
 import MultiPurposeCard from '../MultiPurposeCard/MultiPurposeCard';
 import { Button } from 'react-bootstrap';
 

@@ -19,16 +19,6 @@ const SignForms: FC = () => {
       <div className="d-flex justify-content-center mt-5">        
         <Container>
           <h1 className="display-4">Start ordering with A Tu Casa!</h1>
-          <Row>
-            <Col>
-              <SignIn />
-            </Col>
-            <Col>
-              <SignUp />
-            </Col>
-          </Row>
-          <br/>
-          <br/>
           <span style={{ fontSize: 20 }}>Do you want to see all merchants close to you?</span>
           <br/>
           <Link 
@@ -41,6 +31,16 @@ const SignForms: FC = () => {
           >
             Click here
           </Link>
+          <br/>
+          <br/>
+          <Row>
+            <Col>
+              <SignIn />
+            </Col>
+            <Col>
+              <SignUp />
+            </Col>
+          </Row>
         </Container>
       </div>
     </>

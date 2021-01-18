@@ -25,16 +25,18 @@ const Products: FC = (): JSX.Element => {
 
   return (
     <>
-      <h2>Products</h2>
-      { 
-        products.map((product) => (
-          <Product 
-            handleProducts={ handleProducts } 
-            key={ product.id } 
-            product={ product }
-          />
-        )) 
-      }
+      <h2 className="mb-5">Products</h2>
+      <div className="d-flex flex-wrap justify-content-around">
+        { 
+          products.map((product) => (
+            <Product 
+              handleProducts={ handleProducts } 
+              key={ product.id } 
+              product={ product }
+            />
+          )) 
+        }
+      </div>
       <CreateProduct handleProducts={ handleProducts } />
     </>
   );

@@ -1,4 +1,5 @@
 import React, { FC, useState, useContext } from 'react';
+import { Card, CardDeck } from 'react-bootstrap';
 import { AtucasaContext } from '../../Context';
 
 interface ICartProps {
