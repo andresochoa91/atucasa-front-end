@@ -6,6 +6,7 @@ import Place from './Place';
 import L from 'leaflet';
 import house from '../../pictures/house.png';
 import { getCachedData } from '../GetCachedData';
+import { Link, useHistory } from 'react-router-dom';
 
 interface ILatLngProps {
   lat?: number,
@@ -14,12 +15,14 @@ interface ILatLngProps {
 
 const MyMap: FC<ILatLngProps> = ({ lat, lng }): JSX.Element => {
 
-  const { location, currentUser, merchants, searchMerchants } = useContext<TContextProps>(AtucasaContext);
+  const { location, currentUser, currentCustomer, currentMerchant, merchants, searchMerchants } = useContext<TContextProps>(AtucasaContext);
   const [ latitude, setLatitude ] = useState<number>(lat ? lat : 0);
   const [ longitude, setLongitude ] = useState<number>(lng ? lng : 0);
   const [ currentAddress, setCurrentAddress ] = useState<string>(location?.address ? location?.address : "");
   const [ currentCity, setCurrentCity ] = useState<string>(location?.city ? location?.city : "");
   const [ currentState, setCurrentState ] = useState<string>(location?.state ? location?.state : "");
+
+  const history = useHistory();
 
   useEffect(() => {
     if (!currentUser) {
@@ -41,8 +44,20 @@ const MyMap: FC<ILatLngProps> = ({ lat, lng }): JSX.Element => {
     }
   }, [currentUser]);
 
+  console.log(history.location.pathname)
+
   return (
     <>
+      {
+        (latitude && longitude && currentCustomer && history.location.pathname === "/home/map") ? (
+          <h3>These are the merchants close to you!</h3>
+        ) : latitude && longitude && currentMerchant && history.location.pathname === "/home/map" && (
+          <>
+            <h3 className="mb-3">This is your current location</h3>
+            <h6 className="mb-5">Do you have to update your location? <Link to="/home/edit_location" >Click here</Link></h6>
+          </>
+        )
+      }
       {
         (latitude && longitude) ? (
           <div 
@@ -51,9 +66,14 @@ const MyMap: FC<ILatLngProps> = ({ lat, lng }): JSX.Element => {
             }}
             className="mx-auto"
           >
+            {
+              currentCustomer && (
+                <h5 className="mb-4">Click on merchant on map and visit their website to start buying</h5>
+              )
+            }
             <MapContainer
               center={[ latitude, longitude]} 
-              zoom={15} 
+              zoom={ currentUser ? 15 : 13} 
               // minZoom={ 10 }
               style={{ height: "500px", width: "900px" }}
             >
@@ -91,7 +111,7 @@ const MyMap: FC<ILatLngProps> = ({ lat, lng }): JSX.Element => {
                 currentUser && (
                   <Marker
                     position={ [latitude, longitude] }
-                    icon={ L.divIcon({html: `<img height="25" src="${house}"/><strong style="font-size:12px">Your Location</strong>`, className:""}) }  
+                    icon={ L.divIcon({html: `<img height="25" src="${house}"/><strong style="font-size:12px; color:#000">Your Location</strong>`, className:""}) }  
                   >
                     <Popup>
                       <p>{ currentUser ? `Your location: ${location?.address}` : "Your area"}</p>

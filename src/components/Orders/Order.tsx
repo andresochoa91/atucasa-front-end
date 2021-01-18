@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { AtucasaContext } from '../../Context';
 import MainModal from '../MainModal/MainModal';
 import ProductOrder from './ProductOrder';
-import { Container, Row, Col, Table, Button } from 'react-bootstrap';
+import { Table, Button } from 'react-bootstrap';
 
 interface IOrderProps {
   order: TOrder
@@ -111,13 +111,26 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
     }
   };
 
+  const handleTip = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    const currentTip = Number(event.target.value);
+    if ((currentTip === 0 && event.target.value.length < 5) || (currentTip && currentTip > 0) || (event.target.value === "")) {
+      setCurrentTip(event.target.value);
+    }
+  };
+
   return (
     <>
       <MainModal titleMessage={ currentTitleMessage }>
         <h6>{ currentMessage }</h6>
       </MainModal>
 
-      <div key={ order.id } className="border pt-5">
+      <div 
+        key={ order.id } 
+        className="border border-secondary mb-3 pt-5 text-dark"
+        style={{
+          backgroundColor: "rgba(255,255,255,0.75)"
+        }}
+      >
         <h4 className="text-center font-weight-bold">Order #{ order.id }</h4>
         { 
           currentUser?.role === "customer" ? (
@@ -142,7 +155,6 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
           )
         }
 
-
         {
           !orderCanceled && currentUser?.role === "customer" && currentRole === "merchant" && !orderAccepted ? (
             <h6 className="text-center ">Waiting for the merchant to confirm your order.</h6>
@@ -151,7 +163,7 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
           ) : !orderCanceled && orderAccepted ? (
             <>
               { delivery !== "Order delivered" && <h6 className="text-center" style={{color: "#0a0"}}>Order accepted</h6> }
-              { (delivery && currentUser?.role) && <h6 className="text-center" style={{color: colorDelivery}}>{ delivery }</h6> }
+              { (delivery && currentUser?.role === "customer") && <h6 className="text-center" style={{color: colorDelivery}}>{ delivery }</h6> }
               { orderPlaced && <h6 className="text-center"><strong>Order placed: </strong>{ orderPlaced }</h6>}
               { delivery !== "Order delivered" && <h6 className="text-center"><strong>Estimated arrival: </strong>{ estimatedArrival }</h6>}
             </>
@@ -163,12 +175,12 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
 
         <Table className="w-auto mx-auto ml-4" style={{ textAlign: "center" }} borderless>
           <thead>
-            <tr>
+            <tr className="border border-dark">
               <th>Product name</th>
               <th>Unit Price</th>
               <th>Amount</th>
               <th>Unit Tax</th>
-              <th>Semi Total</th>
+              <th className="border-right border-dark">Semi Total</th>
             </tr>
           </thead>          
           <tbody>
@@ -198,26 +210,26 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
                           <td></td>
                           <td></td>
                           <td></td>
-                          <td><strong>Tip</strong></td>
+                          <td className="border-left border-bottom border-dark"><strong>Tip</strong></td>
                           {
                             (currentRole === "customer" && !orderAccepted) ? (
                               <>
-                                <td>$ 
+                                <td className="border-right border-bottom border-dark">$ 
                                   <input 
                                     type="text"
                                     value={ currentTip }
-                                    onChange={ (event) => setCurrentTip(event.target.value) }
+                                    onChange={ handleTip }
                                     placeholder={ `Suggested: $${(semiTotal * 0.15).toFixed(2)}` }
                                   />
                                 </td>
-                                <td>
+                                <td className="border-right border-bottom border-dark">
                                   <Button className="btn-success" onClick={ () => setCurrentTip((semiTotal * 0.15).toFixed(2)) }>
                                     Apply suggested tip
                                   </Button>
                                 </td>
                               </>
                             ) : (orderAccepted || (!orderAccepted && currentRole === "merchant")) && (
-                              <td>${ currentTip === "" ? 0 : currentTip }</td>
+                              <td className="border-right border-bottom border-dark">${ currentTip === "" ? 0 : currentTip }</td>
                             )
                           }
                         </tr>
@@ -225,15 +237,15 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
                           <td></td>
                           <td></td>
                           <td></td>
-                          <td><strong>Delivery Fee</strong></td>
-                          <td>${ order.delivery_fee }</td>
+                          <td className="border-left border-bottom border-dark"><strong>Delivery Fee</strong></td>
+                          <td className="border-right border-bottom border-dark">${ order.delivery_fee }</td>
                         </tr>
                         <tr>
                           <td></td>
                           <td></td>
                           <td></td>
-                          <td><strong>Total</strong></td>
-                          <td>{ `$${(semiTotal+ Number(currentTip) + order.delivery_fee).toFixed(2)}` }</td>
+                          <td className="border-left border-bottom border-dark"><strong>Total</strong></td>
+                          <td className="border-right border-bottom border-dark">{ `$${(semiTotal+ Number(currentTip) + order.delivery_fee).toFixed(2)}` }</td>
                         </tr>
                       </>
                     )

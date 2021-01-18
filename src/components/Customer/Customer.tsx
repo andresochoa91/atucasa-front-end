@@ -7,6 +7,8 @@ import Location from '../Location/Location';
 import Orders from '../Orders/Orders';
 import MyMap from '../MyMap/MyMap';
 import { Switch, Link, Route } from 'react-router-dom';
+import ScrollableAnchor, { goToAnchor } from 'react-scrollable-anchor';
+import ContainerJumbotron from '../ContainerJumbotron/ContainerJumbotron';
 // import { useHistory } from 'react-router-dom';
 
 const Customer: FC = (): JSX.Element => {
@@ -14,6 +16,7 @@ const Customer: FC = (): JSX.Element => {
   const [ searchbox, setSearchbox ] = useState<string>(""); 
   const [ tempProduct, setTempProduct ] = useState<string>(""); 
   const [ showMap, setShowMap ] = useState<boolean>(false);
+  const [ loadingMap, setLoadingMap ] = useState<boolean>(false);
 
   // const history = useHistory();
 
@@ -25,13 +28,18 @@ const Customer: FC = (): JSX.Element => {
 
   const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setLoadingMap(true);
     fetch(`${process.env.REACT_APP_API}/merchants/product/${searchbox}`)
     .then(response => response.json())
     .then((data) => {
       console.log(data);
+      setLoadingMap(false);
       setSearchMerchants(data.merchants);
       setTempProduct(searchbox);
       setShowMap(true);
+      setTimeout(() => {
+        goToAnchor("#show-map", true)
+      }, 200)
       // history.push('/home/map');
     })
     .catch(console.error);
@@ -43,12 +51,10 @@ const Customer: FC = (): JSX.Element => {
         (currentUser && currentCustomer && location) && (
           <>
             <Route exact path="/home" render={() => (
-              <>
-                <h1 className="mb-4">Welcome { currentCustomer.username }</h1>
-
+              <ContainerJumbotron>
+                <h1 className="mb-4 font-weight-bold">Welcome { currentCustomer.username }</h1>
                 <h5>Looking for products close to you?</h5>
                 <h5 className="mb-4" >Find closest merchants close to you that have your desired product</h5>
-
                 <form onSubmit={ handleSearch }>
                   <div className="input-group mb-3 container" id="searchbox">
                     <input 
@@ -60,72 +66,103 @@ const Customer: FC = (): JSX.Element => {
                       className="ml-5 form-control" 
                     />
                     <div className="input-group-append mr-5">
-                      <button 
-                        type="submit"
-                        className="btn btn-outline-info" 
-                      >
-                        Search Product
-                      </button>
+                      <a type="submit" className="btn btn-outline-info" href='#show-map'>Search Product</a>
                     </div>
                   </div>
                 </form>
                 { 
-                  showMap && (
-                    <div className="mt-5">
-                      <h5>These are the merchants close to you that have that match with "{ tempProduct }"</h5>
-                      <h5 className="mb-4">Click Merchant on map and visit their website to start buying</h5>
-                      <MyMap lat={location.latitude} lng={location.longitude} />
-                    </div>
-                  ) 
+                  showMap && !loadingMap ? (
+                    <ScrollableAnchor id="show-map">
+                      <div className="mt-5">
+                        <h5>These are the merchants close to you that have that match with "{ tempProduct }"</h5>
+                        <MyMap lat={location.latitude} lng={location.longitude} />
+                      </div>
+                    </ScrollableAnchor>
+                  ) : loadingMap && (
+                    <p>Loading map...</p>
+                  )
                 }
-              </>
+              </ContainerJumbotron>
             )} />
             <Route path="/home/map" render={() => (
-              location.latitude && location.longitude ? (
-                <MyMap lat={location.latitude} lng={location.longitude} />
-              ) : (
-                <MyMap />
-              )
+              <ContainerJumbotron>                
+                {
+                  location.latitude && location.longitude ? (
+                    <MyMap lat={location.latitude} lng={location.longitude} />
+                  ) : (
+                    <MyMap />
+                  )
+                }
+              </ContainerJumbotron>
             )}/>
 
-            <Route path="/home/orders" render={() => <Orders />} />
-            <Route path="/home/edit_user" render={() => <EditUser />} />
-            <Route path="/home/edit_customer" render={() => (
-              <EditCustomer 
-                currentCustomer={ currentCustomer }
-                handleCurrentCustomer={handleCurrentCustomer}
-              />
-            )} />
-            <Route path="/home/edit_location" render={() => <EditLocation />} />
+            <Route path="/home/orders" render={() => (
+              <ContainerJumbotron>
+                <Orders />
+              </ContainerJumbotron>
+            )}/>
+            <Route 
+              path="/home/edit_user" 
+              render={() => (
+                <ContainerJumbotron>
+                  <EditUser />
+                </ContainerJumbotron>
+              )} 
+            />
+            <Route 
+              path="/home/edit_customer" 
+              render={() => (
+                <ContainerJumbotron>
+                  <EditCustomer 
+                    currentCustomer={ currentCustomer }
+                    handleCurrentCustomer={handleCurrentCustomer}
+                  />
+                </ContainerJumbotron>
+              )} 
+            />
+            <Route 
+              path="/home/edit_location" 
+              render={() => (
+                <ContainerJumbotron>
+                  <EditLocation />
+                </ContainerJumbotron>
+              )} 
+            />
             <Route path="/home/user_information" 
               render={() => (
-                <>
+                <ContainerJumbotron>
                   <h2>User information</h2>
-                  <Link to='/home/edit_user'>Update email and/or password</Link>
-                  <p><strong>Email: </strong>{ currentUser.email }</p>
-                  <p><strong>Role: </strong>{ currentUser.role }</p>
-                </>
-              )
-            } />
-            <Route path="/home/personal_information" 
-              render={() => (
-                <>
-                  <h2>Personal information</h2>
-                  <Link to='/home/edit_customer'>Edit personal information</Link>
-                  <p><strong>Profile Picture: </strong></p>
                   <img 
                     src={ currentCustomer.profile_picture } 
                     alt="pic"
                     height={ 100 }
                   />
-                  <p><strong>Username: </strong>{ currentCustomer.username }</p>
-                  <p><strong>First Name: </strong>{ currentCustomer.first_name }</p>
-                  <p><strong>Last Name: </strong>{ currentCustomer.last_name }</p>
-                  <p><strong>Phone Number: </strong>{ currentCustomer.phone_number }</p>
-                </>
+                  <h6><strong>Email: </strong>{ currentUser.email }</h6>
+                  {/* <h6><strong>Role: </strong>{ currentUser.role }</h6> */}
+                  <h6><strong>Username: </strong>{ currentCustomer.username }</h6>
+                  <h6><strong>First Name: </strong>{ currentCustomer.first_name }</h6>
+                  <h6><strong>Last Name: </strong>{ currentCustomer.last_name }</h6>
+                  <h6><strong>Phone Number: </strong>{ currentCustomer.phone_number }</h6>
+                  <Link className="btn btn-primary mr-2" to='/home/edit_user'>Update email and/or password</Link>
+                  <Link className="btn btn-primary" to='/home/edit_customer'>Edit personal information</Link>
+                </ContainerJumbotron>
               )
             } />
-            <Route path="/home/location" render={() => <Location />} />
+            {/* <Route path="/home/personal_information" 
+              render={() => (
+                <>
+                  <h2>Personal information</h2>
+                </>
+              )
+            } /> */}
+            <Route 
+              path="/home/location" 
+              render={() => (
+                <ContainerJumbotron>
+                  <Location />
+                </ContainerJumbotron>
+              ) 
+            } />
           </>
         )
       }

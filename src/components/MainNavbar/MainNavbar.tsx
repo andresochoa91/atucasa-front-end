@@ -1,5 +1,5 @@
 import React, { FC, useContext } from 'react';
-import { Navbar, Nav, NavDropdown, Image, Form, FormControl, Button } from 'react-bootstrap';
+import { Navbar, Nav, NavDropdown, Image/* , Form, FormControl, Button */ } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 import { AtucasaContext } from '../../Context';
 import SignOut from '../SignForms/SignOut';
@@ -19,9 +19,9 @@ const MainNavbar: FC = () => {
         currentUser && (
           <Navbar bg="dark" variant="dark" className="py-0" sticky="top">
             <Nav className="mr-auto">
-              <Navbar.Brand className="mt-2 lead" href="/home">A Tu Casa</Navbar.Brand>
-              <NavLink className="nav-link px-3 py-3 ml-3 text-info" to="/home/map">Map</NavLink>
-              <NavLink className="nav-link px-3 py-3 text-info" to="/home/orders">Orders</NavLink>
+              <Navbar.Brand className="mt-2 ml-4 lead" href="/home">A Tu Casa</Navbar.Brand>
+              <NavLink className="nav-link px-2 py-3 text-info" to="/home/map">Map</NavLink>
+              <NavLink className="nav-link px-2 py-3 text-info" to="/home/orders">Orders</NavLink>
               {/* <NavLink className="nav-link px-3 py-3 text-info" to="/home/user_information">Account Information</NavLink> */}
               {/* { currentCustomer && <NavLink className="nav-link px-3 py-3 text-info" to="/home/personal_information">Personal Information</NavLink> } */}
               {/* <NavLink className="nav-link px-3 py-3 text-info" to="/home/location">Location</NavLink> */}
@@ -29,17 +29,18 @@ const MainNavbar: FC = () => {
               { currentMerchant && <NavLink className="nav-link px-3 py-3 text-info" to="/home/products">Products</NavLink> }
             </Nav>
 
-            {
+            {/* {
               currentCustomer && (
                 <Form inline>
                   <FormControl type="text" placeholder="Search your product" className="mr-sm-2" />
                   <Button variant="outline-info">Search</Button>
                 </Form>
               )
-            }
+            } */}
 
 
             <NavDropdown 
+              className="mr-2"
               drop="left"
               title={
                 <Image 
@@ -60,9 +61,9 @@ const MainNavbar: FC = () => {
               } 
               id="basic-nav-dropdown"
             >
-              {/* <NavDropdown.Item href="/home">Home</NavDropdown.Item> */}
+              <NavDropdown.Item href="/home">Home</NavDropdown.Item>
               <NavDropdown.Item href="/home/user_information">Account</NavDropdown.Item>
-              { currentCustomer && <NavDropdown.Item href="/home/personal_information">Personal Information</NavDropdown.Item> }
+              {/* { currentCustomer && <NavDropdown.Item href="/home/personal_information">Personal Information</NavDropdown.Item> } */}
               <NavDropdown.Item href="/home/location">Location</NavDropdown.Item>
               { currentMerchant && <NavDropdown.Item href="/home/links">Links</NavDropdown.Item> }              
               { currentMerchant && <NavDropdown.Item href="/home/products">Products</NavDropdown.Item> }              <NavDropdown.Divider />

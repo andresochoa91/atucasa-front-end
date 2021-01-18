@@ -79,7 +79,7 @@ const EditCustomer: FC<ICustomerProps> = ({ handleCurrentCustomer, currentCustom
         setPhoneNumber("");
         setProfilePicture("");
         handleCurrentCustomer();
-        history.push('/home/personal_information');
+        history.push('/home/user_information');
       } else if (data.error) {
         console.log(data);
         ((error) => {
@@ -114,7 +114,7 @@ const EditCustomer: FC<ICustomerProps> = ({ handleCurrentCustomer, currentCustom
       </MainModal>
       
       <h2>Edit Customer</h2>
-      <Link to="/home/personal_information">Go back to personal information</Link>    
+      <Link to="/home/user_information">Go back to personal information</Link>    
       <form onSubmit={ handleSubmit }>
       <label>Profile Picture: </label>
       <br/>
@@ -124,6 +124,7 @@ const EditCustomer: FC<ICustomerProps> = ({ handleCurrentCustomer, currentCustom
         handleInput = { handleInput }
         newPicture = { profilePicture }
         setNewPicture = { setProfilePicture }
+        namePicture={ "profilePicture" }
       />
       <label>Username: </label>
         <input 

@@ -6,6 +6,7 @@ interface IImageProps {
   userName?: string,
   newPicture: string,
   setNewPicture: React.Dispatch<React.SetStateAction<string>>,
+  namePicture: string
   handleInput: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
@@ -15,7 +16,8 @@ const UpdateImage: FC<IImageProps> = (
     userName, 
     handleInput,
     newPicture,
-    setNewPicture 
+    setNewPicture,
+    namePicture 
   }): JSX.Element => {
 
   const [ copyUrl, setCopyUrl ] = useState<boolean>(false);
@@ -71,7 +73,7 @@ const UpdateImage: FC<IImageProps> = (
             <label>Copy url of the image</label>
             <input 
               type="text"
-              name="profilePicture"
+              name={ namePicture }
               value={ newPicture }
               onChange={ handleInput }
               placeholder={ currentPicture }

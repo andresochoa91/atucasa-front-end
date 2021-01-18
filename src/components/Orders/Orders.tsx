@@ -29,7 +29,7 @@ const Orders: FC = (): JSX.Element => {
 
   return (
     <> 
-      <h2 className="text-center mb-5 font-weight-bold">Orders</h2>
+      <h2 className="text-center my-5 font-weight-bold">Orders</h2>
       {
         orders.map(order => (
           <Order order={ order } key={ order.id }/>

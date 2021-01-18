@@ -1,5 +1,5 @@
 import React, { FC, useContext } from 'react';
-import { Container, Jumbotron } from 'react-bootstrap';
+// import { Container, Jumbotron } from 'react-bootstrap';
 import { Redirect, Route } from 'react-router';
 import { AtucasaContext } from '../../Context';
 import Customer from '../Customer/Customer';
@@ -14,13 +14,7 @@ const Home: FC = (): JSX.Element => {
     <>
       <Route exact path="/" render={() => <Redirect to="/home" />}/>
       <Route path="/home" render={() => (
-        <Container className="text-center mt-5">
-          <Jumbotron>
-            {
-              currentUser?.role === "customer" ? <Customer /> : <Merchant />
-            }
-          </Jumbotron>
-        </Container> 
+        currentUser?.role === "customer" ? <Customer /> : <Merchant />
       )}/>
       <Route 
         exact path="/merchants/:slug" 

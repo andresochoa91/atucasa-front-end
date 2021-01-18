@@ -146,6 +146,7 @@ const CreateProduct: FC<TProductsProps> = ({ handleProducts }): JSX.Element => {
           handleInput = { handleInput }
           newPicture = { productPicture }
           setNewPicture = { setProductPicture }
+          namePicture={ "productPicture" }
         />
         
         <br/>

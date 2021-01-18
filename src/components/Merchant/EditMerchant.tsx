@@ -86,6 +86,7 @@ const EditMerchant: FC<IMerchantProps> = ({ handleCurrentMerchant, currentMercha
           handleInput = { handleInput }
           newPicture = { profilePicture }
           setNewPicture = { setProfilePicture }
+          namePicture={ "profilePicture" }
         />
         <br/>
         <label>Background Picture</label>
@@ -95,6 +96,7 @@ const EditMerchant: FC<IMerchantProps> = ({ handleCurrentMerchant, currentMercha
           handleInput = { handleInput }
           newPicture = { backgroundPicture }
           setNewPicture = { setBackgroundPicture }
+          namePicture={ "backgroundPicture" }
         />
         <br/>
         <label>Merchant Name</label>
