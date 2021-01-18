@@ -48,11 +48,13 @@ const App:FC = (): JSX.Element => {
                 </>
               )}/>
               <Route path="/map" render={() => (
-                <>
+                <ContainerJumbotron>
                   <h2>A Tu Casa</h2>
                   <Link to="/">Go Back to Home Page</Link>
+                  <h3>These are the merchants close to you!</h3>
+                  <h5>Click on merchant on map and visit their website to start buying</h5>
                   <MyMap />
-                </>
+                </ContainerJumbotron>
               )
               } />
               <Route 

@@ -9,6 +9,8 @@ import MyMap from '../MyMap/MyMap';
 import { Switch, Link, Route } from 'react-router-dom';
 import ScrollableAnchor, { goToAnchor } from 'react-scrollable-anchor';
 import ContainerJumbotron from '../ContainerJumbotron/ContainerJumbotron';
+import MultiPurposeCard from '../MultiPurposeCard/MultiPurposeCard';
+import { Image } from 'react-bootstrap';
 // import { useHistory } from 'react-router-dom';
 
 const Customer: FC = (): JSX.Element => {
@@ -131,20 +133,42 @@ const Customer: FC = (): JSX.Element => {
             <Route path="/home/user_information" 
               render={() => (
                 <ContainerJumbotron>
-                  <h2>User information</h2>
-                  <img 
-                    src={ currentCustomer.profile_picture } 
-                    alt="pic"
-                    height={ 100 }
-                  />
-                  <h6><strong>Email: </strong>{ currentUser.email }</h6>
-                  {/* <h6><strong>Role: </strong>{ currentUser.role }</h6> */}
-                  <h6><strong>Username: </strong>{ currentCustomer.username }</h6>
-                  <h6><strong>First Name: </strong>{ currentCustomer.first_name }</h6>
-                  <h6><strong>Last Name: </strong>{ currentCustomer.last_name }</h6>
-                  <h6><strong>Phone Number: </strong>{ currentCustomer.phone_number }</h6>
-                  <Link className="btn btn-primary mr-2" to='/home/edit_user'>Update email and/or password</Link>
-                  <Link className="btn btn-primary" to='/home/edit_customer'>Edit personal information</Link>
+                  <h2>User Information</h2>
+                  <MultiPurposeCard>
+                    
+                    <thead>
+                      <tr>
+                        <th className="text-capitalize h3">
+                          <h2>
+                            <strong>
+                              { currentCustomer.username }
+                            </strong>
+                          </h2>
+                        </th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      <tr><td>
+                        <Image 
+                          src={ currentCustomer.profile_picture } 
+                          alt="pic"
+                          height={ 150 }
+                          width={ 150 }
+                          roundedCircle
+                        />
+                      </td></tr>
+                      {/* <tr><td className="h3">Username: { currentCustomer.username }</td></tr> */}
+                      <tr><td><strong>First Name:</strong>  { currentCustomer.first_name }</td></tr>
+                      <tr><td><strong>Last Name:</strong>  { currentCustomer.last_name }</td></tr>
+                      <tr><td><strong>Email:</strong>  { currentUser.email }</td></tr>
+                      <tr><td><strong>Phone Number:</strong>  { currentCustomer.phone_number }</td></tr>
+                      <tr><td>
+                        <Link className="btn btn-primary mr-2" to='/home/edit_user'>Update account data</Link>
+                        <Link className="btn btn-primary" to='/home/edit_customer'>Edit personal data</Link>
+                      </td></tr>
+                    </tbody>
+                  </MultiPurposeCard>
                 </ContainerJumbotron>
               )
             } />

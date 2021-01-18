@@ -3,6 +3,8 @@ import { AtucasaContext } from '../../Context';
 import { Link, useHistory } from 'react-router-dom';
 import { getCachedData } from '../GetCachedData';
 import MainModal from '../MainModal/MainModal';
+import MultiPurposeCard from '../MultiPurposeCard/MultiPurposeCard';
+import { Button } from 'react-bootstrap';
 
 const EditLocation: FC = (): JSX.Element => {
   const { 
@@ -138,76 +140,109 @@ const EditLocation: FC = (): JSX.Element => {
 
   return (
     <>
+      <h2>Edit Location</h2>
       <MainModal titleMessage={ currentTitleMessage }>
         <p>{ currentMessage }</p>
       </MainModal>
       {
         location && (
-          <>
-            <h2>Edit Location</h2>
-            <Link to="/home/location">Go back to location</Link>
-            <form onSubmit={ handleSubmit } >
-              <label>Country</label>
-              <input 
-                type="text"
-                name="country" 
-                value={ country }
-                onChange={ handleInput } 
-                placeholder={ location.country }
-              />
-              <br/>              
-              <label>State</label>
-              <input 
-                type="text"
-                name="state" 
-                value={ state }
-                onChange={ handleInput } 
-                placeholder={ location.state }
-              />
-              <br/>
-              <label>City</label>
-              <input 
-                type="text"
-                name="city" 
-                value={ city }
-                onChange={ handleInput } 
-                placeholder={ location.city }
-              />
-              <br/>
-              <label>Address</label>
-              <input 
-                type="text"
-                name="address" 
-                value={ address }
-                onChange={ handleInput } 
-                placeholder={ location.address }
-              />
-              <br/>
-              <label>Zip Code</label>
-              <input 
-                type="text"
-                name="zipCode" 
-                value={ zipCode }
-                onChange={ handleInput } 
-                placeholder={ location.zip_code }
-              />
-              <br/>
-              <label>Details</label>
-              <input 
-                type="text"
-                name="details" 
-                value={ details }
-                onChange={ handleInput } 
-                placeholder={ location.details }
-              />
-              <br/>
-              <input 
-                type="submit" 
-                value="Update"
-              />
-            </form>
-            <br/>
-          </>
+          <form onSubmit={ handleSubmit } >
+            <MultiPurposeCard>
+              <Link to="/home/location">Go back to location</Link>
+              <tbody>
+                <tr><td>
+                  <strong>
+                    <label className="">Address: &nbsp;</label>
+                  </strong>
+                  <input 
+                    type="text"
+                    name="address" 
+                    value={ address }
+                    onChange={ handleInput } 
+                    placeholder={ location.address }
+                    className="float-right px-5"
+                  />
+                </td></tr>
+
+                <tr><td>
+                  <strong>
+                    <label>City: &nbsp;</label>
+                  </strong>
+                  <input 
+                    type="text"
+                    name="city" 
+                    value={ city }
+                    onChange={ handleInput } 
+                    placeholder={ location.city }
+                    className="float-right px-5"
+                  />
+                </td></tr>
+                
+                <tr><td>
+                  <strong>
+                    <label>State: &nbsp;</label>
+                  </strong>
+                  <input 
+                    type="text"
+                    name="state" 
+                    value={ state }
+                    onChange={ handleInput } 
+                    placeholder={ location.state }
+                    className="float-right px-5"
+                  />
+                </td></tr>
+
+                <tr><td>
+                  <strong>
+                    <label>Country: &nbsp;</label>
+                  </strong>
+                  <input 
+                    type="text"
+                    name="country" 
+                    value={ country }
+                    onChange={ handleInput } 
+                    placeholder={ location.country }
+                    className="float-right px-5"
+                  />
+                </td></tr>
+
+                <tr><td>
+                  <strong>
+                    <label>Zip Code: &nbsp;</label>
+                  </strong>
+                  <input 
+                    type="text"
+                    name="zipCode" 
+                    value={ zipCode }
+                    onChange={ handleInput } 
+                    placeholder={ location.zip_code }
+                    className="float-right px-5"
+                  />
+                </td></tr>
+
+                <tr><td>
+                  <strong>
+                    <label>Details: &nbsp;</label>
+                  </strong>
+                  <input 
+                    type="text"
+                    name="details" 
+                    value={ details }
+                    onChange={ handleInput } 
+                    placeholder={ location.details }
+                    className="float-right px-5"
+                  />
+                </td></tr>
+                <tr><td>
+                  <Button 
+                    type="submit" 
+                  >
+                    Update
+                  </Button>
+                </td></tr>   
+              </tbody>
+            </MultiPurposeCard>
+          </form>
         )
       }
     </>
