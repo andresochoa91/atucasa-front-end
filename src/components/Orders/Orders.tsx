@@ -1,4 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
+import ContainerJumbotron from '../ContainerJumbotron/ContainerJumbotron';
 import Order from './Order';
 
 const Orders: FC = (): JSX.Element => {
@@ -29,10 +30,12 @@ const Orders: FC = (): JSX.Element => {
 
   return (
     <> 
-      <h2 className="text-center my-5 font-weight-bold">Orders</h2>
+      <h2 className="text-center mt-4 font-weight-bold">Orders</h2>
       {
         orders.map(order => (
-          <Order order={ order } key={ order.id }/>
+          <ContainerJumbotron key={ order.id }>
+            <Order order={ order } />
+          </ContainerJumbotron>
         ))
       }
     </>

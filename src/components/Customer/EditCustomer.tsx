@@ -4,6 +4,8 @@ import UpdateImage from '../UpdateImage/UpdateImage';
 import { useHistory } from 'react-router-dom';
 import { AtucasaContext } from '../../Context';
 import MainModal from '../MainModal/MainModal';
+import MultiPurposeCard from '../MultiPurposeCard/MultiPurposeCard';
+import { Button } from 'react-bootstrap';
 
 interface ICustomerProps {
   handleCurrentCustomer: () => void,
@@ -109,62 +111,100 @@ const EditCustomer: FC<ICustomerProps> = ({ handleCurrentCustomer, currentCustom
 
   return(
     <>
+      <h2>Edit Customer</h2>
       <MainModal titleMessage={ currentTitleMessage }>
         <p>{ currentMessage }</p>
       </MainModal>
       
-      <h2>Edit Customer</h2>
-      <Link to="/home/user_information">Go back to personal information</Link>    
-      <form onSubmit={ handleSubmit }>
-      <label>Profile Picture: </label>
-      <br/>
-      <UpdateImage 
-        currentPicture = { currentCustomer.profile_picture }
-        userName = { currentCustomer.username }
-        handleInput = { handleInput }
-        newPicture = { profilePicture }
-        setNewPicture = { setProfilePicture }
-        namePicture={ "profilePicture" }
-      />
-      <label>Username: </label>
-        <input 
-          type="text"
-          name="username"
-          value={ username }
-          onChange={ handleInput }
-          placeholder={ currentCustomer.username }
-        />
-        <br/>
-        <label>First Name: </label>
-        <input 
-          type="text"
-          name="firstName"
-          value={ firstName }
-          onChange={ handleInput }
-          placeholder={ currentCustomer.first_name }
-        />
-        <br/>
-        <label>Last Name: </label>
-        <input 
-          type="text"
-          name="lastName"
-          value={ lastName }
-          onChange={ handleInput }
-          placeholder={ currentCustomer.last_name }
-        />
-        <br/>
-        <label>Phone Number: </label>
-        <input 
-          type="text"
-          name="phoneNumber"
-          value={ phoneNumber } 
-          onChange={ handleInput } 
-          placeholder={ currentCustomer.phone_number }
-        />
-        <br/>
-        <input type="submit" value="Update"/>
+
+      <form onSubmit={ handleSubmit } >
+        <MultiPurposeCard>
+          <tbody>
+
+            <tr><td>
+              <Link to="/home/user_information">Go back to user information</Link>
+            </td></tr>
+
+            <tr><td>
+              <strong>
+                <label>Profile Picture:</label>
+              </strong>
+              <UpdateImage 
+                currentPicture = { currentCustomer.profile_picture }
+                userName = { currentCustomer.username }
+                handleInput = { handleInput }
+                newPicture = { profilePicture }
+                setNewPicture = { setProfilePicture }
+                namePicture={ "profilePicture" }
+              />
+            </td></tr>
+
+            <tr><td>
+              <strong>
+                <label>Username: &nbsp;</label>
+              </strong>
+              <input 
+                type="text"
+                name="username"
+                value={ username }
+                onChange={ handleInput }
+                placeholder={ currentCustomer.username }
+                className="float-right w-75"
+              />
+            </td></tr>
+
+            <tr><td>
+              <strong>
+                <label>First Name: &nbsp;</label>
+              </strong>
+              <input 
+                type="text"
+                name="firstName"
+                value={ firstName }
+                onChange={ handleInput }
+                placeholder={ currentCustomer.first_name }
+                className="float-right w-75"
+              />
+            </td></tr>
+
+            <tr><td>
+              <strong>
+                <label>Last Name: &nbsp;</label>
+              </strong>
+              <input 
+                type="text"
+                name="lastName"
+                value={ lastName }
+                onChange={ handleInput }
+                placeholder={ currentCustomer.last_name }
+                className="float-right w-75"
+              />
+            </td></tr>
+
+            <tr><td>
+              <strong>
+                <label>Phone: &nbsp;</label>
+              </strong>
+              <input 
+                type="text"
+                name="phoneNumber"
+                value={ phoneNumber } 
+                onChange={ handleInput } 
+                placeholder={ currentCustomer.phone_number }
+                className="float-right w-75"
+              />
+            </td></tr>
+
+            <tr><td>
+              <Button 
+                type="submit" 
+              >
+                Update
+              </Button>
+            </td></tr>  
+          </tbody>
+        </MultiPurposeCard>
       </form>
-      <br/>
     </>
   );
 };

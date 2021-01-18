@@ -151,7 +151,8 @@ type TOrder = {
   merchant_slug: string,
   customer_name: string,
   customer_location: TLocation,
-  customer_picture?: string
+  customer_picture?: string,
+  customer_phone_number?: string
 };
 
 type TOrders = Array<TOrder>;

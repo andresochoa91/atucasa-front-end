@@ -66,7 +66,7 @@ const ProductOrder: FC<IProductProps> = ({
       //   )
       // }} 
       key={ product.id }
-      className={ `border border-dark ${!available ? "table-danger" : amountChanged ? "table-warning" : ""}` }
+      className={ `border border-light ${!available ? "table-danger text-dark" : amountChanged ? "table-warning text-dark" : ""}` }
     >
       <td>{ product.product_name }</td>
       <td>${ (product.price).toFixed(2) }</td>

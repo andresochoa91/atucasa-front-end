@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Container, Table, Card } from 'react-bootstrap';
+import { Container, Table/* , Card */ } from 'react-bootstrap';
 
 interface IMultiPurposeCardProps {
   children: React.ReactNode

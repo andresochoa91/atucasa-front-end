@@ -20,12 +20,8 @@ const MainNavbar: FC = () => {
           <Navbar bg="dark" variant="dark" className="py-0" sticky="top">
             <Nav className="mr-auto">
               <Navbar.Brand className="mt-2 ml-4 lead" href="/home">A Tu Casa</Navbar.Brand>
-              <NavLink className="nav-link px-2 py-3 text-info" to="/home/map">Map</NavLink>
+              <Nav.Link className="px-2 py-3 text-info" href="/home/map">Map</Nav.Link>
               <NavLink className="nav-link px-2 py-3 text-info" to="/home/orders">Orders</NavLink>
-              {/* <NavLink className="nav-link px-3 py-3 text-info" to="/home/user_information">Account Information</NavLink> */}
-              {/* { currentCustomer && <NavLink className="nav-link px-3 py-3 text-info" to="/home/personal_information">Personal Information</NavLink> } */}
-              {/* <NavLink className="nav-link px-3 py-3 text-info" to="/home/location">Location</NavLink> */}
-              {/* { currentMerchant && <NavLink className="nav-link px-3 py-3 text-info" to="/home/links">Links</NavLink> } */}
               { currentMerchant && <NavLink className="nav-link px-3 py-3 text-info" to="/home/products">Products</NavLink> }
             </Nav>
 
