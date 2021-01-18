@@ -152,7 +152,7 @@ const EditLocation: FC = (): JSX.Element => {
               <tbody>
                 <tr><td>
                   <strong>
-                    <label className="">Address: &nbsp;</label>
+                    <label>Address: &nbsp;</label>
                   </strong>
                   <input 
                     type="text"
@@ -160,7 +160,7 @@ const EditLocation: FC = (): JSX.Element => {
                     value={ address }
                     onChange={ handleInput } 
                     placeholder={ location.address }
-                    className="float-right px-5"
+                    className="float-right w-75"
                   />
                 </td></tr>
 
@@ -174,7 +174,7 @@ const EditLocation: FC = (): JSX.Element => {
                     value={ city }
                     onChange={ handleInput } 
                     placeholder={ location.city }
-                    className="float-right px-5"
+                    className="float-right w-75"
                   />
                 </td></tr>
                 
@@ -188,7 +188,7 @@ const EditLocation: FC = (): JSX.Element => {
                     value={ state }
                     onChange={ handleInput } 
                     placeholder={ location.state }
-                    className="float-right px-5"
+                    className="float-right w-75"
                   />
                 </td></tr>
 
@@ -202,7 +202,7 @@ const EditLocation: FC = (): JSX.Element => {
                     value={ country }
                     onChange={ handleInput } 
                     placeholder={ location.country }
-                    className="float-right px-5"
+                    className="float-right w-75"
                   />
                 </td></tr>
 
@@ -216,7 +216,7 @@ const EditLocation: FC = (): JSX.Element => {
                     value={ zipCode }
                     onChange={ handleInput } 
                     placeholder={ location.zip_code }
-                    className="float-right px-5"
+                    className="float-right w-75"
                   />
                 </td></tr>
 
@@ -230,7 +230,7 @@ const EditLocation: FC = (): JSX.Element => {
                     value={ details }
                     onChange={ handleInput } 
                     placeholder={ location.details }
-                    className="float-right px-5"
+                    className="float-right w-75"
                   />
                 </td></tr>
                 <tr><td>

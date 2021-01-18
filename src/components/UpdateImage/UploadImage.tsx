@@ -20,7 +20,10 @@ const UploadImage: FC<IPictureProps> = ({ setPicture, pictureName }): JSX.Elemen
   };
 
   return (
-    <input type="file" onChange={ onFileChange }/>
+    <input 
+      type="file" 
+      onChange={ onFileChange }
+    />
   );
 };
 

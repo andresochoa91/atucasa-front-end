@@ -1,4 +1,5 @@
 import React, { FC, useState } from 'react'
+import { Button } from 'react-bootstrap';
 import UploadImage from './UploadImage';
 
 interface IImageProps {
@@ -29,57 +30,69 @@ const UpdateImage: FC<IImageProps> = (
         src={ newPicture ? newPicture : currentPicture } 
         alt="img"
         height={ 200 }
+        className="mb-3"
       />
       <br/>
       {
         newPicture && (
           <>
-            <button onClick={ () => setNewPicture("") }>Keep original image</button>
+            <Button 
+              className="mb-2"
+              onClick={ () => setNewPicture("") }>Keep original image
+            </Button>
             <br/>
           </>
         )
       }
       {
         !uploadImage && (
-          <button 
+          <div 
             onClick={ (event) => {
               event.preventDefault();
               setCopyUrl(!copyUrl);
               setUploadImage(false); 
             }}
+            style={{
+              cursor: "pointer"
+            }}
+            className={ `mr-2 ${ !copyUrl ? "btn btn-primary" : "text-primary" }` }
           >
             { !copyUrl ? "Copy url of the image" : "Go back" }
-          </button>
+          </div>
         )
       }
       {
         !copyUrl && (
-          <button 
+          <div 
             onClick={ (event) => {
               event.preventDefault();
               setUploadImage(!uploadImage);
               setCopyUrl(false); 
             }}
+            style={{
+              cursor: "pointer"
+            }}
+            className={ `${ !uploadImage ? "btn btn-primary" : "text-primary" }` }
           >
             { !uploadImage ? "Upload image from Computer" : "Go back" }
-          </button>
+          </div>
         )
       }
-      <br/>
-      <br/>
+
+
+
       {
         copyUrl && (
           <>
-            <label>Copy url of the image</label>
+            <label className="mr-2">Copy url of the image</label>
             <input 
               type="text"
               name={ namePicture }
               value={ newPicture }
               onChange={ handleInput }
               placeholder={ currentPicture }
+              className="mt-3"
             />
-            <br/>
-            <br/>
           </>
         )
       }
@@ -92,8 +105,6 @@ const UpdateImage: FC<IImageProps> = (
               setPicture={ setNewPicture }
               pictureName={ userName }
             />
-            <br/>
-            <br/>
           </>
         )
       }

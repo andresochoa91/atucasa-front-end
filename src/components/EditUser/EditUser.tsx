@@ -2,6 +2,9 @@ import React, { FC, useContext, useState } from 'react';
 import { AtucasaContext } from '../../Context';
 import { Link, useHistory } from 'react-router-dom';
 import MainModal from '../MainModal/MainModal';
+import ContainerJumbotron from '../ContainerJumbotron/ContainerJumbotron';
+import MultiPurposeCard from '../MultiPurposeCard/MultiPurposeCard';
+import { Button } from 'react-bootstrap';
 
 const EditUser: FC = (): JSX.Element => {
   const { 
@@ -87,47 +90,75 @@ const EditUser: FC = (): JSX.Element => {
       <MainModal titleMessage={ currentTitleMessage }>
         <p>{ currentMessage }</p>
       </MainModal>
+      <h2>Update Email or Password</h2>
       {
         currentUser && (
-          <>
-            <h2>Update Email or Password</h2>
-            <p style={{ color: "#f60" }}>To change email or password, current password is required</p>
-            <p style={{ color: "#f60" }}>If you only want to update email, you can leave password field in blank, and viceversa</p>
-            <Link to="/home/user_information">Go back to user information</Link>    
-            <form onSubmit={ handleSubmit } >
-              <label>New Email: </label>
-              <input 
-                type="email"
-                name="newEmail" 
-                value={ newEmail }
-                onChange={ handleInput } 
-                placeholder={ currentUser.email }
-              />
-              <br/>
-              <label>New Password: </label>
-              <input 
-                type="password"
-                name="newPassword"
-                value={ newPassword }
-                onChange={ handleInput } 
-              />
-              <br/>
-              <label>Type current password to confirm changes: </label>
-              <input 
-                type="password"
-                name="currentPassword"
-                value={ currentPassword }
-                onChange={ handleInput } 
-              />
-              <br/>
-              <input 
-                type="submit" 
-                value="Update"
-                onChange={ handleInput } 
-              />
-            </form>
-            <br/>
-          </>
+          <form onSubmit={ handleSubmit } >
+            <MultiPurposeCard>
+                  
+              <tbody>
+
+                <tr><td>
+                  <Link to="/home/user_information">Go back to user information</Link>
+                </td></tr>
+
+                <tr><td style={{ color: "#f60" }}>
+                  To change email or password, current password is required
+                </td></tr>
+                
+                <tr><td style={{ color: "#f60" }}>
+                  If you only want to update email, you can leave password field in blank, and viceversa
+                </td></tr>
+                <tr><td>
+                  <strong>
+                    <label>New Email: &nbsp;</label>
+                  </strong>
+                  <input 
+                    type="email"
+                    name="newEmail" 
+                    value={ newEmail }
+                    onChange={ handleInput } 
+                    placeholder={ currentUser.email }
+                    className="float-right w-75"
+                  />
+                </td></tr>
+
+                <tr><td>
+                  <strong>
+                    <label>New Password: &nbsp;</label>
+                  </strong>
+                  <input 
+                    type="password"
+                    name="newPassword"
+                    value={ newPassword }
+                    onChange={ handleInput }
+                    className="float-right pr-4 pl-5"
+                  />
+                </td></tr>
+
+                <tr><td>
+                  <strong>
+                    <label>Current Password: &nbsp;</label>
+                  </strong>
+                  <input 
+                    type="password"
+                    name="currentPassword"
+                    value={ currentPassword }
+                    onChange={ handleInput } 
+                    className="float-right px-4"
+                  />
+                </td></tr>
+
+                <tr><td>
+                  <Button 
+                    type="submit" 
+                  >
+                    Update
+                  </Button>
+                </td></tr>  
+              </tbody>             
+            </MultiPurposeCard>
+          </form>
         )
       }
     </>
