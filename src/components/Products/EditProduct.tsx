@@ -120,6 +120,7 @@ const EditProduct: FC<TProductsProps & TProductProps & THandleMode> = ({ handleP
           handleInput = { handleInput }
           newPicture = { productPicture }
           setNewPicture = { setProductPicture }
+          namePicture={ "productPicture" }
         />
         <br/>
         <label>Product Name</label>   

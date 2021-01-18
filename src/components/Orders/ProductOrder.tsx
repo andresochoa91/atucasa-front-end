@@ -59,13 +59,14 @@ const ProductOrder: FC<IProductProps> = ({
 
   return (
     <tr 
-      style={{ 
-        backgroundColor: (
-          !available ? "#f00" : 
-          amountChanged ? "#ff0" : "#fff"
-        )
-      }} 
+      // style={{ 
+      //   backgroundColor: (
+      //     !available ? "#f00" : 
+      //     amountChanged ? "#ff0" : "#fff"
+      //   )
+      // }} 
       key={ product.id }
+      className={ `border border-dark ${!available ? "table-danger" : amountChanged ? "table-warning" : ""}` }
     >
       <td>{ product.product_name }</td>
       <td>${ (product.price).toFixed(2) }</td>
@@ -150,7 +151,7 @@ const ProductOrder: FC<IProductProps> = ({
               !available ? (
                 <td className="font-weight-bold">Not available</td>
               ) : amountChanged ? (
-                <td className="font-weight-bold">Amount suggested by merchant</td>
+                <td className="font-weight-bold border-left border-dark">Amount suggested by merchant</td>
               ) : (
                 <td>Available</td>
               )

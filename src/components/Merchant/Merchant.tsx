@@ -9,6 +9,7 @@ import Products from '../Products/Products';
 import Orders from '../Orders/Orders';
 import { Switch, Link, Route, Redirect } from 'react-router-dom';
 import MyMap from '../MyMap/MyMap';
+import ContainerJumbotron from '../ContainerJumbotron/ContainerJumbotron';
 
 const Merchant: FC = (): JSX.Element => {
   const { currentUser, location, currentMerchant, setCurrentMerchant } = useContext<TContextProps>(AtucasaContext);
@@ -39,11 +40,15 @@ const Merchant: FC = (): JSX.Element => {
           <Switch>
             <Route exact path="/home" render={() => <Redirect to={ `/merchants/${currentMerchant.slug}` } />} />
             <Route path="/home/map" render={() => (
-              location.latitude && location.longitude ? (
-                <MyMap lat={location.latitude} lng={location.longitude} />
-              ) : (
-                <MyMap />
-              )
+              <ContainerJumbotron>
+                {
+                  location.latitude && location.longitude ? (
+                    <MyMap lat={location.latitude} lng={location.longitude} />
+                  ) : (
+                    <MyMap />
+                  )
+                }
+              </ContainerJumbotron>
             )}/>
             <Route path="/home/edit_user" render={() => <EditUser />}/> 
             <Route path="/home/edit_merchant" render={() => (
@@ -52,16 +57,30 @@ const Merchant: FC = (): JSX.Element => {
                 currentMerchant={ currentMerchant }
               />
             )}/> 
-            <Route path="/home/edit_location" render={() => <EditLocation />}/> 
-            <Route path="/home/orders" render={() => <Orders />}/> 
+            <Route 
+              path="/home/edit_location" 
+              render={() => (
+                <ContainerJumbotron>
+                  <EditLocation />
+                </ContainerJumbotron>
+              )
+            }
+            /> 
+            <Route 
+              path="/home/orders" 
+              render={() => (
+                <ContainerJumbotron>
+                  <Orders />
+                </ContainerJumbotron>
+              )
+            }/> 
             <Route path="/home/user_information" render={() => (
-              <>
+              <ContainerJumbotron>
                 <h2>User information</h2>
                 <Link to="/home/edit_user">Update email or password</Link>
                 <br/>
                 <Link to="/home/edit_merchant">Edit merchant information</Link>
                 <br/>
-                <Link to={`/merchants/${currentMerchant.slug}`}>Click here to visit your website</Link>
                 <p><strong>Profile Picture: </strong></p>
                 <img 
                   src={ currentMerchant.profile_picture } 
@@ -79,11 +98,34 @@ const Merchant: FC = (): JSX.Element => {
                 <p><strong>Phone Number: </strong>{  currentMerchant.phone_number }</p>
                 <p><strong>Tax ID: </strong>{ currentMerchant.tax_id }</p>
                 <p><strong>Description: </strong>{  currentMerchant.description }</p>
-              </>
+              </ContainerJumbotron>
             )}/>
-            <Route path="/home/location" render={() => <Location />}/> 
-            <Route path="/home/links" render={() => <Links />}/> 
-            <Route path="/home/products" render={() => <Products />}/> 
+            <Route 
+              path="/home/location" 
+              render={() => (
+                <ContainerJumbotron>
+                  <Location />
+                </ContainerJumbotron>
+              )}
+            /> 
+
+            <Route 
+              path="/home/links" 
+              render={() => (
+                <ContainerJumbotron>
+                  <Links />
+                </ContainerJumbotron>
+              )}
+            /> 
+
+            <Route 
+              path="/home/products" 
+              render={() => (
+                <ContainerJumbotron>
+                  <Products />
+                </ContainerJumbotron>
+              )}
+            /> 
           </Switch>          
         )
       }

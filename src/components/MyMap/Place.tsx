@@ -52,7 +52,7 @@ const Place: FC<IMerchantProps> = ({ merchant, lat, lng, currentAddress, current
     <>
       {
         (latitude && longitude && showPlace) && (
-          <>
+          <div onMouseOver={() => console.log("yay")}>
             <Circle
               center={[latitude, longitude]}
               radius={14}
@@ -81,7 +81,7 @@ const Place: FC<IMerchantProps> = ({ merchant, lat, lng, currentAddress, current
                 </Link>
               </Popup>
             </Marker>
-          </>
+          </div>
           
         )
       }
