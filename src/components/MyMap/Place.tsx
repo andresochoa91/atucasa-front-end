@@ -64,9 +64,9 @@ const Place: FC<IMerchantProps> = ({ merchant, lat, lng, currentAddress, current
             >
               <Popup>
                 <p>{`${ merchant_name }`}</p>
-                <Link to={`${ currentUser ? "/home/" : "/" }merchants/${ merchant.merchant_info.slug }`}>
+                <a href={`${ currentUser ? "/home/" : "/" }merchants/${ merchant.merchant_info.slug }`}>
                   { merchant.merchant_info.merchant_name }
-                </Link>
+                </a>
               </Popup>
             </Circle>
             <Marker
@@ -76,9 +76,9 @@ const Place: FC<IMerchantProps> = ({ merchant, lat, lng, currentAddress, current
             >
               <Popup>
                 <p>{ merchant.merchant_info.merchant_name }</p>
-                <Link to={`${ currentUser ? "/home/" : "/" }merchants/${ merchant.merchant_info.slug }`}>
+                <a href={`${ currentUser ? "/home/" : "/" }merchants/${ merchant.merchant_info.slug }`}>
                   { merchant.merchant_info.merchant_name }
-                </Link>
+                </a>
               </Popup>
             </Marker>
           </div>

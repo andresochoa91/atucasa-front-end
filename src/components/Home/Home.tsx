@@ -12,7 +12,6 @@ const Home: FC = (): JSX.Element => {
 
   const { currentUser } = useContext<TContextProps>(AtucasaContext);
   const history = useHistory();
-  console.log(history.location.pathname)
 
   return (
     <>

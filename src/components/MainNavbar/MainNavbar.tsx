@@ -9,17 +9,17 @@ import cart from '../../pictures/cart.png';
 const MainNavbar: FC = () => {
   
   const { currentUser, currentCustomer, currentMerchant, setOpenCart, setCartModal } = useContext<TContextProps>(AtucasaContext);
-  // const history = useHistory();
-  // const [ showCart, setShowCart ] = useState<boolean>(false);
+  const history = useHistory();
+  const [ showCart, setShowCart ] = useState<boolean>(false);
 
   
-  // useEffect(() => {
-  //   const regex = /\/merchants\//g;
-  //   const url = history.location.pathname;
-  //   if (url && ((JSON.stringify(url.match(regex))) === (JSON.stringify(["/merchants/"])))) {
-  //     setShowCart(true);
-  //   }
-  // }, [history]);
+  useEffect(() => {
+    const regex = /\/merchants\//g;
+    const url = history.location.pathname;
+    if (url && ((JSON.stringify(url.match(regex))) === (JSON.stringify(["/merchants/"])))) {
+      setShowCart(true);
+    }
+  }, [history]);
 
 
   // const helper = () => {
@@ -40,8 +40,8 @@ const MainNavbar: FC = () => {
               { currentMerchant && <NavLink className="nav-link px-3 py-3 text-info" to="/home/products">Products</NavLink> }
             </Nav>
 
-            {/* {
-              showCart && ( */}
+            {
+              showCart && (
                 <Nav>
                   <img 
                     src={cart} 
@@ -51,12 +51,14 @@ const MainNavbar: FC = () => {
                       setCartModal(true)
                       setOpenCart(true);
                     }}
+                    style={{
+                      cursor: "pointer"
+                    }}
                   />
                 </Nav>
-              {/* )
-            } */}
+              )
+            } 
 
-            
             <NavDropdown 
               className="mr-2"
               drop="left"

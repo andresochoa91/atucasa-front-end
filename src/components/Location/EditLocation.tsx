@@ -148,8 +148,10 @@ const EditLocation: FC = (): JSX.Element => {
         location && (
           <form onSubmit={ handleSubmit } >
             <MultiPurposeCard>
-              <Link to="/home/location">Go back to location</Link>
               <tbody>
+                <tr><td>
+                  <Link to="/home/location">Go back to location</Link>
+                </td></tr>
                 <tr><td>
                   <strong>
                     <label>Address: &nbsp;</label>
