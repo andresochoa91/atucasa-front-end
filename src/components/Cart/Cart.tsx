@@ -208,8 +208,8 @@ const Cart: FC<IProductsProps> = ({ currentCustomerID, merchantID }): JSX.Elemen
             <td></td>
             <td></td>
             <td></td>
-            <td><strong>Total</strong></td>
-            <td><strong>${ (total + Number(tip) + 5).toFixed(2) }</strong></td>
+            <td className="h3"><strong>Total</strong></td>
+            <td className="h3"><strong>${ (total + Number(tip) + 5).toFixed(2) }</strong></td>
           </tr>
         </tbody>
       </Table>

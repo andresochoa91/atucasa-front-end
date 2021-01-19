@@ -1,6 +1,5 @@
 import React, { FC, useContext, useEffect, useState } from 'react';
 import { Circle, Popup, Marker } from 'react-leaflet';
-import { Link } from 'react-router-dom';
 import { AtucasaContext } from '../../Context';
 import L from 'leaflet';
 import store from '../../pictures/store.png';

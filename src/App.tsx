@@ -11,6 +11,7 @@ import Home from './components/Home/Home';
 // import { Container, Jumbotron } from 'react-bootstrap';
 import food2 from './pictures/food2.jpg'
 import ContainerJumbotron from './components/ContainerJumbotron/ContainerJumbotron';
+import { Nav, Navbar, NavDropdown } from 'react-bootstrap';
 
 
 const App:FC = (): JSX.Element => {
@@ -69,6 +70,17 @@ const App:FC = (): JSX.Element => {
           )
         }
       </Switch>
+      <br/>
+      <br/>
+      <br/>
+      <Navbar
+        style={{
+          bottom: "0"
+        }}
+        className="position-absolute w-100"
+      > 
+        <p className="mx-auto">© 2021 A Tu Casa,  created by Johan Ochoa. All Rights Reserved</p>          
+      </Navbar>
     </div>
   );
 };

@@ -3,12 +3,19 @@ import { Navbar, Nav, NavDropdown, Image/* , Form, FormControl, Button */ } from
 import { NavLink, useHistory } from 'react-router-dom';
 import { AtucasaContext } from '../../Context';
 import SignOut from '../SignForms/SignOut';
-import cart from '../../pictures/cart.png';
+import cartPicture from '../../pictures/cartPicture.png';
 
 
 const MainNavbar: FC = () => {
   
-  const { currentUser, currentCustomer, currentMerchant, setOpenCart, setCartModal } = useContext<TContextProps>(AtucasaContext);
+  const { 
+    currentUser, 
+    currentCustomer, 
+    currentMerchant, 
+    setOpenCart, 
+    setCartModal,
+    cart 
+  } = useContext<TContextProps>(AtucasaContext);
   const history = useHistory();
   const [ showCart, setShowCart ] = useState<boolean>(false);
 
@@ -41,10 +48,10 @@ const MainNavbar: FC = () => {
             </Nav>
 
             {
-              showCart && (
+              (showCart && currentUser.role === "customer") && (
                 <Nav>
                   <img 
-                    src={cart} 
+                    src={cartPicture} 
                     alt="cart"
                     width="40px"
                     onClick={() => {
@@ -55,6 +62,28 @@ const MainNavbar: FC = () => {
                       cursor: "pointer"
                     }}
                   />
+                  {
+                    cart.length ? (
+                      <div
+                        style={{
+                          height: "20px",
+                          width: "20px",
+                          borderColor: "#f00",
+                          backgroundColor: "#f00",
+                          borderRadius: "50%"
+                        }}
+                      >
+                        <p 
+                          className="text-center text-light"
+                          style={{
+                            fontSize: "13px"
+                          }}
+                        >
+                          { cart.length }
+                        </p>
+                      </div>
+                    ) : <></>
+                  }
                 </Nav>
               )
             } 
