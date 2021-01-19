@@ -2,6 +2,8 @@ import React, { FC, useContext, useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { AtucasaContext } from '../../Context';
 import ShowProducts from '../ShowProducts/ShowProducts';
+import downarrow from '../../pictures/downarrow.png';
+import uparrow from '../../pictures/uparrow.png';
 
 interface IParams {
   params: { slug: string }
@@ -68,7 +70,156 @@ const ShowMerchantNoLogged:FC<IMerchantProps & RouteComponentProps> = ({ match, 
                 </>
               )
             }
-            <h2>{ currentMerchant.merchant_info.merchant_name }</h2>
+            <div
+              style={{
+                backgroundImage: `url("${ currentMerchant.merchant_info.background_picture })"`,
+                height: "400px",
+                backgroundSize: "cover",
+                backgroundPosition: 'center',
+                backgroundRepeat: "no-repeat",
+                display: "flex"
+              }}
+            >
+              <div
+                style={{
+                  width: "100%",
+                  margin: "auto",
+                }}
+              >
+                <p
+                  className="mb-4"
+                  style={{
+                    width: "100%",
+                    margin: "auto",
+                    fontSize: "60px",
+                    textAlign: "center",
+                    textShadow: `
+                      4px 4px 2px #fff, 
+                      -4px -4px 2px #fff, 
+                      -4px 4px 2px #fff, 
+                      4px -4px 2px #fff
+                    `
+                  }}
+                >
+                  { currentMerchant.merchant_info.merchant_name }
+                </p>
+
+                <div
+                  style={{
+                    width: "200px",
+                    margin: "auto"
+                  }}
+                >
+                  <img 
+                    src={ currentMerchant.merchant_info.profile_picture } 
+                    alt="img"
+                    height="200px"
+                    width="200px"
+                    style={{
+                      margin: "auto",
+                      borderRadius: "50%",
+                      boxShadow: "0 0 15px 20px rgba(0,0,0,0.6)"
+                    }}
+                  />
+                </div>
+              </div>
+            
+            </div>
+
+            {/* <h2>{ currentMerchant.merchant_info.merchant_name }</h2> */}
+
+            
+            <div
+              style={{
+                cursor: "pointer"
+              }}
+              onClick={() => {
+                setShowProducts(!showProducts);
+                if (!userChecked) {
+                  handleCurrentUser();  
+                  setUserChecked(true);
+                }
+              }}
+              className="mt-4"
+            >
+
+              {
+                showProducts && (
+                  <>
+                    <div
+                      style={{
+                        width: "50px",
+                        margin: "auto"
+                      }}
+                    >
+                      <img
+                        src={uparrow}
+                        height="50px"
+                        alt="down-arrow"
+                        style={{
+                          width: "50px"
+                        }}
+                      />
+                    </div>
+                    <hr
+                      style={{
+                        backgroundColor: "#000",
+                        border: "none",
+                        color: "#eee",
+                        height: "3px",
+                        margin: "0"
+                      }}
+                    />
+                  </>
+                )
+              }
+
+              <p className="text-center font-weight-bold mb-0 h4">
+                { !showProducts ? "Click arrow to see products" : "Click arrow to hide products" }
+              </p>
+              {
+                !showProducts && (
+                  <>
+                    <hr
+                      style={{
+                        backgroundColor: "#000",
+                        border: "none",
+                        color: "#eee",
+                        height: "3px",
+                        margin: "0"
+                      }}
+                    />
+                    <div
+                      style={{
+                        width: "50px",
+                        margin: "auto"
+                      }}
+                    >
+                      <img
+                        src={downarrow}
+                        height="50px"
+                        alt="down-arrow"
+                        style={{
+                          width: "50px"
+                        }}
+                      />
+                    </div>
+                  </>
+                )
+              }
+            </div>
+
+            {
+              showProducts && (          
+                <>
+                  <ShowProducts 
+                    merchantID={ currentMerchant.merchant_info.id } 
+                    products={ currentMerchant.products }
+                  />
+                </>
+              )
+            }
+
             <p><strong>Description</strong>: { currentMerchant.merchant_info.description }</p>
             <p><strong>Phone Number</strong>: { currentMerchant.merchant_info.phone_number }</p>
             <p><strong>Email</strong>: { currentMerchant.email}</p>
@@ -76,28 +227,9 @@ const ShowMerchantNoLogged:FC<IMerchantProps & RouteComponentProps> = ({ match, 
               : { `${country}, ${state}, ${city}, ${address}.` }
             </p>
             <br/>
-            <h3>Products</h3>
-            <button 
-              onClick={ () => {
-                setShowProducts(!showProducts);
-                if (!userChecked) {
-                  handleCurrentUser();  
-                  setUserChecked(true);
-                }
-              }
-            }>
-              { showProducts ? "Do not show products" : "Show products" }
-            </button>
+            
             <br/>
             <br/>
-            {
-              showProducts && (          
-                <ShowProducts 
-                  merchantID={ currentMerchant.merchant_info.id } 
-                  products={ currentMerchant.products }
-                />
-              )
-            }
             <br/>
             <h3>Links</h3>
             {

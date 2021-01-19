@@ -59,14 +59,16 @@ const Customer: FC = (): JSX.Element => {
                 <h5 className="mb-4" >Find closest merchants close to you that have your desired product</h5>
                 <form onSubmit={ handleSearch }>
                   <div className="input-group mb-3 container" id="searchbox">
-                    <input 
-                      type="text" 
-                      name={ "searchbox" }
-                      onChange={ (event) => setSearchbox(event.target.value) }
-                      placeholder="Type product" 
-                      value={ searchbox }
-                      className="ml-5 form-control" 
-                    />
+                    <ScrollableAnchor id="show-map">
+                      <input 
+                        type="text" 
+                        name={ "searchbox" }
+                        onChange={ (event) => setSearchbox(event.target.value) }
+                        placeholder="Type product" 
+                        value={ searchbox }
+                        className="ml-5 form-control" 
+                      />
+                    </ScrollableAnchor>
                     <div className="input-group-append mr-5">
                       <a type="submit" className="btn btn-outline-info" href='#show-map'>Search Product</a>
                     </div>
@@ -74,12 +76,10 @@ const Customer: FC = (): JSX.Element => {
                 </form>
                 { 
                   showMap && !loadingMap ? (
-                    <ScrollableAnchor id="show-map">
-                      <div className="mt-5">
-                        <h5>These are the merchants close to you that have that match with "{ tempProduct }"</h5>
-                        <MyMap lat={location.latitude} lng={location.longitude} />
-                      </div>
-                    </ScrollableAnchor>
+                    <div className="mt-5">                      
+                      <h5>These are the merchants close to you that have that match with "{ tempProduct }"</h5>
+                      <MyMap lat={location.latitude} lng={location.longitude} />
+                    </div>
                   ) : loadingMap && (
                     <p>Loading map...</p>
                   )
@@ -133,7 +133,7 @@ const Customer: FC = (): JSX.Element => {
             <Route path="/home/user_information" 
               render={() => (
                 <ContainerJumbotron>
-                  <h2 className="mb-5">User Information</h2>
+                  <h2>User Information</h2>
                   <MultiPurposeCard>
                     
                     <thead>
@@ -163,7 +163,7 @@ const Customer: FC = (): JSX.Element => {
                       <tr><td><strong>Last Name:</strong>  { currentCustomer.last_name }</td></tr>
                       <tr><td><strong>Email:</strong>  { currentUser.email }</td></tr>
                       <tr><td><strong>Phone Number:</strong>  { currentCustomer.phone_number }</td></tr>
-                      <tr><td>
+                      <tr><td className="pb-0">
                         <Link className="btn btn-primary mr-2" to='/home/edit_user'>Update account data</Link>
                         <Link className="btn btn-primary" to='/home/edit_customer'>Edit personal data</Link>
                       </td></tr>

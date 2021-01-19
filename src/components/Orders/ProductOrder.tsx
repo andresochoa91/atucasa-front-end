@@ -153,7 +153,7 @@ const ProductOrder: FC<IProductProps> = ({
               ) : amountChanged ? (
                 <td className="font-weight-bold border-left border-dark">Amount suggested by merchant</td>
               ) : (
-                <td>Available</td>
+                <td className="border-left border-dark">Available</td>
               )
             }
           </>
