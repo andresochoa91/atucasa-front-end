@@ -102,7 +102,7 @@ const ShowProduct: FC<TProductProps & ICartProps> = ({ product, setCart, cart })
                 style={{ 
                   color: "black",
                   fontSize: "16px",
-                  padding: "0"
+                  padding: "3px"
                 }}
               >
                 Unit Price: ${ product.price }

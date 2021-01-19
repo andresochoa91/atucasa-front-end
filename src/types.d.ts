@@ -91,7 +91,11 @@ type TContextProps = {
   currentMessage: string, 
   setCurrentMessage: React.Dispatch<React.SetStateAction<string>>,
   currentTitleMessage: string, 
-  setCurrentTitleMessage: React.Dispatch<React.SetStateAction<string>>
+  setCurrentTitleMessage: React.Dispatch<React.SetStateAction<string>>,
+  cart: Array<TCartProduct>,
+  setCart: React.Dispatch<React.SetStateAction<Array<TCartProduct>>>,
+  openCart: boolean,
+  setOpenCart: React.Dispatch<React.SetStateAction<boolean>>
 };
 
 type TLinksProps = {
