@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { Button } from 'react-bootstrap';
 
 const DeleteProduct: FC<TProductProps & TProductsProps> = ({ product, handleProducts }): JSX.Element => {
 
@@ -21,7 +22,7 @@ const DeleteProduct: FC<TProductProps & TProductsProps> = ({ product, handleProd
   };
 
   return (
-    <button onClick={ handleDelete }>Delete</button>  
+    <Button className="btn-danger w-50" onClick={ handleDelete }>Delete</Button>  
   );
 };
 

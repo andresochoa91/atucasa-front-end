@@ -5,6 +5,7 @@ import Product from './Product';
 const Products: FC = (): JSX.Element => {
   const [ products, setProducts ] = useState<TProducts>([]);
   
+  
   const handleProducts = (): void => {
     fetch(`${process.env.REACT_APP_API}/current_user/products`, {
       method: "GET",
@@ -25,17 +26,19 @@ const Products: FC = (): JSX.Element => {
 
   return (
     <>
-      <h2>Products</h2>
-      { 
-        products.map((product) => (
-          <Product 
-            handleProducts={ handleProducts } 
-            key={ product.id } 
-            product={ product }
-          />
-        )) 
-      }
-      <CreateProduct handleProducts={ handleProducts } />
+      <h2 className="mb-5">Products</h2>
+      <CreateProduct handleProducts={ handleProducts } />  
+      <div className="d-flex flex-wrap justify-content-around">
+        { 
+          products.map((product) => (
+            <Product 
+              handleProducts={ handleProducts } 
+              key={ product.id } 
+              product={ product }
+            />
+          )) 
+        }
+      </div>
     </>
   );
 };

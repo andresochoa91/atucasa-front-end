@@ -149,7 +149,7 @@ const ProductOrder: FC<IProductProps> = ({
           <>
             {
               !available ? (
-                <td className="font-weight-bold">Not available</td>
+                <td className="font-weight-bold border-left border-dark">Not available</td>
               ) : amountChanged ? (
                 <td className="font-weight-bold border-left border-dark">Amount suggested by merchant</td>
               ) : (

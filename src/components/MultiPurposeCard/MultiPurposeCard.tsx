@@ -9,12 +9,12 @@ const MultiPurposeCard: FC<IMultiPurposeCardProps> = ({ children }) => {
   return (
     <>
       <Container 
-        className="mx-auto text-center text-white py-3 mt-5 rounded" 
+        className="mx-auto text-center text-dark pt-3 pb-1 rounded" 
         style={{ 
           width: '30rem', 
-          backgroundColor: "rgba(0,0,0,0.65)"
+          backgroundColor: "#fff"
         }}>    
-        <Table striped bordered className="mb-3 text-white">
+        <Table className="mb-3 text-dark">
           { children }
         </Table>
 

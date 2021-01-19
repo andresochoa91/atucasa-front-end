@@ -133,7 +133,7 @@ const Customer: FC = (): JSX.Element => {
             <Route path="/home/user_information" 
               render={() => (
                 <ContainerJumbotron>
-                  <h2>User Information</h2>
+                  <h2 className="mb-5">User Information</h2>
                   <MultiPurposeCard>
                     
                     <thead>

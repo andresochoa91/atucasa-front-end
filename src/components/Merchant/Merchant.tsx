@@ -10,6 +10,7 @@ import Orders from '../Orders/Orders';
 import { Switch, Link, Route, Redirect } from 'react-router-dom';
 import MyMap from '../MyMap/MyMap';
 import ContainerJumbotron from '../ContainerJumbotron/ContainerJumbotron';
+import MultiPurposeCard from '../MultiPurposeCard/MultiPurposeCard';
 
 const Merchant: FC = (): JSX.Element => {
   const { currentUser, location, currentMerchant, setCurrentMerchant } = useContext<TContextProps>(AtucasaContext);
@@ -34,7 +35,6 @@ const Merchant: FC = (): JSX.Element => {
   
   return (
     <>
-      {/* <h1>Welcome { currentMerchant?.merchant_name }</h1> */}
       {
         (currentUser && currentMerchant && location) && (          
           <Switch>
@@ -50,12 +50,23 @@ const Merchant: FC = (): JSX.Element => {
                 }
               </ContainerJumbotron>
             )}/>
-            <Route path="/home/edit_user" render={() => <EditUser />}/> 
+
+            <Route 
+              path="/home/edit_user" 
+              render={() => (
+                <ContainerJumbotron>
+                  <EditUser />
+                </ContainerJumbotron>
+              )}
+            /> 
+
             <Route path="/home/edit_merchant" render={() => (
-              <EditMerchant 
-                handleCurrentMerchant={ handleCurrentMerchant }
-                currentMerchant={ currentMerchant }
-              />
+              <ContainerJumbotron>
+                <EditMerchant 
+                  handleCurrentMerchant={ handleCurrentMerchant }
+                  currentMerchant={ currentMerchant }
+                />
+              </ContainerJumbotron>
             )}/> 
             <Route 
               path="/home/edit_location" 
@@ -75,29 +86,56 @@ const Merchant: FC = (): JSX.Element => {
               )
             }/> 
             <Route path="/home/user_information" render={() => (
+
               <ContainerJumbotron>
-                <h2>User information</h2>
-                <Link to="/home/edit_user">Update email or password</Link>
-                <br/>
-                <Link to="/home/edit_merchant">Edit merchant information</Link>
-                <br/>
-                <p><strong>Profile Picture: </strong></p>
-                <img 
-                  src={ currentMerchant.profile_picture } 
-                  alt="pic"
-                  height={ 100 }
-                />
-                <p><strong>Background Picture: </strong></p>
-                <img 
-                  src={ currentMerchant.background_picture } 
-                  alt="pic"
-                  height={ 100 }
-                />
-                <p><strong>Email: </strong>{ currentUser.email }</p>
-                <p><strong>Merchant Name: </strong>{ currentMerchant.merchant_name }</p>
-                <p><strong>Phone Number: </strong>{  currentMerchant.phone_number }</p>
-                <p><strong>Tax ID: </strong>{ currentMerchant.tax_id }</p>
-                <p><strong>Description: </strong>{  currentMerchant.description }</p>
+                <h2 className="mb-5">User Information</h2>
+                <MultiPurposeCard>
+
+                  <thead>
+                    <tr>
+                      <th className="text-capitalize h3">
+                        <h2>
+                          <strong>
+                            { currentMerchant.merchant_name }
+                          </strong>
+                        </h2>
+                      </th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+
+                    <tr><td>
+                      <div className="d-flex flex-wrap justify-content-around">
+                        <div>
+                          <p><strong>Profile Picture: </strong></p>
+                          <img 
+                            src={ currentMerchant.profile_picture } 
+                            alt="pic"
+                            height={ 100 }
+                          />
+                        </div>
+                        <div>
+                          <p><strong>Background Picture: </strong></p>
+                          <img 
+                            src={ currentMerchant.background_picture } 
+                            alt="pic"
+                            height={ 100 }
+                          />
+                        </div>
+                      </div>
+                    </td></tr>
+
+                    <tr><td><strong>Email: </strong>  { currentUser.email }</td></tr>
+                    <tr><td><strong>Phone Number: </strong>  { currentMerchant.phone_number }</td></tr>
+                    <tr><td><strong>Tax ID: </strong>  { currentMerchant.tax_id }</td></tr>
+                    <tr><td><strong>Description: </strong>  { currentMerchant.description }</td></tr>
+                    <tr><td>
+                      <Link className="btn btn-primary mr-1" to="/home/edit_user">Update email or password</Link>
+                      <Link className="btn btn-primary" to="/home/edit_merchant">Edit merchant information</Link>
+                    </td></tr>
+                  </tbody>
+                </MultiPurposeCard>
               </ContainerJumbotron>
             )}/>
             <Route 
