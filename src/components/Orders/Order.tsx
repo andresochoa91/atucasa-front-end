@@ -131,13 +131,12 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
           backgroundColor: "rgba(255,255,255,0.75)"
         }}
       > */}
-        <h4 className="text-center font-weight-bold">Order #{ order.id }</h4>
+        <h4 className="text-center font-weight-bold mt-4">Order #{ order.id }</h4>
         { 
           currentUser?.role === "customer" ? (
             <>
               <h6 className="text-center"><strong>Merchant Name: </strong>{ order.merchant_name }</h6>
-              <h6 className="text-center"><Link to={`/merchants/${order.merchant_slug}`}>Visit Merchant Website</Link></h6>
-              
+              <h6 className="text-center"><Link to={`/merchants/${order.merchant_slug}`}>Visit Merchant Website</Link></h6>   
             </>
           ) : (
             <div className="text-center">
@@ -158,9 +157,9 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
 
         {
           !orderCanceled && currentUser?.role === "customer" && currentRole === "merchant" && !orderAccepted ? (
-            <h6 className="text-center text-warning">Waiting for the merchant to confirm your order.</h6>
+            <h6 className="mx-auto text-warning bg-dark w-50 rounded">Waiting for the merchant to confirm your order.</h6>
           ) : !orderCanceled && currentUser?.role === "merchant" && currentRole === "customer" && !orderAccepted ? (
-            <h6 className="text-center text-warning">Waiting for the customer to confirm order.</h6>
+            <h6 className="mx-auto text-warning bg-dark w-50 rounded">Waiting for the customer to confirm order.</h6>
           ) : !orderCanceled && orderAccepted ? (
             <>
               { delivery !== "Order delivered" && <h6 className="text-center" style={{color: "#0a0"}}>Order accepted</h6> }
@@ -174,14 +173,14 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
         }
 
 
-        <Table className="w-auto mx-auto ml-4 text-light" style={{ textAlign: "center" }} borderless>
+        <Table className="w-auto mx-auto ml-4 text-dark" style={{ textAlign: "center" }} borderless>
           <thead>
-            <tr className="border border-light">
+            <tr className="border border-dark">
               <th>Product name</th>
               <th>Unit Price</th>
               <th>Amount</th>
               <th>Unit Tax</th>
-              <th className="border-right border-light">Semi Total</th>
+              <th className="border-right border-dark">Semi Total</th>
             </tr>
           </thead>          
           <tbody>
@@ -211,11 +210,11 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
                           <td></td>
                           <td></td>
                           <td></td>
-                          <td className="border-left border-bottom border-light"><strong>Tip</strong></td>
+                          <td className="border-left border-bottom border-dark"><strong>Tip</strong></td>
                           {
                             (currentRole === "customer" && !orderAccepted) ? (
                               <>
-                                <td className="border-right border-bottom border-light">$ 
+                                <td className="border-right border-bottom border-dark">$ 
                                   <input 
                                     type="text"
                                     value={ currentTip }
@@ -224,14 +223,14 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
                                     className="w-75"
                                   />
                                 </td>
-                                <td className="border-right border-bottom border-light">
+                                <td className="border-right border-bottom border-dark">
                                   <Button onClick={ () => setCurrentTip((semiTotal * 0.15).toFixed(2)) }>
                                     Apply suggested tip
                                   </Button>
                                 </td>
                               </>
                             ) : (orderAccepted || (!orderAccepted && currentRole === "merchant")) && (
-                              <td className="border-right border-bottom border-light">${ currentTip === "" ? 0 : currentTip }</td>
+                              <td className="border-right border-bottom border-dark">${ currentTip === "" ? 0 : currentTip }</td>
                             )
                           }
                         </tr>
@@ -239,15 +238,15 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
                           <td></td>
                           <td></td>
                           <td></td>
-                          <td className="border-left border-bottom border-light"><strong>Delivery Fee</strong></td>
-                          <td className="border-right border-bottom border-light">${ order.delivery_fee }</td>
+                          <td className="border-left border-bottom border-dark"><strong>Delivery Fee</strong></td>
+                          <td className="border-right border-bottom border-dark">${ order.delivery_fee }</td>
                         </tr>
                         <tr>
                           <td></td>
                           <td></td>
                           <td></td>
-                          <td className="border-left border-bottom border-light"><strong>Total</strong></td>
-                          <td className="border-right border-bottom border-light">{ `$${(semiTotal+ Number(currentTip) + order.delivery_fee).toFixed(2)}` }</td>
+                          <td className="border-left border-bottom border-dark"><strong>Total</strong></td>
+                          <td className="border-right border-bottom border-dark">{ `$${(semiTotal+ Number(currentTip) + order.delivery_fee).toFixed(2)}` }</td>
                         </tr>
                       </>
                     )

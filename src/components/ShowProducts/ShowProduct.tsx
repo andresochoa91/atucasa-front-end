@@ -43,7 +43,6 @@ const ShowProduct: FC<TProductProps & ICartProps> = ({ product, setCart, cart })
       <p><strong>Product Name</strong>: { product.product_name }</p>
       <p><strong>Description</strong>: { product.description }</p>
       <p><strong>Unit Price</strong>: ${ product.price }</p>
-      <p><strong>Category</strong>: { product.category }</p>
       {
         currentUser && currentUser.role === "customer" && (
           <>
