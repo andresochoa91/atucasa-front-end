@@ -95,7 +95,9 @@ type TContextProps = {
   cart: Array<TCartProduct>,
   setCart: React.Dispatch<React.SetStateAction<Array<TCartProduct>>>,
   openCart: boolean,
-  setOpenCart: React.Dispatch<React.SetStateAction<boolean>>
+  setOpenCart: React.Dispatch<React.SetStateAction<boolean>>,
+  cartModal: boolean,
+  setCartModal: React.Dispatch<React.SetStateAction<boolean>>
 };
 
 type TLinksProps = {
