@@ -1,6 +1,9 @@
 import React, { FC, useContext, useState } from 'react'
+import { Button, Card, ListGroup } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import { AtucasaContext } from '../../Context';
 import MainModal from '../MainModal/MainModal';
+import MultiPurposeCard from '../MultiPurposeCard/MultiPurposeCard';
 import UpdateImage from '../UpdateImage/UpdateImage';
 
 const EditProduct: FC<TProductsProps & TProductProps & THandleMode> = ({ handleProducts, product, handleMode }): JSX.Element => {
@@ -111,58 +114,90 @@ const EditProduct: FC<TProductsProps & TProductProps & THandleMode> = ({ handleP
       <MainModal titleMessage={ currentTitleMessage }>
         <p>{ currentMessage }</p>
       </MainModal>
-      <h2>Edit Product</h2>
-      <form onSubmit={ handleSubmit }>
-        <label>Product Picture</label>   
-        <UpdateImage
-          currentPicture = { product.product_picture }
-          userName = { currentUser?.email }
-          handleInput = { handleInput }
-          newPicture = { productPicture }
-          setNewPicture = { setProductPicture }
-          namePicture={ "productPicture" }
-        />
-        <br/>
-        <label>Product Name</label>   
-        <input 
-          type="text"
-          name="productName"
-          value={ productName }  
-          onChange={ handleInput } 
-          placeholder={ product.product_name }
-        />
-        <br/>
-        <label>Description</label>   
-        <input 
-          type="text"
-          name="description"
-          value={ description }  
-          onChange={ handleInput } 
-          placeholder={ product.description }
-        />
-        <br/>
-        <label>Price</label>   
-        <input 
-          type="text"
-          name="price"
-          value={ price }  
-          onChange={ handlePrice } 
-          placeholder={ product.price ? product.price.toString() : "" }
-        />
-        <br/>
-        <label>Available</label>
-        <select name="available" id="available">          
-        <>
-          <option value={ productAvailable } onClick={ handleAvailable }>{ productAvailable }</option>
-          <option value={ productNotAvailable } onClick={ handleAvailable }>{ productNotAvailable }</option>
-        </>
-        </select>
-        <br/>
 
-        <br/>
-        <input type="submit" value="Submit"/>
-        <button onClick={ handleMode }>Cancel</button>
-      </form> 
+      <form onSubmit={ handleSubmit } className="mb-4" >
+        <MultiPurposeCard>
+          <tbody>
+            <tr><td>
+              <strong>
+                <label>Profile Picture:</label>
+              </strong>
+
+              <UpdateImage 
+                currentPicture = { product.product_picture }
+                userName = { currentUser?.email }
+                handleInput = { handleInput }
+                newPicture = { productPicture }
+                setNewPicture = { setProductPicture }
+                namePicture={ "productPicture" }
+              />
+            </td></tr>
+
+            <tr><td>
+              <strong>
+                <label>Product Name: &nbsp;</label>
+              </strong>
+              <input 
+                type="text"
+                name="productName"
+                value={ productName }  
+                onChange={ handleInput } 
+                placeholder={ product.product_name }
+                style={{
+                  width: "300px"
+                }}
+              />
+            </td></tr>
+
+            <tr><td>
+              <strong>
+                <label>Description: &nbsp;</label>
+              </strong>
+              <input 
+                type="text"
+                name="description"
+                value={ description }  
+                onChange={ handleInput } 
+                placeholder={ product.description }
+                style={{
+                  width: "320px"
+                }}
+              />
+            </td></tr>
+
+            <tr><td>
+              <strong>
+                <label>Price: $&nbsp;</label>
+              </strong>
+              <input 
+                type="text"
+                name="price"
+                value={ price }  
+                onChange={ handlePrice } 
+                placeholder={ product.price ? product.price.toString() : "" }
+                style={{
+                  width: "360px"
+                }}
+              />
+            </td></tr>
+
+            <tr><td>
+              <strong>
+                <label>Available: &nbsp;</label>
+              </strong>
+              <select name="available" id="available">          
+                <option value={ productAvailable } onClick={ handleAvailable }>{ productAvailable }</option>
+                <option value={ productNotAvailable } onClick={ handleAvailable }>{ productNotAvailable }</option>
+              </select>              
+            </td></tr>
+
+            <tr><td>
+              <Button className="mr-2 btn-success" type="submit">Update</Button>
+              <Button onClick={ handleMode }>Cancel</Button>
+            </td></tr>  
+          </tbody>
+        </MultiPurposeCard>
+      </form>
     </>
   );
 };

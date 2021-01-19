@@ -2,6 +2,7 @@ import React, { FC, useState } from 'react';
 import DeleteProduct from './DeleteProduct';
 import EditProduct from './EditProduct';
 import { Button, Card, ListGroup } from 'react-bootstrap';
+import Popup from "reactjs-popup";
 
 const Product: FC<TProductProps & TProductsProps> = ({ product, handleProducts }): JSX.Element => {
 
@@ -21,11 +22,12 @@ const Product: FC<TProductProps & TProductsProps> = ({ product, handleProducts }
             handleProducts={ handleProducts } 
           /> 
         ) : (
-          <Card 
+          <div 
             style={{ 
-              width: '230px', 
+              width: '230px',
+              borderRadius: "100px" 
             }}
-            className="mb-4"
+            className="mb-4 "
           >
             <Card.Img 
               variant="top" 
@@ -34,33 +36,57 @@ const Product: FC<TProductProps & TProductsProps> = ({ product, handleProducts }
                 height: "160px",
               }}
             />
+
             <ListGroup variant="flush">
-              <ListGroup.Item
-                style={{ 
-                  color: "black",
-                  fontWeight: "bold",
-                  fontSize: "18px",
-                  padding: "3px 10px",
-                  whiteSpace: "nowrap",
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                }}
+              <Popup 
+                trigger={
+                  <ListGroup.Item
+                    style={{ 
+                      color: "black",
+                      fontWeight: "bold",
+                      fontSize: "18px",
+                      padding: "3px 10px",
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      cursor: "pointer"
+                    }}
+                  >
+                    { product.product_name }
+                  </ListGroup.Item>
+                }
+                position="top center"
               >
-                { product.product_name }
-              </ListGroup.Item>
-              <ListGroup.Item
-                style={{ 
-                  color: "black",
-                  fontSize: "16px",
-                  padding: "0 10px",
-                  whiteSpace: "nowrap",
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                  // maxWidth: "200px",
-                }}
+                <div 
+                  className="bg-white p-3 rounded text-dark border border-dark"
+                >
+                  { product.product_name }
+                </div>
+              </Popup>
+
+              <Popup 
+                trigger={
+                  <ListGroup.Item
+                    style={{ 
+                      color: "black",
+                      padding: "3px 10px",
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      cursor: "pointer"
+                    }}
+                  >
+                    { product.description || "..." }
+                  </ListGroup.Item>
+                }
+                position="top center"
               >
-                { product.description || "..." }  
-              </ListGroup.Item>
+                <div 
+                  className="bg-white p-3 rounded text-dark border border-dark"
+                >
+                  { product.description || "..." }
+                </div>
+              </Popup>
 
               <ListGroup.Item
                 style={{ 
@@ -96,9 +122,9 @@ const Product: FC<TProductProps & TProductsProps> = ({ product, handleProducts }
                 style={{ 
                   color: "black",
                   fontSize: "16px",
-                  padding: "0"
+                  padding: "0",
+                  borderRadius: "4px"   
                 }}
-                // className="position-absolute fixed-bottom"
               >
                 <Button className="w-50" onClick={ handleMode }>Edit</Button>
                 <DeleteProduct 
@@ -107,7 +133,7 @@ const Product: FC<TProductProps & TProductsProps> = ({ product, handleProducts }
                 />
               </ListGroup.Item>                
             </ListGroup>
-          </Card>
+          </div>
         )
       }
     </>

@@ -111,7 +111,7 @@ const EditCustomer: FC<ICustomerProps> = ({ handleCurrentCustomer, currentCustom
 
   return(
     <>
-      <h2>Edit Customer</h2>
+      <h2 className="mb-5">Edit Customer</h2>
       <MainModal titleMessage={ currentTitleMessage }>
         <p>{ currentMessage }</p>
       </MainModal>
