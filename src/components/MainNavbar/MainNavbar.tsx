@@ -5,7 +5,6 @@ import { AtucasaContext } from '../../Context';
 import SignOut from '../SignForms/SignOut';
 import cartPicture from '../../pictures/cartPicture.png';
 
-
 const MainNavbar: FC = () => {
   
   const { 
@@ -123,7 +122,7 @@ const MainNavbar: FC = () => {
             {/* <SignOut /> */}
           </Navbar>
         ) 
-      }      
+      }
     </>
   );
 }

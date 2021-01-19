@@ -13,6 +13,8 @@ import food2 from './pictures/food2.jpg'
 import ContainerJumbotron from './components/ContainerJumbotron/ContainerJumbotron';
 import { Nav, Navbar, NavDropdown } from 'react-bootstrap';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faLinkedin, faGithub } from "@fortawesome/free-brands-svg-icons"
 
 const App:FC = (): JSX.Element => {
   const { currentUser, loggedOut } = useContext<TContextProps>(AtucasaContext);
@@ -79,7 +81,33 @@ const App:FC = (): JSX.Element => {
         }}
         className="position-absolute w-100"
       > 
-        <p className="mx-auto">© 2021 A Tu Casa,  created by Johan Ochoa. All Rights Reserved</p>          
+        <p className="ml-auto">
+          © 2021 A Tu Casa,  created by Johan Ochoa. All Rights Reserved
+        </p>          
+        <div className="mr-auto mb-3">
+          <a
+            style={{
+              display: 'contents',
+              cursor: 'pointer',
+              color: "rgba(0,0,0,0.7)"
+            }} 
+            href="https://github.com/andresochoa91"
+            target={`_blank`}
+          >
+            <FontAwesomeIcon className="ml-5 mr-2" size='2x' icon={ faGithub } />
+          </a>
+          <a
+            style={{
+              display: 'contents',
+              cursor: 'pointer',
+              color: "rgba(0,0,0,0.7)"
+            }} 
+            href="https://www.linkedin.com/in/jandresochoa91/"
+            target={`_blank`}
+          >
+            <FontAwesomeIcon size="2x" icon={ faLinkedin } />
+          </a>
+        </div>
       </Navbar>
     </div>
   );

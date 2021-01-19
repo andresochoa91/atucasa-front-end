@@ -108,20 +108,35 @@ const ShowProduct: FC<TProductProps & ICartProps> = ({ product, setCart, cart })
 
         {
           checkProductId ?  (
-            <ListGroup.Item
-              style={{ 
-                color: "black",
-                fontSize: "16px",
-                padding: "0"
-              }}
-            >
-              <p 
-                style={{color: "#0a0"}}
-                className="mb-1"
-              ><strong>
-                Product in Cart
-              </strong></p>
-            </ListGroup.Item>
+            <>
+              <ListGroup.Item
+                style={{ 
+                  color: "black",
+                  fontSize: "16px",
+                  padding: "0"
+                }}
+              >
+                <p 
+                  style={{color: "#0a0"}}
+                  className="my-1"
+                >
+                  <strong>
+                    Product in Cart
+                  </strong>
+                </p>
+              </ListGroup.Item>                  
+              <Button 
+                onClick={() => {
+                  setCart([...cart.filter((pr) => product.id !== pr.id)]);
+                }}
+                style={{
+                  width: "104px",
+                }}
+                className="btn-danger w-100"
+              >
+                Take out of cart
+              </Button>
+            </>
           ) : <></>
         }
 

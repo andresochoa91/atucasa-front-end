@@ -6,7 +6,7 @@ import downarrow from '../../pictures/downarrow.png';
 import uparrow from '../../pictures/uparrow.png';
 import ScrollableAnchor, { goToAnchor } from 'react-scrollable-anchor';
 import Cart from '../Cart/Cart';
-import { Modal } from 'react-bootstrap';
+import { Button, Modal } from 'react-bootstrap';
 import ContainerJumbotron from '../ContainerJumbotron/ContainerJumbotron';
 import MultiPurposeCard from '../MultiPurposeCard/MultiPurposeCard';
 
@@ -72,16 +72,26 @@ const ShowMerchantNoLogged:FC<IMerchantProps & RouteComponentProps> = ({ match, 
   return (
     <>
       {
+        !currentUser && (
+          <a
+            style={{
+              position: 'fixed',
+              right: "10px",
+              top: "10px",
+              borderColor: "#444",
+              borderWidth: "5px"
+            }}
+            className="btn btn-primary"
+            href="/"
+          >
+            Go to A Tu Casa
+          </a>
+        )
+      }
+
+      {
         currentMerchant && (
           <div key={ currentMerchant.merchant_info.id }>
-            {
-              !currentUser && (
-                <>
-                  <p style={{ color: "red" }}>You have to be logged to buy through the website</p>
-                  <p style={{ color: "red" }}>You can always contact the merchant through their phone or email</p>
-                </>
-              )
-            }
             <div
               style={{
                 backgroundImage: `url("${ currentMerchant.merchant_info.background_picture })"`,
@@ -233,11 +243,13 @@ const ShowMerchantNoLogged:FC<IMerchantProps & RouteComponentProps> = ({ match, 
             </ScrollableAnchor>
 
             {
-              showProducts && (          
-                <ShowProducts 
-                  merchantID={ currentMerchant.merchant_info.id } 
-                  products={ currentMerchant.products }
-                />
+              showProducts && (  
+                <>
+                  <ShowProducts 
+                    merchantID={ currentMerchant.merchant_info.id } 
+                    products={ currentMerchant.products }
+                  />
+                </>        
               )
             }
 
@@ -302,7 +314,7 @@ const ShowMerchantNoLogged:FC<IMerchantProps & RouteComponentProps> = ({ match, 
                       currentMerchant.links &&
                       currentMerchant.links.map((link) => (
                         <tr key={ link.id }><td>
-                          <p><strong>{ link.site_name }</strong>: <a href={ link.url }>{ link.url }</a></p>
+                          <p><strong>{ link.site_name }</strong>: <a href={ link.url } target={`_blank`}>{ link.url }</a></p>
                         </td></tr>
                       ))
                     }

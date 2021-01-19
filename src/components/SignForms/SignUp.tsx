@@ -33,6 +33,14 @@ const SignUp: FC = (): JSX.Element => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
+
+    if (!email && !password && !passwordConfirmation) {
+      setCurrentMessage(`Please provide Email, Password and Password Confirmation`);
+      setCurrentTitleMessage("Error Signing Up");
+      setCurrentMessageValidation(true);
+      return;
+    }
+
     setValidated(true);
     fetch(`${process.env.REACT_APP_API}/signup`, {
       method: "POST",
@@ -57,7 +65,7 @@ const SignUp: FC = (): JSX.Element => {
         if (password) {
           setCurrentMessage(`Password ${password[0]}`);
         } else if (email) {
-          setCurrentMessage(email[0]);
+          setCurrentMessage(`${email[0]}`);
         } else if (password_confirmation) {
           setCurrentMessage("Password confirmation doesn't match");
         }

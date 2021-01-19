@@ -170,7 +170,7 @@ const Cart: FC<IProductsProps> = ({ currentCustomerID, merchantID }): JSX.Elemen
                 <td>${ ((cartProduct.tax + cartProduct.unitPrice) * cartProduct.amount).toFixed(2) }</td>
                 <td>
                   <Button 
-                    onClick={ () => setCart(cart.filter((pr, id) => id !== cID)) }
+                    onClick={ () => setCart([...cart.filter((pr, id) => id !== cID)]) }
                     className="btn-danger"
                   >
                     &times;
