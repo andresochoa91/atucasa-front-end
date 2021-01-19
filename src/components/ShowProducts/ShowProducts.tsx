@@ -1,6 +1,5 @@
-import React, { FC, useContext, useState } from 'react';
+import React, { FC, useContext } from 'react';
 import { AtucasaContext } from '../../Context';
-import Cart from '../Cart/Cart';
 import ContainerJumbotron from '../ContainerJumbotron/ContainerJumbotron';
 import ShowProduct from '../ShowProducts/ShowProduct';
 
@@ -9,15 +8,11 @@ interface IProductsProps {
   merchantID: number | undefined
 };
 
-const ShowProducts: FC<IProductsProps> = ({ products, merchantID }): JSX.Element => {
+const ShowProducts: FC<IProductsProps> = ({ products }): JSX.Element => {
 
   const { 
-    currentCustomer, 
-    currentUser,
     cart,
     setCart,
-    openCart,
-    setOpenCart 
   } = useContext<TContextProps>(AtucasaContext);
 
   return (
@@ -40,26 +35,7 @@ const ShowProducts: FC<IProductsProps> = ({ products, merchantID }): JSX.Element
             ))
           }
         </div>
-        {
-          currentUser && currentUser.role === "customer" && (
-            <button 
-              onClick={() => {
-                setOpenCart(!openCart);
-              }
-            }>
-              { openCart ? "Close Cart" : "Open Cart" }
-            </button>
-          )
-        }
-        {
-          openCart && currentUser && (
-            <Cart  
-              merchantID={ merchantID }
-              currentCustomerID={ currentCustomer?.id }
-            />
-          )
-        }
-        </ContainerJumbotron>
+      </ContainerJumbotron>
     </>   
   );
 };

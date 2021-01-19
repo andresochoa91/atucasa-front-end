@@ -7,7 +7,7 @@ import cart from '../../pictures/cart.png';
 
 const MainNavbar: FC = () => {
 
-  const {  currentUser, currentCustomer, currentMerchant, setOpenCart, openCart } = useContext<TContextProps>(AtucasaContext);
+  const {  currentUser, currentCustomer, currentMerchant, setOpenCart, setCartModal } = useContext<TContextProps>(AtucasaContext);
 
   // const helper = () => {
   //   setLoggedOut(true);
@@ -22,7 +22,8 @@ const MainNavbar: FC = () => {
             <Nav className="mr-auto">
               <Navbar.Brand className="mt-2 ml-4 lead" href="/home">A Tu Casa</Navbar.Brand>
               <Nav.Link className="px-2 py-3 text-info" href="/home/map">Map</Nav.Link>
-              <NavLink className="nav-link px-2 py-3 text-info" to="/home/orders">Orders</NavLink>
+              <Nav.Link className="px-2 py-3 text-info" href="/home/orders">Orders</Nav.Link>
+              {/* <NavLink className="nav-link px-2 py-3 text-info" to="/home/orders">Orders</NavLink> */}
               { currentMerchant && <NavLink className="nav-link px-3 py-3 text-info" to="/home/products">Products</NavLink> }
             </Nav>
 
@@ -32,7 +33,8 @@ const MainNavbar: FC = () => {
                 alt="cart"
                 width="40px"
                 onClick={() => {
-                  setOpenCart(!openCart)
+                  setCartModal(true)
+                  setOpenCart(true);
                 }}
               />
             </Nav>

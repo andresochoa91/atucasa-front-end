@@ -1,7 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
 import { Container, Jumbotron } from 'react-bootstrap';
-import ContainerJumbotron from '../ContainerJumbotron/ContainerJumbotron';
-import MultiPurposeCard from '../MultiPurposeCard/MultiPurposeCard';
 import Order from './Order';
 
 const Orders: FC = (): JSX.Element => {
@@ -35,8 +33,7 @@ const Orders: FC = (): JSX.Element => {
       <h2 className="text-center mt-4 mb-5 font-weight-bold">Orders</h2>
       {
         orders.map(order => (
-          // <ContainerJumbotron key={ order.id }>
-          <div className="mb-4">
+          <div className="mb-4" key={ order.id }>
             <Container className="text-center mt-5">
               <Jumbotron
                 className="rounded text-center text-dark p-5" 
@@ -49,7 +46,6 @@ const Orders: FC = (): JSX.Element => {
               </Jumbotron>
             </Container>
           </div>
-          // </ContainerJumbotron>
         ))
       }
     </>

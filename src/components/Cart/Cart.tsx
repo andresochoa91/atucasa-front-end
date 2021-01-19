@@ -1,4 +1,5 @@
 import React, { FC, useState, useEffect, useContext } from 'react';
+import { Table } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import { AtucasaContext } from '../../Context';
 import MainModal from '../MainModal/MainModal';
@@ -50,11 +51,15 @@ const Cart: FC<IProductsProps> = ({ currentCustomerID, merchantID }): JSX.Elemen
   };
 
   useEffect(() => {
-    setTotal(
-      cart.reduce((acc, pr) => {
-        return acc + ((pr.tax + pr.unitPrice) * pr.amount)
-      }, 0)
-    );
+    let mounted = true;
+    if (mounted) {
+      setTotal(
+        cart.reduce((acc, pr) => {
+          return acc + ((pr.tax + pr.unitPrice) * pr.amount)
+        }, 0)
+      );
+    }
+    return () => { mounted = false };
   }, [cart, tip]);
 
   const handleCheckout = (): void => {
@@ -122,8 +127,7 @@ const Cart: FC<IProductsProps> = ({ currentCustomerID, merchantID }): JSX.Elemen
       <MainModal titleMessage={ currentTitleMessage }>
         <p>{ currentMessage }</p>
       </MainModal>
-      <h3>Cart:</h3>
-      <table style={{ textAlign: "center" }}>
+      <Table style={{ textAlign: "center" }}>
         <thead>
           <tr>
             <th>Product name</th>
@@ -167,9 +171,12 @@ const Cart: FC<IProductsProps> = ({ currentCustomerID, merchantID }): JSX.Elemen
                 value={ tip }
                 placeholder={ `Suggested: ${(total * 0.15).toFixed(2)}` }
                 onChange={ handleTip }
+                style={{
+                  width: "150px"
+                }}
               />
             </td>
-            <td><button onClick={ handleSuggestedTip }>Apply suggested tip</button></td>
+            <td><button onClick={ handleSuggestedTip }>Apply</button></td>
           </tr>
           <tr>
             <td></td>
@@ -186,7 +193,7 @@ const Cart: FC<IProductsProps> = ({ currentCustomerID, merchantID }): JSX.Elemen
             <td><strong>${ (total + Number(tip) + 5).toFixed(2) }</strong></td>
           </tr>
         </tbody>
-      </table>
+      </Table>
       <button onClick={ handleCheckout }>Checkout</button>
     </>
   );

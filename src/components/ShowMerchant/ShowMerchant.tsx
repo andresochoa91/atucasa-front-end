@@ -5,6 +5,8 @@ import ShowProducts from '../ShowProducts/ShowProducts';
 import downarrow from '../../pictures/downarrow.png';
 import uparrow from '../../pictures/uparrow.png';
 import ScrollableAnchor, { goToAnchor } from 'react-scrollable-anchor';
+import Cart from '../Cart/Cart';
+import { Button, Modal } from 'react-bootstrap';
 
 interface IParams {
   params: { slug: string }
@@ -15,7 +17,18 @@ interface IMerchantProps {
 };
 
 const ShowMerchantNoLogged:FC<IMerchantProps & RouteComponentProps> = ({ match, merchant }):JSX.Element => {
-  const { currentUser, handleCurrentUser } = useContext<TContextProps>(AtucasaContext);
+
+  const { 
+    currentUser, 
+    handleCurrentUser, 
+    cart, 
+    openCart, 
+    setOpenCart, 
+    currentCustomer,
+    cartModal,
+    setCartModal 
+  } = useContext<TContextProps>(AtucasaContext);
+
   const [ currentMerchant, setCurrentMerchant ] = useState<TShowMerchant | null>(null);
   const [ showProducts, setShowProducts ] = useState<boolean>(false);
   const [ country, setCountry ] = useState<string>();
@@ -60,6 +73,29 @@ const ShowMerchantNoLogged:FC<IMerchantProps & RouteComponentProps> = ({ match, 
 
   return (
     <>
+
+
+      {/* <Button variant="primary" 
+        onClick={() => {
+          setOpenCart(true);
+          setShow(true)
+        } 
+      }>
+        Custom Width Modal
+      </Button> */}
+
+      {/* <Button onClick={() => {
+        setCartModal(true)
+        setOpenCart(true);
+      }}
+      >
+        Cart
+      </Button> */}
+    
+
+
+
+
       {
         currentMerchant && (
           <div key={ currentMerchant.merchant_info.id }>
@@ -138,6 +174,7 @@ const ShowMerchantNoLogged:FC<IMerchantProps & RouteComponentProps> = ({ match, 
                 onClick={() => {
                   setShowProducts(!showProducts);
                   if (!showProducts) goToAnchor("#show-products", true)
+                  if (showProducts) goToAnchor("#no-show-products", true)
                   if (!userChecked) {
                     handleCurrentUser();  
                     setUserChecked(true);
@@ -213,18 +250,61 @@ const ShowMerchantNoLogged:FC<IMerchantProps & RouteComponentProps> = ({ match, 
               </div>
             </ScrollableAnchor>
 
-              {
-                showProducts && (          
-                  <>
-                      <ShowProducts 
-                        merchantID={ currentMerchant.merchant_info.id } 
-                        products={ currentMerchant.products }
-                      />
-                  </>
-                )
-              }
+            {
+              showProducts && (          
+                <ShowProducts 
+                  merchantID={ currentMerchant.merchant_info.id } 
+                  products={ currentMerchant.products }
+                />
+              )
+            }
 
+            {
+              openCart && currentUser && (
+                // <Modal
+                //   show={show}
+                //   onHide={() => setShow(false)}
+                // >
+                //   <Modal.Header closeButton>
+                //     <Modal.Title id="example-custom-modal-styling-title">
+                //       Cart
+                //     </Modal.Title>
+                //   </Modal.Header>
+                //   <Modal.Body>
+                //     <Cart 
+                //       merchantID={ currentMerchant.merchant_info.id }
+                //       currentCustomerID={ currentCustomer?.id }
+                //     />
+                //   </Modal.Body>
+                // </Modal>
 
+                <Modal
+                  size="lg"
+                  show={cartModal}
+                  onHide={() => setCartModal(false)}
+                  aria-labelledby="example-modal-sizes-title-lg"
+                >
+                  <Modal.Header closeButton>
+                    <Modal.Title id="example-modal-sizes-title-lg">
+                      Cart
+                    </Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    {
+                      cart.length ? (
+                        <Cart 
+                          merchantID={ currentMerchant.merchant_info.id }
+                          currentCustomerID={ currentCustomer?.id }
+                        />
+                      ) : (
+                        <p>Cart is empty</p>
+                      )
+                    }
+                  </Modal.Body>
+                </Modal>
+
+              )
+            }
 
             <p><strong>Description</strong>: { currentMerchant.merchant_info.description }</p>
             <p><strong>Phone Number</strong>: { currentMerchant.merchant_info.phone_number }</p>

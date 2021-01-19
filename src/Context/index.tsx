@@ -13,9 +13,10 @@ export const Provider: FC = ({ children }) => {
   const [ currentMessageValidation, setCurrentMessageValidation ] = useState<boolean>(false);
   const [ currentMessage, setCurrentMessage ] = useState<string>("");
   const [ currentTitleMessage, setCurrentTitleMessage ] = useState<string>("");
-
   const [ cart, setCart ] = useState<Array<TCartProduct>>([]);
   const [ openCart, setOpenCart ] = useState<boolean>(false);
+  const [ cartModal, setCartModal ] = useState<boolean>(false);
+
 
   const handleCurrentCustomer = () => {
     fetch(`${process.env.REACT_APP_API}/current_user/customer`, {
@@ -121,7 +122,9 @@ export const Provider: FC = ({ children }) => {
       cart,
       setCart,
       openCart,
-      setOpenCart 
+      setOpenCart,
+      cartModal,
+      setCartModal
     }}>
       { children }
     </AtucasaContext.Provider>
