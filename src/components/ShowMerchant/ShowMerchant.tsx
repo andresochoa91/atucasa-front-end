@@ -4,6 +4,7 @@ import { AtucasaContext } from '../../Context';
 import ShowProducts from '../ShowProducts/ShowProducts';
 import downarrow from '../../pictures/downarrow.png';
 import uparrow from '../../pictures/uparrow.png';
+import ScrollableAnchor, { goToAnchor } from 'react-scrollable-anchor';
 
 interface IParams {
   params: { slug: string }
@@ -128,97 +129,102 @@ const ShowMerchantNoLogged:FC<IMerchantProps & RouteComponentProps> = ({ match, 
 
             {/* <h2>{ currentMerchant.merchant_info.merchant_name }</h2> */}
 
-            
-            <div
-              style={{
-                cursor: "pointer"
-              }}
-              onClick={() => {
-                setShowProducts(!showProducts);
-                if (!userChecked) {
-                  handleCurrentUser();  
-                  setUserChecked(true);
+
+            <ScrollableAnchor id="show-products">
+              <div
+                style={{
+                  cursor: "pointer"
+                }}
+                onClick={() => {
+                  setShowProducts(!showProducts);
+                  if (!showProducts) goToAnchor("#show-products", true)
+                  if (!userChecked) {
+                    handleCurrentUser();  
+                    setUserChecked(true);
+                  }
+                }}
+                className="mt-4"
+              >
+
+                {
+                  showProducts && (
+                    <>
+                      <div
+                        style={{
+                          width: "50px",
+                          margin: "auto"
+                        }}
+                      >
+                        <img
+                          src={uparrow}
+                          height="50px"
+                          alt="down-arrow"
+                          style={{
+                            width: "50px"
+                          }}
+                        />
+                      </div>
+                      <hr
+                        style={{
+                          backgroundColor: "#000",
+                          border: "none",
+                          color: "#eee",
+                          height: "3px",
+                          margin: "0"
+                        }}
+                      />
+                    </>
+                  )
                 }
-              }}
-              className="mt-4"
-            >
 
-              {
-                showProducts && (
-                  <>
-                    <div
-                      style={{
-                        width: "50px",
-                        margin: "auto"
-                      }}
-                    >
-                      <img
-                        src={uparrow}
-                        height="50px"
-                        alt="down-arrow"
+                <p className="text-center font-weight-bold mb-0 h4">
+                  { !showProducts ? "Click arrow to see products" : "Click arrow to hide products" }
+                </p>
+                {
+                  !showProducts && (
+                    <>
+                      <hr
                         style={{
-                          width: "50px"
+                          backgroundColor: "#000",
+                          border: "none",
+                          color: "#eee",
+                          height: "3px",
+                          margin: "0"
                         }}
                       />
-                    </div>
-                    <hr
-                      style={{
-                        backgroundColor: "#000",
-                        border: "none",
-                        color: "#eee",
-                        height: "3px",
-                        margin: "0"
-                      }}
-                    />
+                      <div
+                        style={{
+                          width: "50px",
+                          margin: "auto"
+                        }}
+                      >
+                        <img
+                          src={downarrow}
+                          height="50px"
+                          alt="down-arrow"
+                          style={{
+                            width: "50px"
+                          }}
+                        />
+                      </div>
+                    </>
+                  )
+                }
+              </div>
+            </ScrollableAnchor>
+
+              {
+                showProducts && (          
+                  <>
+                      <ShowProducts 
+                        merchantID={ currentMerchant.merchant_info.id } 
+                        products={ currentMerchant.products }
+                      />
                   </>
                 )
               }
 
-              <p className="text-center font-weight-bold mb-0 h4">
-                { !showProducts ? "Click arrow to see products" : "Click arrow to hide products" }
-              </p>
-              {
-                !showProducts && (
-                  <>
-                    <hr
-                      style={{
-                        backgroundColor: "#000",
-                        border: "none",
-                        color: "#eee",
-                        height: "3px",
-                        margin: "0"
-                      }}
-                    />
-                    <div
-                      style={{
-                        width: "50px",
-                        margin: "auto"
-                      }}
-                    >
-                      <img
-                        src={downarrow}
-                        height="50px"
-                        alt="down-arrow"
-                        style={{
-                          width: "50px"
-                        }}
-                      />
-                    </div>
-                  </>
-                )
-              }
-            </div>
 
-            {
-              showProducts && (          
-                <>
-                  <ShowProducts 
-                    merchantID={ currentMerchant.merchant_info.id } 
-                    products={ currentMerchant.products }
-                  />
-                </>
-              )
-            }
 
             <p><strong>Description</strong>: { currentMerchant.merchant_info.description }</p>
             <p><strong>Phone Number</strong>: { currentMerchant.merchant_info.phone_number }</p>

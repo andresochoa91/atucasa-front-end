@@ -3,10 +3,11 @@ import { Navbar, Nav, NavDropdown, Image/* , Form, FormControl, Button */ } from
 import { NavLink } from 'react-router-dom';
 import { AtucasaContext } from '../../Context';
 import SignOut from '../SignForms/SignOut';
+import cart from '../../pictures/cart.png';
 
 const MainNavbar: FC = () => {
 
-  const {  currentUser, currentCustomer, currentMerchant } = useContext<TContextProps>(AtucasaContext);
+  const {  currentUser, currentCustomer, currentMerchant, setOpenCart, openCart } = useContext<TContextProps>(AtucasaContext);
 
   // const helper = () => {
   //   setLoggedOut(true);
@@ -25,16 +26,17 @@ const MainNavbar: FC = () => {
               { currentMerchant && <NavLink className="nav-link px-3 py-3 text-info" to="/home/products">Products</NavLink> }
             </Nav>
 
-            {/* {
-              currentCustomer && (
-                <Form inline>
-                  <FormControl type="text" placeholder="Search your product" className="mr-sm-2" />
-                  <Button variant="outline-info">Search</Button>
-                </Form>
-              )
-            } */}
-
-
+            <Nav>
+              <img 
+                src={cart} 
+                alt="cart"
+                width="40px"
+                onClick={() => {
+                  setOpenCart(!openCart)
+                }}
+              />
+            </Nav>
+            
             <NavDropdown 
               className="mr-2"
               drop="left"

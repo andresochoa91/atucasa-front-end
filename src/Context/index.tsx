@@ -14,6 +14,9 @@ export const Provider: FC = ({ children }) => {
   const [ currentMessage, setCurrentMessage ] = useState<string>("");
   const [ currentTitleMessage, setCurrentTitleMessage ] = useState<string>("");
 
+  const [ cart, setCart ] = useState<Array<TCartProduct>>([]);
+  const [ openCart, setOpenCart ] = useState<boolean>(false);
+
   const handleCurrentCustomer = () => {
     fetch(`${process.env.REACT_APP_API}/current_user/customer`, {
       method: "GET",
@@ -114,7 +117,11 @@ export const Provider: FC = ({ children }) => {
       currentMessage, 
       setCurrentMessage,
       currentTitleMessage, 
-      setCurrentTitleMessage 
+      setCurrentTitleMessage,
+      cart,
+      setCart,
+      openCart,
+      setOpenCart 
     }}>
       { children }
     </AtucasaContext.Provider>

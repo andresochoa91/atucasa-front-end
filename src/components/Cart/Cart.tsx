@@ -6,8 +6,6 @@ import MainModal from '../MainModal/MainModal';
 interface IProductsProps {
   merchantID: number | undefined,
   currentCustomerID: number | undefined,
-  cart: Array<TCartProduct>,
-  setCart: React.Dispatch<React.SetStateAction<TCartProduct[]>>
 };
 interface IProductCheckout {
   id?: number,
@@ -23,14 +21,16 @@ interface ICheckout {
   products?: Array<IProductCheckout>
 };
 
-const Cart: FC<IProductsProps> = ({ currentCustomerID, merchantID, cart, setCart }): JSX.Element => {
+const Cart: FC<IProductsProps> = ({ currentCustomerID, merchantID }): JSX.Element => {
 
   const {
     currentMessage,
     setCurrentMessage,
     currentTitleMessage,
     setCurrentTitleMessage,
-    setCurrentMessageValidation
+    setCurrentMessageValidation,
+    cart, 
+    setCart
   } = useContext<TContextProps>(AtucasaContext);
 
   const [ tip, setTip ] = useState<string>("");
