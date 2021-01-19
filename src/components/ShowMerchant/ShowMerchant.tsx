@@ -73,29 +73,6 @@ const ShowMerchantNoLogged:FC<IMerchantProps & RouteComponentProps> = ({ match, 
 
   return (
     <>
-
-
-      {/* <Button variant="primary" 
-        onClick={() => {
-          setOpenCart(true);
-          setShow(true)
-        } 
-      }>
-        Custom Width Modal
-      </Button> */}
-
-      {/* <Button onClick={() => {
-        setCartModal(true)
-        setOpenCart(true);
-      }}
-      >
-        Cart
-      </Button> */}
-    
-
-
-
-
       {
         currentMerchant && (
           <div key={ currentMerchant.merchant_info.id }>

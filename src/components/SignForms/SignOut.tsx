@@ -24,6 +24,7 @@ const SignOut: FC = () => {
       setCurrentCustomer(null);
       setCurrentMerchant(null);
       handleMerchants();
+      window.location.reload();
     })
     .catch(err => console.error(err))
   };

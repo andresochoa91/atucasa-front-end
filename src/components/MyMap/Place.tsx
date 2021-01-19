@@ -16,7 +16,7 @@ interface IMerchantProps {
 }
 
 const Place: FC<IMerchantProps> = ({ merchant, lat, lng, currentAddress, currentCity, currentState }): JSX.Element => {
-  const { location } = useContext<TContextProps>(AtucasaContext);
+  const { location, currentUser } = useContext<TContextProps>(AtucasaContext);
   const { latitude, longitude } = merchant.location;
   const { merchant_name } = merchant.merchant_info;
   const [ showPlace, setShowPlace ] = useState<boolean>(false);
@@ -64,7 +64,7 @@ const Place: FC<IMerchantProps> = ({ merchant, lat, lng, currentAddress, current
             >
               <Popup>
                 <p>{`${ merchant_name }`}</p>
-                <Link to={`/merchants/${ merchant.merchant_info.slug }`}>
+                <Link to={`${ currentUser ? "/home/" : "/" }merchants/${ merchant.merchant_info.slug }`}>
                   { merchant.merchant_info.merchant_name }
                 </Link>
               </Popup>
@@ -76,7 +76,7 @@ const Place: FC<IMerchantProps> = ({ merchant, lat, lng, currentAddress, current
             >
               <Popup>
                 <p>{ merchant.merchant_info.merchant_name }</p>
-                <Link to={`/merchants/${ merchant.merchant_info.slug }`}>
+                <Link to={`${ currentUser ? "/home/" : "/" }merchants/${ merchant.merchant_info.slug }`}>
                   { merchant.merchant_info.merchant_name }
                 </Link>
               </Popup>

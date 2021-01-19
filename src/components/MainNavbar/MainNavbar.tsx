@@ -1,13 +1,26 @@
-import React, { FC, useContext } from 'react';
+import React, { FC, useContext, useState, useEffect } from 'react';
 import { Navbar, Nav, NavDropdown, Image/* , Form, FormControl, Button */ } from 'react-bootstrap';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import { AtucasaContext } from '../../Context';
 import SignOut from '../SignForms/SignOut';
 import cart from '../../pictures/cart.png';
 
-const MainNavbar: FC = () => {
 
-  const {  currentUser, currentCustomer, currentMerchant, setOpenCart, setCartModal } = useContext<TContextProps>(AtucasaContext);
+const MainNavbar: FC = () => {
+  
+  const { currentUser, currentCustomer, currentMerchant, setOpenCart, setCartModal } = useContext<TContextProps>(AtucasaContext);
+  // const history = useHistory();
+  // const [ showCart, setShowCart ] = useState<boolean>(false);
+
+  
+  // useEffect(() => {
+  //   const regex = /\/merchants\//g;
+  //   const url = history.location.pathname;
+  //   if (url && ((JSON.stringify(url.match(regex))) === (JSON.stringify(["/merchants/"])))) {
+  //     setShowCart(true);
+  //   }
+  // }, [history]);
+
 
   // const helper = () => {
   //   setLoggedOut(true);
@@ -27,17 +40,22 @@ const MainNavbar: FC = () => {
               { currentMerchant && <NavLink className="nav-link px-3 py-3 text-info" to="/home/products">Products</NavLink> }
             </Nav>
 
-            <Nav>
-              <img 
-                src={cart} 
-                alt="cart"
-                width="40px"
-                onClick={() => {
-                  setCartModal(true)
-                  setOpenCart(true);
-                }}
-              />
-            </Nav>
+            {/* {
+              showCart && ( */}
+                <Nav>
+                  <img 
+                    src={cart} 
+                    alt="cart"
+                    width="40px"
+                    onClick={() => {
+                      setCartModal(true)
+                      setOpenCart(true);
+                    }}
+                  />
+                </Nav>
+              {/* )
+            } */}
+
             
             <NavDropdown 
               className="mr-2"

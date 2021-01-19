@@ -58,6 +58,7 @@ const App:FC = (): JSX.Element => {
                 </ContainerJumbotron>
               )
               } />
+              
               <Route 
                 exact path="/merchants/:slug" 
                 render={(props) => (

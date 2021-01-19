@@ -1,5 +1,5 @@
 import React, { FC, useState, useEffect, useContext } from 'react';
-import { Table } from 'react-bootstrap';
+import { Button, Table } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import { AtucasaContext } from '../../Context';
 import MainModal from '../MainModal/MainModal';
@@ -144,18 +144,37 @@ const Cart: FC<IProductsProps> = ({ currentCustomerID, merchantID }): JSX.Elemen
                 <td>{ cartProduct.productName }</td>
                 <td>${ cartProduct.unitPrice }</td>
                 <td>
-                  <button onClick={ () => handleAmount("-", cID) }>-</button>
+                  <Button 
+                    onClick={ () => handleAmount("-", cID) }
+                    style={{
+                      borderRadius: "50%",
+                      padding: "3px 11px"
+                    }}
+                    className="btn-light btn-outline-secondary mr-1" 
+                  >
+                    &nbsp;-
+                  </Button>
                   { cartProduct.amount }
-                  <button onClick={ () => handleAmount("+", cID) }>+</button>
+                  <Button 
+                    onClick={ () => handleAmount("+", cID) }
+                    style={{
+                      borderRadius: "50%",
+                      padding: "3px 11px"
+                    }}
+                    className="btn-light btn-outline-secondary ml-1" 
+                  >
+                    +
+                  </Button>
                 </td>
                 <td>${ cartProduct.tax.toFixed(2) }</td>
                 <td>${ ((cartProduct.tax + cartProduct.unitPrice) * cartProduct.amount).toFixed(2) }</td>
                 <td>
-                  <button 
+                  <Button 
                     onClick={ () => setCart(cart.filter((pr, id) => id !== cID)) }
+                    className="btn-danger"
                   >
-                    X
-                  </button>
+                    &times;
+                  </Button>
                 </td>
               </tr>
             )) 
@@ -176,7 +195,7 @@ const Cart: FC<IProductsProps> = ({ currentCustomerID, merchantID }): JSX.Elemen
                 }}
               />
             </td>
-            <td><button onClick={ handleSuggestedTip }>Apply</button></td>
+            <td><Button onClick={ handleSuggestedTip }>Apply</Button></td>
           </tr>
           <tr>
             <td></td>
@@ -194,7 +213,16 @@ const Cart: FC<IProductsProps> = ({ currentCustomerID, merchantID }): JSX.Elemen
           </tr>
         </tbody>
       </Table>
-      <button onClick={ handleCheckout }>Checkout</button>
+      <Button 
+        onClick={ handleCheckout }
+        className="btn-success text-center"
+        style={{
+          margin: "auto",
+          width: "100%"
+        }}
+      >
+        Checkout
+      </Button>
     </>
   );
 };
