@@ -66,7 +66,7 @@ const ProductOrder: FC<IProductProps> = ({
       //   )
       // }} 
       key={ product.id }
-      className={ `border border-light ${!available ? "table-danger text-dark" : amountChanged ? "table-warning text-dark" : ""}` }
+      className={ `border border-dark ${!available ? "table-danger text-dark" : amountChanged ? "table-warning text-dark" : ""}` }
     >
       <td>{ product.product_name }</td>
       <td>${ (product.price).toFixed(2) }</td>
@@ -125,9 +125,9 @@ const ProductOrder: FC<IProductProps> = ({
       <td>${ Number(((product.price + product.tax) * currentAmount).toFixed(2)) }</td>
       {
         (!orderAccepted && currentUser?.role === "merchant" && currentRole === "merchant") ? (
-          <td>
+          <td className="border-left border-dark">
             <Button 
-              className={ available ? "btn-danger" : "btn-light"}
+              className={ available ? "btn-danger" : "btn-primary"}
               onClick={ () => {
                 setAcceptance(acceptance.map((v, i) => {
                   if ((i === index) && !amountChanged) {
@@ -153,7 +153,7 @@ const ProductOrder: FC<IProductProps> = ({
               ) : amountChanged ? (
                 <td className="font-weight-bold border-left border-dark">Amount suggested by merchant</td>
               ) : (
-                <td>Available</td>
+                <td className="border-left border-dark">Available</td>
               )
             }
           </>
