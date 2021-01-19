@@ -3,6 +3,8 @@ import UpdateImage from '../UpdateImage/UpdateImage';
 import { Link, useHistory } from 'react-router-dom';
 import { AtucasaContext } from '../../Context';
 import MainModal from '../MainModal/MainModal';
+import MultiPurposeCard from '../MultiPurposeCard/MultiPurposeCard';
+import { Button } from 'react-bootstrap';
 
 interface IMerchantProps {
   handleCurrentMerchant: () => void,
@@ -118,9 +120,120 @@ const EditMerchant: FC<IMerchantProps> = ({ handleCurrentMerchant, currentMercha
       </MainModal>
 
       <h2>Edit Merchant</h2>
-      <Link to="/home/user_information">Go back to user information</Link>
+
       <form onSubmit={ handleSubmit }>
-        <label>Profile Picture:&nbsp;</label>
+
+
+        <MultiPurposeCard>
+          <tbody>
+
+            <tr><td>
+              <Link to="/home/user_information">Go back to user information</Link>
+            </td></tr>
+
+            <tr><td>
+              <strong>
+                <label>Merchant Name:&nbsp;</label>
+              </strong>
+              <input 
+                type="text"
+                name="merchantName"
+                value={ merchantName }
+                onChange={ handleInput } 
+                placeholder={ currentMerchant.merchant_name }
+              />
+            </td></tr>
+
+            <tr><td>
+              <strong>
+                <label>Phone Number:&nbsp;</label>
+              </strong>
+              <input 
+                type="text"
+                name="phoneNumber"
+                value={ phoneNumber }
+                onChange={ handleInput } 
+                placeholder={ currentMerchant.phone_number }
+                style={{
+                  width: "230px"
+                }}
+              />
+            </td></tr>
+
+            <tr><td>
+              <strong>
+                <label>Tax ID:&nbsp;</label>
+              </strong>
+              <input 
+                type="text"
+                name="taxId"
+                value={ taxId }
+                onChange={ handleInput } 
+                placeholder={ currentMerchant.tax_id }
+                style={{
+                  width: "300px"
+                }}
+              />
+            </td></tr>
+
+            <tr><td>
+              <strong>
+                <label>Description:&nbsp;</label>
+              </strong>
+              <input 
+                type="text"
+                name="description"
+                value={ description }
+                onChange={ handleInput } 
+                placeholder={ currentMerchant.description }
+                style={{
+                  width: "260px"
+                }}
+              />
+            </td></tr>
+
+            <tr><td>
+              <strong>
+                <label>Profile Picture:</label>
+              </strong>
+              <UpdateImage 
+                currentPicture = { currentMerchant.profile_picture }
+                userName = { currentMerchant.merchant_name }
+                handleInput = { handleInput }
+                newPicture = { profilePicture }
+                setNewPicture = { setProfilePicture }
+                namePicture={ "profilePicture" }
+              />
+            </td></tr>
+
+            <tr><td>
+              <strong>
+                <label>Profile Picture:</label>
+              </strong>
+              <UpdateImage 
+                currentPicture = { currentMerchant.background_picture }
+                userName = { currentMerchant.merchant_name }
+                handleInput = { handleInput }
+                newPicture = { backgroundPicture }
+                setNewPicture = { setBackgroundPicture }
+                namePicture={ "backgroundPicture" }
+              />
+            </td></tr>
+
+            <tr><td className="pb-0">
+              <Button 
+                type="submit"
+                className="btn-success" 
+              >
+                Update
+              </Button>
+            </td></tr>  
+            
+          </tbody>
+        </MultiPurposeCard>
+
+
+        {/* <label>Profile Picture:&nbsp;</label>
         <UpdateImage 
           currentPicture = { currentMerchant.profile_picture }
           userName = { currentMerchant.merchant_name }
@@ -176,7 +289,7 @@ const EditMerchant: FC<IMerchantProps> = ({ handleCurrentMerchant, currentMercha
           placeholder={ currentMerchant.description }
         />
         <br/>
-        <input type="submit" value="Update"/>
+        <input type="submit" value="Update"/> */}
       </form>
       <br/>
     </>

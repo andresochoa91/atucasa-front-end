@@ -1,6 +1,8 @@
 import React, { FC, useContext, useState } from 'react';
+import { Button } from 'react-bootstrap';
 import { AtucasaContext } from '../../Context';
 import MainModal from '../MainModal/MainModal';
+import MultiPurposeCard from '../MultiPurposeCard/MultiPurposeCard';
 
 const EditLink: FC<THandleMode & TLinksProps & TLinkProps> = ({ handleMode, handleLinks, link }): JSX.Element => {
 
@@ -73,28 +75,40 @@ const EditLink: FC<THandleMode & TLinksProps & TLinkProps> = ({ handleMode, hand
       <MainModal titleMessage={ currentTitleMessage }>
         <p>{ currentMessage }</p>
       </MainModal>
-      <h2>Edit Link</h2>
       <form onSubmit={ handleSubmit }>
-        <label>Site Name</label>   
-        <input 
-          type="text"
-          name="siteName"
-          value={ siteName }  
-          onChange={ handleInput } 
-          placeholder={ link.site_name }
-        />
-        <br/>
-        <label>Url</label>   
-        <input 
-          type="text"
-          name="url"
-          value={ url }  
-          onChange={ handleInput } 
-          placeholder={ link.url }
-        />
-        <br/>
-        <input type="submit" value="Submit"/>
-        <button onClick={ handleMode }>Cancel</button>
+        <MultiPurposeCard>
+
+          <tbody>
+            <tr><td>
+              <label><strong>Site Name:</strong>&nbsp;</label>   
+              <input 
+                type="text"
+                name="siteName"
+                value={ siteName }  
+                onChange={ handleInput } 
+                placeholder={ link.site_name }
+              />
+            </td></tr>
+
+            <tr><td>
+              <label><strong>Url:</strong>&nbsp;</label>   
+              <input 
+                type="text"
+                name="url"
+                value={ url }  
+                onChange={ handleInput } 
+                placeholder={ link.url }
+                style={{
+                  width: "278px"
+                }}
+              />
+            </td></tr>
+            <tr><td className="pb-0">
+              <Button className="btn-success mr-2" type="submit">Update</Button>
+              <Button onClick={ handleMode }>Cancel</Button>
+            </td></tr>
+          </tbody>
+        </MultiPurposeCard>
       </form> 
     </>
   );

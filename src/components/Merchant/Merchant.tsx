@@ -130,7 +130,7 @@ const Merchant: FC = (): JSX.Element => {
                     <tr><td><strong>Phone Number: </strong>  { currentMerchant.phone_number }</td></tr>
                     <tr><td><strong>Tax ID: </strong>  { currentMerchant.tax_id }</td></tr>
                     <tr><td><strong>Description: </strong>  { currentMerchant.description }</td></tr>
-                    <tr><td>
+                    <tr><td className="pb-0">
                       <Link className="btn btn-primary mr-1" to="/home/edit_user">Update email or password</Link>
                       <Link className="btn btn-primary" to="/home/edit_merchant">Edit merchant information</Link>
                     </td></tr>

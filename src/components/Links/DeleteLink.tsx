@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { Button } from 'react-bootstrap';
 
 const DeleteLink: FC<TLinkProps & TLinksProps> = ({ link, handleLinks }): JSX.Element => {
 
@@ -21,7 +22,7 @@ const DeleteLink: FC<TLinkProps & TLinksProps> = ({ link, handleLinks }): JSX.El
   };
 
   return (
-    <button onClick={ handleDelete }>Delete</button>  
+    <Button className="btn-danger" onClick={ handleDelete }>Delete</Button>  
   );
 };
 

@@ -9,7 +9,7 @@ import SignForms from './components/SignForms/SignForms';
 import MainNavbar from './components/MainNavbar/MainNavbar';
 import Home from './components/Home/Home';
 // import { Container, Jumbotron } from 'react-bootstrap';
-import food2 from './food2.jpg'
+import food2 from './pictures/food2.jpg'
 import ContainerJumbotron from './components/ContainerJumbotron/ContainerJumbotron';
 
 

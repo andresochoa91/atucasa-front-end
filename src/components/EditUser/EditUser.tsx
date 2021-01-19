@@ -149,9 +149,10 @@ const EditUser: FC = (): JSX.Element => {
                   />
                 </td></tr>
 
-                <tr><td>
+                <tr><td className="pb-0">
                   <Button 
                     type="submit" 
+                    className="btn-success"
                   >
                     Update
                   </Button>

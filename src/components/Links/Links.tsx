@@ -25,7 +25,7 @@ const Links: FC = (): JSX.Element => {
 
   return (
     <>
-      <h2>Links</h2>
+      <h2 className="mb-5">Links</h2>
       { links.map((link) => (
         <LinkUrl handleLinks={ handleLinks } link={ link } key={ link.id } />
       )) }
