@@ -2,6 +2,7 @@ import React, { FC, useContext, useState } from 'react';
 import UpdateImage from '../UpdateImage/UpdateImage';
 import { Link, useHistory } from 'react-router-dom';
 import { AtucasaContext } from '../../Context';
+import MainModal from '../MainModal/MainModal';
 
 interface IMerchantProps {
   handleCurrentMerchant: () => void,
@@ -9,7 +10,16 @@ interface IMerchantProps {
 };
 
 const EditMerchant: FC<IMerchantProps> = ({ handleCurrentMerchant, currentMerchant }): JSX.Element => {
-  const { handleMerchants } = useContext<TContextProps>(AtucasaContext);
+
+  const { 
+    handleMerchants,
+    setCurrentMessageValidation, 
+    currentMessage, 
+    setCurrentMessage,
+    currentTitleMessage,
+    setCurrentTitleMessage 
+  } = useContext<TContextProps>(AtucasaContext);
+
   const [ merchantName, setMerchantName ] = useState<string>("");
   const [ phoneNumber, setPhoneNumber ] = useState<string>("");
   const [ taxId, setTaxId ] = useState<string>("");
@@ -40,13 +50,20 @@ const EditMerchant: FC<IMerchantProps> = ({ handleCurrentMerchant, currentMercha
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
 
+    if (!merchantName && !phoneNumber && !taxId && !description && !profilePicture && !backgroundPicture) {
+      setCurrentMessage("There is nothing to update");
+      setCurrentTitleMessage("Fields empty")
+      setCurrentMessageValidation(true);
+      return; 
+    }
+
     const newDataMerchant:TCurrentMerchant = {};
-    if (merchantName) newDataMerchant.merchant_name = merchantName;
-    if (phoneNumber) newDataMerchant.phone_number = phoneNumber;
-    if (taxId) newDataMerchant.tax_id = taxId;
-    if (description) newDataMerchant.description = description;
-    if (profilePicture) newDataMerchant.profile_picture = profilePicture;
-    if (backgroundPicture) newDataMerchant.background_picture = backgroundPicture;
+    newDataMerchant.merchant_name = merchantName ? merchantName : currentMerchant.merchant_name;
+    newDataMerchant.phone_number = phoneNumber ? phoneNumber : currentMerchant.phone_number;
+    newDataMerchant.tax_id = taxId ? taxId : currentMerchant.tax_id ;
+    newDataMerchant.description = description ? description : currentMerchant.description;
+    newDataMerchant.profile_picture = profilePicture ? profilePicture : currentMerchant.profile_picture;
+    newDataMerchant.background_picture = backgroundPicture ? backgroundPicture : currentMerchant.background_picture;
 
     fetch(`${process.env.REACT_APP_API}/current_user/merchant`, {
       method: "PUT",
@@ -58,7 +75,6 @@ const EditMerchant: FC<IMerchantProps> = ({ handleCurrentMerchant, currentMercha
     })
     .then(response => response.json())
     .then(data => {
-      console.log(data);
       if (!data.error) {
         setMerchantName("");
         setPhoneNumber("");
@@ -69,6 +85,26 @@ const EditMerchant: FC<IMerchantProps> = ({ handleCurrentMerchant, currentMercha
         handleCurrentMerchant();
         handleMerchants();
         history.push("/home/user_information");
+      } else {
+        ((err) => {
+          const {merchant_name, phone_number, tax_id, description, profile_picture, background_picture} = err;
+          if (merchant_name) {
+            setCurrentMessage(`Merchant Name ${merchant_name}`);
+          } else if (phone_number) {
+            setCurrentMessage(phone_number);
+          } else if (tax_id) {
+            setCurrentMessage(`Tax ID ${tax_id}`);
+          } else if (description) {
+            setCurrentMessage(`Description ${description}`);
+          } else if (profile_picture) {
+            setCurrentMessage(`Profile Picture ${profile_picture}`);
+          } else if (background_picture) {
+            setCurrentMessage(`Background Picture ${background_picture}`);
+          }
+          setCurrentTitleMessage("Error editing merchant")
+          setCurrentMessageValidation(true);
+        })(data.error);
+        console.log(data.error)
       }
     })
     .catch(console.error);
@@ -76,10 +112,15 @@ const EditMerchant: FC<IMerchantProps> = ({ handleCurrentMerchant, currentMercha
 
   return(
     <>
+
+      <MainModal titleMessage={ currentTitleMessage }>
+        <p>{ currentMessage }</p>
+      </MainModal>
+
       <h2>Edit Merchant</h2>
       <Link to="/home/user_information">Go back to user information</Link>
       <form onSubmit={ handleSubmit }>
-        <label>Profile Picture</label>
+        <label>Profile Picture:&nbsp;</label>
         <UpdateImage 
           currentPicture = { currentMerchant.profile_picture }
           userName = { currentMerchant.merchant_name }
@@ -89,7 +130,7 @@ const EditMerchant: FC<IMerchantProps> = ({ handleCurrentMerchant, currentMercha
           namePicture={ "profilePicture" }
         />
         <br/>
-        <label>Background Picture</label>
+        <label>Background Picture:&nbsp;</label>
         <UpdateImage 
           currentPicture = { currentMerchant.background_picture }
           userName = { currentMerchant.merchant_name }
@@ -99,7 +140,7 @@ const EditMerchant: FC<IMerchantProps> = ({ handleCurrentMerchant, currentMercha
           namePicture={ "backgroundPicture" }
         />
         <br/>
-        <label>Merchant Name</label>
+        <label>Merchant Name:&nbsp;</label>
         <input 
           type="text"
           name="merchantName"
@@ -108,7 +149,7 @@ const EditMerchant: FC<IMerchantProps> = ({ handleCurrentMerchant, currentMercha
           placeholder={ currentMerchant.merchant_name }
         />
         <br/>
-        <label>Phone Number</label>
+        <label>Phone Number:&nbsp;</label>
         <input 
           type="text"
           name="phoneNumber"
@@ -117,7 +158,7 @@ const EditMerchant: FC<IMerchantProps> = ({ handleCurrentMerchant, currentMercha
           placeholder={ currentMerchant.phone_number }
         />
         <br/>
-        <label>Tax ID</label>
+        <label>Tax ID:&nbsp;</label>
         <input 
           type="text"
           name="taxId"
@@ -126,7 +167,7 @@ const EditMerchant: FC<IMerchantProps> = ({ handleCurrentMerchant, currentMercha
           placeholder={ currentMerchant.tax_id }
         />
         <br/>
-        <label>Description</label>
+        <label>Description:&nbsp;</label>
         <input 
           type="text"
           name="description"
