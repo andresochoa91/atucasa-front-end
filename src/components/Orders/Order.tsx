@@ -225,7 +225,7 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
                                   />
                                 </td>
                                 <td className="border-right border-bottom border-light">
-                                  <Button className="btn-success" onClick={ () => setCurrentTip((semiTotal * 0.15).toFixed(2)) }>
+                                  <Button onClick={ () => setCurrentTip((semiTotal * 0.15).toFixed(2)) }>
                                     Apply suggested tip
                                   </Button>
                                 </td>
@@ -263,7 +263,7 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
             <div className="text-center">
               {
                 !acceptance.filter((v) => !v).length ? (
-                  <Button onClick={ () => handleUpdate(order.id, "accepted") }>Confirm order</Button>
+                  <Button className="btn-success" onClick={ () => handleUpdate(order.id, "accepted") }>Confirm order</Button>
                 ) : (
                   <form 
                     onSubmit={ (event) => {
@@ -302,7 +302,7 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
             <div className="text-center">
               <h6><strong>Message from merchant: </strong>{ message }</h6>
               <h6>If you accept the changes, press confirm order, if not, press Cancel Order</h6>
-              <Button className="mr-2" onClick={ () => handleUpdate(order.id, "accepted") }>Confirm order</Button>
+              <Button className="mr-2 btn-success" onClick={ () => handleUpdate(order.id, "accepted") }>Confirm order</Button>
               <Button className="mr-2 btn-danger" onClick={ () => handleUpdate(order.id, "canceled") }>Cancel order</Button>
             </div>
           )

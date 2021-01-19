@@ -190,7 +190,7 @@ const EditProduct: FC<TProductsProps & TProductProps & THandleMode> = ({ handleP
               </select>              
             </td></tr>
 
-            <tr><td>
+            <tr><td className="pb-0">
               <Button className="mr-2 btn-success" type="submit">Update</Button>
               <Button onClick={ handleMode }>Cancel</Button>
             </td></tr>  

@@ -190,7 +190,7 @@ const CreateProduct: FC<TProductsProps> = ({ handleProducts }): JSX.Element => {
                         namePicture={ "productPicture" }
                       />
                     </td></tr>
-                    <tr><td>
+                    <tr><td className="pb-0">
                       <Button 
                         type="submit" 
                         value="Submit"

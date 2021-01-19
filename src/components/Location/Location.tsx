@@ -20,7 +20,7 @@ const Location: FC = (): JSX.Element => {
                 <tr><td><strong>Country:</strong>  { location.country }</td></tr>
                 <tr><td><strong>Zip Code:</strong>  { location.zip_code }</td></tr>
                 <tr><td><strong>Details:</strong>  { location.details }</td></tr>
-                <tr><td>
+                <tr><td className="pb-0">
                   <Link className="btn btn-primary" to="/home/edit_location">Edit location</Link>
                 </td></tr>
               </tbody>

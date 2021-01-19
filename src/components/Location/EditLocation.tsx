@@ -140,10 +140,10 @@ const EditLocation: FC = (): JSX.Element => {
 
   return (
     <>
-      <h2>Edit Location</h2>
       <MainModal titleMessage={ currentTitleMessage }>
         <p>{ currentMessage }</p>
       </MainModal>
+      <h2>Edit Location</h2>
       {
         location && (
           <form onSubmit={ handleSubmit } >
@@ -233,9 +233,10 @@ const EditLocation: FC = (): JSX.Element => {
                     className="float-right w-75"
                   />
                 </td></tr>
-                <tr><td>
+                <tr><td className="pb-0">
                   <Button 
                     type="submit" 
+                    className="btn-success"
                   >
                     Update
                   </Button>
