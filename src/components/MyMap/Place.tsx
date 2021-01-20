@@ -17,7 +17,6 @@ interface IMerchantProps {
 const Place: FC<IMerchantProps> = ({ merchant, lat, lng, currentAddress, currentCity, currentState }): JSX.Element => {
   const { location, currentUser } = useContext<TContextProps>(AtucasaContext);
   const { latitude, longitude } = merchant.location;
-  const { merchant_name } = merchant.merchant_info;
   const [ showPlace, setShowPlace ] = useState<boolean>(false);
 
   useEffect(() => {

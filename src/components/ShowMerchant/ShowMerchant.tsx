@@ -6,7 +6,7 @@ import downarrow from '../../pictures/downarrow.png';
 import uparrow from '../../pictures/uparrow.png';
 import ScrollableAnchor, { goToAnchor } from 'react-scrollable-anchor';
 import Cart from '../Cart/Cart';
-import { Button, Modal } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 import ContainerJumbotron from '../ContainerJumbotron/ContainerJumbotron';
 import MultiPurposeCard from '../MultiPurposeCard/MultiPurposeCard';
 
