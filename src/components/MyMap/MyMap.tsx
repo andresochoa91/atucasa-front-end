@@ -73,7 +73,7 @@ const MyMap: FC<ILatLngProps> = ({ lat, lng }): JSX.Element => {
             }
             <MapContainer
               center={[ latitude, longitude]} 
-              zoom={ currentUser ? 15 : 13} 
+              zoom={ 12 } 
               // minZoom={ 10 }
               style={{ height: "500px", width: "900px" }}
             >

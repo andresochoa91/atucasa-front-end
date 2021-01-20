@@ -6,7 +6,9 @@ import downarrow from '../../pictures/downarrow.png';
 import uparrow from '../../pictures/uparrow.png';
 import ScrollableAnchor, { goToAnchor } from 'react-scrollable-anchor';
 import Cart from '../Cart/Cart';
-import { Button, Modal } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
+import ContainerJumbotron from '../ContainerJumbotron/ContainerJumbotron';
+import MultiPurposeCard from '../MultiPurposeCard/MultiPurposeCard';
 
 interface IParams {
   params: { slug: string }
@@ -23,7 +25,6 @@ const ShowMerchantNoLogged:FC<IMerchantProps & RouteComponentProps> = ({ match, 
     handleCurrentUser, 
     cart, 
     openCart, 
-    setOpenCart, 
     currentCustomer,
     cartModal,
     setCartModal 
@@ -31,7 +32,6 @@ const ShowMerchantNoLogged:FC<IMerchantProps & RouteComponentProps> = ({ match, 
 
   const [ currentMerchant, setCurrentMerchant ] = useState<TShowMerchant | null>(null);
   const [ showProducts, setShowProducts ] = useState<boolean>(false);
-  const [ country, setCountry ] = useState<string>();
   const [ state, setState ] = useState<string>();
   const [ city, setCity ] = useState<string>();
   const [ address, setAddress ] = useState<string>();
@@ -40,9 +40,8 @@ const ShowMerchantNoLogged:FC<IMerchantProps & RouteComponentProps> = ({ match, 
   useEffect(() => {
     let mounted = true;
     if (merchant) {
-      const { country, state, city, address } = merchant.location;
+      const { state, city, address } = merchant.location;
       setCurrentMerchant(merchant);
-      setCountry(country);
       setState(state);
       setCity(city);
       setAddress(address);
@@ -59,8 +58,7 @@ const ShowMerchantNoLogged:FC<IMerchantProps & RouteComponentProps> = ({ match, 
             products: data.products
           })
           console.log(data.location)
-          const { country, state, city, address } = data.location;
-          setCountry(country);
+          const { state, city, address } = data.location;
           setState(state);
           setCity(city);
           setAddress(address);
@@ -73,44 +71,31 @@ const ShowMerchantNoLogged:FC<IMerchantProps & RouteComponentProps> = ({ match, 
 
   return (
     <>
-
-
-      {/* <Button variant="primary" 
-        onClick={() => {
-          setOpenCart(true);
-          setShow(true)
-        } 
-      }>
-        Custom Width Modal
-      </Button> */}
-
-      {/* <Button onClick={() => {
-        setCartModal(true)
-        setOpenCart(true);
-      }}
-      >
-        Cart
-      </Button> */}
-    
-
-
-
+      {
+        !currentUser && (
+          <a
+            style={{
+              position: 'fixed',
+              right: "10px",
+              top: "10px",
+              borderColor: "#444",
+              borderWidth: "5px"
+            }}
+            className="btn btn-primary"
+            href="/"
+          >
+            Go to A Tu Casa
+          </a>
+        )
+      }
 
       {
         currentMerchant && (
           <div key={ currentMerchant.merchant_info.id }>
-            {
-              !currentUser && (
-                <>
-                  <p style={{ color: "red" }}>You have to be logged to buy through the website</p>
-                  <p style={{ color: "red" }}>You can always contact the merchant through their phone or email</p>
-                </>
-              )
-            }
             <div
               style={{
                 backgroundImage: `url("${ currentMerchant.merchant_info.background_picture })"`,
-                height: "400px",
+                height: "500px",
                 backgroundSize: "cover",
                 backgroundPosition: 'center',
                 backgroundRepeat: "no-repeat",
@@ -124,12 +109,8 @@ const ShowMerchantNoLogged:FC<IMerchantProps & RouteComponentProps> = ({ match, 
                 }}
               >
                 <p
-                  className="mb-4"
+                  className="mb-0 w-100 mx-auto display-3 text-center"
                   style={{
-                    width: "100%",
-                    margin: "auto",
-                    fontSize: "60px",
-                    textAlign: "center",
                     textShadow: `
                       4px 4px 2px #fff, 
                       -4px -4px 2px #fff, 
@@ -139,6 +120,20 @@ const ShowMerchantNoLogged:FC<IMerchantProps & RouteComponentProps> = ({ match, 
                   }}
                 >
                   { currentMerchant.merchant_info.merchant_name }
+                </p>
+
+                <p
+                  className="mb-5 w-100 mx-auto h2 text-center"
+                  style={{
+                    textShadow: `
+                      4px 4px 2px #fff, 
+                      -4px -4px 2px #fff, 
+                      -4px 4px 2px #fff, 
+                      4px -4px 2px #fff
+                    `
+                  }}
+                >
+                  { currentMerchant.merchant_info.description }
                 </p>
 
                 <div
@@ -162,9 +157,6 @@ const ShowMerchantNoLogged:FC<IMerchantProps & RouteComponentProps> = ({ match, 
               </div>
             
             </div>
-
-            {/* <h2>{ currentMerchant.merchant_info.merchant_name }</h2> */}
-
 
             <ScrollableAnchor id="show-products">
               <div
@@ -251,38 +243,22 @@ const ShowMerchantNoLogged:FC<IMerchantProps & RouteComponentProps> = ({ match, 
             </ScrollableAnchor>
 
             {
-              showProducts && (          
-                <ShowProducts 
-                  merchantID={ currentMerchant.merchant_info.id } 
-                  products={ currentMerchant.products }
-                />
+              showProducts && (  
+                <>
+                  <ShowProducts 
+                    merchantID={ currentMerchant.merchant_info.id } 
+                    products={ currentMerchant.products }
+                  />
+                </>        
               )
             }
 
             {
               openCart && currentUser && (
-                // <Modal
-                //   show={show}
-                //   onHide={() => setShow(false)}
-                // >
-                //   <Modal.Header closeButton>
-                //     <Modal.Title id="example-custom-modal-styling-title">
-                //       Cart
-                //     </Modal.Title>
-                //   </Modal.Header>
-                //   <Modal.Body>
-                //     <Cart 
-                //       merchantID={ currentMerchant.merchant_info.id }
-                //       currentCustomerID={ currentCustomer?.id }
-                //     />
-                //   </Modal.Body>
-                // </Modal>
-
                 <Modal
                   size="lg"
                   show={cartModal}
                   onHide={() => setCartModal(false)}
-                  aria-labelledby="example-modal-sizes-title-lg"
                 >
                   <Modal.Header closeButton>
                     <Modal.Title id="example-modal-sizes-title-lg">
@@ -305,27 +281,48 @@ const ShowMerchantNoLogged:FC<IMerchantProps & RouteComponentProps> = ({ match, 
 
               )
             }
+            <ContainerJumbotron>
 
-            <p><strong>Description</strong>: { currentMerchant.merchant_info.description }</p>
-            <p><strong>Phone Number</strong>: { currentMerchant.merchant_info.phone_number }</p>
-            <p><strong>Email</strong>: { currentMerchant.email}</p>
-            <p><strong>Location</strong>
-              : { `${country}, ${state}, ${city}, ${address}.` }
-            </p>
-            <br/>
-            
-            <br/>
-            <br/>
-            <br/>
-            <h3>Links</h3>
-            {
-              currentMerchant.links &&
-              currentMerchant.links.map((link) => (
-                <div key={ link.id }>
-                  <p><strong>{ link.site_name }</strong>: { link.url }</p>
-                </div>
-              ))
-            }
+              <div
+                className="d-flex flex-wrap justify-content-around"
+              >
+                <MultiPurposeCard>
+                  <tbody>
+                    <tr><td>
+                      <h4>Merchant Information</h4>
+                    </td></tr>
+                    <tr><td>
+                      <p><strong>Phone Number</strong>: { currentMerchant.merchant_info.phone_number }</p>
+                    </td></tr>
+                    <tr><td>
+                      <p><strong>Email</strong>: { currentMerchant.email}</p>
+                    </td></tr>
+                    <tr><td>
+                      <p><strong>Location</strong>
+                        : { `${address}, ${city}, ${state}.` }
+                      </p>
+                    </td></tr>
+                  </tbody>
+                </MultiPurposeCard>
+
+                <MultiPurposeCard>
+                  <tbody>
+                    <tr><td>
+                      <h4>Links</h4>
+                    </td></tr>
+                    {
+                      currentMerchant.links &&
+                      currentMerchant.links.map((link) => (
+                        <tr key={ link.id }><td>
+                          <p><strong>{ link.site_name }</strong>: <a href={ link.url } target={`_blank`}>{ link.url }</a></p>
+                        </td></tr>
+                      ))
+                    }
+                  </tbody>
+                </MultiPurposeCard>
+              </div>
+
+            </ContainerJumbotron>
           </div>
         ) 
       }

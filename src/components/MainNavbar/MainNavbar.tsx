@@ -1,13 +1,32 @@
-import React, { FC, useContext } from 'react';
+import React, { FC, useContext, useState, useEffect } from 'react';
 import { Navbar, Nav, NavDropdown, Image/* , Form, FormControl, Button */ } from 'react-bootstrap';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import { AtucasaContext } from '../../Context';
 import SignOut from '../SignForms/SignOut';
-import cart from '../../pictures/cart.png';
+import cartPicture from '../../pictures/cartPicture.png';
 
 const MainNavbar: FC = () => {
+  
+  const { 
+    currentUser, 
+    currentCustomer, 
+    currentMerchant, 
+    setOpenCart, 
+    setCartModal,
+    cart 
+  } = useContext<TContextProps>(AtucasaContext);
+  const history = useHistory();
+  const [ showCart, setShowCart ] = useState<boolean>(false);
 
-  const {  currentUser, currentCustomer, currentMerchant, setOpenCart, setCartModal } = useContext<TContextProps>(AtucasaContext);
+  
+  useEffect(() => {
+    const regex = /\/merchants\//g;
+    const url = history.location.pathname;
+    if (url && ((JSON.stringify(url.match(regex))) === (JSON.stringify(["/merchants/"])))) {
+      setShowCart(true);
+    }
+  }, [history]);
+
 
   // const helper = () => {
   //   setLoggedOut(true);
@@ -27,18 +46,47 @@ const MainNavbar: FC = () => {
               { currentMerchant && <NavLink className="nav-link px-3 py-3 text-info" to="/home/products">Products</NavLink> }
             </Nav>
 
-            <Nav>
-              <img 
-                src={cart} 
-                alt="cart"
-                width="40px"
-                onClick={() => {
-                  setCartModal(true)
-                  setOpenCart(true);
-                }}
-              />
-            </Nav>
-            
+            {
+              (showCart && currentUser.role === "customer") && (
+                <Nav>
+                  <img 
+                    src={cartPicture} 
+                    alt="cart"
+                    width="40px"
+                    onClick={() => {
+                      setCartModal(true)
+                      setOpenCart(true);
+                    }}
+                    style={{
+                      cursor: "pointer"
+                    }}
+                  />
+                  {
+                    cart.length ? (
+                      <div
+                        style={{
+                          height: "20px",
+                          width: "20px",
+                          borderColor: "#f00",
+                          backgroundColor: "#f00",
+                          borderRadius: "50%"
+                        }}
+                      >
+                        <p 
+                          className="text-center text-light"
+                          style={{
+                            fontSize: "13px"
+                          }}
+                        >
+                          { cart.length }
+                        </p>
+                      </div>
+                    ) : <></>
+                  }
+                </Nav>
+              )
+            } 
+
             <NavDropdown 
               className="mr-2"
               drop="left"
@@ -74,7 +122,7 @@ const MainNavbar: FC = () => {
             {/* <SignOut /> */}
           </Navbar>
         ) 
-      }      
+      }
     </>
   );
 }

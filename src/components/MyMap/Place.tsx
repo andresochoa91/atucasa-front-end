@@ -1,6 +1,5 @@
 import React, { FC, useContext, useEffect, useState } from 'react';
 import { Circle, Popup, Marker } from 'react-leaflet';
-import { Link } from 'react-router-dom';
 import { AtucasaContext } from '../../Context';
 import L from 'leaflet';
 import store from '../../pictures/store.png';
@@ -16,9 +15,8 @@ interface IMerchantProps {
 }
 
 const Place: FC<IMerchantProps> = ({ merchant, lat, lng, currentAddress, currentCity, currentState }): JSX.Element => {
-  const { location } = useContext<TContextProps>(AtucasaContext);
+  const { location, currentUser } = useContext<TContextProps>(AtucasaContext);
   const { latitude, longitude } = merchant.location;
-  const { merchant_name } = merchant.merchant_info;
   const [ showPlace, setShowPlace ] = useState<boolean>(false);
 
   useEffect(() => {
@@ -63,10 +61,10 @@ const Place: FC<IMerchantProps> = ({ merchant, lat, lng, currentAddress, current
               }}
             >
               <Popup>
-                <p>{`${ merchant_name }`}</p>
-                <Link to={`/merchants/${ merchant.merchant_info.slug }`}>
+                <img src={ merchant.merchant_info.profile_picture } alt="img"/>
+                <a href={`${ currentUser ? "/home/" : "/" }merchants/${ merchant.merchant_info.slug }`}>
                   { merchant.merchant_info.merchant_name }
-                </Link>
+                </a>
               </Popup>
             </Circle>
             <Marker
@@ -75,10 +73,18 @@ const Place: FC<IMerchantProps> = ({ merchant, lat, lng, currentAddress, current
               
             >
               <Popup>
-                <p>{ merchant.merchant_info.merchant_name }</p>
-                <Link to={`/merchants/${ merchant.merchant_info.slug }`}>
-                  { merchant.merchant_info.merchant_name }
-                </Link>
+                <a
+                  href={`${ currentUser ? "/home/" : "/" }merchants/${ merchant.merchant_info.slug }`}
+                  target={`_blank`}
+                >
+                  <img 
+                    src={ merchant.merchant_info.profile_picture } 
+                    alt="img"
+                    height="70px"
+                    width="100px"
+                  />
+                  <p className="my-0">{ merchant.merchant_info.merchant_name }</p>
+                </a>
               </Popup>
             </Marker>
           </div>

@@ -1,8 +1,15 @@
 import React, { FC, useContext, useState } from 'react'
+import { Button } from 'react-bootstrap';
 import { AtucasaContext } from '../../Context';
 import MainModal from '../MainModal/MainModal';
+import MultiPurposeCard from '../MultiPurposeCard/MultiPurposeCard';
 
-const CreateLink: FC<TLinksProps> = ({ handleLinks }): JSX.Element => {
+interface ILinksProps {
+  onCreateLink: boolean,
+  setOnCreateLink: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+const CreateLink: FC<TLinksProps & ILinksProps> = ({ handleLinks, setOnCreateLink }): JSX.Element => {
 
   const {
     setCurrentMessageValidation, 
@@ -41,6 +48,8 @@ const CreateLink: FC<TLinksProps> = ({ handleLinks }): JSX.Element => {
         setSiteName("")
         setUrl("")
         handleLinks();
+        setOnCreateLink(false);
+
       } else {
         if (data.error.site_name) {
           setCurrentMessage(`Site name ${data.error.site_name[0]}`);
@@ -57,29 +66,58 @@ const CreateLink: FC<TLinksProps> = ({ handleLinks }): JSX.Element => {
 
   return (
     <>
+      <h2 className="mb-4">Create Link</h2>
       <MainModal titleMessage={ currentTitleMessage }>
         <p>{ currentMessage }</p>
       </MainModal>
-      <h2>Create Link</h2>
+
       <form onSubmit={ handleSubmit }>
-        <label>Site Name</label>   
-        <input 
-          type="text"
-          name="siteName"
-          value={ siteName }  
-          onChange={ handleInput } 
-        />
-        <br/>
-        <label>Url</label>   
-        <input 
-          type="text"
-          name="url"
-          value={ url }  
-          onChange={ handleInput } 
-        />
-        <br/>
-        <input type="submit" value="Submit"/>
-      </form> 
+        <Button 
+          onClick={ () => setOnCreateLink(false) }
+          className="mb-5"
+        >
+          Close create link window
+        </Button>
+        <MultiPurposeCard>
+          <tbody>
+            <tr><td>
+              <strong>Site Name:&nbsp;</strong>   
+              <input 
+                type="text"
+                name="siteName"
+                value={ siteName }  
+                onChange={ handleInput } 
+                style={{
+                  width: "300px"
+                }} 
+              /> 
+            </td></tr>
+            
+            <tr><td>
+              <strong>Url:&nbsp;</strong>   
+              <input 
+                type="text"
+                name="url"
+                value={ url }  
+                onChange={ handleInput } 
+                style={{
+                  width: "355px"
+                }} 
+              />
+            </td></tr>
+
+            <tr><td className="pb-0">
+              <Button 
+                type="submit" 
+                value="Submit"
+                className="btn-success"
+              >
+                Create link
+              </Button>
+            </td></tr>
+          </tbody>
+        </MultiPurposeCard>
+      </form>
     </>
   );
 };

@@ -1,9 +1,12 @@
 import React, { FC, useState, useEffect } from 'react';
+import { Button } from 'react-bootstrap';
+import ContainerJumbotron from '../ContainerJumbotron/ContainerJumbotron';
 import CreateLink from './CreateLink';
 import LinkUrl from './LinkUrl';
 
 const Links: FC = (): JSX.Element => {
   const [ links, setLinks ] = useState<TLinks>([]);
+  const [ onCreateLink, setOnCreateLink ] = useState<boolean>(false);
   
   const handleLinks = (): void => {
     fetch(`${process.env.REACT_APP_API}/current_user/links`, {
@@ -26,10 +29,31 @@ const Links: FC = (): JSX.Element => {
   return (
     <>
       <h2 className="mb-5">Links</h2>
+      {
+        !onCreateLink && (
+          <Button
+            className="mb-5"
+            onClick={() => setOnCreateLink(!onCreateLink)}
+          >
+            Create Link
+          </Button>
+        )
+      }
+      {
+        onCreateLink && (
+          <ContainerJumbotron>
+            <CreateLink 
+              handleLinks={ handleLinks } 
+              onCreateLink={ onCreateLink }
+              setOnCreateLink={ setOnCreateLink }
+            />
+          </ContainerJumbotron>
+
+        )
+      }
       { links.map((link) => (
         <LinkUrl handleLinks={ handleLinks } link={ link } key={ link.id } />
       )) }
-      <CreateLink handleLinks={ handleLinks } />
     </>
   );
 };
