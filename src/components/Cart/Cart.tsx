@@ -131,7 +131,13 @@ const Cart: FC<IProductsProps> = ({ currentCustomerID, merchantID }): JSX.Elemen
         <thead>
           <tr>
             <th>Product name</th>
-            <th>Unit Price</th>
+            <th
+              style={{
+                width: "110px"
+              }}
+            >
+              Unit Price
+            </th>
             <th>Amount</th>
             <th>Unit Tax</th>
             <th>Semi Total</th>
@@ -143,7 +149,11 @@ const Cart: FC<IProductsProps> = ({ currentCustomerID, merchantID }): JSX.Elemen
               <tr key={ cID }>
                 <td>{ cartProduct.productName }</td>
                 <td>${ cartProduct.unitPrice }</td>
-                <td>
+                <td 
+                  style={{
+                    width: "110px"
+                  }} 
+                >
                   <Button 
                     onClick={ () => handleAmount("-", cID) }
                     style={{

@@ -93,7 +93,8 @@ const EditLocation: FC = (): JSX.Element => {
       
       getCachedData(`${newLocation.address},${newLocation.city},${newLocation.state},${newLocation.zip_code}`, "address")
       .then(response => {
-        return JSON.parse(response.data.strData);
+        console.log(response)
+        return JSON.parse(response.data.stringified_data);
       })
       .then(data => {
         console.log(data);

@@ -10,8 +10,8 @@ const SignIn: FC = (): JSX.Element => {
     setCurrentMessageValidation 
   } = useContext<TContextProps>(AtucasaContext);
 
-  const [ email, setEmail ] = useState<string>("andres_ochoa91@hotmail.com");
-  const [ password, setPassword ] = useState<string>("123456789");
+  const [ email, setEmail ] = useState<string>("");
+  const [ password, setPassword ] = useState<string>("");
   const [ validated, setValidated ] = useState<boolean>(false);
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>):void => {

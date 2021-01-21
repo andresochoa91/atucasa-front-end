@@ -29,7 +29,7 @@ const MyMap: FC<ILatLngProps> = ({ lat, lng }): JSX.Element => {
       navigator.geolocation.getCurrentPosition((position) => {
         getCachedData(`${position.coords.latitude},${position.coords.longitude}`, "coords")
         .then(response => {
-          return JSON.parse(response.data.strData);
+          return JSON.parse(response.data.stringified_data);
         })
         .then(data => {
           const { displayLatLng, street, adminArea3, adminArea4 } = data.results[0].locations[0];
