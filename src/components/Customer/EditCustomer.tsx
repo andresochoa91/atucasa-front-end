@@ -26,6 +26,9 @@ const EditCustomer: FC<ICustomerProps> = ({ handleCurrentCustomer, currentCustom
   const [ phoneNumber, setPhoneNumber ] = useState<string>("");
   const [ profilePicture, setProfilePicture ] = useState<string>("");
 
+  /**
+   * History of Path Url
+   */
   const history = useHistory();
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -44,6 +47,10 @@ const EditCustomer: FC<ICustomerProps> = ({ handleCurrentCustomer, currentCustom
     )(value);
   };
 
+  /**
+   *Checks all the information submitted by the customer is correct
+   *Updates Customer information 
+   */
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
   
@@ -63,6 +70,7 @@ const EditCustomer: FC<ICustomerProps> = ({ handleCurrentCustomer, currentCustom
 
     console.log(newDataCustomer);
 
+    //Put request to api to submit customer information
     fetch(`${process.env.REACT_APP_API}/current_user/customer`, {
       method: "PUT",
       credentials: "include",
@@ -84,6 +92,7 @@ const EditCustomer: FC<ICustomerProps> = ({ handleCurrentCustomer, currentCustom
         history.push('/home/user_information');
       } else if (data.error) {
         console.log(data);
+        //Handling validations in response sent from the back-end
         ((error) => {
           const { username, first_name, last_name, phone_number, profile_picture } = error;
           if (username) {

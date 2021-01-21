@@ -5,6 +5,9 @@ interface IConteinerJumbotronProps {
   children: React.ReactNode
 }
 
+/**
+ * Component that add format to other components
+ */
 const ContainerJumbotron: FC<IConteinerJumbotronProps> = ({ children }) => {
   return (
     <Container className="text-center mt-5">

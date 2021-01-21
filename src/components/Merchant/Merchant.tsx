@@ -12,9 +12,12 @@ import MyMap from '../MyMap/MyMap';
 import ContainerJumbotron from '../ContainerJumbotron/ContainerJumbotron';
 import MultiPurposeCard from '../MultiPurposeCard/MultiPurposeCard';
 
+
+/**Main Merchant page */
 const Merchant: FC = (): JSX.Element => {
   const { currentUser, location, currentMerchant, setCurrentMerchant } = useContext<TContextProps>(AtucasaContext);
 
+  //Get request to api to get current merchant
   const handleCurrentMerchant = () => {
     fetch(`${process.env.REACT_APP_API}/current_user/merchant`, {
       method: "GET",

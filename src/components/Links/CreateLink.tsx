@@ -28,6 +28,10 @@ const CreateLink: FC<TLinksProps & ILinksProps> = ({ handleLinks, setOnCreateLin
     ( name === "siteName" ? setSiteName : setUrl )(value);
   };
 
+  /**
+   *Checks all the information submitted by the merchant is correct
+   *Creates links 
+   */
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
     fetch(`${process.env.REACT_APP_API}/current_user/links`, {
@@ -51,6 +55,7 @@ const CreateLink: FC<TLinksProps & ILinksProps> = ({ handleLinks, setOnCreateLin
         setOnCreateLink(false);
 
       } else {
+        //Handling validations in response sent from the back-end
         if (data.error.site_name) {
           setCurrentMessage(`Site name ${data.error.site_name[0]}`);
           setCurrentTitleMessage("Error Site Name")

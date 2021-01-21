@@ -5,8 +5,7 @@ import { AtucasaContext } from '../../Context';
 import SignOut from '../SignForms/SignOut';
 import cartPicture from '../../pictures/cartPicture.png';
 
-const MainNavbar: FC = () => {
-  
+const MainNavbar: FC = () => {  
   const { 
     currentUser, 
     currentCustomer, 
@@ -20,18 +19,17 @@ const MainNavbar: FC = () => {
 
   
   useEffect(() => {
+    /**Regular Expression used to check if path contains /merchants/ */
     const regex = /\/merchants\//g;
+
+    /**Current path */
     const url = history.location.pathname;
+
+    //Checks if we are in merchants path
     if (url && ((JSON.stringify(url.match(regex))) === (JSON.stringify(["/merchants/"])))) {
       setShowCart(true);
     }
   }, [history]);
-
-
-  // const helper = () => {
-  //   setLoggedOut(true);
-  //   // auth.signOut();
-  // }
 
   return (
     <>

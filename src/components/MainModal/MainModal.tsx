@@ -8,8 +8,11 @@ interface IProps {
   titleMessage: string
 }
 
+/**Modal that sends alerts to user */
 const MainModal: FC<IProps> = ({ titleMessage, children }) => {
   const { currentMessageValidation, setCurrentMessageValidation } = useContext<TContextProps>(AtucasaContext);  
+
+  /**Handles when user closes the modal */
   const handleClose = () => setCurrentMessageValidation(false);
 
   return(

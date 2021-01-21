@@ -8,6 +8,9 @@ const Links: FC = (): JSX.Element => {
   const [ links, setLinks ] = useState<TLinks>([]);
   const [ onCreateLink, setOnCreateLink ] = useState<boolean>(false);
   
+  /**
+   *Get request, gets links associated with current metchant
+   */
   const handleLinks = (): void => {
     fetch(`${process.env.REACT_APP_API}/current_user/links`, {
       method: "GET",

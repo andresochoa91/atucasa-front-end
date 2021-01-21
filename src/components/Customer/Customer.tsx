@@ -16,11 +16,14 @@ import { Image } from 'react-bootstrap';
 const Customer: FC = (): JSX.Element => {
   const { currentUser, location, handleCurrentCustomer, currentCustomer, setSearchMerchants } = useContext<TContextProps>(AtucasaContext);
   const [ searchbox, setSearchbox ] = useState<string>(""); 
+
+  /**
+   * Product that user types in the searchbox
+   */
   const [ tempProduct, setTempProduct ] = useState<string>(""); 
+
   const [ showMap, setShowMap ] = useState<boolean>(false);
   const [ loadingMap, setLoadingMap ] = useState<boolean>(false);
-
-  // const history = useHistory();
 
   useEffect(() => {
     if (!currentCustomer) {
@@ -28,6 +31,9 @@ const Customer: FC = (): JSX.Element => {
     }
   }, [currentCustomer, handleCurrentCustomer]);
 
+  /**
+   *It looks for merchants that have the product the customer put in the searchbox 
+   */
   const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setLoadingMap(true);

@@ -3,6 +3,7 @@ import { Button } from 'react-bootstrap';
 
 const DeleteLink: FC<TLinkProps & TLinksProps> = ({ link, handleLinks }): JSX.Element => {
 
+  /**Delete request to api to delete links */
   const handleDelete = (): void => {
     if (window.confirm("are you sure?")) {
       fetch(`${process.env.REACT_APP_API}/current_user/links/${link.id}`, {
