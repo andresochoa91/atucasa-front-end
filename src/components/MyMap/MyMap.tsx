@@ -51,11 +51,13 @@ const MyMap: FC<ILatLngProps> = ({ lat, lng }): JSX.Element => {
       {
         (latitude && longitude && currentCustomer && history.location.pathname === "/home/map") ? (
           <h3>These are the merchants close to you!</h3>
-        ) : latitude && longitude && currentMerchant && history.location.pathname === "/home/map" && (
+        ) : latitude && longitude && currentMerchant && history.location.pathname === "/home/map" ? (
           <>
             <h3 className="mb-3">This is your current location</h3>
             <h6 className="mb-5">Do you have to update your location? <Link to="/home/edit_location" >Click here</Link></h6>
           </>
+        ) : (
+          <></>
         )
       }
       {
@@ -135,13 +137,12 @@ const MyMap: FC<ILatLngProps> = ({ lat, lng }): JSX.Element => {
                   ))
                 )
               }
-
             </MapContainer>
           </div>
         ) : !currentUser ? (
           <p>Loading map...</p>
         ) : (
-          <p style={{ color: "red" }}>Please set up your location to display map</p>
+          <p className="text-warning">Please set up your location to display map</p>
         )
       }
     </>

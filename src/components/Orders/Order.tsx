@@ -99,6 +99,7 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
           setCurrentRole(data.order.current_user);
         } else if (field === "accepted") {
           setOrderAccepted(true);
+          window.location.reload();
         } else if (field === "canceled") {
           setOrderCanceled(true);
         }

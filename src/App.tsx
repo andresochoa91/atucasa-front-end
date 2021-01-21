@@ -8,7 +8,7 @@ import MainNavbar from './components/MainNavbar/MainNavbar';
 import Home from './components/Home/Home';
 import ContainerJumbotron from './components/ContainerJumbotron/ContainerJumbotron';
 import { Navbar } from 'react-bootstrap';
-import cartbackground from './pictures/cartbackground.jpg'
+import cartbackground from './pictures/cartbackground2.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLinkedin, faGithub } from "@fortawesome/free-brands-svg-icons"
 

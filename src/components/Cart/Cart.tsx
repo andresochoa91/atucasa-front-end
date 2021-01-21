@@ -140,7 +140,11 @@ const Cart: FC<IProductsProps> = ({ currentCustomerID, merchantID }): JSX.Elemen
             </th>
             <th>Amount</th>
             <th>Unit Tax</th>
-            <th>Semi Total</th>
+            <th
+              style={{
+                width: "190px"
+              }}
+            >Semi Total</th>
           </tr>
         </thead>
         <tbody>
@@ -151,7 +155,7 @@ const Cart: FC<IProductsProps> = ({ currentCustomerID, merchantID }): JSX.Elemen
                 <td>${ cartProduct.unitPrice }</td>
                 <td 
                   style={{
-                    width: "110px"
+                    width: "120px"
                   }} 
                 >
                   <Button 
@@ -198,10 +202,11 @@ const Cart: FC<IProductsProps> = ({ currentCustomerID, merchantID }): JSX.Elemen
               $<input 
                 type="text"
                 value={ tip }
-                placeholder={ `Suggested: ${(total * 0.15).toFixed(2)}` }
+                placeholder={ `Suggested: $${(total * 0.15).toFixed(2)}` }
                 onChange={ handleTip }
                 style={{
-                  width: "150px"
+                  width: "157px",
+                  padding: "0"
                 }}
               />
             </td>
