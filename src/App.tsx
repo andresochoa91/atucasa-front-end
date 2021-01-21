@@ -1,17 +1,14 @@
 import React, { FC, useContext } from 'react';
 import { AtucasaContext } from './Context';
-// import Customer from './components/Customer/Customer';
-// import Merchant from './components/Merchant/Merchant';
 import { Route, Switch, Redirect, Link } from 'react-router-dom';
 import MyMap from './components/MyMap/MyMap';
 import ShowMerchant from './components/ShowMerchant/ShowMerchant';
 import SignForms from './components/SignForms/SignForms';
 import MainNavbar from './components/MainNavbar/MainNavbar';
 import Home from './components/Home/Home';
-// import { Container, Jumbotron } from 'react-bootstrap';
 import ContainerJumbotron from './components/ContainerJumbotron/ContainerJumbotron';
 import { Navbar } from 'react-bootstrap';
-
+import cartbackground from './pictures/cartbackground.jpg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLinkedin, faGithub } from "@fortawesome/free-brands-svg-icons"
 
@@ -21,7 +18,7 @@ const App:FC = (): JSX.Element => {
   return (
     <div
       style={{
-        backgroundImage: `url(https://fivestonesglobal.org/wp-content/uploads/2019/04/Shopping-Cart-Background.jpg)`,
+        backgroundImage: `url(${cartbackground})`,
         position: "absolute",
         minWidth: "100%",
         minHeight: "100%",

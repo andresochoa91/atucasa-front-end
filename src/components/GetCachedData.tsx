@@ -11,7 +11,7 @@ export const getCachedData = async(url:string, mapquestType:string) => {
     credentials: "include",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      coordsUrl: url
+      coords_url: url
     })
   });
 
@@ -34,16 +34,16 @@ export const getCachedData = async(url:string, mapquestType:string) => {
     const mapQuestData = await fetchMapquest.json();
 
     interface IMapquest {
-      strData: string,
-      coordsUrl?: string
+      stringified_data: string,
+      coords_url?: string
     };
 
     const mapquestParams: IMapquest = { 
-      strData: JSON.stringify(mapQuestData) 
+      stringified_data: JSON.stringify(mapQuestData) 
     };
     
     if (mapquestType === "coords") {
-      mapquestParams.coordsUrl = url
+      mapquestParams.coords_url = url
     }
 
     const fetchData = mapquestType !== "coords" ? 

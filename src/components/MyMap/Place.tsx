@@ -25,7 +25,7 @@ const Place: FC<IMerchantProps> = ({ merchant, lat, lng, currentAddress, current
 
         getCachedData(`${location?.address},${location?.city},${location?.state}&to=${merchant.location.address},${merchant.location.city},${merchant.location.state}`, "route")
         .then(response => {
-          return JSON.parse(response.data.strData);
+          return JSON.parse(response.data.stringified_data);
         })
         .then(data => {
           console.log(data)
@@ -35,7 +35,7 @@ const Place: FC<IMerchantProps> = ({ merchant, lat, lng, currentAddress, current
       } else if (currentAddress && currentCity && currentState) {
         getCachedData(`${currentAddress},${currentCity},${currentState}&to=${merchant.location.address},${merchant.location.city},${merchant.location.state}`, "route")
         .then(response => {
-          return JSON.parse(response.data.strData);
+          return JSON.parse(response.data.stringified_data);
         })
         .then(data => {
           console.log(data)
@@ -84,6 +84,7 @@ const Place: FC<IMerchantProps> = ({ merchant, lat, lng, currentAddress, current
                     width="100px"
                   />
                   <p className="my-0">{ merchant.merchant_info.merchant_name }</p>
+                  <p className="my-0">{ merchant.location.address }</p>
                 </a>
               </Popup>
             </Marker>
