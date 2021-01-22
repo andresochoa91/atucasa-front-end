@@ -1,6 +1,6 @@
 import React, { FC, useState, useContext } from 'react';
 import { AtucasaContext } from '../../Context';
-import { Form, Button, Col } from 'react-bootstrap'
+import { Form, Button, Col } from 'react-bootstrap';
 
 const SignIn: FC = (): JSX.Element => {
   const { 
@@ -20,8 +20,11 @@ const SignIn: FC = (): JSX.Element => {
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    
     event.preventDefault();
+    
     setValidated(true);
+    
     fetch(`${process.env.REACT_APP_API}/login`, {
       method: "POST",
       credentials: "include",
@@ -49,44 +52,43 @@ const SignIn: FC = (): JSX.Element => {
   };
 
   return (
-    <>
-      <div className="mt-4">
-        <h2>Sign In</h2>
-        <Form noValidate validated={validated} onSubmit={handleSubmit}>
-          <Form.Group className="mx-auto" as={Col} md="10" controlId="validationCustom02">
-            <Form.Label>Email</Form.Label>
-            <Form.Control
-              type="email"
-              placeholder="Email"
-              name="email"
-              defaultValue={ email }
-              onChange={ handleInput }
-              required
-            />
-            <Form.Control.Feedback type="invalid">
-              Please provide a valid email address.
-            </Form.Control.Feedback>
-            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-          </Form.Group>
-          <Form.Group className="mx-auto" as={Col} md="10" controlId="validationCustom03">
-            <Form.Label>Password</Form.Label>
-            <Form.Control
-              type="password"
-              placeholder="Password"
-              name="password"
-              defaultValue={ password }
-              onChange={ handleInput }
-              required
-            />
-            <Form.Control.Feedback type="invalid">
-              Please provide a valid password.
-            </Form.Control.Feedback>
-            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-          </Form.Group>        
-          <Button className="w-75" type="submit">Sign In</Button>
-        </Form>
-      </div>  
-    </>
+    <div className="mt-4">
+      <h2>Sign In</h2>
+      <Form noValidate validated={validated} onSubmit={handleSubmit}>
+        <Form.Group className="mx-auto" as={Col} md="10" controlId="validationCustom02">
+          <Form.Label>Email</Form.Label>
+          <Form.Control
+            type="email"
+            placeholder="Email"
+            name="email"
+            defaultValue={ email }
+            onChange={ handleInput }
+            required
+          />
+          <Form.Control.Feedback type="invalid">
+            Please provide a valid email address.
+          </Form.Control.Feedback>
+          <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+        </Form.Group>
+        
+        <Form.Group className="mx-auto" as={Col} md="10" controlId="validationCustom03">
+          <Form.Label>Password</Form.Label>
+          <Form.Control
+            type="password"
+            placeholder="Password"
+            name="password"
+            defaultValue={ password }
+            onChange={ handleInput }
+            required
+          />
+          <Form.Control.Feedback type="invalid">
+            Please provide a valid password.
+          </Form.Control.Feedback>
+          <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+        </Form.Group>        
+        <Button className="w-75" type="submit">Sign In</Button>
+      </Form>
+    </div>  
   );
 };
 
