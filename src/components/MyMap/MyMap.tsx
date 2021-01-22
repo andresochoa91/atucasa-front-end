@@ -13,6 +13,7 @@ interface ILatLngProps {
   lng?: number
 }
 
+/**Map we use in entire application */
 const MyMap: FC<ILatLngProps> = ({ lat, lng }): JSX.Element => {
 
   const { location, currentUser, currentCustomer, currentMerchant, merchants, searchMerchants } = useContext<TContextProps>(AtucasaContext);
@@ -22,10 +23,12 @@ const MyMap: FC<ILatLngProps> = ({ lat, lng }): JSX.Element => {
   const [ currentCity, setCurrentCity ] = useState<string>(location?.city ? location?.city : "");
   const [ currentState, setCurrentState ] = useState<string>(location?.state ? location?.state : "");
 
+  /** History of Path Url*/
   const history = useHistory();
 
   useEffect(() => {
     if (!currentUser) {
+      //Auto calculates position of user not logged
       navigator.geolocation.getCurrentPosition((position) => {
         getCachedData(`${position.coords.latitude},${position.coords.longitude}`, "coords")
         .then(response => {
@@ -43,8 +46,6 @@ const MyMap: FC<ILatLngProps> = ({ lat, lng }): JSX.Element => {
       })
     }
   }, [currentUser]);
-
-  console.log(history.location.pathname)
 
   return (
     <>

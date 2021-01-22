@@ -5,6 +5,7 @@ interface IMultiPurposeCardProps {
   children: React.ReactNode
 }
 
+/**Formats table information */
 const MultiPurposeCard: FC<IMultiPurposeCardProps> = ({ children }) => {
   return (
     <>
@@ -17,13 +18,6 @@ const MultiPurposeCard: FC<IMultiPurposeCardProps> = ({ children }) => {
         <Table className="mb-3 text-dark">
           { children }
         </Table>
-
-        {/* <Card.Link 
-          href="https://getcityweather.netlify.app" 
-          target="_black"
-        >
-          Get more information
-        </Card.Link> */}
       </Container>
     </>
   );

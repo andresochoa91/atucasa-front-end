@@ -14,6 +14,7 @@ interface IMerchantProps {
   currentState: string
 }
 
+/**Displays merchants in the map. This is only for customers and users not logged */
 const Place: FC<IMerchantProps> = ({ merchant, lat, lng, currentAddress, currentCity, currentState }): JSX.Element => {
   const { location, currentUser } = useContext<TContextProps>(AtucasaContext);
   const { latitude, longitude } = merchant.location;

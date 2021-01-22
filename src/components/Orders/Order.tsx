@@ -9,6 +9,7 @@ interface IOrderProps {
   order: TOrder
 }
 
+
 const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
 
   const { 
@@ -24,16 +25,27 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
   const [ orderCanceled, setOrderCanceled ] = useState<boolean>(order.canceled);
   const [ currentRole, setCurrentRole ] = useState<string>(order.current_user);
   const [ acceptance, setAcceptance ] = useState<Array<boolean>>(Array(order.products_order.length).fill(true));
+
+  /**Message sent from Merchant to Customer in case Merchant doesn't have all products ordered by Customer*/
   const [ message, setMessage ] = useState<string>(order.message);
+
+  /**Last stage is when Customer has to confirm or cancel the order because the merchants changed products in order  */
   const [ lastStage, setLastStage ] = useState<boolean>(false);
   const [ currentTip, setCurrentTip ] = useState<string>(order.tip === 0 && (!order.accepted) ? "" : (order.tip).toString());
   const [ semiTotal, setSemiTotal ] = useState<number>(0);
+  /**Status of the delivery */
+  
   const [ delivery, setDelivery ] = useState<string>("");
+
+  //Depending of the status of the delivery, the color changes
   const [ colorDelivery, setColorDelivery ] = useState<string>("");
   const [ orderPlaced, setOrderPlaced ] = useState<string>("");
+
+  //Time customer spects to receive their order
   const [ estimatedArrival, setEstimatedArrival ] = useState<string>("");
 
   useEffect(() => {
+    //Get request to api to to check if order has been delivered or not
     fetch(`${process.env.REACT_APP_API}/current_user/check_delivered/${order.id}`)
     .then(response => response.json())
     .then(data => {
@@ -58,6 +70,11 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
 
   }, [order, orderAccepted]);
 
+
+  /**
+   *Checks all the data submitted by the customer and merchant are correct
+   *Updates Order status 
+   */
   const handleUpdate = (id:number, field:string): void => {
     interface IUpdate {
       current_user?: string,
@@ -84,6 +101,7 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
     }
 
     if (field !== "accepted" || (currentTip !== "" && (Number(currentTip) >= 0))) {
+      //Put request to api to update order
       fetch(`${process.env.REACT_APP_API}/current_user/orders/${id}`, {
         method: "PUT",
         credentials: "include",
@@ -112,8 +130,10 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
     }
   };
 
+  /**Handles tip based on input from customer */
   const handleTip = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const currentTip = Number(event.target.value);
+    //Checks that we add ONLY a number, positive and not wrong characters 
     if ((currentTip === 0 && event.target.value.length < 5) || (currentTip && currentTip > 0) || (event.target.value === "")) {
       setCurrentTip(event.target.value);
     }
@@ -124,14 +144,6 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
       <MainModal titleMessage={ currentTitleMessage }>
         <h6>{ currentMessage }</h6>
       </MainModal>
-
-      {/* <div 
-        key={ order.id } 
-        className="border border-secondary mb-3 pt-5 text-dark"
-        style={{
-          backgroundColor: "rgba(255,255,255,0.75)"
-        }}
-      > */}
         <h4 className="text-center font-weight-bold mt-4">Order #{ order.id }</h4>
         { 
           currentUser?.role === "customer" ? (
