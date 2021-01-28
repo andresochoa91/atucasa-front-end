@@ -160,7 +160,7 @@ const Cart: FC<IProductsProps> = ({ currentCustomerID, merchantID }): JSX.Elemen
             <th>Unit Tax</th>
             <th
               style={{
-                width: "190px"
+                width: "200px"
               }}
             >Semi Total</th>
           </tr>

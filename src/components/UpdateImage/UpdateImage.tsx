@@ -55,7 +55,7 @@ const UpdateImage: FC<IImageProps> = (
             style={{
               cursor: "pointer"
             }}
-            className={ `mr-2 ${ !copyUrl ? "btn btn-primary" : "text-primary" }` }
+            className={ `mt-2 mr-2 ${ !copyUrl ? "btn btn-primary" : "text-primary" }` }
           >
             { !copyUrl ? "Copy url of the image" : "Go back" }
           </div>
@@ -72,7 +72,7 @@ const UpdateImage: FC<IImageProps> = (
             style={{
               cursor: "pointer"
             }}
-            className={ `${ !uploadImage ? "btn btn-primary" : "text-primary" }` }
+            className={ `mt-2 ${ !uploadImage ? "btn btn-primary" : "text-primary" }` }
           >
             { !uploadImage ? "Upload image from Computer" : "Go back" }
           </div>

@@ -202,7 +202,14 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
               <th>Unit Price</th>
               <th>Amount</th>
               <th>Unit Tax</th>
-              <th className="border-right border-dark">Semi Total</th>
+              <th 
+                className="border-right border-dark"
+                style={{
+                  width: "220px"
+                }}
+              >
+                Semi Total
+              </th>
             </tr>
           </thead>          
           <tbody>
