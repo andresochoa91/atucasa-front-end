@@ -63,7 +63,8 @@ const SignUp: FC = (): JSX.Element => {
       console.log(data);
       if (!data.error) {
         // document.cookie = `token=${data.user.token}`;
-        cookie.save("token", data.token, { path: "/", secure: true });
+        // console.log(data);
+        cookie.save("token", data.user.token, { path: "/", secure: true });
         handleCurrentUser();
       } else {
         const { password, email, password_confirmation } = data.error;
