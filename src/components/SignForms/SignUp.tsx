@@ -2,6 +2,8 @@ import React, { FC, useState, useContext } from 'react';
 import { AtucasaContext } from '../../Context';
 import { Form, Col, Button } from 'react-bootstrap';
 
+import cookie from 'react-cookies';
+
 const SignUp: FC = (): JSX.Element => {
 
   const { 
@@ -60,7 +62,8 @@ const SignUp: FC = (): JSX.Element => {
     .then(data => {
       console.log(data);
       if (!data.error) {
-        document.cookie = `token=${data.user.token}`;
+        // document.cookie = `token=${data.user.token}`;
+        cookie.save("token", data.token, { path: "/", secure: true });
         handleCurrentUser();
       } else {
         const { password, email, password_confirmation } = data.error;

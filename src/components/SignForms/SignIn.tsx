@@ -2,6 +2,8 @@ import React, { FC, useState, useContext } from 'react';
 import { AtucasaContext } from '../../Context';
 import { Form, Button, Col } from 'react-bootstrap';
 
+import cookie from 'react-cookies';
+
 const SignIn: FC = (): JSX.Element => {
   const { 
     handleCurrentUser, 
@@ -41,7 +43,8 @@ const SignIn: FC = (): JSX.Element => {
     .then(data => {
       if (!data.error) {
         console.log(data);
-        document.cookie = `token=${data.token}`;
+        // document.cookie = `token=${data.token}`;
+        cookie.save("token", data.token, { path: "/", secure: true });
         handleCurrentUser();
       } else {
         setCurrentMessage(data.error);
