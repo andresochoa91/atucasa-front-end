@@ -12,6 +12,9 @@ import MyMap from '../MyMap/MyMap';
 import ContainerJumbotron from '../ContainerJumbotron/ContainerJumbotron';
 import MultiPurposeCard from '../MultiPurposeCard/MultiPurposeCard';
 
+import cookie from 'react-cookies';
+
+
 const Merchant: FC = (): JSX.Element => {
   const { currentUser, location, currentMerchant, setCurrentMerchant } = useContext<TContextProps>(AtucasaContext);
 
@@ -20,7 +23,8 @@ const Merchant: FC = (): JSX.Element => {
       method: "GET",
       credentials: 'include',
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization": cookie.load("token")
       }
     })
     .then(response => response.json())

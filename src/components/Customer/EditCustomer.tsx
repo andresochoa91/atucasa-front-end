@@ -6,6 +6,7 @@ import { AtucasaContext } from '../../Context';
 import MainModal from '../MainModal/MainModal';
 import MultiPurposeCard from '../MultiPurposeCard/MultiPurposeCard';
 import { Button } from 'react-bootstrap';
+import cookie from 'react-cookies';
 
 interface ICustomerProps {
   handleCurrentCustomer: () => void,
@@ -67,7 +68,8 @@ const EditCustomer: FC<ICustomerProps> = ({ handleCurrentCustomer, currentCustom
       method: "PUT",
       credentials: "include",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization": cookie.load("token")
       },
       body: JSON.stringify(newDataCustomer)
     })

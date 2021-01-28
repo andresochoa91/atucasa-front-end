@@ -41,6 +41,7 @@ const SignIn: FC = (): JSX.Element => {
     .then(data => {
       if (!data.error) {
         console.log(data);
+        document.cookie = `token=${data.token}`;
         handleCurrentUser();
       } else {
         setCurrentMessage(data.error);

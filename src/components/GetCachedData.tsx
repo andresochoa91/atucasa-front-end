@@ -29,10 +29,16 @@ export const getCachedData = async(url:string, mapquestType:string) => {
         process.env.REACT_APP_MAPQUEST_GET_ADDRESS_FROM_COORDS :
       process.env.REACT_APP_MAPQUEST_GET_ROUTE
     );
+    
+    console.log(process.env.REACT_APP_MAPQUEST_GET_DATA_FROM_ADDRESS);
+    console.log(mapquestType);
+    console.log(mapquestAPI);
 
     const fetchMapquest = await fetch(`${mapquestAPI}${url}`);
-    const mapQuestData = await fetchMapquest.json();
 
+    const mapQuestData = await fetchMapquest.json();
+    
+    console.log(mapQuestData);
     interface IMapquest {
       stringified_data: string,
       coords_url?: string

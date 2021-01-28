@@ -4,6 +4,8 @@ import { AtucasaContext } from '../../Context';
 import MainModal from '../MainModal/MainModal';
 import MultiPurposeCard from '../MultiPurposeCard/MultiPurposeCard';
 
+import cookie from 'react-cookies';
+
 const EditLink: FC<THandleMode & TLinksProps & TLinkProps> = ({ handleMode, handleLinks, link }): JSX.Element => {
 
   const { 
@@ -47,7 +49,8 @@ const EditLink: FC<THandleMode & TLinksProps & TLinkProps> = ({ handleMode, hand
       method: "PUT",
       credentials: "include",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization": cookie.load("token")
       },
       body: JSON.stringify(urlSubmit)
     })

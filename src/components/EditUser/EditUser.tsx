@@ -6,6 +6,9 @@ import MainModal from '../MainModal/MainModal';
 import MultiPurposeCard from '../MultiPurposeCard/MultiPurposeCard';
 import { Button } from 'react-bootstrap';
 
+import cookie from 'react-cookies';
+
+
 const EditUser: FC = (): JSX.Element => {
   const { 
     currentUser, 
@@ -52,7 +55,8 @@ const EditUser: FC = (): JSX.Element => {
       method: "PUT",
       credentials: "include",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization": cookie.load("token")
       },
       body: JSON.stringify(newDataUser)
     })

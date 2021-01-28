@@ -11,9 +11,9 @@ const SignUp: FC = (): JSX.Element => {
     setCurrentTitleMessage 
   } = useContext<TContextProps>(AtucasaContext);
 
-  const [ email, setEmail ] = useState<string>("");
-  const [ password, setPassword ] = useState<string>("");
-  const [ passwordConfirmation, setPasswordConfirmation ] = useState<string>("");
+  const [ email, setEmail ] = useState<string>("a@gmail.com");
+  const [ password, setPassword ] = useState<string>("123456789");
+  const [ passwordConfirmation, setPasswordConfirmation ] = useState<string>("123456789");
   const [ role, setRole ] = useState<string>("customer");
   const [ validated, setValidated ] = useState<boolean>(false);
 
@@ -58,7 +58,9 @@ const SignUp: FC = (): JSX.Element => {
     })
     .then(response => response.json())
     .then(data => {
+      console.log(data);
       if (!data.error) {
+        document.cookie = `token=${data.user.token}`;
         handleCurrentUser();
       } else {
         const { password, email, password_confirmation } = data.error;

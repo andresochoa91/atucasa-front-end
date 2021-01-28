@@ -5,6 +5,8 @@ import MainModal from '../MainModal/MainModal';
 import MultiPurposeCard from '../MultiPurposeCard/MultiPurposeCard';
 import UpdateImage from '../UpdateImage/UpdateImage';
 
+import cookie from 'react-cookies';
+
 const EditProduct: FC<TProductsProps & TProductProps & THandleMode> = ({ handleProducts, product, handleMode }): JSX.Element => {
   
   const { 
@@ -72,7 +74,8 @@ const EditProduct: FC<TProductsProps & TProductProps & THandleMode> = ({ handleP
       method: "PUT",
       credentials: "include",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization": cookie.load("token")
       },
       body: JSON.stringify({
         product_name: productName ? productName : product.product_name,

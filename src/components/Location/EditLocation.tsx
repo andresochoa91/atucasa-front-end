@@ -6,6 +6,9 @@ import MainModal from '../MainModal/MainModal';
 import MultiPurposeCard from '../MultiPurposeCard/MultiPurposeCard';
 import { Button } from 'react-bootstrap';
 
+import cookie from 'react-cookies';
+
+
 const EditLocation: FC = (): JSX.Element => {
   const { 
     location, 
@@ -119,7 +122,8 @@ const EditLocation: FC = (): JSX.Element => {
           method: "PUT",
           credentials: "include",
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Authorization": cookie.load("token")
           },
           body: JSON.stringify(newLocation)
         })
@@ -127,6 +131,7 @@ const EditLocation: FC = (): JSX.Element => {
         .then(data2 => {
           console.log(data2);
           if (!data2.error) {
+            console.log(data2)
             history.push('/home/location');
             handleLocation();
           }
