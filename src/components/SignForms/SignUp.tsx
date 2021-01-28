@@ -12,9 +12,9 @@ const SignUp: FC = (): JSX.Element => {
     setCurrentTitleMessage 
   } = useContext<TContextProps>(AtucasaContext);
 
-  const [ email, setEmail ] = useState<string>("a@gmail.com");
-  const [ password, setPassword ] = useState<string>("123456789");
-  const [ passwordConfirmation, setPasswordConfirmation ] = useState<string>("123456789");
+  const [ email, setEmail ] = useState<string>("");
+  const [ password, setPassword ] = useState<string>("");
+  const [ passwordConfirmation, setPasswordConfirmation ] = useState<string>("");
   const [ role, setRole ] = useState<string>("customer");
   const [ validated, setValidated ] = useState<boolean>(false);
 
