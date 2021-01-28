@@ -11,7 +11,7 @@ import { Switch, Link, Route, Redirect } from 'react-router-dom';
 import MyMap from '../MyMap/MyMap';
 import ContainerJumbotron from '../ContainerJumbotron/ContainerJumbotron';
 import MultiPurposeCard from '../MultiPurposeCard/MultiPurposeCard';
-
+import cookie from 'react-cookies';
 
 /**Main Merchant page */
 const Merchant: FC = (): JSX.Element => {
@@ -23,7 +23,8 @@ const Merchant: FC = (): JSX.Element => {
       method: "GET",
       credentials: 'include',
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization": cookie.load("token")
       }
     })
     .then(response => response.json())

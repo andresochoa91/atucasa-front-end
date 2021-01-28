@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { Button } from 'react-bootstrap';
+import cookie from 'react-cookies';
 
 const DeleteProduct: FC<TProductProps & TProductsProps> = ({ product, handleProducts }): JSX.Element => {
 
@@ -9,7 +10,8 @@ const DeleteProduct: FC<TProductProps & TProductsProps> = ({ product, handleProd
         method: "DELETE",
         credentials: "include",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "Authorization": cookie.load("token")
         }
       })
       .then(response => response.json())

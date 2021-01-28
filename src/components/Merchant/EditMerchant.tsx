@@ -6,6 +6,8 @@ import MainModal from '../MainModal/MainModal';
 import MultiPurposeCard from '../MultiPurposeCard/MultiPurposeCard';
 import { Button } from 'react-bootstrap';
 
+import cookie from 'react-cookies';
+
 interface IMerchantProps {
   handleCurrentMerchant: () => void,
   currentMerchant: TCurrentMerchant
@@ -79,7 +81,8 @@ const EditMerchant: FC<IMerchantProps> = ({ handleCurrentMerchant, currentMercha
       method: "PUT",
       credentials: "include",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization": cookie.load("token")
       },
       body: JSON.stringify(newDataMerchant)
     })

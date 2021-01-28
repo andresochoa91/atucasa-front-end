@@ -1,6 +1,8 @@
 import React, { FC, useContext } from 'react';
 import { AtucasaContext } from '../../Context';
 import { Button } from 'react-bootstrap';
+import cookie from 'react-cookies';
+import { useHistory } from 'react-router';
 
 const SignOut: FC = () => {
   const { 
@@ -11,22 +13,17 @@ const SignOut: FC = () => {
     setCurrentMerchant 
   } = useContext<TContextProps>(AtucasaContext);
 
+  const history = useHistory();
+
   const handleSignOut = ():void => {
-    fetch(`${process.env.REACT_APP_API}/logout`, {
-      credentials: "include",
-      method: "DELETE"
-    })
-    .then(response => response.json())
-    .then(data => {
-      console.log(data);
-      setLoggedOut(true);
-      setCurrentUser(null);
-      setCurrentCustomer(null);
-      setCurrentMerchant(null);
-      handleMerchants();
-      window.location.reload();
-    })
-    .catch(err => console.error(err))
+    cookie.remove("token", { path: "/" });
+    history.push("/");
+    setLoggedOut(true);
+    setCurrentUser(null);
+    setCurrentCustomer(null);
+    setCurrentMerchant(null);
+    handleMerchants();
+    window.location.reload();
   };
 
   return (

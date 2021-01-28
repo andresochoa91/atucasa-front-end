@@ -4,6 +4,8 @@ import { AtucasaContext } from '../../Context';
 import MainModal from '../MainModal/MainModal';
 import MultiPurposeCard from '../MultiPurposeCard/MultiPurposeCard';
 
+import cookie from 'react-cookies';
+
 interface ILinksProps {
   onCreateLink: boolean,
   setOnCreateLink: React.Dispatch<React.SetStateAction<boolean>>
@@ -38,7 +40,8 @@ const CreateLink: FC<TLinksProps & ILinksProps> = ({ handleLinks, setOnCreateLin
       method: "POST",
       credentials: "include",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization": cookie.load("token")
       },
       body: JSON.stringify({
         site_name: siteName,

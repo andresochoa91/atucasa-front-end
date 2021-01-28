@@ -5,6 +5,8 @@ import ContainerJumbotron from '../ContainerJumbotron/ContainerJumbotron';
 import MainModal from '../MainModal/MainModal';
 import MultiPurposeCard from '../MultiPurposeCard/MultiPurposeCard';
 import UpdateImage from '../UpdateImage/UpdateImage';
+import cookie from 'react-cookies';
+
 
 const CreateProduct: FC<TProductsProps> = ({ handleProducts }): JSX.Element => {
 
@@ -71,7 +73,8 @@ const CreateProduct: FC<TProductsProps> = ({ handleProducts }): JSX.Element => {
       method: "POST",
       credentials: "include",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization": cookie.load("token")
       },
       body: JSON.stringify({
         product_name: productName,

@@ -1,6 +1,7 @@
 import React, { FC, useState, useContext } from 'react';
 import { AtucasaContext } from '../../Context';
 import { Form, Col, Button } from 'react-bootstrap';
+import cookie from 'react-cookies';
 
 const SignUp: FC = (): JSX.Element => {
 
@@ -11,9 +12,9 @@ const SignUp: FC = (): JSX.Element => {
     setCurrentTitleMessage 
   } = useContext<TContextProps>(AtucasaContext);
 
-  const [ email, setEmail ] = useState<string>("");
-  const [ password, setPassword ] = useState<string>("");
-  const [ passwordConfirmation, setPasswordConfirmation ] = useState<string>("");
+  const [ email, setEmail ] = useState<string>("a@gmail.com");
+  const [ password, setPassword ] = useState<string>("123456789");
+  const [ passwordConfirmation, setPasswordConfirmation ] = useState<string>("123456789");
   const [ role, setRole ] = useState<string>("customer");
   const [ validated, setValidated ] = useState<boolean>(false);
 
@@ -58,7 +59,9 @@ const SignUp: FC = (): JSX.Element => {
     })
     .then(response => response.json())
     .then(data => {
+      console.log(data);
       if (!data.error) {
+        cookie.save("token", data.user.token, { path: "/", secure: true });
         handleCurrentUser();
       } else {
         const { password, email, password_confirmation } = data.error;
@@ -77,69 +80,67 @@ const SignUp: FC = (): JSX.Element => {
   };
 
   return (
-    <>
-      <div className="mt-4">
-        <h2>Sign Up</h2>
-        <Form noValidate validated={validated} onSubmit={handleSubmit}>
-          <Form.Group className="mx-auto" as={Col} md="10" controlId="validationCustom02">
-            <Form.Label>Email</Form.Label>
-            <Form.Control
-              type="email"
-              placeholder="Email"
-              name="email"
-              defaultValue={ email }
-              onChange={ handleInput }
-              required
-            />
-            <Form.Control.Feedback type="invalid">
-              Please provide a valid email address.
-            </Form.Control.Feedback>
-            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-          </Form.Group>
+    <div className="mt-4">
+      <h2>Sign Up</h2>
+      <Form noValidate validated={validated} onSubmit={handleSubmit}>
+        <Form.Group className="mx-auto" as={Col} md="10" controlId="validationCustom02">
+          <Form.Label>Email</Form.Label>
+          <Form.Control
+            type="email"
+            placeholder="Email"
+            name="email"
+            defaultValue={ email }
+            onChange={ handleInput }
+            required
+          />
+          <Form.Control.Feedback type="invalid">
+            Please provide a valid email address.
+          </Form.Control.Feedback>
+          <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+        </Form.Group>
 
-          <Form.Group className="mx-auto" as={Col} md="10" controlId="validationCustom03">
-            <Form.Label>Password</Form.Label>
-            <Form.Control
-              type="password"
-              placeholder="Password"
-              name="password"
-              defaultValue={ password }
-              onChange={ handleInput }
-              required
-            />
-            <Form.Control.Feedback type="invalid">
-              Please provide a valid password.
-            </Form.Control.Feedback>
-            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-          </Form.Group>
+        <Form.Group className="mx-auto" as={Col} md="10" controlId="validationCustom03">
+          <Form.Label>Password</Form.Label>
+          <Form.Control
+            type="password"
+            placeholder="Password"
+            name="password"
+            defaultValue={ password }
+            onChange={ handleInput }
+            required
+          />
+          <Form.Control.Feedback type="invalid">
+            Please provide a valid password.
+          </Form.Control.Feedback>
+          <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+        </Form.Group>
 
-          <Form.Group className="mx-auto" as={Col} md="10" controlId="validationCustom04">
-            <Form.Label>Confirm Password</Form.Label>
-            <Form.Control
-              type="password"
-              placeholder="Confirm Password"
-              name="confirmPassword"
-              defaultValue={ passwordConfirmation }
-              onChange={ handleInput }
-              required
-            />
-            <Form.Control.Feedback type="invalid">
-              Please provide a valid password.
-            </Form.Control.Feedback>
-            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-          </Form.Group>
+        <Form.Group className="mx-auto" as={Col} md="10" controlId="validationCustom04">
+          <Form.Label>Confirm Password</Form.Label>
+          <Form.Control
+            type="password"
+            placeholder="Confirm Password"
+            name="confirmPassword"
+            defaultValue={ passwordConfirmation }
+            onChange={ handleInput }
+            required
+          />
+          <Form.Control.Feedback type="invalid">
+            Please provide a valid password.
+          </Form.Control.Feedback>
+          <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+        </Form.Group>
 
-          <Form.Label>Type of user</Form.Label>
-          <br/>
-          <select name="role" id="role">
-            <option value="customer" onClick={ handleRole }>Customer</option>
-            <option value="merchant" onClick={ handleRole }>Merchant</option>
-          </select>
-          <br/><br/>
-          <Button className="w-75" type="submit">Register</Button>
-        </Form>
-      </div>
-    </>
+        <Form.Label>Type of user</Form.Label>
+        <br/>
+        <select name="role" id="role">
+          <option value="customer" onClick={ handleRole }>Customer</option>
+          <option value="merchant" onClick={ handleRole }>Merchant</option>
+        </select>
+        <br/><br/>
+        <Button className="w-75" type="submit">Register</Button>
+      </Form>
+    </div> 
   );
 };
 

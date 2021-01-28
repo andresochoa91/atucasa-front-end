@@ -5,6 +5,8 @@ import MainModal from '../MainModal/MainModal';
 import ProductOrder from './ProductOrder';
 import { Table, Button } from 'react-bootstrap';
 
+import cookie from 'react-cookies';
+
 interface IOrderProps {
   order: TOrder
 }
@@ -45,8 +47,14 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
   const [ estimatedArrival, setEstimatedArrival ] = useState<string>("");
 
   useEffect(() => {
-    //Get request to api to to check if order has been delivered or not
-    fetch(`${process.env.REACT_APP_API}/current_user/check_delivered/${order.id}`)
+    fetch(`${process.env.REACT_APP_API}/current_user/check_delivered/${order.id}`, {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": cookie.load("token")
+      }
+    })
     .then(response => response.json())
     .then(data => {
       if (!data.error) {
@@ -106,7 +114,8 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
         method: "PUT",
         credentials: "include",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "Authorization": cookie.load("token")
         },
         body: JSON.stringify(updateField)
       })

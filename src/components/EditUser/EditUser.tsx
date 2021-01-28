@@ -2,9 +2,10 @@ import React, { FC, useContext, useState } from 'react';
 import { AtucasaContext } from '../../Context';
 import { Link, useHistory } from 'react-router-dom';
 import MainModal from '../MainModal/MainModal';
-// import ContainerJumbotron from '../ContainerJumbotron/ContainerJumbotron';
 import MultiPurposeCard from '../MultiPurposeCard/MultiPurposeCard';
 import { Button } from 'react-bootstrap';
+
+import cookie from 'react-cookies';
 
 /**
  *Allows user (either customer or merchant) to update email and/or password 
@@ -64,7 +65,8 @@ const EditUser: FC = (): JSX.Element => {
       method: "PUT",
       credentials: "include",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization": cookie.load("token")
       },
       body: JSON.stringify(newDataUser)
     })

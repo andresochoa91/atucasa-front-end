@@ -1,17 +1,18 @@
 import React, { FC, useState, useEffect } from 'react';
 import CreateProduct from './CreateProduct';
 import Product from './Product';
+import cookie from 'react-cookies';
 
 const Products: FC = (): JSX.Element => {
   const [ products, setProducts ] = useState<TProducts>([]);
-  
   
   const handleProducts = (): void => {
     fetch(`${process.env.REACT_APP_API}/current_user/products`, {
       method: "GET",
       credentials: "include",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization": cookie.load("token")
       }
     })
     .then(response => response.json())

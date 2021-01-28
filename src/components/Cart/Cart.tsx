@@ -4,6 +4,8 @@ import { useHistory } from 'react-router-dom';
 import { AtucasaContext } from '../../Context';
 import MainModal from '../MainModal/MainModal';
 
+import cookie from 'react-cookies';
+
 interface IProductsProps {
   merchantID: number | undefined,
   currentCustomerID: number | undefined,
@@ -93,7 +95,8 @@ const Cart: FC<IProductsProps> = ({ currentCustomerID, merchantID }): JSX.Elemen
         method: "POST",
         credentials: "include",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "Authorization": cookie.load("token")
         },
         body: JSON.stringify(checkout)
       })
