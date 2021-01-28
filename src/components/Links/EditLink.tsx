@@ -62,7 +62,6 @@ const EditLink: FC<THandleMode & TLinksProps & TLinkProps> = ({ handleMode, hand
     .then(data => {
       if (!data.error) {
         //Handling validations in response sent from the back-end
-        console.log(data);
         handleLinks();
         handleMode();
       } else if (data.error.site_name) {

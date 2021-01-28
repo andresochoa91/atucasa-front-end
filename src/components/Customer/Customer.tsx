@@ -40,7 +40,6 @@ const Customer: FC = (): JSX.Element => {
     fetch(`${process.env.REACT_APP_API}/merchants/product/${searchbox}`)
     .then(response => response.json())
     .then((data) => {
-      console.log(data);
       setLoadingMap(false);
       setSearchMerchants(data.merchants);
       setTempProduct(searchbox);

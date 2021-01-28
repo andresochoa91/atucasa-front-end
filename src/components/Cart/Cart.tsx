@@ -102,7 +102,6 @@ const Cart: FC<IProductsProps> = ({ currentCustomerID, merchantID }): JSX.Elemen
       })
       .then(response => response.json())
       .then(data => {
-        console.log(data);
         setCart([]);
         setTip("");
         history.push("/home/orders");

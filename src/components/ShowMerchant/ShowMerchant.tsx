@@ -57,7 +57,6 @@ const ShowMerchantNoLogged:FC<IMerchantProps & RouteComponentProps> = ({ match, 
             merchant_info: data.merchant_info ? data.merchant_info : "",
             products: data.products
           })
-          console.log(data.location)
           const { state, city, address } = data.location;
           setState(state);
           setCity(city);

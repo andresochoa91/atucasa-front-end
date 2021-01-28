@@ -16,7 +16,6 @@ const DeleteProduct: FC<TProductProps & TProductsProps> = ({ product, handleProd
       })
       .then(response => response.json())
       .then(data => {
-        console.log(data);
         handleProducts();
       })
       .catch(console.error);

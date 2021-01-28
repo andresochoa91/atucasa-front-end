@@ -118,7 +118,6 @@ const EditMerchant: FC<IMerchantProps> = ({ handleCurrentMerchant, currentMercha
           setCurrentTitleMessage("Error editing merchant")
           setCurrentMessageValidation(true);
         })(data.error);
-        console.log(data.error)
       }
     })
     .catch(console.error);

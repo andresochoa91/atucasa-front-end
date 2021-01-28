@@ -88,11 +88,9 @@ const EditProduct: FC<TProductsProps & TProductProps & THandleMode> = ({ handleP
     .then(response => response.json())
     .then(data => {
       if (!data.error) {
-        console.log(data);
         handleProducts();
         handleMode();
       } else {
-        console.log(data.error);
         const { product_name, price, product_picture, description } = data.error;
         if (product_name) {
           setCurrentMessage(`Product name ${product_name[0]}`);

@@ -69,8 +69,6 @@ const EditCustomer: FC<ICustomerProps> = ({ handleCurrentCustomer, currentCustom
     if (phoneNumber) newDataCustomer.phone_number = phoneNumber;
     if (profilePicture) newDataCustomer.profile_picture = profilePicture;
 
-    console.log(newDataCustomer);
-
     //Put request to api to submit customer information
     fetch(`${process.env.REACT_APP_API}/current_user/customer`, {
       method: "PUT",
@@ -84,7 +82,6 @@ const EditCustomer: FC<ICustomerProps> = ({ handleCurrentCustomer, currentCustom
     .then(response => response.json())
     .then(data => {
       if (!data.error) {
-        console.log(data);
         setUsername("");
         setFirstName("");
         setLastName("");
@@ -93,7 +90,6 @@ const EditCustomer: FC<ICustomerProps> = ({ handleCurrentCustomer, currentCustom
         handleCurrentCustomer();
         history.push('/home/user_information');
       } else if (data.error) {
-        console.log(data);
         //Handling validations in response sent from the back-end
         ((error) => {
           const { username, first_name, last_name, phone_number, profile_picture } = error;

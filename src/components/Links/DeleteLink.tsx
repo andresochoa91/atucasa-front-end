@@ -18,7 +18,6 @@ const DeleteLink: FC<TLinkProps & TLinksProps> = ({ link, handleLinks }): JSX.El
       })
       .then(response => response.json())
       .then(data => {
-        console.log(data);
         handleLinks();
       })
       .catch(console.error);

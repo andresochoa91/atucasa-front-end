@@ -41,7 +41,6 @@ const SignIn: FC = (): JSX.Element => {
     .then(response => response.json())
     .then(data => {
       if (!data.error) {
-        console.log(data);
         cookie.save("token", data.token, { path: "/", secure: true });
         handleCurrentUser();
       } else {

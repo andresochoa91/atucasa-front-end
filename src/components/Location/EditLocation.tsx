@@ -102,11 +102,9 @@ const EditLocation: FC = (): JSX.Element => {
       
       getCachedData(`${newLocation.address},${newLocation.city},${newLocation.state},${newLocation.zip_code}`, "address")
       .then(response => {
-        console.log(response)
         return JSON.parse(response.data.stringified_data);
       })
       .then(data => {
-        console.log(data);
         const { 
           displayLatLng,
           adminArea1, 
@@ -137,9 +135,7 @@ const EditLocation: FC = (): JSX.Element => {
         .then(response2 => response2.json())
         .then(data2 => {
           //Handling validations in response sent from the back-end
-          console.log(data2);
           if (!data2.error) {
-            console.log(data2)
             history.push('/home/location');
             handleLocation();
           }

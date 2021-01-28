@@ -55,12 +55,6 @@ const CreateProduct: FC<TProductsProps> = ({ handleProducts }): JSX.Element => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
 
-    console.log(productName);
-    console.log(description);
-    console.log(price);
-    console.log(available);
-    console.log(productPicture);
-
     event.preventDefault();
     if (!Number(price)) {
       setCurrentMessage("Price can't be neither 0 nor empty");
@@ -88,7 +82,6 @@ const CreateProduct: FC<TProductsProps> = ({ handleProducts }): JSX.Element => {
     .then(response => response.json())
     .then(data => {
       if (!data.error) {
-        console.log(data);
         setProductName("");
         setDescription("");
         setPrice("");
@@ -96,7 +89,6 @@ const CreateProduct: FC<TProductsProps> = ({ handleProducts }): JSX.Element => {
         handleProducts();
         setOnCreateProduct(false);
       } else {
-        console.log(data.error);
         const { product_name, price, product_picture, description } = data.error;
         if (product_name) {
           setCurrentMessage(`Product name ${product_name[0]}`);

@@ -50,7 +50,6 @@ const CreateLink: FC<TLinksProps & ILinksProps> = ({ handleLinks, setOnCreateLin
     .then(response => response.json())
     .then(data => {
       if (!data.error) {
-        console.log(data);
         setSiteName("")
         setUrl("")
         handleLinks();

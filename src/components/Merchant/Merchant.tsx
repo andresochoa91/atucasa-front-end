@@ -29,7 +29,6 @@ const Merchant: FC = (): JSX.Element => {
     })
     .then(response => response.json())
     .then(data => {
-      console.log(data);
       setCurrentMerchant(data.merchant);
     })
     .catch(console.error);

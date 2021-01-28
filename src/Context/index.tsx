@@ -29,7 +29,6 @@ export const Provider: FC = ({ children }) => {
     })
     .then(response => response.json())
     .then(data => {
-      console.log(data);
       setCurrentCustomer(data.customer);
     })
     .catch(console.error);
@@ -46,7 +45,6 @@ export const Provider: FC = ({ children }) => {
     })
     .then(response => response.json())
     .then(data => {
-      console.log(data)
       if (!data.error) {
         const { country, city, state, address, zip_code, details, latitude, longitude } = data.location;
         setLocation({ country, city, state, address, zip_code, details, latitude, longitude });
@@ -66,7 +64,6 @@ export const Provider: FC = ({ children }) => {
     })
     .then(response => response.json())
     .then(data => {
-      console.log(data);
       if (!data.error) {
         const { id, email, role } = data.user;
         setCurrentUser({ user_id: id, email, role });

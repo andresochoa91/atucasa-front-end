@@ -68,7 +68,6 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
         setOrderPlaced(`${tOP.getHours()}:${(tOP.getMinutes()).toString().length < 2 ? `0${tOP.getMinutes()}` : tOP.getMinutes()}, ${tOP.getMonth() + 1}/${tOP.getDate()}/${tOP.getFullYear()}`)
         setEstimatedArrival(`${tEA.getHours()}:${(tEA.getMinutes()).toString().length < 2 ? `0${tEA.getMinutes()}` : tEA.getMinutes()}, ${tEA.getMonth() + 1}/${tEA.getDate()}/${tEA.getFullYear()}`)
       }
-      console.log(data);
     })
     .catch(console.error);
 
@@ -103,7 +102,6 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
       updateField.tip = Number(currentTip);
       updateField.accepted = true;
       updateField.time_acceptance = (new Date()).toString();
-      console.log(updateField);
     } else {
       updateField.canceled = true;
     }

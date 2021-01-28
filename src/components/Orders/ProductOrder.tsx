@@ -57,8 +57,8 @@ const ProductOrder: FC<IProductProps> = ({
           available
         })
       })
-      .then(response => response.json())
-      .then(console.log)
+      // .then(response => response.json())
+      // .then(console.log)
       .catch(console.error);
     }
   }, [lastStage, product.id, available, currentAmount, amountChanged]);
