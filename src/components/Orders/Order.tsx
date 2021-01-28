@@ -5,9 +5,12 @@ import MainModal from '../MainModal/MainModal';
 import ProductOrder from './ProductOrder';
 import { Table, Button } from 'react-bootstrap';
 
+import cookie from 'react-cookies';
+
 interface IOrderProps {
   order: TOrder
 }
+
 
 const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
 
@@ -24,17 +27,34 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
   const [ orderCanceled, setOrderCanceled ] = useState<boolean>(order.canceled);
   const [ currentRole, setCurrentRole ] = useState<string>(order.current_user);
   const [ acceptance, setAcceptance ] = useState<Array<boolean>>(Array(order.products_order.length).fill(true));
+
+  /**Message sent from Merchant to Customer in case Merchant doesn't have all products ordered by Customer*/
   const [ message, setMessage ] = useState<string>(order.message);
+
+  /**Last stage is when Customer has to confirm or cancel the order because the merchants changed products in order  */
   const [ lastStage, setLastStage ] = useState<boolean>(false);
   const [ currentTip, setCurrentTip ] = useState<string>(order.tip === 0 && (!order.accepted) ? "" : (order.tip).toString());
   const [ semiTotal, setSemiTotal ] = useState<number>(0);
+  /**Status of the delivery */
+  
   const [ delivery, setDelivery ] = useState<string>("");
+
+  //Depending of the status of the delivery, the color changes
   const [ colorDelivery, setColorDelivery ] = useState<string>("");
   const [ orderPlaced, setOrderPlaced ] = useState<string>("");
+
+  //Time customer spects to receive their order
   const [ estimatedArrival, setEstimatedArrival ] = useState<string>("");
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API}/current_user/check_delivered/${order.id}`)
+    fetch(`${process.env.REACT_APP_API}/current_user/check_delivered/${order.id}`, {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": cookie.load("token")
+      }
+    })
     .then(response => response.json())
     .then(data => {
       if (!data.error) {
@@ -48,7 +68,6 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
         setOrderPlaced(`${tOP.getHours()}:${(tOP.getMinutes()).toString().length < 2 ? `0${tOP.getMinutes()}` : tOP.getMinutes()}, ${tOP.getMonth() + 1}/${tOP.getDate()}/${tOP.getFullYear()}`)
         setEstimatedArrival(`${tEA.getHours()}:${(tEA.getMinutes()).toString().length < 2 ? `0${tEA.getMinutes()}` : tEA.getMinutes()}, ${tEA.getMonth() + 1}/${tEA.getDate()}/${tEA.getFullYear()}`)
       }
-      console.log(data);
     })
     .catch(console.error);
 
@@ -58,6 +77,11 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
 
   }, [order, orderAccepted]);
 
+
+  /**
+   *Checks all the data submitted by the customer and merchant are correct
+   *Updates Order status 
+   */
   const handleUpdate = (id:number, field:string): void => {
     interface IUpdate {
       current_user?: string,
@@ -78,17 +102,18 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
       updateField.tip = Number(currentTip);
       updateField.accepted = true;
       updateField.time_acceptance = (new Date()).toString();
-      console.log(updateField);
     } else {
       updateField.canceled = true;
     }
 
     if (field !== "accepted" || (currentTip !== "" && (Number(currentTip) >= 0))) {
+      //Put request to api to update order
       fetch(`${process.env.REACT_APP_API}/current_user/orders/${id}`, {
         method: "PUT",
         credentials: "include",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "Authorization": cookie.load("token")
         },
         body: JSON.stringify(updateField)
       })
@@ -112,8 +137,10 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
     }
   };
 
+  /**Handles tip based on input from customer */
   const handleTip = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const currentTip = Number(event.target.value);
+    //Checks that we add ONLY a number, positive and not wrong characters 
     if ((currentTip === 0 && event.target.value.length < 5) || (currentTip && currentTip > 0) || (event.target.value === "")) {
       setCurrentTip(event.target.value);
     }
@@ -124,14 +151,6 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
       <MainModal titleMessage={ currentTitleMessage }>
         <h6>{ currentMessage }</h6>
       </MainModal>
-
-      {/* <div 
-        key={ order.id } 
-        className="border border-secondary mb-3 pt-5 text-dark"
-        style={{
-          backgroundColor: "rgba(255,255,255,0.75)"
-        }}
-      > */}
         <h4 className="text-center font-weight-bold mt-4">Order #{ order.id }</h4>
         { 
           currentUser?.role === "customer" ? (
@@ -181,7 +200,14 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
               <th>Unit Price</th>
               <th>Amount</th>
               <th>Unit Tax</th>
-              <th className="border-right border-dark">Semi Total</th>
+              <th 
+                className="border-right border-dark"
+                style={{
+                  width: "220px"
+                }}
+              >
+                Semi Total
+              </th>
             </tr>
           </thead>          
           <tbody>

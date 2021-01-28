@@ -6,6 +6,7 @@ import { AtucasaContext } from '../../Context';
 import MainModal from '../MainModal/MainModal';
 import MultiPurposeCard from '../MultiPurposeCard/MultiPurposeCard';
 import { Button } from 'react-bootstrap';
+import cookie from 'react-cookies';
 
 interface ICustomerProps {
   handleCurrentCustomer: () => void,
@@ -26,6 +27,9 @@ const EditCustomer: FC<ICustomerProps> = ({ handleCurrentCustomer, currentCustom
   const [ phoneNumber, setPhoneNumber ] = useState<string>("");
   const [ profilePicture, setProfilePicture ] = useState<string>("");
 
+  /**
+   * History of Path Url
+   */
   const history = useHistory();
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -44,6 +48,10 @@ const EditCustomer: FC<ICustomerProps> = ({ handleCurrentCustomer, currentCustom
     )(value);
   };
 
+  /**
+   *Checks all the information submitted by the customer is correct
+   *Updates Customer information 
+   */
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
   
@@ -61,20 +69,19 @@ const EditCustomer: FC<ICustomerProps> = ({ handleCurrentCustomer, currentCustom
     if (phoneNumber) newDataCustomer.phone_number = phoneNumber;
     if (profilePicture) newDataCustomer.profile_picture = profilePicture;
 
-    console.log(newDataCustomer);
-
+    //Put request to api to submit customer information
     fetch(`${process.env.REACT_APP_API}/current_user/customer`, {
       method: "PUT",
       credentials: "include",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization": cookie.load("token")
       },
       body: JSON.stringify(newDataCustomer)
     })
     .then(response => response.json())
     .then(data => {
       if (!data.error) {
-        console.log(data);
         setUsername("");
         setFirstName("");
         setLastName("");
@@ -83,7 +90,7 @@ const EditCustomer: FC<ICustomerProps> = ({ handleCurrentCustomer, currentCustom
         handleCurrentCustomer();
         history.push('/home/user_information');
       } else if (data.error) {
-        console.log(data);
+        //Handling validations in response sent from the back-end
         ((error) => {
           const { username, first_name, last_name, phone_number, profile_picture } = error;
           if (username) {

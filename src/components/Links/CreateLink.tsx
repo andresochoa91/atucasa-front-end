@@ -3,6 +3,7 @@ import { Button } from 'react-bootstrap';
 import { AtucasaContext } from '../../Context';
 import MainModal from '../MainModal/MainModal';
 import MultiPurposeCard from '../MultiPurposeCard/MultiPurposeCard';
+import cookie from 'react-cookies';
 
 interface ILinksProps {
   onCreateLink: boolean,
@@ -28,13 +29,18 @@ const CreateLink: FC<TLinksProps & ILinksProps> = ({ handleLinks, setOnCreateLin
     ( name === "siteName" ? setSiteName : setUrl )(value);
   };
 
+  /**
+   *Checks all the information submitted by the merchant is correct
+   *Creates links 
+   */
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
     fetch(`${process.env.REACT_APP_API}/current_user/links`, {
       method: "POST",
       credentials: "include",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization": cookie.load("token")
       },
       body: JSON.stringify({
         site_name: siteName,
@@ -44,13 +50,13 @@ const CreateLink: FC<TLinksProps & ILinksProps> = ({ handleLinks, setOnCreateLin
     .then(response => response.json())
     .then(data => {
       if (!data.error) {
-        console.log(data);
         setSiteName("")
         setUrl("")
         handleLinks();
         setOnCreateLink(false);
 
       } else {
+        //Handling validations in response sent from the back-end
         if (data.error.site_name) {
           setCurrentMessage(`Site name ${data.error.site_name[0]}`);
           setCurrentTitleMessage("Error Site Name")

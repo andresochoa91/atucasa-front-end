@@ -1,6 +1,7 @@
 import React, { FC, useState, useContext } from 'react';
 import { AtucasaContext } from '../../Context';
 import { Form, Button, Col } from 'react-bootstrap';
+import cookie from 'react-cookies';
 
 const SignIn: FC = (): JSX.Element => {
   const { 
@@ -10,8 +11,8 @@ const SignIn: FC = (): JSX.Element => {
     setCurrentMessageValidation 
   } = useContext<TContextProps>(AtucasaContext);
 
-  const [ email, setEmail ] = useState<string>("a@gmail.com");
-  const [ password, setPassword ] = useState<string>("123456789");
+  const [ email, setEmail ] = useState<string>("");
+  const [ password, setPassword ] = useState<string>("");
   const [ validated, setValidated ] = useState<boolean>(false);
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>):void => {
@@ -40,7 +41,7 @@ const SignIn: FC = (): JSX.Element => {
     .then(response => response.json())
     .then(data => {
       if (!data.error) {
-        console.log(data);
+        cookie.save("token", data.token, { path: "/", secure: true });
         handleCurrentUser();
       } else {
         setCurrentMessage(data.error);

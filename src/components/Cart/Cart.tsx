@@ -4,6 +4,8 @@ import { useHistory } from 'react-router-dom';
 import { AtucasaContext } from '../../Context';
 import MainModal from '../MainModal/MainModal';
 
+import cookie from 'react-cookies';
+
 interface IProductsProps {
   merchantID: number | undefined,
   currentCustomerID: number | undefined,
@@ -36,6 +38,10 @@ const Cart: FC<IProductsProps> = ({ currentCustomerID, merchantID }): JSX.Elemen
 
   const [ tip, setTip ] = useState<string>("");
   const [ total, setTotal ] = useState<number>(0);
+
+  /**
+   * History of Path Url
+   */
   const history = useHistory();
 
 
@@ -46,6 +52,9 @@ const Cart: FC<IProductsProps> = ({ currentCustomerID, merchantID }): JSX.Elemen
     }
   };
 
+  /**
+   * Function that auto calculate suggested tip
+   */
   const handleSuggestedTip = (): void => {
     setTip((total * 0.15).toFixed(2));
   };
@@ -61,6 +70,7 @@ const Cart: FC<IProductsProps> = ({ currentCustomerID, merchantID }): JSX.Elemen
     }
     return () => { mounted = false };
   }, [cart, tip]);
+
 
   const handleCheckout = (): void => {
     if (tip !== "" && (Number(tip) >= 0) && cart.length) {
@@ -80,23 +90,25 @@ const Cart: FC<IProductsProps> = ({ currentCustomerID, merchantID }): JSX.Elemen
       if (currentCustomerID) checkout.customer_id = currentCustomerID;
       if (merchantID) checkout.merchant_id = merchantID;
   
+      //Post request to create order
       fetch(`${process.env.REACT_APP_API}/merchants/${merchantID}/create_order`, {
         method: "POST",
         credentials: "include",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "Authorization": cookie.load("token")
         },
         body: JSON.stringify(checkout)
       })
       .then(response => response.json())
       .then(data => {
-        console.log(data);
         setCart([]);
         setTip("");
         history.push("/home/orders");
       })
       .catch(console.error);
     } else {
+      //Handling validations in response sent from the back-end
       if (!cart.length) {
         setCurrentMessage("Cart can't be empty");
       } else if (tip === "") {
@@ -107,6 +119,11 @@ const Cart: FC<IProductsProps> = ({ currentCustomerID, merchantID }): JSX.Elemen
     }
   };
 
+  /**
+   * Manipulating amount of every product in cart
+   * @param sign should be "+" or "-" to know if we are adding or subtracting
+   * @param cID Customer ID
+   */
   const handleAmount = (sign: string, cID: number):void => {
     setCart(cart.map((pr, id) => {
       if (sign === "-") {
@@ -142,7 +159,7 @@ const Cart: FC<IProductsProps> = ({ currentCustomerID, merchantID }): JSX.Elemen
             <th>Unit Tax</th>
             <th
               style={{
-                width: "190px"
+                width: "200px"
               }}
             >Semi Total</th>
           </tr>

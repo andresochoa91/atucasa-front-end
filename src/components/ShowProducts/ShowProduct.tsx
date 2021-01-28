@@ -25,9 +25,10 @@ const ShowProduct: FC<TProductProps & ICartProps> = ({ product, setCart, cart })
         id: product.id
       }]);
       setAmount(1);
-    } else {
-      console.log("Product already in the cart");
-    }
+    } 
+    // else {
+    //   console.log("Product already in the cart");
+    // }
   };
 
   return (

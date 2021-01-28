@@ -7,10 +7,16 @@ import Merchant from '../Merchant/Merchant';
 import ShowMerchant from '../ShowMerchant/ShowMerchant';
 
 
-
+/**
+ * Home Page of the website
+ */
 const Home: FC = (): JSX.Element => {
 
   const { currentUser } = useContext<TContextProps>(AtucasaContext);
+
+  /**
+   * History of Path Url
+   */
   const history = useHistory();
 
   return (

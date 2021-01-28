@@ -18,10 +18,8 @@ export const getCachedData = async(url:string, mapquestType:string) => {
   const data = await fetchData.json();
 
   if (data.status === "Success") {
-    console.log("In Cache :)");
     return data
   } else {
-    console.log("Not in Cache");
     const mapquestAPI = (
       mapquestType === "address" ? 
         process.env.REACT_APP_MAPQUEST_GET_DATA_FROM_ADDRESS :
@@ -29,10 +27,11 @@ export const getCachedData = async(url:string, mapquestType:string) => {
         process.env.REACT_APP_MAPQUEST_GET_ADDRESS_FROM_COORDS :
       process.env.REACT_APP_MAPQUEST_GET_ROUTE
     );
-
+    
     const fetchMapquest = await fetch(`${mapquestAPI}${url}`);
-    const mapQuestData = await fetchMapquest.json();
 
+    const mapQuestData = await fetchMapquest.json();
+    
     interface IMapquest {
       stringified_data: string,
       coords_url?: string

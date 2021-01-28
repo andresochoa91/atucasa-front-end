@@ -2,10 +2,14 @@ import React, { FC, useContext, useState } from 'react';
 import { AtucasaContext } from '../../Context';
 import { Link, useHistory } from 'react-router-dom';
 import MainModal from '../MainModal/MainModal';
-// import ContainerJumbotron from '../ContainerJumbotron/ContainerJumbotron';
 import MultiPurposeCard from '../MultiPurposeCard/MultiPurposeCard';
 import { Button } from 'react-bootstrap';
 
+import cookie from 'react-cookies';
+
+/**
+ *Allows user (either customer or merchant) to update email and/or password 
+ */
 const EditUser: FC = (): JSX.Element => {
   const { 
     currentUser, 
@@ -19,6 +23,10 @@ const EditUser: FC = (): JSX.Element => {
   const [ newEmail, setNewEmail ] = useState<string>("");
   const [ newPassword, setNewPassword ] = useState<string>("");
   const [ currentPassword, setCurrentPassword ] = useState<string>("");
+
+  /**
+   * History of Path Url
+   */
   const history = useHistory();
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -33,6 +41,11 @@ const EditUser: FC = (): JSX.Element => {
     )(value);
   };
 
+
+  /**
+   *Checks all the information submitted by the user is correct
+   *Updates email and/or password information 
+   */
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     interface INewDataUser {
@@ -52,7 +65,8 @@ const EditUser: FC = (): JSX.Element => {
       method: "PUT",
       credentials: "include",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization": cookie.load("token")
       },
       body: JSON.stringify(newDataUser)
     })
@@ -63,6 +77,7 @@ const EditUser: FC = (): JSX.Element => {
           handleCurrentUser();
           history.push("/home/user_information");
         } else if (data.error) {
+          //Handling validations in response sent from the back-end
           const { current_password, password, email } = data.error;
           if (current_password) {
             setCurrentMessage(current_password);

@@ -14,6 +14,7 @@ interface IMerchantProps {
   currentState: string
 }
 
+/**Displays merchants in the map. This is only for customers and users not logged */
 const Place: FC<IMerchantProps> = ({ merchant, lat, lng, currentAddress, currentCity, currentState }): JSX.Element => {
   const { location, currentUser } = useContext<TContextProps>(AtucasaContext);
   const { latitude, longitude } = merchant.location;
@@ -28,7 +29,6 @@ const Place: FC<IMerchantProps> = ({ merchant, lat, lng, currentAddress, current
           return JSON.parse(response.data.stringified_data);
         })
         .then(data => {
-          console.log(data)
           if (data.route.distance < 5) setShowPlace(true);
         })
         .catch(console.error);
@@ -38,7 +38,6 @@ const Place: FC<IMerchantProps> = ({ merchant, lat, lng, currentAddress, current
           return JSON.parse(response.data.stringified_data);
         })
         .then(data => {
-          console.log(data)
           if (data.route.distance < 5) setShowPlace(true);
         })
         .catch(console.error);
@@ -50,7 +49,7 @@ const Place: FC<IMerchantProps> = ({ merchant, lat, lng, currentAddress, current
     <>
       {
         (latitude && longitude && showPlace) && (
-          <div onMouseOver={() => console.log("yay")}>
+          <div>
             <Circle
               center={[latitude, longitude]}
               radius={14}

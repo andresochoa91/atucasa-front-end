@@ -4,21 +4,26 @@ import ContainerJumbotron from '../ContainerJumbotron/ContainerJumbotron';
 import CreateLink from './CreateLink';
 import LinkUrl from './LinkUrl';
 
+import cookie from 'react-cookies';
+
 const Links: FC = (): JSX.Element => {
   const [ links, setLinks ] = useState<TLinks>([]);
   const [ onCreateLink, setOnCreateLink ] = useState<boolean>(false);
   
+  /**
+   *Get request, gets links associated with current metchant
+   */
   const handleLinks = (): void => {
     fetch(`${process.env.REACT_APP_API}/current_user/links`, {
       method: "GET",
       credentials: "include",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization": cookie.load("token")
       }
     })
     .then(response => response.json())
     .then(data => {
-      console.log(data);
       setLinks([...data.links]);
     })
     .catch(console.error);

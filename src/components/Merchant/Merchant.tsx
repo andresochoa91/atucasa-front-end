@@ -11,21 +11,24 @@ import { Switch, Link, Route, Redirect } from 'react-router-dom';
 import MyMap from '../MyMap/MyMap';
 import ContainerJumbotron from '../ContainerJumbotron/ContainerJumbotron';
 import MultiPurposeCard from '../MultiPurposeCard/MultiPurposeCard';
+import cookie from 'react-cookies';
 
+/**Main Merchant page */
 const Merchant: FC = (): JSX.Element => {
   const { currentUser, location, currentMerchant, setCurrentMerchant } = useContext<TContextProps>(AtucasaContext);
 
+  //Get request to api to get current merchant
   const handleCurrentMerchant = () => {
     fetch(`${process.env.REACT_APP_API}/current_user/merchant`, {
       method: "GET",
       credentials: 'include',
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization": cookie.load("token")
       }
     })
     .then(response => response.json())
     .then(data => {
-      console.log(data);
       setCurrentMerchant(data.merchant);
     })
     .catch(console.error);
@@ -131,8 +134,8 @@ const Merchant: FC = (): JSX.Element => {
                     <tr><td><strong>Tax ID: </strong>  { currentMerchant.tax_id }</td></tr>
                     <tr><td><strong>Description: </strong>  { currentMerchant.description }</td></tr>
                     <tr><td className="pb-0">
-                      <Link className="btn btn-primary mr-1" to="/home/edit_user">Update email or password</Link>
-                      <Link className="btn btn-primary" to="/home/edit_merchant">Edit merchant information</Link>
+                      <Link className="mt-2 btn btn-primary mr-1" to="/home/edit_user">Update email or password</Link>
+                      <Link className="mt-2 btn btn-primary" to="/home/edit_merchant">Edit merchant information</Link>
                     </td></tr>
                   </tbody>
                 </MultiPurposeCard>

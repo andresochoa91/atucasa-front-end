@@ -6,6 +6,8 @@ import MainModal from '../MainModal/MainModal';
 import MultiPurposeCard from '../MultiPurposeCard/MultiPurposeCard';
 import { Button } from 'react-bootstrap';
 
+import cookie from 'react-cookies';
+
 interface IMerchantProps {
   handleCurrentMerchant: () => void,
   currentMerchant: TCurrentMerchant
@@ -24,11 +26,14 @@ const EditMerchant: FC<IMerchantProps> = ({ handleCurrentMerchant, currentMercha
 
   const [ merchantName, setMerchantName ] = useState<string>("");
   const [ phoneNumber, setPhoneNumber ] = useState<string>("");
+
+  /**Legal id of the Store */
   const [ taxId, setTaxId ] = useState<string>("");
   const [ description, setDescription ] = useState<string>("");
   const [ profilePicture, setProfilePicture ] = useState<string>("");
   const [ backgroundPicture, setBackgroundPicture ] = useState<string>("");
 
+  /** History of Path Url*/
   const history = useHistory();
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -49,6 +54,10 @@ const EditMerchant: FC<IMerchantProps> = ({ handleCurrentMerchant, currentMercha
     )(value);
   };
 
+  /**
+   *Checks all the information submitted by the merchant is correct
+   *Updates merchant information 
+   */
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
 
@@ -67,11 +76,13 @@ const EditMerchant: FC<IMerchantProps> = ({ handleCurrentMerchant, currentMercha
     newDataMerchant.profile_picture = profilePicture ? profilePicture : currentMerchant.profile_picture;
     newDataMerchant.background_picture = backgroundPicture ? backgroundPicture : currentMerchant.background_picture;
 
+    //Put request to api to update merchant information
     fetch(`${process.env.REACT_APP_API}/current_user/merchant`, {
       method: "PUT",
       credentials: "include",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization": cookie.load("token")
       },
       body: JSON.stringify(newDataMerchant)
     })
@@ -88,6 +99,7 @@ const EditMerchant: FC<IMerchantProps> = ({ handleCurrentMerchant, currentMercha
         handleMerchants();
         history.push("/home/user_information");
       } else {
+        //Handling validations in response sent from the back-end
         ((err) => {
           const {merchant_name, phone_number, tax_id, description, profile_picture, background_picture} = err;
           if (merchant_name) {
@@ -106,7 +118,6 @@ const EditMerchant: FC<IMerchantProps> = ({ handleCurrentMerchant, currentMercha
           setCurrentTitleMessage("Error editing merchant")
           setCurrentMessageValidation(true);
         })(data.error);
-        console.log(data.error)
       }
     })
     .catch(console.error);
@@ -122,7 +133,6 @@ const EditMerchant: FC<IMerchantProps> = ({ handleCurrentMerchant, currentMercha
       <h2>Edit Merchant</h2>
 
       <form onSubmit={ handleSubmit }>
-
 
         <MultiPurposeCard>
           <tbody>
@@ -231,65 +241,6 @@ const EditMerchant: FC<IMerchantProps> = ({ handleCurrentMerchant, currentMercha
             
           </tbody>
         </MultiPurposeCard>
-
-
-        {/* <label>Profile Picture:&nbsp;</label>
-        <UpdateImage 
-          currentPicture = { currentMerchant.profile_picture }
-          userName = { currentMerchant.merchant_name }
-          handleInput = { handleInput }
-          newPicture = { profilePicture }
-          setNewPicture = { setProfilePicture }
-          namePicture={ "profilePicture" }
-        />
-        <br/>
-        <label>Background Picture:&nbsp;</label>
-        <UpdateImage 
-          currentPicture = { currentMerchant.background_picture }
-          userName = { currentMerchant.merchant_name }
-          handleInput = { handleInput }
-          newPicture = { backgroundPicture }
-          setNewPicture = { setBackgroundPicture }
-          namePicture={ "backgroundPicture" }
-        />
-        <br/>
-        <label>Merchant Name:&nbsp;</label>
-        <input 
-          type="text"
-          name="merchantName"
-          value={ merchantName }
-          onChange={ handleInput } 
-          placeholder={ currentMerchant.merchant_name }
-        />
-        <br/>
-        <label>Phone Number:&nbsp;</label>
-        <input 
-          type="text"
-          name="phoneNumber"
-          value={ phoneNumber }
-          onChange={ handleInput } 
-          placeholder={ currentMerchant.phone_number }
-        />
-        <br/>
-        <label>Tax ID:&nbsp;</label>
-        <input 
-          type="text"
-          name="taxId"
-          value={ taxId }
-          onChange={ handleInput } 
-          placeholder={ currentMerchant.tax_id }
-        />
-        <br/>
-        <label>Description:&nbsp;</label>
-        <input 
-          type="text"
-          name="description"
-          value={ description }
-          onChange={ handleInput } 
-          placeholder={ currentMerchant.description }
-        />
-        <br/>
-        <input type="submit" value="Update"/> */}
       </form>
       <br/>
     </>

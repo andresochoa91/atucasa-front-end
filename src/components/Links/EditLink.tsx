@@ -4,6 +4,8 @@ import { AtucasaContext } from '../../Context';
 import MainModal from '../MainModal/MainModal';
 import MultiPurposeCard from '../MultiPurposeCard/MultiPurposeCard';
 
+import cookie from 'react-cookies';
+
 const EditLink: FC<THandleMode & TLinksProps & TLinkProps> = ({ handleMode, handleLinks, link }): JSX.Element => {
 
   const { 
@@ -23,6 +25,10 @@ const EditLink: FC<THandleMode & TLinksProps & TLinkProps> = ({ handleMode, hand
     ( name === "siteName" ? setSiteName : setUrl)(value);
   };
 
+  /**
+   *Checks all the information submitted by the merchant is correct
+   *Updates Link 
+   */
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
 
@@ -47,14 +53,15 @@ const EditLink: FC<THandleMode & TLinksProps & TLinkProps> = ({ handleMode, hand
       method: "PUT",
       credentials: "include",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization": cookie.load("token")
       },
       body: JSON.stringify(urlSubmit)
     })
     .then(response => response.json())
     .then(data => {
       if (!data.error) {
-        console.log(data);
+        //Handling validations in response sent from the back-end
         handleLinks();
         handleMode();
       } else if (data.error.site_name) {

@@ -35,12 +35,18 @@ const ProductOrder: FC<IProductProps> = ({
   lastStage
 }): JSX.Element => {
 
+  /**Current amount of product ONLY in current order */
   const [ currentAmount, setCurrentAmount ] = useState<number>(product.amount);
+
+  /**If current product in order is available */
   const [ available, setAvailable ] = useState<boolean>(product.available);
+
+  /**Checks if original amount set by customer has changed or not */
   const [ amountChanged, setAmountChanged ] = useState<boolean>(product.amount_changed);
 
   useEffect(() => {
     if (lastStage) {
+      //Put request to api to update product order information
       fetch(`${process.env.REACT_APP_API}/products_order/${product.id}`, {
         method: "PUT",
         credentials: "include",
@@ -51,20 +57,14 @@ const ProductOrder: FC<IProductProps> = ({
           available
         })
       })
-      .then(response => response.json())
-      .then(console.log)
+      // .then(response => response.json())
+      // .then(console.log)
       .catch(console.error);
     }
   }, [lastStage, product.id, available, currentAmount, amountChanged]);
 
   return (
     <tr 
-      // style={{ 
-      //   backgroundColor: (
-      //     !available ? "#f00" : 
-      //     amountChanged ? "#ff0" : "#fff"
-      //   )
-      // }} 
       key={ product.id }
       className={ `border border-dark ${!available ? "table-danger text-dark" : amountChanged ? "table-warning text-dark" : ""}` }
     >

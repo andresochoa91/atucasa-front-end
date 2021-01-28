@@ -8,6 +8,7 @@ const LinkUrl: FC<TLinkProps & TLinksProps> = ({ link, handleLinks }): JSX.Eleme
 
   const [ inEditMode, setInEditMode ] = useState<boolean>(false);
 
+  /**Toggles edit mode, true or false */
   const handleMode = (): void => {
     setInEditMode(!inEditMode);
   };

@@ -6,6 +6,9 @@ import MainModal from '../MainModal/MainModal';
 import MultiPurposeCard from '../MultiPurposeCard/MultiPurposeCard';
 import { Button } from 'react-bootstrap';
 
+import cookie from 'react-cookies';
+
+
 const EditLocation: FC = (): JSX.Element => {
   const { 
     location, 
@@ -23,6 +26,7 @@ const EditLocation: FC = (): JSX.Element => {
   const [ zipCode, setZipCode ] = useState<string>("");
   const [ details, setDetails ] = useState<string>("");
 
+  /** History of Path Url*/
   const history = useHistory();
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -43,6 +47,10 @@ const EditLocation: FC = (): JSX.Element => {
     )(value);
   };
 
+  /**
+   *Checks all the information submitted by the user is correct
+   *Updates updates information 
+   */
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -62,6 +70,7 @@ const EditLocation: FC = (): JSX.Element => {
     newLocation.zip_code = zipCode ? zipCode : location?.zip_code;
     newLocation.details = details ? details : location?.details;
 
+    //Validates information provided by user
     ((newLocation) => {
       const { country, state, city, address, zip_code } = newLocation;
       if (country && country.length < 2) {
@@ -93,11 +102,9 @@ const EditLocation: FC = (): JSX.Element => {
       
       getCachedData(`${newLocation.address},${newLocation.city},${newLocation.state},${newLocation.zip_code}`, "address")
       .then(response => {
-        console.log(response)
         return JSON.parse(response.data.stringified_data);
       })
       .then(data => {
-        console.log(data);
         const { 
           displayLatLng,
           adminArea1, 
@@ -114,18 +121,20 @@ const EditLocation: FC = (): JSX.Element => {
         newLocation.city = adminArea5;
         newLocation.address = street;
         newLocation.zip_code = postalCode;
-  
+
+        /**Put request to api to update location */
         fetch(`${process.env.REACT_APP_API}/current_user/location`, {
           method: "PUT",
           credentials: "include",
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Authorization": cookie.load("token")
           },
           body: JSON.stringify(newLocation)
         })
         .then(response2 => response2.json())
         .then(data2 => {
-          console.log(data2);
+          //Handling validations in response sent from the back-end
           if (!data2.error) {
             history.push('/home/location');
             handleLocation();

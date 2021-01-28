@@ -1,4 +1,5 @@
 import React, { FC, createContext, useState, useEffect } from 'react';
+import cookie from 'react-cookies';
 
 export const AtucasaContext = createContext({} as TContextProps);
 
@@ -17,18 +18,17 @@ export const Provider: FC = ({ children }) => {
   const [ openCart, setOpenCart ] = useState<boolean>(false);
   const [ cartModal, setCartModal ] = useState<boolean>(false);
 
-
   const handleCurrentCustomer = () => {
     fetch(`${process.env.REACT_APP_API}/current_user/customer`, {
       method: "GET",
       credentials: 'include',
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization": cookie.load("token")
       }
     })
     .then(response => response.json())
     .then(data => {
-      console.log(data);
       setCurrentCustomer(data.customer);
     })
     .catch(console.error);
@@ -40,12 +40,11 @@ export const Provider: FC = ({ children }) => {
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
-        "Accept": "application/json"
+        "Authorization": cookie.load("token")
       }
     })
     .then(response => response.json())
     .then(data => {
-      console.log(data)
       if (!data.error) {
         const { country, city, state, address, zip_code, details, latitude, longitude } = data.location;
         setLocation({ country, city, state, address, zip_code, details, latitude, longitude });
@@ -60,11 +59,11 @@ export const Provider: FC = ({ children }) => {
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": cookie.load("token")
       }
     })
     .then(response => response.json())
     .then(data => {
-      console.log(data)
       if (!data.error) {
         const { id, email, role } = data.user;
         setCurrentUser({ user_id: id, email, role });
