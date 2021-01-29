@@ -4,7 +4,6 @@ import { AtucasaContext } from '../../Context';
 import MainModal from '../MainModal/MainModal';
 import ProductOrder from './ProductOrder';
 import { Table, Button } from 'react-bootstrap';
-
 import cookie from 'react-cookies';
 
 interface IOrderProps {

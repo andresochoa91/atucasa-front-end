@@ -1,7 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
 import { Container, Jumbotron } from 'react-bootstrap';
 import Order from './Order';
-
 import cookie from 'react-cookies';
 
 const Orders: FC = (): JSX.Element => {

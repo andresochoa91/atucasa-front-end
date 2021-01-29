@@ -23,7 +23,6 @@ const App:FC = (): JSX.Element => {
         minWidth: "100%",
         minHeight: "100%",
         backgroundSize: "cover",
-        // height: "100vh",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
         backgroundAttachment: "fixed",

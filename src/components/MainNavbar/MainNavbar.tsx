@@ -1,11 +1,11 @@
 import React, { FC, useContext, useState, useEffect } from 'react';
-import { Navbar, Nav, NavDropdown, Image/* , Form, FormControl, Button */ } from 'react-bootstrap';
+import { Navbar, Nav, NavDropdown, Image } from 'react-bootstrap';
 import { NavLink, useHistory } from 'react-router-dom';
 import { AtucasaContext } from '../../Context';
 import SignOut from '../SignForms/SignOut';
 import cartPicture from '../../pictures/cartPicture.png';
 
-const MainNavbar: FC = () => {  
+const MainNavbar: FC = (): JSX.Element => {  
   const { 
     currentUser, 
     currentCustomer, 
@@ -40,7 +40,6 @@ const MainNavbar: FC = () => {
               <Navbar.Brand className="mt-2 ml-4 lead" href="/home">A Tu Casa</Navbar.Brand>
               <Nav.Link className="px-2 py-3 text-info" href="/home/map">Map</Nav.Link>
               <Nav.Link className="px-2 py-3 text-info" href="/home/orders">Orders</Nav.Link>
-              {/* <NavLink className="nav-link px-2 py-3 text-info" to="/home/orders">Orders</NavLink> */}
               { currentMerchant && <NavLink className="nav-link px-3 py-3 text-info" to="/home/products">Products</NavLink> }
             </Nav>
 
@@ -97,7 +96,6 @@ const MainNavbar: FC = () => {
                   className="border border-info"
                   alt="img"
                   style={{
-                    // borderRadius: "50%",
                     backgroundSize: "cover",
                     backgroundColor: "white",
                     border: "20px",
@@ -109,15 +107,14 @@ const MainNavbar: FC = () => {
             >
               <NavDropdown.Item href="/home">Home</NavDropdown.Item>
               <NavDropdown.Item href="/home/user_information">Account</NavDropdown.Item>
-              {/* { currentCustomer && <NavDropdown.Item href="/home/personal_information">Personal Information</NavDropdown.Item> } */}
               <NavDropdown.Item href="/home/location">Location</NavDropdown.Item>
               { currentMerchant && <NavDropdown.Item href="/home/links">Links</NavDropdown.Item> }              
-              { currentMerchant && <NavDropdown.Item href="/home/products">Products</NavDropdown.Item> }              <NavDropdown.Divider />
+              { currentMerchant && <NavDropdown.Item href="/home/products">Products</NavDropdown.Item> }              
+              <NavDropdown.Divider />
               <NavDropdown.Item href="#action/3.4">
                 <SignOut />
               </NavDropdown.Item>
             </NavDropdown>
-            {/* <SignOut /> */}
           </Navbar>
         ) 
       }

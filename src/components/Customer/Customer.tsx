@@ -11,7 +11,6 @@ import ScrollableAnchor, { goToAnchor } from 'react-scrollable-anchor';
 import ContainerJumbotron from '../ContainerJumbotron/ContainerJumbotron';
 import MultiPurposeCard from '../MultiPurposeCard/MultiPurposeCard';
 import { Image } from 'react-bootstrap';
-// import { useHistory } from 'react-router-dom';
 
 const Customer: FC = (): JSX.Element => {
   const { currentUser, location, handleCurrentCustomer, currentCustomer, setSearchMerchants } = useContext<TContextProps>(AtucasaContext);
@@ -47,7 +46,6 @@ const Customer: FC = (): JSX.Element => {
       setTimeout(() => {
         goToAnchor("#show-map", true)
       }, 200)
-      // history.push('/home/map');
     })
     .catch(console.error);
   };
@@ -163,7 +161,6 @@ const Customer: FC = (): JSX.Element => {
                           roundedCircle
                         />
                       </td></tr>
-                      {/* <tr><td className="h3">Username: { currentCustomer.username }</td></tr> */}
                       <tr><td><strong>First Name:</strong>  { currentCustomer.first_name }</td></tr>
                       <tr><td><strong>Last Name:</strong>  { currentCustomer.last_name }</td></tr>
                       <tr><td><strong>Email:</strong>  { currentUser.email }</td></tr>
@@ -177,13 +174,6 @@ const Customer: FC = (): JSX.Element => {
                 </ContainerJumbotron>
               )
             } />
-            {/* <Route path="/home/personal_information" 
-              render={() => (
-                <>
-                  <h2>Personal information</h2>
-                </>
-              )
-            } /> */}
             <Route 
               path="/home/location" 
               render={() => (

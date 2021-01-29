@@ -1,7 +1,7 @@
 import React, { FC, useContext } from 'react';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
-import { Row, Col, /* Jumbotron,  */Container } from 'react-bootstrap';
+import { Row, Col, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import MainModal from '../MainModal/MainModal';
 import { AtucasaContext } from '../../Context';

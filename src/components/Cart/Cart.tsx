@@ -3,7 +3,6 @@ import { Button, Table } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import { AtucasaContext } from '../../Context';
 import MainModal from '../MainModal/MainModal';
-
 import cookie from 'react-cookies';
 
 interface IProductsProps {

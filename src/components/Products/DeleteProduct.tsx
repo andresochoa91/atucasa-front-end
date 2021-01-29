@@ -14,10 +14,8 @@ const DeleteProduct: FC<TProductProps & TProductsProps> = ({ product, handleProd
           "Authorization": cookie.load("token")
         }
       })
-      .then(response => response.json())
-      .then(data => {
-        handleProducts();
-      })
+      // .then(response => response.json())
+      .then(() => handleProducts())
       .catch(console.error);
     }
   };

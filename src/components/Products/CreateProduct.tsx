@@ -7,7 +7,6 @@ import MultiPurposeCard from '../MultiPurposeCard/MultiPurposeCard';
 import UpdateImage from '../UpdateImage/UpdateImage';
 import cookie from 'react-cookies';
 
-
 const CreateProduct: FC<TProductsProps> = ({ handleProducts }): JSX.Element => {
 
   const { 
@@ -20,7 +19,6 @@ const CreateProduct: FC<TProductsProps> = ({ handleProducts }): JSX.Element => {
   } = useContext<TContextProps>(AtucasaContext);
 
   const [ onCreateProduct, setOnCreateProduct ] = useState<boolean>(false);
-
   const [ productName, setProductName ] = useState<string>("");
   const [ description, setDescription ] = useState<string>("");
   const [ price, setPrice ] = useState<string>("");

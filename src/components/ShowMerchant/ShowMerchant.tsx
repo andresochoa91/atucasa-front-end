@@ -65,7 +65,7 @@ const ShowMerchantNoLogged:FC<IMerchantProps & RouteComponentProps> = ({ match, 
       })
       .catch(console.error);
     }
-    return () => {mounted = false};
+    return () => { mounted = false };
   }, [match.params.slug, merchant]);
 
   return (
@@ -243,17 +243,15 @@ const ShowMerchantNoLogged:FC<IMerchantProps & RouteComponentProps> = ({ match, 
 
             {
               showProducts && (  
-                <>
-                  <ShowProducts 
-                    merchantID={ currentMerchant.merchant_info.id } 
-                    products={ currentMerchant.products }
-                  />
-                </>        
+                <ShowProducts 
+                  merchantID={ currentMerchant.merchant_info.id } 
+                  products={ currentMerchant.products }
+                />
               )
             }
 
             {
-              openCart && currentUser && (
+              (openCart && currentUser) && (
                 <Modal
                   size="lg"
                   show={cartModal}
@@ -277,11 +275,10 @@ const ShowMerchantNoLogged:FC<IMerchantProps & RouteComponentProps> = ({ match, 
                     }
                   </Modal.Body>
                 </Modal>
-
               )
             }
+            
             <ContainerJumbotron>
-
               <div
                 className="d-flex flex-wrap justify-content-around"
               >

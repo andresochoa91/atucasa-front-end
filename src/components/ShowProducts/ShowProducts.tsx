@@ -17,36 +17,34 @@ const ShowProducts: FC<IProductsProps> = ({ products }): JSX.Element => {
   } = useContext<TContextProps>(AtucasaContext);
 
   return (
-    <>
-      <ContainerJumbotron>
-        <h3 className="mb-5">Products</h3>
+    <ContainerJumbotron>
+      <h3 className="mb-5">Products</h3>
+      {
+        !currentUser && (
+          <div className="text-warning mb-5">
+            <p style={{ display: 'contents' }}>You have to be logged to buy through the website</p>
+            <br/>
+            <p style={{ display: 'contents' }}>You can always contact the merchant through their phone or email</p>
+          </div>
+        )
+      }
+      <div 
+        className="d-flex flex-wrap justify-content-around"
+      >
         {
-          !currentUser && (
-            <div className="text-warning mb-5">
-              <p style={{ display: 'contents' }}>You have to be logged to buy through the website</p>
-              <br/>
-              <p style={{ display: 'contents' }}>You can always contact the merchant through their phone or email</p>
-            </div>
-          )
+          products.map((product) => (
+            product.available && (
+              <ShowProduct 
+                cart={ cart } 
+                setCart={ setCart } 
+                product={ product }
+                key={ product.id }
+              />
+            )
+          ))
         }
-        <div 
-          className="d-flex flex-wrap justify-content-around"
-        >
-          {
-            products.map((product) => (
-              product.available && (
-                <ShowProduct 
-                  cart={ cart } 
-                  setCart={ setCart } 
-                  product={ product }
-                  key={ product.id }
-                />
-              )
-            ))
-          }
-        </div>
-      </ContainerJumbotron>
-    </>   
+      </div>
+    </ContainerJumbotron>
   );
 };
 
