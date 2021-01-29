@@ -1,11 +1,9 @@
 import React, { FC, useContext } from 'react';
-// import { Container, Jumbotron } from 'react-bootstrap';
 import { Redirect, Route, useHistory } from 'react-router';
 import { AtucasaContext } from '../../Context';
 import Customer from '../Customer/Customer';
 import Merchant from '../Merchant/Merchant';
 import ShowMerchant from '../ShowMerchant/ShowMerchant';
-
 
 /**
  * Home Page of the website

@@ -141,22 +141,14 @@ const ProductOrder: FC<IProductProps> = ({
               { available ? "Not Available" : "Available"}
             </Button>
           </td>
-        ) : (
-          !orderAccepted && 
-          currentUser?.role === "customer" &&
-          currentRole === "customer" && 
-          !orderCanceled) && (
-          <>
-            {
-              !available ? (
-                <td className="font-weight-bold border-left border-dark">Not available</td>
-              ) : amountChanged ? (
-                <td className="font-weight-bold border-left border-dark">Amount suggested by merchant</td>
-              ) : (
-                <td className="border-left border-dark">Available</td>
-              )
-            }
-          </>
+        ) : (!orderAccepted && currentUser?.role === "customer" && currentRole === "customer" && !orderCanceled) && (
+          !available ? (
+            <td className="font-weight-bold border-left border-dark">Not available</td>
+          ) : amountChanged ? (
+            <td className="font-weight-bold border-left border-dark">Amount suggested by merchant</td>
+          ) : (
+            <td className="border-left border-dark">Available</td>
+          )
         )
       }
     </tr>

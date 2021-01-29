@@ -79,8 +79,6 @@ const UpdateImage: FC<IImageProps> = (
         )
       }
 
-
-
       {
         copyUrl && (
           <>

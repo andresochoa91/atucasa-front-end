@@ -24,10 +24,6 @@ const ShowMerchants: FC<ICurrentCustomerProps> = ({ currentCustomer }): JSX.Elem
             >
               Visit { merchant.merchant_info.merchant_name } website
             </Link>
-            {/* <ShowMerchant 
-              merchant={ merchant } 
-              {...(currentCustomer && { currentCustomerID: currentCustomer.id })} 
-            /> */}
             <br/>
             <br/>
           </div>

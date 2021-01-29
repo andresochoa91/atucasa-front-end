@@ -5,9 +5,7 @@ import { getCachedData } from '../GetCachedData';
 import MainModal from '../MainModal/MainModal';
 import MultiPurposeCard from '../MultiPurposeCard/MultiPurposeCard';
 import { Button } from 'react-bootstrap';
-
 import cookie from 'react-cookies';
-
 
 const EditLocation: FC = (): JSX.Element => {
   const { 

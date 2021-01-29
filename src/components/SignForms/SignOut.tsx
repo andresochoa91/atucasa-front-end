@@ -4,7 +4,7 @@ import { Button } from 'react-bootstrap';
 import cookie from 'react-cookies';
 import { useHistory } from 'react-router';
 
-const SignOut: FC = () => {
+const SignOut: FC = (): JSX.Element => {
   const { 
     setCurrentUser, 
     setLoggedOut, 

@@ -3,7 +3,6 @@ import { Button } from 'react-bootstrap';
 import ContainerJumbotron from '../ContainerJumbotron/ContainerJumbotron';
 import CreateLink from './CreateLink';
 import LinkUrl from './LinkUrl';
-
 import cookie from 'react-cookies';
 
 const Links: FC = (): JSX.Element => {
