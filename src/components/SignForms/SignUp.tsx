@@ -57,12 +57,16 @@ const SignUp: FC = (): JSX.Element => {
         role
       })
     })
-    .then(response => response.json())
-    .then(data => {
-      if (!data.error) {
-        cookie.save("token", data.user.token, { path: "/", secure: true });
+    .then(response => {
+      const token = response.headers.get("authorization");
+      if (token) {
+        cookie.save("token", token, { path: "/", secure: true });
         handleCurrentUser();
-      } else {
+      }
+      return response.json()
+    })
+    .then(data => {
+      if (data.error) {
         const { password, email, password_confirmation } = data.error;
         if (password) {
           setCurrentMessage(`Password ${password[0]}`);

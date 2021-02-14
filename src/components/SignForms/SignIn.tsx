@@ -29,6 +29,7 @@ const SignIn: FC = (): JSX.Element => {
     fetch(`${process.env.REACT_APP_API}/login`, {
       method: "POST",
       credentials: "include",
+      mode: 'cors',
       headers: {
         "Accept": "application/json",
         "Content-Type": "application/json"
@@ -38,12 +39,16 @@ const SignIn: FC = (): JSX.Element => {
         password
       })
     })
-    .then(response => response.json())
-    .then(data => {
-      if (!data.error) {
-        cookie.save("token", data.token, { path: "/", secure: true });
+    .then(response => {
+      const token = response.headers.get("authorization")
+      if (token) {
+        cookie.save("token", token, { path: "/", secure: true });
         handleCurrentUser();
-      } else {
+      }
+      return response.json();
+    })
+    .then(data => {
+      if (data.error) {
         setCurrentMessage(data.error);
         setCurrentTitleMessage("Error signing in");
         setCurrentMessageValidation(true);
