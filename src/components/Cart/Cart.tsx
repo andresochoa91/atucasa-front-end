@@ -43,10 +43,13 @@ const Cart: FC<IProductsProps> = ({ currentCustomerID, merchantID }): JSX.Elemen
    */
   const history = useHistory();
 
-
   const handleTip = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const currentTip = Number(event.target.value);
-    if ((currentTip === 0 && event.target.value.length < 5) || (currentTip && currentTip > 0) || (event.target.value === "")) {
+    if (
+      (currentTip === 0 && event.target.value.length < 5) || 
+      (currentTip && currentTip > 0) || 
+      (event.target.value === "")
+    ) {
       setTip(event.target.value);
     }
   };
@@ -69,7 +72,6 @@ const Cart: FC<IProductsProps> = ({ currentCustomerID, merchantID }): JSX.Elemen
     }
     return () => { mounted = false };
   }, [cart, tip]);
-
 
   const handleCheckout = (): void => {
     if (tip !== "" && (Number(tip) >= 0) && cart.length) {
