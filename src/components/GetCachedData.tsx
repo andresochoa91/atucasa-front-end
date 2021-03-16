@@ -29,10 +29,8 @@ export const getCachedData = async(url:string, mapquestType:string) => {
       return data
     } else {
       const mapquestAPI = (
-        mapquestType === "address" ? 
-          process.env.REACT_APP_MAPQUEST_GET_DATA_FROM_ADDRESS :
-        mapquestType === "coords" ? 
-          process.env.REACT_APP_MAPQUEST_GET_ADDRESS_FROM_COORDS :
+        mapquestType === "address" ? process.env.REACT_APP_MAPQUEST_GET_DATA_FROM_ADDRESS :
+        mapquestType === "coords" ? process.env.REACT_APP_MAPQUEST_GET_ADDRESS_FROM_COORDS :
         process.env.REACT_APP_MAPQUEST_GET_ROUTE
       );
       

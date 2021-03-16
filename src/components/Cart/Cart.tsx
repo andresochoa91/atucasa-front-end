@@ -9,10 +9,12 @@ interface IProductsProps {
   merchantID: number | undefined,
   currentCustomerID: number | undefined,
 };
+
 interface IProductCheckout {
   id?: number,
   amount?: number
 };
+
 interface ICheckout {
   customer_id?: number,
   merchant_id?: number,
@@ -20,7 +22,8 @@ interface ICheckout {
   tip?: number,
   current_user?: string,
   delivery_fee?: number,
-  products?: Array<IProductCheckout>
+  products?: Array<IProductCheckout>,
+  time_acceptance: string
 };
 
 const Cart: FC<IProductsProps> = ({ currentCustomerID, merchantID }): JSX.Element => {
@@ -34,7 +37,6 @@ const Cart: FC<IProductsProps> = ({ currentCustomerID, merchantID }): JSX.Elemen
     cart, 
     setCart
   } = useContext<TContextProps>(AtucasaContext);
-
   const [ tip, setTip ] = useState<string>("");
   const [ total, setTotal ] = useState<number>(0);
 
@@ -85,7 +87,8 @@ const Cart: FC<IProductsProps> = ({ currentCustomerID, merchantID }): JSX.Elemen
             id: pr.id,
             amount: pr.amount
           }
-        })
+        }),
+        time_acceptance: (new Date()).toString()
       };
   
       if (currentCustomerID) checkout.customer_id = currentCustomerID;
@@ -101,8 +104,7 @@ const Cart: FC<IProductsProps> = ({ currentCustomerID, merchantID }): JSX.Elemen
         },
         body: JSON.stringify(checkout)
       })
-      .then(response => response.json())
-      .then(data => {
+      .then(() => {
         setCart([]);
         setTip("");
         history.push("/home/orders");
@@ -148,21 +150,10 @@ const Cart: FC<IProductsProps> = ({ currentCustomerID, merchantID }): JSX.Elemen
       <Table style={{ textAlign: "center" }}>
         <thead>
           <tr>
-            <th>Product name</th>
-            <th
-              style={{
-                width: "110px"
-              }}
-            >
-              Unit Price
-            </th>
-            <th>Amount</th>
-            <th>Unit Tax</th>
-            <th
-              style={{
-                width: "200px"
-              }}
-            >Semi Total</th>
+            <th style={{ width: "150px" }} >Product</th>
+            <th style={{ width: "320px" }} >Amount</th>
+            <th style={{ width: "200px" }} >Semi Total</th>
+            <th style={{ width: "100px" }} ></th>
           </tr>
         </thead>
         <tbody>
@@ -170,12 +161,7 @@ const Cart: FC<IProductsProps> = ({ currentCustomerID, merchantID }): JSX.Elemen
             cart.map((cartProduct, cID) => (
               <tr key={ cID }>
                 <td>{ cartProduct.productName }</td>
-                <td>${ cartProduct.unitPrice }</td>
-                <td 
-                  style={{
-                    width: "120px"
-                  }} 
-                >
+                <td>
                   <Button 
                     onClick={ () => handleAmount("-", cID) }
                     style={{
@@ -198,8 +184,9 @@ const Cart: FC<IProductsProps> = ({ currentCustomerID, merchantID }): JSX.Elemen
                     +
                   </Button>
                 </td>
-                <td>${ cartProduct.tax.toFixed(2) }</td>
-                <td>${ ((cartProduct.tax + cartProduct.unitPrice) * cartProduct.amount).toFixed(2) }</td>
+                <td>
+                  ${ ((cartProduct.tax + cartProduct.unitPrice) * cartProduct.amount).toFixed(2) }
+                </td>
                 <td>
                   <Button 
                     onClick={ () => setCart([...cart.filter((pr, id) => id !== cID)]) }
@@ -213,33 +200,29 @@ const Cart: FC<IProductsProps> = ({ currentCustomerID, merchantID }): JSX.Elemen
           }
           <tr>
             <td></td>
-            <td></td>
-            <td></td>
             <td><strong>Tip</strong></td>
             <td>
-              $<input 
+              <input 
                 type="text"
                 value={ tip }
-                placeholder={ `Suggested: $${(total * 0.15).toFixed(2)}` }
+                placeholder={ `$${(total * 0.15).toFixed(2)}` }
                 onChange={ handleTip }
                 style={{
-                  width: "157px",
+                  width: "80px",
                   padding: "0"
                 }}
               />
             </td>
-            <td><Button onClick={ handleSuggestedTip }>Apply</Button></td>
+            <td>
+              <Button onClick={ handleSuggestedTip }>Apply</Button>
+            </td>
           </tr>
           <tr>
-            <td></td>
-            <td></td>
             <td></td>
             <td><strong>Delivery Fee</strong></td>
             <td>$5</td>
           </tr>
           <tr>
-            <td></td>
-            <td></td>
             <td></td>
             <td className="h3"><strong>Total</strong></td>
             <td className="h3"><strong>${ (total + Number(tip) + 5).toFixed(2) }</strong></td>

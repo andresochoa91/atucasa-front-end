@@ -16,7 +16,7 @@ const MainModal: FC<IProps> = ({ titleMessage, children }) => {
   const handleClose = () => setCurrentMessageValidation(false);
 
   return(
-    <Modal show={ currentMessageValidation } onHide={ handleClose }>
+    <Modal show={ currentMessageValidation } onHide={ handleClose } size="lg">
       <Modal.Header closeButton>
       <Modal.Title>{ titleMessage }</Modal.Title>
       </Modal.Header>
