@@ -1,5 +1,4 @@
 import React, { FC, useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { AtucasaContext } from '../../Context';
 import MainModal from '../MainModal/MainModal';
 import ProductOrder from './ProductOrder';
@@ -9,7 +8,6 @@ import cookie from 'react-cookies';
 interface IOrderProps {
   order: TOrder
 }
-
 
 const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
 
@@ -64,8 +62,17 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
         const tOP = tempOrderPlaced;
         const tEA = tempEstimatedArrival;
 
-        setOrderPlaced(`${tOP.getHours()}:${(tOP.getMinutes()).toString().length < 2 ? `0${tOP.getMinutes()}` : tOP.getMinutes()}, ${tOP.getMonth() + 1}/${tOP.getDate()}/${tOP.getFullYear()}`)
-        setEstimatedArrival(`${tEA.getHours()}:${(tEA.getMinutes()).toString().length < 2 ? `0${tEA.getMinutes()}` : tEA.getMinutes()}, ${tEA.getMonth() + 1}/${tEA.getDate()}/${tEA.getFullYear()}`)
+        setOrderPlaced(`
+          ${tOP.getHours()}:${(tOP.getMinutes()).toString().length < 2 
+            ? `0${tOP.getMinutes()}` 
+            : tOP.getMinutes()}, ${tOP.getMonth() + 1}/${tOP.getDate()}/${tOP.getFullYear()}
+        `);
+
+        setEstimatedArrival(`
+          ${tEA.getHours()}:${(tEA.getMinutes()).toString().length < 2 
+            ? `0${tEA.getMinutes()}` 
+            : tEA.getMinutes()}, ${tEA.getMonth() + 1}/${tEA.getDate()}/${tEA.getFullYear()}
+        `)
       }
     })
     .catch(console.error);
@@ -140,7 +147,11 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
   const handleTip = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const currentTip = Number(event.target.value);
     //Checks that we add ONLY a number, positive and not wrong characters 
-    if ((currentTip === 0 && event.target.value.length < 5) || (currentTip && currentTip > 0) || (event.target.value === "")) {
+    if (
+      (currentTip === 0 && event.target.value.length < 5) || 
+      (currentTip && currentTip > 0) || 
+      (event.target.value === "")) 
+    {
       setCurrentTip(event.target.value);
     }
   };
@@ -155,7 +166,15 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
           currentUser?.role === "customer" ? (
             <>
               <h6 className="text-center"><strong>Merchant Name: </strong>{ order.merchant_name }</h6>
-              <h6 className="text-center"><Link to={`/merchants/${order.merchant_slug}`}>Visit Merchant Website</Link></h6>   
+              <h6 className="text-center">
+                <a 
+                  href={`/merchants/${order.merchant_slug}`} 
+                  target="_blank" 
+                  rel="noreferrer"
+                >
+                  Visit Merchant Website
+                </a>
+              </h6>   
             </>
           ) : (
             <div className="text-center">
@@ -168,8 +187,15 @@ const Order: FC<IOrderProps> = ({ order }): JSX.Element => {
               /> 
               <h6><strong>Customer Name: </strong>{ order.customer_name }</h6>
               <h6><strong>Phone Number: </strong>{ order.customer_phone_number }</h6>
-              <h6><strong>Address to deliver: </strong>{ `${order.customer_location.address}, ${order.customer_location.city}, ${order.customer_location.state}` }</h6>
-              { order.customer_location.details && <h6><strong>Details of customer location: </strong>{order.customer_location.details}</h6> }
+              <h6>
+                <strong>Address to deliver: </strong>
+                { `${order.customer_location.address}, ${order.customer_location.city}, ${order.customer_location.state}` }
+              </h6>
+              { 
+                order.customer_location.details && (
+                  <h6><strong>Details of customer location: </strong>{order.customer_location.details}</h6> 
+                )
+              }
             </div>
           )
         }
